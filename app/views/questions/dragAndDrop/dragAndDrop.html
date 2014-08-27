@@ -1,0 +1,37 @@
+﻿<!-- ko if: content-->
+<div class="question-content-wrapper">
+    <div class="question-content" data-bind="html: content, imageWrap: {}"></div>
+</div>
+<!-- /ko -->
+<div class="dnd-wrapper" data-bind="css:{ disabled: isAnswered}">
+    <div class="dnd-values-wrapper">
+        <div class="dnd-values-holder" data-bind="dropspot: { data: stockDropspot.items, containerClass:'dnd-wrapper', dropspotClass:'dnd-dropspot', connectClass : 'dnd-drop', afterMove: stockDropspot.afterMove}">
+            <div class="dnd-dragable-text-holder">
+                <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
+            </div>
+        </div>
+        <!-- ko if: stockDropspot.items().length == 0 -->
+        <div class="dnd-no-values-caption">
+            All texts are placed
+        </div>
+        <!-- /ko -->
+    </div>
+    <div class="dnd-image-wrapper">
+        <div class="dnd-image-holder">
+            <!-- ko foreach: dropspots-->
+            <div class="dnd-dropspot-holder" data-bind="style: { 'left': position.x + 'px', 'top': position.y + 'px'}">
+                <div class="dnd-dropspot" data-bind="dropspot: { data: items, containerClass: 'dnd-wrapper', dropspotClass: 'dnd-dropspot', connectClass : 'dnd-drop', allowDrop: allowDrop, afterMove: afterMove}">
+                    <div class="dnd-dragable-text-holder">
+                        <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
+                    </div>
+                </div>
+                <div class="dnd-dropspot-tooltip show-on-drag">Drop here</div>
+            </div>
+            <!-- /ko -->
+            <img class="dnd-image" src="" data-bind="attr:{src: question.background}" />
+        </div>
+    </div>
+    <!-- ko if: isAnswered -->
+    <div class="dnd-overlay"></div>
+    <!-- /ko -->
+</div>

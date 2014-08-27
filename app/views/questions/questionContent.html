@@ -1,0 +1,56 @@
+﻿<section id="questionContent">
+    <!-- ko if: learningContents.length > 0 -->
+    <div class="learning-content-section">
+        <div class="learning-content-title" data-bind="click: toggleExpand, css: { 'expanded' : isExpanded }">
+            Learning content
+        </div>
+
+        <!-- ko if: isExpanded -->
+        <section id="learning-contents" class="learning-contents">
+            <ul class="learning-content-items unstyled">
+                <!-- ko foreach: learningContents-->
+                <li class="learning-content-item" data-bind="html: content, imageWrap: {}"></li>
+                <!-- /ko -->
+            </ul>
+        </section>
+        <!-- /ko -->
+
+    </div>
+    <!-- /ko -->
+    <div class="question-section">
+        <div class="question-title selectable" data-bind="text: title">
+            question title
+        </div>
+        <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
+    </div>
+
+    <!-- ko ifnot: isAnswered -->
+    <div class="btn-submit-wrapper">
+        <a href="#" class="small-page-action-btn submit-btn" data-bind="click: submit">Submit</a>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: isCorrectAnswered -->
+    <div class="result-block correct" data-bind="scrollIntoView: isAnswered">
+        <div class="result-text-wrapper">
+            <span class="result-text">Correct answer</span>
+        </div>
+        <div class="question-feedback-holder" data-bind="visible: correctFeedback, html: correctFeedback, imageWrap: {}"></div>
+        <div class="result-btn-holder">
+            <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext, text: navigateNextText()">Next question</button>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: isWrongAnswered -->
+    <div class="result-block incorrect" data-bind="scrollIntoView: isAnswered">
+        <div class="result-text-wrapper">
+            <span class="result-text">Incorrect answer</span>
+        </div>
+        <div class="question-feedback-holder" data-bind="visible: incorrectFeedback, html: incorrectFeedback, imageWrap: {}"></div>
+        <div class="result-btn-holder">
+            <button class="small-page-action-btn try-again-btn" data-bind="click: tryAnswerAgain">Try again</button>
+            <span class="feedback-btn-whitespace"></span>
+            <button class="small-page-action-btn next-question-btn incorrect" data-bind="click: navigateNext, text: navigateNextText()">Next question</button>
+        </div>
+    </div>
+    <!-- /ko -->
+</section>

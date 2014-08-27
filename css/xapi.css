@@ -1,0 +1,129 @@
+/*#region xApi error page */
+
+.xapi-error-container {
+    position: relative;
+    max-width: 590px;
+    height: 230px;
+    margin: 120px auto;
+}
+
+.xapi-error-container-img {
+    display: inline-block;
+    float: left;
+    width: 128px;
+    height: 127px;
+    margin: 0 19px 0 35px;
+    background: url('../img/xapi/xapierror.png') 0 0 no-repeat;
+    background-size: 100%;
+}
+
+.xapi-error-container-header {
+    font-family: Tahoma, sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 21px 0;
+    margin: 0;
+}
+
+.xapi-error-container-description {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.xapi-error-container-button {
+    height: 48px;
+    line-height: 30px;
+    width: 268px;
+    position: absolute;
+    bottom: 0;
+    border: 1px solid black;
+    outline: none;
+    color: #FFFFFF;
+    font-size: 19px;
+    opacity: 0.8;
+}
+
+    .xapi-error-container-button:hover {
+        opacity: 1;
+    }
+
+    .xapi-error-container-button.restart {
+        background-color: #f26c4f;
+        border-color: #F38971;
+        left: 0;
+    }
+
+    .xapi-error-container-button.continue {
+        background-color: #343a41;
+        border-color: #62676B;
+        right: 0;
+    }
+
+/*#endregion xApi error page */
+
+
+/*#region xApi not supported page */
+
+.xapi-message-holder {
+    max-width: 615px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.xapi-message-info {
+    padding: 0 20px 20px;
+}
+
+.xapi-message-title {
+    text-align: center;
+}
+
+.xapi-message-text {
+    width: 100%;
+    line-height: normal;
+    position: relative;
+    padding-left: 62px;
+    cursor: default;
+    text-align: justify;
+    max-width: 562px;
+}
+
+    .xapi-message-text:before {
+        content: '';
+        display: block;
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -19px;
+        background: url('../img/xapi/error-message.png');
+    }
+
+.xapi-btn-container {
+    text-align: center;
+    padding: 0 55px;
+}
+
+
+.xapi-nav-link {
+    display: inline-block;
+    line-height: 20px;
+    max-width: 46%;
+    margin: 10px 0 0;
+    border-bottom: 1px solid #41b7d8;
+    color: #41b7d8;
+    font-size: 16px;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+    .xapi-nav-link:hover {
+        color: #0088ae;
+    }
+
+/*#endregion xApi not supported page */

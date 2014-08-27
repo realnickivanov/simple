@@ -1,0 +1,9 @@
+﻿<!-- ko if: content -->
+<div class="question-content-wrapper blank-content">
+    <div class="question-content blank-answers" data-bind="imageWrap: {}, fillInTheBlankAnswers: { content: content, inputValues: inputValues, disabled: isAnswered }, css:{ disabled: isAnswered(), 'enabled': content }"></div>
+
+    <!-- ko if: isAnswered -->
+    <div class="answered-blank-overlay"></div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

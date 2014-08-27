@@ -1,0 +1,20 @@
+﻿<div class="overlay-holder" data-bind="fade: isVisible">
+    <div class="overlay" data-bind="click:closePreview">
+    </div>
+    <div class="center">
+        <div class="center-holder">
+            <div class="center-content">
+                <div class="image-holder">
+                    <div data-bind="imageLoader: { isLoaded: isLoaded, imageUrl: imageUrl}">
+                    </div>
+                    <div class="overlay-close-button-holder" data-bind="if: isLoaded">
+                        <a class="overlay-close-button" data-bind="click:closePreview">&nbsp;</a>
+                    </div>
+                    <!--ko ifnot:isLoaded-->
+                    <div class="loader-image"></div>
+                    <!--/ko-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

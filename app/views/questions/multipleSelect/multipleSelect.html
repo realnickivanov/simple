@@ -1,0 +1,13 @@
+﻿<!-- ko if: content -->
+<div class="question-content-wrapper">
+    <div class="question-content" data-bind="html: content, imageWrap: {}, css: { 'enabled': content }"></div>
+</div>
+<!-- /ko -->
+<ul class="question-answers-list" data-bind="foreach: answers">
+    <li class="question-answer-item" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
+        <div class="question-answer-wrapper">
+            <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">&nbsp;</a>
+        </div>
+        <div class="question-answer-text selectable" data-bind="text: text">answer</div>
+    </li>
+</ul>
