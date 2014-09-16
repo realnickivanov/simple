@@ -5,7 +5,7 @@
         return {
             result: course.score() / 100,
             isCompleted: course.isCompleted(),
-            objectives: _.map(course.objectives(), function (objective) {
+            objectives: _.map(course.objectives, function (objective) {
                 return {
                     id: objective.id,
                     title: objective.title,

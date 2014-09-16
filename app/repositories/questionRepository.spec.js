@@ -42,7 +42,7 @@
 
                     describe('and when objective is not found', function () {
                         beforeEach(function () {
-                            context.course.objectives = ko.observableArray([]);
+                            context.course.objectives = [];
                         });
 
                         it('should return null', function () {
@@ -54,13 +54,13 @@
                     describe('and when objective is found', function () {
                         var objective = { id: objectiveId };
                         beforeEach(function () {
-                            context.course.objectives = ko.observableArray([objective]);
+                            context.course.objectives = [objective];
                         });
 
                         describe('and when question is not found', function () {
                             beforeEach(function () {
-                                objective.questions = ko.observableArray([]);
-                                context.course.objectives = ko.observableArray([objective]);
+                                objective.questions = [];
+                                context.course.objectives = [objective];
                             });
 
                             it('should return null', function () {
@@ -72,8 +72,8 @@
                         describe('and when question is found', function () {
                             var question = { id: questionId };
                             beforeEach(function () {
-                                objective.questions = ko.observableArray([question]);
-                                context.course.objectives = ko.observableArray([objective]);
+                                objective.questions = [question];
+                                context.course.objectives = [objective];
                             });
 
                             it('should return question', function () {
