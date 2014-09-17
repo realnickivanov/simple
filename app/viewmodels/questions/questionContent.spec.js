@@ -201,8 +201,8 @@
                     viewModel.navigationContext = { nextQuestionUrl: undefined };
                 });
 
-                it('should return \'Go to learning objectives\'', function () {
-                    expect(viewModel.navigateNextText()).toBe('Go to learning objectives');
+                it('should return \'Home\'', function () {
+                    expect(viewModel.navigateNextText()).toBe('Home');
                 });
 
             });

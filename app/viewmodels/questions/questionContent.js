@@ -45,7 +45,7 @@
 	    }
 
 	    function navigateNextText() {
-	        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next question' : 'Go to learning objectives';
+	        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next question' : 'Home';
 	    }
 
 	    function toggleExpand() {

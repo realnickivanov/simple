@@ -19,7 +19,7 @@
     }
 
     function navigateNextText() {
-        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next' : 'Go to learning objectives';
+        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next' : 'Home';
     }
 
     function activate(objectiveId, question) {
