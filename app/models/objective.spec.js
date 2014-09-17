@@ -20,10 +20,14 @@
         var objective;
 
         beforeEach(function () {
-            objective = new ObjectiveModel(spec);
+            spec.questions = [];
         });
 
         describe('id:', function () {
+            beforeEach(function () {
+                objective = new ObjectiveModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(objective.id).toBeDefined();
             });
@@ -34,6 +38,10 @@
         });
 
         describe('title:', function () {
+            beforeEach(function () {
+                objective = new ObjectiveModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(objective.title).toBeDefined();
             });
@@ -43,54 +51,70 @@
             });
         });
 
+        describe('affectProgress:', function () {
+            it('should be defined', function () {
+                objective = new ObjectiveModel(spec);
+                expect(objective.affectProgress).toBeDefined();
+            });
+
+            describe('when objective contains info pages only', function() {
+                it('should be false', function() {
+                    spec.questions.push({ score: ko.observable(0), type: constants.questionTypes.informationContent });
+                    objective = new ObjectiveModel(spec);
+                    expect(objective.affectProgress).toBeFalsy();
+                });
+            });
+
+            describe('when objective contains info and question pages', function () {
+                it('should be true', function () {
+                    spec.questions.push({ score: ko.observable(0), type: constants.questionTypes.dragAndDrop});
+                    spec.questions.push({ score: ko.observable(0), type: constants.questionTypes.informationContent });
+
+                    objective = new ObjectiveModel(spec);
+                    expect(objective.affectProgress).toBeTruthy();
+                });
+            });
+        });
+
         describe('score:', function () {
             it('should be computed', function () {
+                objective = new ObjectiveModel(spec);
                 expect(objective.score).toBeComputed();
             });
 
-            beforeEach(function () {
-                objective.questions.removeAll();
-            });
-
             describe('when objective has questions', function () {
-
-                beforeEach(function () {
-                    objective.questions.removeAll();
-                });
-
                 it('should have value', function () {
-                    objective.questions.push({ score: ko.observable(0) });
-                    objective.questions.push({ score: ko.observable(100) });
+                    spec.questions.push({ score: ko.observable(0) });
+                    spec.questions.push({ score: ko.observable(100) });
 
+                    objective = new ObjectiveModel(spec);
                     expect(objective.score()).toBe(50);
                 });
 
                 it('should ignore information content pages', function() {
-                    objective.questions.push({ score: ko.observable(0) });
-                    objective.questions.push({ score: ko.observable(0), type: constants.questionTypes.informationContent });
-                    objective.questions.push({ score: ko.observable(100) });
+                    spec.questions.push({ score: ko.observable(0) });
+                    spec.questions.push({ score: ko.observable(0), type: constants.questionTypes.informationContent });
+                    spec.questions.push({ score: ko.observable(100) });
 
+                    objective = new ObjectiveModel(spec);
                     expect(objective.score()).toBe(50);
                 });
 
                 describe('when score value is fraction', function() {
                     it('should round value to floor', function () {
-                        objective.questions.push({ score: ko.observable(0) });
-                        objective.questions.push({ score: ko.observable(100) });
-                        objective.questions.push({ score: ko.observable(67) });
+                        spec.questions.push({ score: ko.observable(0) });
+                        spec.questions.push({ score: ko.observable(100) });
+                        spec.questions.push({ score: ko.observable(67) });
 
+                        objective = new ObjectiveModel(spec);
                         expect(objective.score()).toBe(55);
                     });
                 });
             });
 
             describe('when objective has no questions', function () {
-
-                beforeEach(function () {
-                    objective.questions.removeAll();
-                });
-
                 it('should be 0', function () {
+                    objective = new ObjectiveModel(spec);
                     expect(objective.score()).toBe(0);
                 });
             });
@@ -98,6 +122,7 @@
 
         describe('isCompleted:', function () {
             it('should be computed', function () {
+                objective = new ObjectiveModel(spec);
                 expect(objective.isCompleted).toBeComputed();
             });
 
@@ -106,46 +131,44 @@
             });
 
             describe('when score is less than course settings mastery score', function () {
-                beforeEach(function () {
-                    objective.questions.removeAll();
-                    objective.questions.push({ score: ko.observable(20) });
-                });
-
                 it('should be false', function () {
+                    spec.questions.push({ score: ko.observable(20) });
+
+                    objective = new ObjectiveModel(spec);
                     expect(objective.isCompleted()).toBeFalsy();
                 });
             });
 
             describe('when score equals course settings mastery score', function () {
-                beforeEach(function () {
-                    objective.questions.removeAll();
-                    objective.questions.push({ score: ko.observable(80) });
-                });
-
                 it('should be true', function () {
+                    spec.questions.push({ score: ko.observable(80) });
+
+                    objective = new ObjectiveModel(spec);
                     expect(objective.isCompleted()).toBeTruthy();
                 });
             });
 
             describe('when score is more than course settings mastery score', function () {
-                beforeEach(function () {
-                    objective.questions.removeAll();
-                    objective.questions.push({ score: ko.observable(100) });
-                });
-
                 it('should be true', function () {
+                    spec.questions.push({ score: ko.observable(100) });
+                    objective = new ObjectiveModel(spec);
                     expect(objective.isCompleted()).toBeTruthy();
                 });
             });
         });
 
         describe('questions:', function () {
+            beforeEach(function () {
+                spec.questions.push({ score: ko.observable(100) });
+                objective = new ObjectiveModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(objective.questions).toBeDefined();
             });
 
             it('should be equal to spec questions', function () {
-                expect(objective.questions()).toBe(spec.questions);
+                expect(objective.questions).toBe(spec.questions);
             });
         });
 

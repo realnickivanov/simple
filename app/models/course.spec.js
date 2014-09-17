@@ -21,11 +21,11 @@
             objectives: []
         };
 
-        beforeEach(function () {
-            course = new CourseModel(spec);
-        });
-
         describe('id:', function () {
+            beforeEach(function () {
+                course = new CourseModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(course.id).toBeDefined();
             });
@@ -36,6 +36,10 @@
         });
 
         describe('title:', function () {
+            beforeEach(function () {
+                course = new CourseModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(course.title).toBeDefined();
             });
@@ -46,6 +50,10 @@
         });
 
         describe('hasIntroductionContent:', function () {
+            beforeEach(function () {
+                course = new CourseModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(course.hasIntroductionContent).toBeDefined();
             });
@@ -57,55 +65,73 @@
 
 
         describe('objectives:', function () {
+            beforeEach(function () {
+                spec.objectives = [];
+                spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false), affectProgress: true });
+                course = new CourseModel(spec);
+            });
+
             it('should be defined', function () {
                 expect(course.objectives).toBeDefined();
             });
 
             it('should be equal to spec objectives', function () {
-                expect(course.objectives()).toBe(spec.objectives);
+                expect(course.objectives).toBe(spec.objectives);
             });
         });
 
         describe('score:', function () {
             it('should be computed', function () {
+                spec.objectives = [];
+                course = new CourseModel(spec);
+
                 expect(course.score).toBeComputed();
             });
 
-            beforeEach(function () {
-                course.objectives.removeAll();
-            });
 
-            describe('when course has objectives', function () {
+            describe('when course has objectives those affect progress', function () {
+                it('should have average value', function () {
+                    spec.objectives = [];
+                    spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false), affectProgress: true });
+                    spec.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true), affectProgress: true });
 
-                beforeEach(function () {
-                    course.objectives.removeAll();
-                });
-
-                it('should have value', function () {
-                    course.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false) });
-                    course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+                    course = new CourseModel(spec);
 
                     expect(course.score()).toBe(50);
                 });
 
                 describe('when value is fraction', function() {
                     it('should round value to floor', function() {
-                        course.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false) });
-                        course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
-                        course.objectives.push({ score: ko.observable(67), isCompleted: ko.observable(true) });
+                        spec.objectives = [];
+                        spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false), affectProgress: true });
+                        spec.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true), affectProgress: true });
+                        spec.objectives.push({ score: ko.observable(67), isCompleted: ko.observable(true), affectProgress: true });
+
+                        course = new CourseModel(spec);
 
                         expect(course.score()).toBe(55);
                     });
                 });
             });
 
+            describe('when course has objectives those no affect progress', function () {
+                it('should not include such objectives into account', function () {
+                    spec.objectives = [];
+                    spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false), affectProgress: false });
+                    spec.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true), affectProgress: true });
+
+                    course = new CourseModel(spec);
+
+                    expect(course.score()).toBe(100);
+                });
+            });
+
             describe('when course has no objectives', function () {
 
-                beforeEach(function () {
-                    course.objectives.removeAll();
-                });
-
                 it('should be 0', function () {
+                    spec.objectives = [];
+                    course = new CourseModel(spec);
+
                     expect(course.score()).toBe(0);
                 });
             });
@@ -113,36 +139,46 @@
 
         describe('isCompleted:', function () {
             it('should be computed', function () {
+                spec.objectives = [];
+                course = new CourseModel(spec);
+
                 expect(course.isCompleted).toBeComputed();
             });
 
-            beforeEach(function () {
-                course.objectives.removeAll();
-            });
-
-            describe('when course has at least one not passed objective', function () {
-
-                beforeEach(function () {
-                    course.objectives.removeAll();
-                });
+            describe('when course has at least one not passed objective that affect progress', function () {
 
                 it('should be false', function () {
-                    course.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false) });
-                    course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+                    spec.objectives = [];
+                    spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false), affectProgress: true });
+                    spec.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true), affectProgress: true });
+
+                    course = new CourseModel(spec);
 
                     expect(course.isCompleted()).toBeFalsy();
                 });
             });
 
-            describe('when all objectives are passed', function () {
-
-                beforeEach(function () {
-                    course.objectives.removeAll();
-                });
+            describe('when course has one not passed objective that not affect progress', function () {
 
                 it('should be true', function () {
-                    course.objectives.push({ score: ko.observable(80), isCompleted: ko.observable(true) });
-                    course.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true) });
+                    spec.objectives = [];
+                    spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(false), affectProgress: false });
+                    spec.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true), affectProgress: true });
+
+                    course = new CourseModel(spec);
+
+                    expect(course.isCompleted()).toBeTruthy();
+                });
+            });
+
+            describe('when all objectives are passed', function () {
+
+                it('should be true', function () {
+                    spec.objectives = [];
+                    spec.objectives.push({ score: ko.observable(0), isCompleted: ko.observable(true), affectProgress: true });
+                    spec.objectives.push({ score: ko.observable(100), isCompleted: ko.observable(true), affectProgress: true });
+
+                    course = new CourseModel(spec);
 
                     expect(course.isCompleted()).toBeTruthy();
                 });
@@ -160,6 +196,9 @@
                 spyOn(eventManager, 'courseFinished').andCallFake(function (arg, callbackFunction) {
                     callbackFunction();
                 });
+
+                spec.objectives = [];
+                course = new CourseModel(spec);
             });
 
             it('should be function', function () {

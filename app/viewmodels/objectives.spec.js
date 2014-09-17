@@ -11,11 +11,11 @@
             score: ko.observable(100),
             finish: function () {
             },
-            objectives: ko.observableArray([{
+            objectives: [{
                 id: 'id',
                 title: 'titile',
                 score: ko.observable(75)
-            }])
+            }]
         };
 
         it('should be defined', function () {
@@ -110,9 +110,9 @@
 
                     viewModel.activate();
                     expect(viewModel.objectives.length).toBe(1);
-                    expect(viewModel.objectives[0].id).toBe(course.objectives()[0].id);
-                    expect(viewModel.objectives[0].title).toBe(course.objectives()[0].title);
-                    expect(viewModel.objectives[0].score).toBe(course.objectives()[0].score());
+                    expect(viewModel.objectives[0].id).toBe(course.objectives[0].id);
+                    expect(viewModel.objectives[0].title).toBe(course.objectives[0].title);
+                    expect(viewModel.objectives[0].score).toBe(course.objectives[0].score());
                 });
             });
         });
