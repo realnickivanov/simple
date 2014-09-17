@@ -3,12 +3,12 @@
         var objective = objectiveRepository.get(objectiveId);
 
         if (objective && objective.questions) {
-            var currentItemIndex = _getItemIndexById(objective.questions(), questionId);
+            var currentItemIndex = _getItemIndexById(objective.questions, questionId);
             if (currentItemIndex > -1) {
                 return {
-                    previousQuestionUrl: _getQuestionUrl(objective, objective.questions()[currentItemIndex - 1]),
-                    nextQuestionUrl: _getQuestionUrl(objective, objective.questions()[currentItemIndex + 1]),
-                    questionsCount : objective.questions().length,
+                    previousQuestionUrl: _getQuestionUrl(objective, objective.questions[currentItemIndex - 1]),
+                    nextQuestionUrl: _getQuestionUrl(objective, objective.questions[currentItemIndex + 1]),
+                    questionsCount : objective.questions.length,
                     currentQuestionIndex : currentItemIndex + 1
                 };
             }
