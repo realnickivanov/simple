@@ -3,6 +3,10 @@
 
     describe('model [StatementQuestion]', function() {
 
+        var StatementAnswer = require('models/answers/statementAnswer'),
+            eventManager = require('eventManager'),
+            questionEventDataBuilder = require('eventDataBuilders/questionEventDataBuilder');
+
         it('should be a function', function() {
             expect(StatementQuestion).toBeFunction();
         });
@@ -27,15 +31,182 @@
                     }
                 ]
             },
+            
             statementQuestion;
 
             beforeEach(function() {
                 statementQuestion = new StatementQuestion(spec);
             });
 
-            it('should be array', function() {
-                expect(statementQuestion.statements).toBeArray();
+            it('should be defined', function() {
+                expect(statementQuestion.statements).toBeDefined();
             });
+
+            it('should contains mapped statements', function() {
+                expect(statementQuestion.statements.length).toBe(spec.statements.length);
+            });
+
+            describe('statement:', function() {
+
+                it('should be instance of StatementAnswer', function() {
+                    expect(statementQuestion.statements[0] instanceof StatementAnswer).toBeTruthy();
+                });
+
+                describe('id:', function() {
+                    it('should be mapped from spec', function() {
+                        expect(statementQuestion.statements[0].id).toBe(spec.statements[0].id);
+                    });
+                });
+
+                describe('text:', function() {
+                    it('should be mapped from spec', function() {
+                        expect(statementQuestion.statements[0].text).toBe(spec.statements[0].text);
+                    });
+                });
+
+                describe('isCorrect:', function() {
+                    it('should be mapped from spec', function() {
+                        expect(statementQuestion.statements[0].isCorrect).toBe(spec.statements[0].isCorrect);
+                    });
+                });
+
+            });
+
+            describe('submitAnswer', function() {
+                it('should be a function', function() {
+                    expect(statementQuestion.submitAnswer).toBeFunction();
+                });
+
+                describe('when studentAnswers is not an array', function() {
+
+                    it('should throw exception with \'studentAnswers is not an array\'', function() {
+                        var f = function() {
+                            statementQuestion.submitAnswer(null);
+                        };
+                        expect(f).toThrow('studentAnswers is not an array');
+                    });
+
+                });
+
+                it('should set isAnswered true', function() {
+                    statementQuestion.isAnswered = false;
+
+                    statementQuestion.submitAnswer([]);
+
+                    expect(statementQuestion.isAnswered).toBeTruthy();
+                });
+
+                describe('when student answers are correct', function() {
+
+                    var correctAnswers = [
+                        {
+                            id: 'statement1',
+                            answer: true
+                        },
+                        {
+                            id: 'statement2',
+                            answer: false
+                        },
+                        {
+                            id: 'statement3',
+                            answer: true
+                        }
+                    ];
+
+                    it('should set isCorrectAnswered in true', function() {
+                        statementQuestion.isCorrectAnswered = null;
+
+                        statementQuestion.submitAnswer(correctAnswers);
+
+                        expect(statementQuestion.isCorrectAnswered).toBeTruthy();
+                    });
+
+                    it('should set score 100', function() {
+                        statementQuestion.score(null);
+
+                        statementQuestion.submitAnswer(correctAnswers);
+
+                        expect(statementQuestion.score()).toBe(100);
+                    });
+
+                    xit('should call event data builder buildSingleSelectTextQuestionSubmittedEventData', function() {
+                        question.submitAnswer(answersIds);
+                        expect(questionEventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData).toHaveBeenCalled();
+                    });
+
+                    xit('should call event manager answersSubmitted', function() {
+                        question.submitAnswer(answersIds);
+                        expect(eventManager.answersSubmitted).toHaveBeenCalledWith(eventData);
+                    });
+                });
+
+                describe('when student answers are incorrect', function() {
+
+                    var incorrectAnswers = [
+                        {
+                            id: 'statement1',
+                            answer: true
+                        },
+                        {
+                            id: 'statement2',
+                            answer: true
+                        },
+                        {
+                            id: 'statement3',
+                            answer: true
+                        }
+                    ];
+
+                    it('should set isCorrectAnswered in true', function() {
+                        statementQuestion.isCorrectAnswered = null;
+
+                        statementQuestion.submitAnswer(incorrectAnswers);
+
+                        expect(statementQuestion.isCorrectAnswered).toBeFalsy();
+                    });
+
+                    it('should set score 0', function() {
+                        statementQuestion.score(null);
+
+                        statementQuestion.submitAnswer(incorrectAnswers);
+
+                        expect(statementQuestion.score()).toBe(0);
+                    });
+
+                });
+
+                describe('when student answers are partially correct', function() {
+
+                    var partiallyCorrectAnswers = [
+                        {
+                            id: 'statement1',
+                            answer: true
+                        },
+                        {
+                            id: 'statement2',
+                            answer: false
+                        }
+                    ];
+
+                    it('should set isCorrectAnswered in true', function() {
+                        statementQuestion.isCorrectAnswered = null;
+
+                        statementQuestion.submitAnswer(partiallyCorrectAnswers);
+
+                        expect(statementQuestion.isCorrectAnswered).toBeFalsy();
+                    });
+
+                    it('should set score 0', function() {
+                        statementQuestion.score(null);
+
+                        statementQuestion.submitAnswer(partiallyCorrectAnswers);
+
+                        expect(statementQuestion.score()).toBe(0);
+                    });
+                });
+
+            });
+
         });
 
     });

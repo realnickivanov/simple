@@ -7,7 +7,8 @@
         buildDragAndDropTextQuestionSubmittedEventData: buildDragAndDropTextQuestionSubmittedEventData,
         buildSingleSelectImageQuestionSubmittedEventData: buildSingleSelectImageQuestionSubmittedEventData,
         buildTextMatchingQuestionSubmittedEventData: buildTextMatchingQuestionSubmittedEventData,
-        buildLearningContentExperiencedEventData: buildLearningContentExperiencedEventData
+        buildLearningContentExperiencedEventData: buildLearningContentExperiencedEventData,
+        buildStatementQuestionSubmittedEventData: buildStatementQuestionSubmittedEventData
     };
 
     function buildSingleSelectTextQuestionSubmittedEventData(question) {
@@ -164,6 +165,8 @@
             spentTime: spentTime
         };
     }
+
+    function buildStatementQuestionSubmittedEventData(question, studentAnswers)
 
     function getItemsIds(items, filter) {
         return _.chain(items)
