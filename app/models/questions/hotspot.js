@@ -30,7 +30,7 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
         return Hotspot;
 
         function calculateScore(singleAnswer, spots, placedMarks) {
-            var answerCorrect = false;
+            var answerCorrect;
             if (singleAnswer) {
                 answerCorrect = _.some(spots, function (spot) {
                     return markIsInSpot(placedMarks[0], spot);
@@ -54,14 +54,12 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
                     }
 
                 });                
-                answerCorrect = markedSpotsCount === spots.length && markersInSpotsCount === placedMarks.length && markedSpotsCount <= markersInSpotsCount;
+                answerCorrect = markedSpotsCount === spots.length && markersInSpotsCount === placedMarks.length;
             }
 
             return answerCorrect ? 100 : 0;
         }
 
-        // Inaccurate results when point is on the edge
-        // discuss: posible solutions: left existing approach, check win eg implementation (if they use polygons), create separate enhancement
         function markIsInSpot (mark, spot) {
             var x = mark.x, y = mark.y;
             
