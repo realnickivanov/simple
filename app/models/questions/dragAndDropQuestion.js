@@ -35,6 +35,7 @@
                 eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(this)
             );
         }
+        
         function calculateScore(answers) {
             var hasIncorrectAnswer = _.some(answers, function (answer) {
                 return answer.currentPosition.x != answer.correctPosition.x || answer.currentPosition.y != answer.correctPosition.y;

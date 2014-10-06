@@ -47,6 +47,189 @@
     background-clip: padding-box;
     min-width: 300px;
 }
+.hotspot-wrapper {
+    position: relative;
+}
+
+.hotspot-image-holder {
+    position: relative;
+    display: table;
+    margin: 0 auto;
+}
+
+.hotspot-image-holder:hover
+{
+    cursor: url('../img/cursor.png') 15 12, auto;
+}
+
+.pulsemark
+{
+    position: absolute;
+    margin-left: -15px;
+    margin-top: -12px;
+}
+
+.mark
+{
+    background-image: url('../img/cursor.png');
+    width: 30px;
+    height: 24px;
+}
+
+.pin
+{
+    background-image: url('../img/pin.png');
+    width: 29px;
+    height: 43px;
+    position: absolute;
+    z-index: 250;
+    margin: -30px 0 0 1px;
+}
+
+ul.unstyled
+{
+    list-style: none;
+}
+
+.mark:after
+{
+    content: "";
+    border-radius: 50%;
+    height: 40px;
+    width: 50px;
+    position: absolute;
+    margin: -8px 0 0 -10px;
+    animation: pulsate 0.8s ease-out;
+    -webkit-animation: pulsate 0.8s ease-out;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+    -moz-box-shadow: 0 0 1px 2px #D14537;
+    -webkit-box-shadow: 0 0 1px 2px #D14537;
+    box-shadow: 0 0 1px 4px #D14537;
+}
+
+.bounce
+{
+    animation: bounce 0.8s ease-in-out;
+    -webkit-animation: bounce 0.8s ease-in-out;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes pulsate
+{
+    0%
+    {
+        -moz-transform: scale(0.1, 0.1);
+        -ms-transform: scale(0.1, 0.1);
+        -webkit-transform: scale(0.1, 0.1);
+        transform: scale(0.1, 0.1);
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+
+    50%
+    {
+        filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+        opacity: 1;
+    }
+
+    100%
+    {
+        -moz-transform: scale(1.2, 1.2);
+        -ms-transform: scale(1.2, 1.2);
+        -webkit-transform: scale(1.2, 1.2);
+        transform: scale(1.2, 1.2);
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes pulsate
+{
+    0%
+    {
+        -moz-transform: scale(0.1, 0.1);
+        -ms-transform: scale(0.1, 0.1);
+        -webkit-transform: scale(0.1, 0.1);
+        transform: scale(0.1, 0.1);
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+
+    50%
+    {
+        filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+        opacity: 1;
+    }
+
+    100%
+    {
+        -moz-transform: scale(1.2, 1.2);
+        -ms-transform: scale(1.2, 1.2);
+        -webkit-transform: scale(1.2, 1.2);
+        transform: scale(1.2, 1.2);
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+        opacity: 0;
+    }
+}
+
+@keyframes bounce
+{
+    0%
+    {
+        -moz-transform: translateY(-7px);
+        -ms-transform: translateY(-7px);
+        -webkit-transform: translateY(-7px);
+        transform: translateY(-7px);
+    }
+
+    50%
+    {
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    100%
+    {
+        -moz-transform: translateY(-7px);
+        -ms-transform: translateY(-7px);
+        -webkit-transform: translateY(-7px);
+        transform: translateY(-7px);
+    }
+}
+
+@-webkit-keyframes bounce
+{
+    0%
+    {
+        -moz-transform: translateY(-7px);
+        -ms-transform: translateY(-7px);
+        -webkit-transform: translateY(-7px);
+        transform: translateY(-7px);
+    }
+
+    50%
+    {
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    100%
+    {
+        -moz-transform: translateY(-7px);
+        -ms-transform: translateY(-7px);
+        -webkit-transform: translateY(-7px);
+        transform: translateY(-7px);
+    }
+}
+
 @-webkit-viewport {
     width: device-width;
 }
@@ -1346,7 +1529,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     user-select: none;
 }
 
-.dnd-image-wrapper {
+.question-image-wrapper {
     margin: 20px;
     position: relative;
     overflow: auto;
@@ -1469,12 +1652,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     display: block;
 }
 
-.dnd-overlay {
+.question-overlay {
     height: 100%;
     width: 100%;
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 300;
 }
 
 /*fix bodrers*/
@@ -1492,37 +1676,37 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 /*heigth*/
 
 @media all and (min-height: 240px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 150px;
     }
 }
 
 @media all and (min-height: 320px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 240px;
     }
 }
 
 @media all and (min-height: 480px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 390px;
     }
 }
 
 @media all and (min-height: 640px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 550px;
     }
 }
 
 @media all and (min-height: 768px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 670px;
     }
 }
 
 @media all and (min-height: 1024px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 930px;
     }
 }

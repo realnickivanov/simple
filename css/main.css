@@ -1278,7 +1278,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     user-select: none;
 }
 
-.dnd-image-wrapper {
+.question-image-wrapper {
     margin: 20px;
     position: relative;
     overflow: auto;
@@ -1401,12 +1401,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     display: block;
 }
 
-.dnd-overlay {
+.question-overlay {
     height: 100%;
     width: 100%;
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 300;
 }
 
 /*fix bodrers*/
@@ -1424,37 +1425,37 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 /*heigth*/
 
 @media all and (min-height: 240px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 150px;
     }
 }
 
 @media all and (min-height: 320px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 240px;
     }
 }
 
 @media all and (min-height: 480px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 390px;
     }
 }
 
 @media all and (min-height: 640px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 550px;
     }
 }
 
 @media all and (min-height: 768px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 670px;
     }
 }
 
 @media all and (min-height: 1024px) {
-    .dnd-image-wrapper {
+    .question-image-wrapper {
         max-height: 930px;
     }
 }

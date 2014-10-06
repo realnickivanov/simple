@@ -9,7 +9,8 @@
             singleSelectText: "singleSelectText",
             singleSelectImage: "singleSelectImage",
             textMatching: "textMatching",
-            informationContent: "informationContent"
+            informationContent: "informationContent",
+            hotspot: "hotspot"
         },
         defaultImageUrl: 'img/singleSelectImageAnwer.png'
     };

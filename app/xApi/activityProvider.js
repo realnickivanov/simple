@@ -123,8 +123,11 @@
                 case constants.interactionTypes.fillIn:
                     enqueueFillInQuestionAnsweredStatement(eventData);
                     break;
-                case constants.interactionTypes.other:
+                case constants.interactionTypes.dragAndDrop:
                     enqueueDragAndDropTextQuestionAnsweredStatement(eventData);
+                    break;
+                case constants.interactionTypes.hotspot:
+                    enqueueHotSpotQuestionAnsweredStatement(eventData);
                     break;
                 case constants.interactionTypes.matching:
                     enqueueMatchingQuestionAnsweredStatement(eventData);
@@ -195,6 +198,35 @@
                 })
             });
 
+            pushStatementIfSupported(createStatement(constants.verbs.answered, result, object, context));
+        }
+
+        function enqueueHotSpotQuestionAnsweredStatement(eventData) {
+            var question = eventData.question,
+                objective = eventData.objective;
+
+            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
+            var result = new resultModel({
+                score: new scoreModel(question.score / 100),
+                response: question.placedMarkers.join("[,]")
+            });
+
+            var object = new activityModel({
+                id: questionUrl,
+                definition: new interactionDefinitionModel({
+                    name: new languageMapModel(question.title),
+                    interactionType: constants.interactionTypes.other,
+                    correctResponsesPattern: question.spots
+                })
+            });
+
+            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+
+            var context = new contextModel({
+                contextActivities: new contextActivitiesModel({
+                    parent: [createActivity(parentUrl, objective.title)]
+                })
+            });
             pushStatementIfSupported(createStatement(constants.verbs.answered, result, object, context));
         }
 

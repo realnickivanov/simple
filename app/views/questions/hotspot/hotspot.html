@@ -1,0 +1,20 @@
+﻿<!-- ko if: content -->
+<div class="question-content-wrapper">
+    <div class="question-content" data-bind="html: content, imageWrap: {}, css: { 'enabled': content }"></div>
+</div>
+<!-- /ko -->
+<div class="hotspot-wrapper">
+    <div class="question-image-wrapper">
+        <div class="hotspot-image-holder" data-bind="area: { click: addMark }, background: background">
+            <ul data-bind="foreach: marks" class="unstyled">
+                <li class="pulsemark" data-bind="style: { left: x + 'px', top: y + 'px' }, click: $parent.removeMark, clickBubble: $parent.singleAnswer">
+                    <div class="pin bounce"></div>
+                    <div class="mark"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</div>

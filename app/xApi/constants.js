@@ -50,6 +50,8 @@
             choice: "choice",
             fillIn: "fill-in",
             matching: "matching",
+            dragAndDrop: "dragAndDrop",
+            hotspot: "hotspot",
             other: "other"
         };
 

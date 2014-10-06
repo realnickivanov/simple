@@ -18,7 +18,7 @@
         var question = _.find(objective.questions, function (item) {
             return item.id == questionId;
         });
-
+        
         if (!question) {
             return null;
         }

@@ -1,5 +1,6 @@
-﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent'],
-    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent) {
+﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 
+        'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/hotspot'],
+    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, Hotspot) {
         "use strict";
 
         return {
@@ -23,6 +24,7 @@
                 hasCorrectFeedback: question.hasCorrectFeedback,
                 hasIncorrectFeedback: question.hasIncorrectFeedback
             };
+
             switch (question.type) {
                 case constants.questionTypes.multipleSelect:
                 case constants.questionTypes.singleSelectText:
@@ -44,6 +46,11 @@
                     return new TextMatchingQuestion(questionData);
                 case constants.questionTypes.informationContent:
                     return new InformationContent(questionData);
+                case constants.questionTypes.hotspot:
+                    questionData.spots = question.spots;
+                    questionData.singleAnswer = question.singleAnswer;
+                    questionData.background = question.background;
+                    return new Hotspot(questionData);
                 default:
                     questionData.answers = question.answers;
                     return new MultipleSelectQuestion(questionData);
