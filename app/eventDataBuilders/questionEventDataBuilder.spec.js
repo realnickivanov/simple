@@ -1,8 +1,8 @@
-﻿define(['eventDataBuilders/questionEventDataBuilder'], function (eventDataBuilder) {
+﻿define(['eventDataBuilders/questionEventDataBuilder'], function(eventDataBuilder) {
 
     var objectiveRepository = require('repositories/objectiveRepository');
 
-    describe('[questionEventDataBuilder]', function () {
+    describe('[questionEventDataBuilder]', function() {
 
         var answers = [{
             id: '0',
@@ -37,7 +37,7 @@
                 id: 'answerGroupId1',
                 type: 'input',
                 answeredText: 'text1',
-                getCorrectText: function () {
+                getCorrectText: function() {
                     return 'boo';
                 },
                 answers: [
@@ -155,41 +155,41 @@
             title: 'title'
         };
 
-        describe('buildSingleSelectTextQuestionSubmittedEventData:', function () {
-            it('should be function', function () {
+        describe('buildSingleSelectTextQuestionSubmittedEventData:', function() {
+            it('should be function', function() {
                 expect(eventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData).toBeFunction();
             });
 
-            describe('when question is not an object', function () {
-                it('should throw exception with \'Question is not an object\'', function () {
-                    var f = function () {
+            describe('when question is not an object', function() {
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
                         eventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData(null);
                     };
                     expect(f).toThrow('Question is not an object');
                 });
             });
 
-            describe('when question is an object', function () {
+            describe('when question is an object', function() {
 
-                describe('when objective is not found', function () {
-                    beforeEach(function () {
+                describe('when objective is not found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(null);
                     });
 
-                    it('should throw exception with \'Objective is not found\'', function () {
-                        var f = function () {
+                    it('should throw exception with \'Objective is not found\'', function() {
+                        var f = function() {
                             eventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData(question);
                         };
                         expect(f).toThrow('Objective is not found');
                     });
                 });
 
-                describe('when objective is found', function () {
-                    beforeEach(function () {
+                describe('when objective is found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(objective);
                     });
 
-                    it('should return object', function () {
+                    it('should return object', function() {
                         var data = eventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData(question);
 
                         expect(data.type).toBe("choice");
@@ -219,43 +219,43 @@
             });
         });
 
-        describe('buildFillInQuestionSubmittedEventData:', function () {
+        describe('buildFillInQuestionSubmittedEventData:', function() {
 
-            it('should be function', function () {
+            it('should be function', function() {
                 expect(eventDataBuilder.buildFillInQuestionSubmittedEventData).toBeFunction();
             });
 
-            describe('when question is not an object', function () {
-                it('should throw exception with \'Question is not an object\'', function () {
-                    var f = function () {
+            describe('when question is not an object', function() {
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
                         eventDataBuilder.buildFillInQuestionSubmittedEventData(null);
                     };
                     expect(f).toThrow('Question is not an object');
                 });
             });
 
-            describe('when question is an object', function () {
+            describe('when question is an object', function() {
 
-                describe('when objective is not found', function () {
-                    beforeEach(function () {
+                describe('when objective is not found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(null);
                     });
 
-                    it('should throw exception with \'Objective is not found\'', function () {
-                        var f = function () {
+                    it('should throw exception with \'Objective is not found\'', function() {
+                        var f = function() {
                             eventDataBuilder.buildFillInQuestionSubmittedEventData(question);
                         };
                         expect(f).toThrow('Objective is not found');
                     });
                 });
 
-                describe('when objective is found', function () {
-                    beforeEach(function () {
+                describe('when objective is found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(objective);
                         question.answerGroups = answerGroups;
                     });
 
-                    it('should return object', function () {
+                    it('should return object', function() {
                         var data = eventDataBuilder.buildFillInQuestionSubmittedEventData(question);
 
                         expect(data.type).toBe("fill-in");
@@ -265,7 +265,7 @@
                         expect(data.question.id).toBe(question.id);
                         expect(data.question.title).toBe(question.title);
                         expect(data.question.score).toBe(question.score());
-                        
+
                         expect(data.question.enteredAnswersTexts[0]).toBe('text1');
                         expect(data.question.enteredAnswersTexts[1]).toBe('text2');
                         expect(data.question.correctAnswersTexts[0]).toBe('boo');
@@ -277,44 +277,44 @@
 
         });
 
-        describe('buildDragAndDropTextQuestionSubmittedEventData:', function () {
+        describe('buildDragAndDropTextQuestionSubmittedEventData:', function() {
 
-            it('should be function', function () {
+            it('should be function', function() {
                 expect(eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData).toBeFunction();
             });
 
-            describe('when question is not an object', function () {
-                it('should throw exception with \'Question is not an object\'', function () {
-                    var f = function () {
+            describe('when question is not an object', function() {
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
                         eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(null);
                     };
                     expect(f).toThrow('Question is not an object');
                 });
             });
 
-            describe('when question is an object', function () {
+            describe('when question is an object', function() {
 
-                describe('when objective is not found', function () {
-                    beforeEach(function () {
+                describe('when objective is not found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(null);
                     });
 
-                    it('should throw exception with \'Objective is not found\'', function () {
-                        var f = function () {
+                    it('should throw exception with \'Objective is not found\'', function() {
+                        var f = function() {
                             eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(question);
                         };
                         expect(f).toThrow('Objective is not found');
                     });
                 });
 
-                describe('when objective is found', function () {
-                    beforeEach(function () {
+                describe('when objective is found', function() {
+                    beforeEach(function() {
                         question.answers = dragAndDropAnswers;
 
                         spyOn(objectiveRepository, 'get').andReturn(objective);
                     });
 
-                    it('should return object', function () {
+                    it('should return object', function() {
                         var data = eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(question);
 
                         expect(data.type).toBe("other");
@@ -340,41 +340,41 @@
 
         });
 
-        describe('buildSingleSelectImageQuestionSubmittedEventData:', function () {
-            it('should be function', function () {
+        describe('buildSingleSelectImageQuestionSubmittedEventData:', function() {
+            it('should be function', function() {
                 expect(eventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData).toBeFunction();
             });
 
-            describe('when question is not an object', function () {
-                it('should throw exception with \'Question is not an object\'', function () {
-                    var f = function () {
+            describe('when question is not an object', function() {
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
                         eventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData(null);
                     };
                     expect(f).toThrow('Question is not an object');
                 });
             });
 
-            describe('when question is an object', function () {
+            describe('when question is an object', function() {
 
-                describe('when objective is not found', function () {
-                    beforeEach(function () {
+                describe('when objective is not found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(null);
                     });
 
-                    it('should throw exception with \'Objective is not found\'', function () {
-                        var f = function () {
+                    it('should throw exception with \'Objective is not found\'', function() {
+                        var f = function() {
                             eventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData(question);
                         };
                         expect(f).toThrow('Objective is not found');
                     });
                 });
 
-                describe('when objective is found', function () {
-                    beforeEach(function () {
+                describe('when objective is found', function() {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(objective);
                     });
 
-                    it('should return object', function () {
+                    it('should return object', function() {
                         var data = eventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData(question);
 
                         expect(data.type).toBe("choice");
@@ -402,16 +402,16 @@
             });
         });
 
-        describe('buildTextMatchingQuestionSubmittedEventData:', function () {
+        describe('buildTextMatchingQuestionSubmittedEventData:', function() {
 
-            it('should be function', function () {
+            it('should be function', function() {
                 expect(eventDataBuilder.buildTextMatchingQuestionSubmittedEventData).toBeFunction();
             });
 
-            describe('when question is not an object', function () {
+            describe('when question is not an object', function() {
 
-                it('should throw exception with \'Question is not an object\'', function () {
-                    var f = function () {
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
                         eventDataBuilder.buildTextMatchingQuestionSubmittedEventData(null);
                     };
                     expect(f).toThrow('Question is not an object');
@@ -419,16 +419,16 @@
 
             });
 
-            describe('when question is an object', function () {
+            describe('when question is an object', function() {
 
-                describe('when objective is not found', function () {
+                describe('when objective is not found', function() {
 
-                    beforeEach(function () {
+                    beforeEach(function() {
                         spyOn(objectiveRepository, 'get').andReturn(null);
                     });
 
-                    it('should throw exception with \'Objective is not found\'', function () {
-                        var f = function () {
+                    it('should throw exception with \'Objective is not found\'', function() {
+                        var f = function() {
                             eventDataBuilder.buildTextMatchingQuestionSubmittedEventData(question);
                         };
                         expect(f).toThrow('Objective is not found');
@@ -436,15 +436,15 @@
 
                 });
 
-                describe('when objective is found', function () {
+                describe('when objective is found', function() {
 
-                    beforeEach(function () {
+                    beforeEach(function() {
                         question.answers = [{}, {}];
 
                         spyOn(objectiveRepository, 'get').andReturn(objective);
                     });
 
-                    it('should return object', function () {
+                    it('should return object', function() {
                         var data = eventDataBuilder.buildTextMatchingQuestionSubmittedEventData(question);
 
                         expect(data.type).toBe("matching");
@@ -462,52 +462,52 @@
 
         });
 
-        describe('buildLearningContentExperiencedEventData:', function () {
-            it('should be function', function () {
+        describe('buildLearningContentExperiencedEventData:', function() {
+            it('should be function', function() {
                 expect(eventDataBuilder.buildLearningContentExperiencedEventData).toBeFunction();
             });
 
-            describe('when question is not an object', function () {
-                it('should throw exception with \'Question is not an object\'', function () {
-                    var f = function () {
+            describe('when question is not an object', function() {
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
                         eventDataBuilder.buildLearningContentExperiencedEventData(null);
                     };
                     expect(f).toThrow('Question is not an object');
                 });
             });
 
-            describe('when question is an object', function () {
+            describe('when question is an object', function() {
 
-                describe('when spentTime is not a number', function () {
-                    it('should throw exception with \'SpentTime is not a number\'', function () {
-                        var f = function () {
+                describe('when spentTime is not a number', function() {
+                    it('should throw exception with \'SpentTime is not a number\'', function() {
+                        var f = function() {
                             eventDataBuilder.buildLearningContentExperiencedEventData({}, null);
                         };
                         expect(f).toThrow('SpentTime is not a number');
                     });
                 });
 
-                describe('when spentTime is an number', function () {
+                describe('when spentTime is an number', function() {
 
-                    describe('when objective is not found', function () {
-                        beforeEach(function () {
+                    describe('when objective is not found', function() {
+                        beforeEach(function() {
                             spyOn(objectiveRepository, 'get').andReturn(null);
                         });
 
-                        it('should throw exception with \'Objective is not found\'', function () {
-                            var f = function () {
+                        it('should throw exception with \'Objective is not found\'', function() {
+                            var f = function() {
                                 eventDataBuilder.buildLearningContentExperiencedEventData(question, 100);
                             };
                             expect(f).toThrow('Objective is not found');
                         });
                     });
 
-                    describe('when objective is found', function () {
-                        beforeEach(function () {
+                    describe('when objective is found', function() {
+                        beforeEach(function() {
                             spyOn(objectiveRepository, 'get').andReturn(objective);
                         });
 
-                        it('should return object', function () {
+                        it('should return object', function() {
                             var data = eventDataBuilder.buildLearningContentExperiencedEventData(question, 100);
 
                             expect(data.objective.id).toBe(objective.id);
@@ -521,6 +521,67 @@
                 });
 
             });
+        });
+
+        describe('buildStatementQuestionSubmittedEventData', function() {
+
+            it('should be a function', function() {
+                expect(eventDataBuilder.buildStatementQuestionSubmittedEventData).toBeFunction();
+            });
+
+            describe('when question is not an object', function() {
+
+                it('should throw exception with \'Question is not an object\'', function() {
+                    var f = function() {
+                        eventDataBuilder.buildStatementQuestionSubmittedEventData(null);
+                    };
+                    expect(f).toThrow('Question is not an object');
+                });
+
+            });
+
+            describe('when objective is not found', function() {
+
+                it('should throw exception with \'Objective is not found\'', function() {
+                    spyOn(objectiveRepository, 'get').andReturn(null);
+
+                    var f = function() {
+                        eventDataBuilder.buildStatementQuestionSubmittedEventData(question);
+                    };
+
+                    expect(f).toThrow('Objective is not found');
+                });
+
+            });
+
+            it('should return statementEventData object', function() {
+                var statementQuestion = {
+                    id: 'id',
+                    objectiveId: 'objId',
+                    title: 'title',
+                    score: ko.observable(100),
+                    statements: [
+                        { id: '1', text: 'text1', studentAnswer: true, isCorrect: true },
+                        { id: '2', text: 'text2', studentAnswer: false, isCorrect: false },
+                        { id: '3', text: 'text3', studentAnswer: null, isCorrect: true }
+                    ],
+                };
+                spyOn(objectiveRepository, 'get').andReturn(objective);
+
+                var data = eventDataBuilder.buildStatementQuestionSubmittedEventData(statementQuestion);
+
+                expect(data.type).toBe("choice");
+                expect(data.objective.id).toBe(objective.id);
+                expect(data.objective.title).toBe(objective.title);
+
+                expect(data.question.id).toBe(statementQuestion.id);
+                expect(data.question.title).toBe(statementQuestion.title);
+                expect(data.question.answers).toEqual([{ id: '1', text: 'text1' }, { id: '2', text: 'text2' }, { id: '3', text: 'text3' }]);
+                expect(data.question.selectedAnswersIds).toEqual(['1[.]true', '2[.]false']);
+                expect(data.question.correctAnswersIds).toEqual(['1[.]true', '2[.]false', '3[.]true']);
+                expect(data.question.score).toBe(question.score());
+            });
+
         });
 
     });

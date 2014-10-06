@@ -125,6 +125,41 @@
         };
     }
 
+    function buildStatementQuestionSubmittedEventData(question) {
+        guard.throwIfNotAnObject(question, 'Question is not an object');
+
+        var objective = objectiveRepository.get(question.objectiveId);
+        guard.throwIfNotAnObject(objective, 'Objective is not found');
+
+        return {
+            type: "choice",
+            question: {
+                id: question.id,
+                title: question.title,
+                answers: _.map(question.statements, function(item) {
+                    return {
+                        id: item.id,
+                        text: item.text
+                    };
+                }),
+                score: question.score(),
+                selectedAnswersIds: _.chain(question.statements).filter(function(statement) {
+                    return !_.isNullOrUndefined(statement.studentAnswer);
+                }).map(function(statement) {
+                    return statement.id + '[.]' + statement.studentAnswer;
+                }).value(),
+                correctAnswersIds: _.map(question.statements, function(item) {
+                    return item.id + '[.]' + item.isCorrect;
+                })
+            },
+            objective: {
+                id: objective.id,
+                title: objective.title
+            }
+        };
+    }
+
+
     function buildTextMatchingQuestionSubmittedEventData(question) {
         guard.throwIfNotAnObject(question, 'Question is not an object');
 
@@ -165,8 +200,6 @@
             spentTime: spentTime
         };
     }
-
-    function buildStatementQuestionSubmittedEventData(question, studentAnswers)
 
     function getItemsIds(items, filter) {
         return _.chain(items)

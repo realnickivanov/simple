@@ -31,7 +31,7 @@
                     }
                 ]
             },
-            
+
             statementQuestion;
 
             beforeEach(function() {
@@ -73,6 +73,13 @@
             });
 
             describe('submitAnswer', function() {
+                var eventData = {};
+                beforeEach(function() {
+                    spyOn(eventManager, 'answersSubmitted');
+                    spyOn(questionEventDataBuilder, 'buildStatementQuestionSubmittedEventData').andReturn(eventData);
+                });
+
+
                 it('should be a function', function() {
                     expect(statementQuestion.submitAnswer).toBeFunction();
                 });
@@ -94,6 +101,18 @@
                     statementQuestion.submitAnswer([]);
 
                     expect(statementQuestion.isAnswered).toBeTruthy();
+                });
+
+                it('should call event data builder buildStatementQuestionSubmittedEventData', function() {
+                    statementQuestion.submitAnswer([]);
+
+                    expect(questionEventDataBuilder.buildStatementQuestionSubmittedEventData).toHaveBeenCalledWith(statementQuestion);
+                });
+
+                it('should call event manager answersSubmitted', function() {
+                    statementQuestion.submitAnswer([]);
+
+                    expect(eventManager.answersSubmitted).toHaveBeenCalledWith(eventData);
                 });
 
                 describe('when student answers are correct', function() {
@@ -129,14 +148,16 @@
                         expect(statementQuestion.score()).toBe(100);
                     });
 
-                    xit('should call event data builder buildSingleSelectTextQuestionSubmittedEventData', function() {
-                        question.submitAnswer(answersIds);
-                        expect(questionEventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData).toHaveBeenCalled();
-                    });
+                    it('should update studentAnswers', function() {
+                        statementQuestion.statements[0].studentAnswer = null;
+                        statementQuestion.statements[1].studentAnswer = null;
+                        statementQuestion.statements[2].studentAnswer = null;
 
-                    xit('should call event manager answersSubmitted', function() {
-                        question.submitAnswer(answersIds);
-                        expect(eventManager.answersSubmitted).toHaveBeenCalledWith(eventData);
+                        statementQuestion.submitAnswer(correctAnswers);
+
+                        expect(statementQuestion.statements[0].studentAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[1].studentAnswer).toBeFalsy();
+                        expect(statementQuestion.statements[2].studentAnswer).toBeTruthy();
                     });
                 });
 
@@ -173,6 +194,17 @@
                         expect(statementQuestion.score()).toBe(0);
                     });
 
+                    it('should update studentAnswers', function() {
+                        statementQuestion.statements[0].studentAnswer = null;
+                        statementQuestion.statements[1].studentAnswer = null;
+                        statementQuestion.statements[2].studentAnswer = null;
+
+                        statementQuestion.submitAnswer(incorrectAnswers);
+
+                        expect(statementQuestion.statements[0].studentAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[1].studentAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[2].studentAnswer).toBeTruthy();
+                    });
                 });
 
                 describe('when student answers are partially correct', function() {
@@ -202,6 +234,18 @@
                         statementQuestion.submitAnswer(partiallyCorrectAnswers);
 
                         expect(statementQuestion.score()).toBe(0);
+                    });
+
+                    it('should update studentAnswers', function() {
+                        statementQuestion.statements[0].studentAnswer = null;
+                        statementQuestion.statements[1].studentAnswer = null;
+                        statementQuestion.statements[2].studentAnswer = null;
+
+                        statementQuestion.submitAnswer(partiallyCorrectAnswers);
+
+                        expect(statementQuestion.statements[0].studentAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[1].studentAnswer).toBeFalsy();
+                        expect(statementQuestion.statements[2].studentAnswer).toBeNull();
                     });
                 });
 
