@@ -33,7 +33,9 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
             var answerCorrect;
             if (singleAnswer) {
                 answerCorrect = _.some(spots, function (spot) {
-                    return markIsInSpot(placedMarks[0], spot);
+                    return _.some(placedMarks, function(mark) {
+                        return markIsInSpot(mark, spot);
+                    });
                 });                
             } else {
                 var markedSpotsCount = 0;                
@@ -60,7 +62,7 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
             return answerCorrect ? 100 : 0;
         }
 
-        function markIsInSpot (mark, spot) {
+        function markIsInSpot(mark, spot) {
             var x = mark.x, y = mark.y;
             
             var inside = false;
