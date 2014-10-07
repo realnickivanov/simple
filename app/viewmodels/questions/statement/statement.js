@@ -24,15 +24,15 @@
             var result = {
                 id: statement.id,
                 text: statement.text,
-                studentAnswer: ko.observable(statement.studentAnswer)
+                userAnswer: ko.observable(statement.userAnswer)
             };
 
             result.isTrueChecked = ko.computed(function() {
-                return result.studentAnswer() == true;
+                return result.userAnswer() == true;
             });
 
             result.isFalseChecked = ko.computed(function() {
-                return result.studentAnswer() == false;
+                return result.userAnswer() == false;
             });
 
             return result;
@@ -41,16 +41,16 @@
 
     function submit() {
         return Q.fcall(function() {
-            var studentAnswers = _.chain(viewModel.statements)
+            var userAnswers = _.chain(viewModel.statements)
                 .filter(function(statement) {
-                    return !_.isNullOrUndefined(statement.studentAnswer());
+                    return !_.isNullOrUndefined(statement.userAnswer());
                 })
                 .map(function(statement) {
-                    return { id: statement.id, answer: statement.studentAnswer() };
+                    return { id: statement.id, answer: statement.userAnswer() };
                 })
                 .value();
 
-            viewModel.question.submitAnswer(studentAnswers);
+            viewModel.question.submitAnswer(userAnswers);
             viewModel.isAnswered(true);
         });
     }
@@ -59,7 +59,7 @@
         return Q.fcall(function() {
             viewModel.isAnswered(false);
             _.each(viewModel.statements, function(statement) {
-                statement.studentAnswer(null);
+                statement.userAnswer(null);
             });
         });
     }
@@ -69,7 +69,7 @@
             return;
         }
 
-        statement.studentAnswer(true);
+        statement.userAnswer(true);
     }
 
     function markStatementAsFalse(statement) {
@@ -77,6 +77,6 @@
             return;
         }
 
-        statement.studentAnswer(false);
+        statement.userAnswer(false);
     }
 });

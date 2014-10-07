@@ -561,9 +561,9 @@
                     title: 'title',
                     score: ko.observable(100),
                     statements: [
-                        { id: '1', text: 'text1', studentAnswer: true, isCorrect: true },
-                        { id: '2', text: 'text2', studentAnswer: false, isCorrect: false },
-                        { id: '3', text: 'text3', studentAnswer: null, isCorrect: true }
+                        { id: '1', text: 'text1', userAnswer: true, isCorrect: true },
+                        { id: '2', text: 'text2', userAnswer: false, isCorrect: false },
+                        { id: '3', text: 'text3', userAnswer: null, isCorrect: true }
                     ],
                 };
                 spyOn(objectiveRepository, 'get').andReturn(objective);
