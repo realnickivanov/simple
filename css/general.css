@@ -117,7 +117,6 @@ menu, nav, section, summary, mark, audio, video {
 
 html {
     overflow-y: scroll;
-    overflow: -moz-scrollbars-vertical;
 }
 
 html, body, .application-wrapper {
@@ -1874,6 +1873,60 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 /* #endregion */
 
+/* #region statement question type */
+.statement {
+    display: table;
+    padding: 0 65px;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.statement-headers-group {
+    display: table-header-group;
+}
+
+.statement-header {
+    display: table-cell;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.statement-item {
+    display: table-row;
+    height: 60px;
+}
+
+.statement-label, .statement-option {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .statement-option .radio-icon {
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+.statement-header, .statement-option {
+    text-align: center;
+}
+
+.statement-option {
+    width: 100px;
+}
+
+.statement-option .question-answer-radiobutton {
+    display: inline-block;
+}
+
+.statement-label {
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.statement-text {
+    white-space: pre-wrap;    
+}
+/* #endregion */
 
 .overlay-binding-wrapper {
     position: relative;

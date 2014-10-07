@@ -1,5 +1,5 @@
-﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent'],
-    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent) {
+﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion'],
+    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion) {
         "use strict";
 
         return {
@@ -44,6 +44,9 @@
                     return new TextMatchingQuestion(questionData);
                 case constants.questionTypes.informationContent:
                     return new InformationContent(questionData);
+                case constants.questionTypes.statement:
+                    questionData.statements = question.answers;
+                    return new StatementQuestion(questionData);
                 default:
                     questionData.answers = question.answers;
                     return new MultipleSelectQuestion(questionData);
