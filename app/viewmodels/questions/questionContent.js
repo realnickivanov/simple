@@ -45,7 +45,7 @@
 	    }
 
 	    function navigateNextText() {
-	        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next question' : 'Home';
+	        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next' : 'Home';
 	    }
 
 	    function toggleExpand() {
