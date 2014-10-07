@@ -49,7 +49,6 @@ menu, nav, section, summary, mark, audio, video {
 
 html {
     overflow-y: scroll;
-    overflow: -moz-scrollbars-vertical;
 }
 
 html, body, .application-wrapper {
@@ -1854,6 +1853,10 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .statement-label {
     padding: 10px;
     word-wrap: break-word;
+}
+
+.statement-text {
+    white-space: pre-wrap;    
 }
 /* #endregion */
 
