@@ -84,13 +84,13 @@
                     expect(statementQuestion.submitAnswer).toBeFunction();
                 });
 
-                describe('when studentAnswers is not an array', function() {
+                describe('when userAnswers is not an array', function() {
 
-                    it('should throw exception with \'studentAnswers is not an array\'', function() {
+                    it('should throw exception with \'userAnswers is not an array\'', function() {
                         var f = function() {
                             statementQuestion.submitAnswer(null);
                         };
-                        expect(f).toThrow('studentAnswers is not an array');
+                        expect(f).toThrow('userAnswers is not an array');
                     });
 
                 });
@@ -148,16 +148,16 @@
                         expect(statementQuestion.score()).toBe(100);
                     });
 
-                    it('should update studentAnswers', function() {
-                        statementQuestion.statements[0].studentAnswer = null;
-                        statementQuestion.statements[1].studentAnswer = null;
-                        statementQuestion.statements[2].studentAnswer = null;
+                    it('should update userAnswers', function() {
+                        statementQuestion.statements[0].userAnswer = null;
+                        statementQuestion.statements[1].userAnswer = null;
+                        statementQuestion.statements[2].userAnswer = null;
 
                         statementQuestion.submitAnswer(correctAnswers);
 
-                        expect(statementQuestion.statements[0].studentAnswer).toBeTruthy();
-                        expect(statementQuestion.statements[1].studentAnswer).toBeFalsy();
-                        expect(statementQuestion.statements[2].studentAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[0].userAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[1].userAnswer).toBeFalsy();
+                        expect(statementQuestion.statements[2].userAnswer).toBeTruthy();
                     });
                 });
 
@@ -194,16 +194,16 @@
                         expect(statementQuestion.score()).toBe(0);
                     });
 
-                    it('should update studentAnswers', function() {
-                        statementQuestion.statements[0].studentAnswer = null;
-                        statementQuestion.statements[1].studentAnswer = null;
-                        statementQuestion.statements[2].studentAnswer = null;
+                    it('should update userAnswers', function() {
+                        statementQuestion.statements[0].userAnswer = null;
+                        statementQuestion.statements[1].userAnswer = null;
+                        statementQuestion.statements[2].userAnswer = null;
 
                         statementQuestion.submitAnswer(incorrectAnswers);
 
-                        expect(statementQuestion.statements[0].studentAnswer).toBeTruthy();
-                        expect(statementQuestion.statements[1].studentAnswer).toBeTruthy();
-                        expect(statementQuestion.statements[2].studentAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[0].userAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[1].userAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[2].userAnswer).toBeTruthy();
                     });
                 });
 
@@ -236,16 +236,16 @@
                         expect(statementQuestion.score()).toBe(0);
                     });
 
-                    it('should update studentAnswers', function() {
-                        statementQuestion.statements[0].studentAnswer = null;
-                        statementQuestion.statements[1].studentAnswer = null;
-                        statementQuestion.statements[2].studentAnswer = null;
+                    it('should update userAnswers', function() {
+                        statementQuestion.statements[0].userAnswer = null;
+                        statementQuestion.statements[1].userAnswer = null;
+                        statementQuestion.statements[2].userAnswer = null;
 
                         statementQuestion.submitAnswer(partiallyCorrectAnswers);
 
-                        expect(statementQuestion.statements[0].studentAnswer).toBeTruthy();
-                        expect(statementQuestion.statements[1].studentAnswer).toBeFalsy();
-                        expect(statementQuestion.statements[2].studentAnswer).toBeNull();
+                        expect(statementQuestion.statements[0].userAnswer).toBeTruthy();
+                        expect(statementQuestion.statements[1].userAnswer).toBeFalsy();
+                        expect(statementQuestion.statements[2].userAnswer).toBeNull();
                     });
                 });
 

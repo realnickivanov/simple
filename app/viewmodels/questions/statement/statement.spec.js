@@ -94,15 +94,15 @@
                 expect(viewModel.statements[2].text).toBe(question.statements[2].text);
             });
 
-            it('should set studentAnswer for each statement', function() {
-                var question = { statements: [{ studentAnswer: true }, { studentAnswer: false }, { studentAnswer: null }] };
+            it('should set userAnswer for each statement', function() {
+                var question = { statements: [{ userAnswer: true }, { userAnswer: false }, { userAnswer: null }] };
                 viewModel.statements = null;
 
                 viewModel.initialize(question);
 
-                expect(viewModel.statements[0].studentAnswer()).toBeTruthy();
-                expect(viewModel.statements[1].studentAnswer()).toBeFalsy();
-                expect(viewModel.statements[2].studentAnswer()).toBeNull();
+                expect(viewModel.statements[0].userAnswer()).toBeTruthy();
+                expect(viewModel.statements[1].userAnswer()).toBeFalsy();
+                expect(viewModel.statements[2].userAnswer()).toBeNull();
             });
         });
 
@@ -122,9 +122,9 @@
                 spyOn(viewModel.question, 'submitAnswer');
 
                 viewModel.statements = [
-                    { id: '1', studentAnswer: ko.observable(false) },
-                    { id: '2', studentAnswer: ko.observable(true) },
-                    { id: '3', studentAnswer: ko.observable(null) }
+                    { id: '1', userAnswer: ko.observable(false) },
+                    { id: '2', userAnswer: ko.observable(true) },
+                    { id: '3', userAnswer: ko.observable(null) }
                 ];
 
                 var promise = viewModel.submit();
@@ -175,10 +175,10 @@
                 });
             });
 
-            it('should set reset studentAnswers', function() {
+            it('should set reset userAnswers', function() {
                 viewModel.statements = [
-                    { studentAnswer: ko.observable(true) },
-                    { studentAnswer: ko.observable(false) }
+                    { userAnswer: ko.observable(true) },
+                    { userAnswer: ko.observable(false) }
                 ];
 
                 var promise = viewModel.tryAnswerAgain();
@@ -187,8 +187,8 @@
                     return !promise.isPending();
                 });
                 runs(function() {
-                    expect(viewModel.statements[0].studentAnswer()).toBeNull();
-                    expect(viewModel.statements[1].studentAnswer()).toBeNull();
+                    expect(viewModel.statements[0].userAnswer()).toBeNull();
+                    expect(viewModel.statements[1].userAnswer()).toBeNull();
                 });
             });
         });
@@ -204,11 +204,11 @@
                 });
 
                 it('should set student statement answer in true', function() {
-                    var statement = { studentAnswer: ko.observable(null) };
+                    var statement = { userAnswer: ko.observable(null) };
 
                     viewModel.markStatementAsTrue(statement);
 
-                    expect(statement.studentAnswer()).toBeTruthy();
+                    expect(statement.userAnswer()).toBeTruthy();
                 });
             });
 
@@ -218,11 +218,11 @@
                 });
 
                 it('should not change student statement answer', function() {
-                    var statement = { studentAnswer: ko.observable(null) };
+                    var statement = { userAnswer: ko.observable(null) };
 
                     viewModel.markStatementAsTrue(statement);
 
-                    expect(statement.studentAnswer()).toBeNull();
+                    expect(statement.userAnswer()).toBeNull();
                 });
             });
         });
@@ -238,11 +238,11 @@
                 });
 
                 it('should set student statement answer in true', function() {
-                    var statement = { studentAnswer: ko.observable(null) };
+                    var statement = { userAnswer: ko.observable(null) };
 
                     viewModel.markStatementAsFalse(statement);
 
-                    expect(statement.studentAnswer()).toBeFalsy();
+                    expect(statement.userAnswer()).toBeFalsy();
                 });
             });
 
@@ -252,11 +252,11 @@
                 });
 
                 it('should not change student statement answer', function() {
-                    var statement = { studentAnswer: ko.observable(null) };
+                    var statement = { userAnswer: ko.observable(null) };
 
                     viewModel.markStatementAsFalse(statement);
 
-                    expect(statement.studentAnswer()).toBeNull();
+                    expect(statement.userAnswer()).toBeNull();
                 });
             });
         });

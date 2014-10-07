@@ -18,18 +18,18 @@
 
         return StatementQuestion;
 
-        function submitAnswer(studentAnswers) {
-            guard.throwIfNotArray(studentAnswers, 'studentAnswers is not an array');
+        function submitAnswer(userAnswers) {
+            guard.throwIfNotArray(userAnswers, 'userAnswers is not an array');
 
             this.isAnswered = true;
 
             _.each(this.statements, function(statement) {
-                var studentAnswer = _.find(studentAnswers, function(answer) { return answer.id == statement.id; });
-                statement.studentAnswer = !_.isNullOrUndefined(studentAnswer) ? studentAnswer.answer : null;
+                var userAnswer = _.find(userAnswers, function(answer) { return answer.id == statement.id; });
+                statement.userAnswer = !_.isNullOrUndefined(userAnswer) ? userAnswer.answer : null;
             });
 
             this.isCorrectAnswered = _.every(this.statements, function(statement) {
-                return statement.studentAnswer == statement.isCorrect;
+                return statement.userAnswer == statement.isCorrect;
             });
             this.score(this.isCorrectAnswered ? 100 : 0);
 

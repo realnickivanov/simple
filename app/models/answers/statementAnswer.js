@@ -3,7 +3,7 @@
 
     function SatementAnswer(spec) {
         Answer.call(this, spec);
-        this.userSelect = null;
+        this.userAnswer = null;
     }
 
     return SatementAnswer;

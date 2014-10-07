@@ -144,9 +144,9 @@
                 }),
                 score: question.score(),
                 selectedAnswersIds: _.chain(question.statements).filter(function(statement) {
-                    return !_.isNullOrUndefined(statement.studentAnswer);
+                    return !_.isNullOrUndefined(statement.userAnswer);
                 }).map(function(statement) {
-                    return statement.id + '[.]' + statement.studentAnswer;
+                    return statement.id + '[.]' + statement.userAnswer;
                 }).value(),
                 correctAnswersIds: _.map(question.statements, function(item) {
                     return item.id + '[.]' + item.isCorrect;
