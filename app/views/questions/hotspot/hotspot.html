@@ -8,7 +8,10 @@
         <div class="hotspot-image-holder" data-bind="area: { click: addMark }, background: background">
             <ul data-bind="foreach: marks" class="unstyled">
                 <li class="pulsemark" data-bind="style: { left: x + 'px', top: y + 'px' }, click: $parent.removeMark, clickBubble: $parent.singleAnswer, css: { 'multiple': !$parent.singleAnswer }">
-                    <div class="mark"></div>
+                    <div class="pin"></div>
+                    <div class="mark">
+                        <span class="impulse"></span>
+                    </div>
                 </li>
             </ul>
         </div>
