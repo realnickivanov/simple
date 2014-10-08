@@ -7,7 +7,7 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
 
             this.background = spec.background;
             this.spots = spec.spots;
-            this.singleAnswer = spec.singleAnswer;
+            this.isMultiple = spec.isMultiple;
             this.placedMarks = [];
 
             this.submitAnswer = function (marks) {
@@ -16,7 +16,7 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
                 this.isAnswered = true;                
                 this.placedMarks = _.map(marks, function(mark) { return { x: mark.x, y: mark.y }; });
                 
-                var scores = calculateScore(this.singleAnswer, this.spots, this.placedMarks);
+                var scores = calculateScore(this.isMultiple, this.spots, this.placedMarks);
 
 	           	this.score(scores);
 	           	this.isCorrectAnswered = scores == 100;
@@ -29,9 +29,9 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
 
         return Hotspot;
 
-        function calculateScore(singleAnswer, spots, placedMarks) {
+        function calculateScore(isMultiple, spots, placedMarks) {
             var answerCorrect;
-            if (singleAnswer) {
+            if (!isMultiple) {
                 answerCorrect = _.some(spots, function (spot) {
                     return _.some(placedMarks, function(mark) {
                         return markIsInSpot(mark, spot);
