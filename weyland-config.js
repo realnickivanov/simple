@@ -6,7 +6,6 @@ exports.config = function (weyland) {
         //})
         .task.rjs({
             include: ['app/**/*.{js,html}', 'js/durandal/**/*.js'],
-            exclude: ['app/**/*.spec.js', 'app/specs.html'],
             loaderPluginExtensionMaps: {
                 '.html': 'text'
             },
