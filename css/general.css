@@ -1916,6 +1916,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .statement-option .question-answer-radiobutton {
     display: inline-block;
+    cursor: pointer;
 }
 
 .statement-label {

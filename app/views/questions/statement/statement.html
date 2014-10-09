@@ -12,7 +12,7 @@
     </div>
 
     <!-- ko foreach: statements -->
-    <div class="statement-item">
+    <div class="statement-item question-answer-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
         <div class="statement-label">
             <span class="statement-text" data-bind="text: text"></span>
         </div>

@@ -189,8 +189,8 @@
                     viewModel.navigationContext = { nextQuestionUrl: '123' };
                 });
 
-                it('should return \'Next question\'', function () {
-                    expect(viewModel.navigateNextText()).toBe('Next question');
+                it('should return \'Next\'', function () {
+                    expect(viewModel.navigateNextText()).toBe('Next');
                 });
 
             });
