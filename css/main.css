@@ -1425,37 +1425,37 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 /*heigth*/
 
 @media all and (min-height: 240px) {
-    .question-image-wrapper {
+    .dnd.question-image-wrapper {
         max-height: 150px;
     }
 }
 
 @media all and (min-height: 320px) {
-    .question-image-wrapper {
+    .dnd.question-image-wrapper {
         max-height: 240px;
     }
 }
 
 @media all and (min-height: 480px) {
-    .question-image-wrapper {
+    .dnd.question-image-wrapper {
         max-height: 390px;
     }
 }
 
 @media all and (min-height: 640px) {
-    .question-image-wrapper {
+    .dnd.question-image-wrapper {
         max-height: 550px;
     }
 }
 
 @media all and (min-height: 768px) {
-    .question-image-wrapper {
+    .dnd.question-image-wrapper {
         max-height: 670px;
     }
 }
 
 @media all and (min-height: 1024px) {
-    .question-image-wrapper {
+    .dnd.question-image-wrapper {
         max-height: 930px;
     }
 }

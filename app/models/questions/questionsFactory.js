@@ -48,7 +48,7 @@
                     return new InformationContent(questionData);
                 case constants.questionTypes.hotspot:
                     questionData.spots = question.spots;
-                    questionData.singleAnswer = question.singleAnswer;
+                    questionData.isMultiple = question.isMultiple;
                     questionData.background = question.background;
                     return new Hotspot(questionData);
                 default:
