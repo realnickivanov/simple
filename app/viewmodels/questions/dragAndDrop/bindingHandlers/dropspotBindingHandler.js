@@ -1,6 +1,6 @@
-﻿define(['knockout', 'browserSupport'], function (ko, browserSupport) {
+﻿define(['knockout'], function(ko) {
     ko.bindingHandlers.dropspot = {
-        init: function (element, valueAccessor, allBindingsAccessor, data, context) {
+        init: function(element, valueAccessor, allBindingsAccessor, data, context) {
             var $currentDropspot = $(element),
                 value = valueAccessor() || {},
                 containerClass = value.containerClass || '',
@@ -13,7 +13,11 @@
                 startActual = options.activate,
                 stopActual = options.start;
 
-            var start = function (event, ui) {
+            var refreshDropspotsSizesFix = function (target) {
+                $(target).sortable('refreshPositions');
+            };
+
+            var start = function(event, ui) {
                 var $textElement = ui.helper;
 
                 var width = $textElement.outerWidth();
@@ -34,15 +38,17 @@
                 if (startActual) {
                     startActual.apply(this, arguments);
                 }
+
+                refreshDropspotsSizesFix(event.target);
             };
 
-            var beforeStop = function (event, ui) {
+            var beforeStop = function() {
                 if ($currentDropspot.hasClass(dropspotClass)) {
                     $currentDropspot.removeClass('current');
                 }
-            }
+            };
 
-            var stop = function () {
+            var stop = function() {
                 $(containerSelector).removeClass('drag');
 
                 $(dropspotSelector).width('auto').height('auto');
@@ -50,7 +56,7 @@
                 if (stopActual) {
                     stopActual.apply(this, arguments);
                 }
-            }
+            };
 
             ko.utils.extend(options, {
                 cursorAt: { left: 5, top: 10 },
@@ -65,13 +71,13 @@
 
             value.options = options;
 
-            var newValueAccessor = function () {
+            var newValueAccessor = function() {
                 return value;
-            }
+            };
             return ko.bindingHandlers.sortable.init.call(this, element, newValueAccessor, allBindingsAccessor, data, context);
         },
-        update: function (element, valueAccessor, allBindingsAccessor, data, context) {
+        update: function(element, valueAccessor, allBindingsAccessor, data, context) {
             return ko.bindingHandlers.sortable.update.call(this, element, valueAccessor, allBindingsAccessor, data, context);
         }
-    }
-})
+    };
+});
