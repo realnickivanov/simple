@@ -1888,9 +1888,10 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     height: 100%;
     background: #323a45;
     opacity: 0;
-    -ms-transition: opacity 250ms ease-in; 
+    -ms-transition: opacity 250ms ease-in;
     -webkit-transition: opacity 250ms ease-in;
     transition: opacity 250ms ease-in;
+    z-index: 100;
 }
 
     .blockout.active {
