@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'constants'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, constants) {
 
         return {
             router: router,
@@ -29,7 +29,7 @@
 
             logoUrl: ko.observable(''),
             isNavigatingToAnotherView: ko.observable(false),
-
+            isClosed: ko.observable(false),
 
             activate: function () {
                 var that = this;
@@ -40,6 +40,10 @@
                         return;
                     }
                     that.isNavigatingToAnotherView(true);
+                });
+
+                app.on(constants.events.appClosed).then(function () {
+                    that.isClosed(true);
                 });
 
                 return modulesInitializer.init().then(function () {

@@ -1,5 +1,5 @@
-﻿define([],
-    function () {
+﻿define(['durandal/app', 'constants'],
+    function (app, constants) {
 
         "use strict";
 
@@ -12,8 +12,9 @@
 
         function close() {
             window.close();
+            app.trigger(constants.events.appClosed);
             if (navigator.appName != "Microsoft Internet Explorer") {
-                _.delay(function() {
+                _.delay(function () {
                     window.alert('Thank you. It is now safe to close this page.');
                 }, 100);
             }
