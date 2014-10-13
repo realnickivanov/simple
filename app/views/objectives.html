@@ -23,8 +23,8 @@
                     </div>
                     <div class="objective-info">
                         <span data-bind="text: title">objective title</span>
-                        <!-- ko if: affectProgress -->
                         <div class="objective-progress">
+                            <!-- ko if: affectProgress -->
                             <div class="objective-progressbar-holder">
                                 <div class="objective-progressbar-inside">
                                     <div class="objective-progressbar-score" data-bind="style: { width: 100 - score + '%' }" style="width: 0%;">&nbsp;</div>
@@ -38,17 +38,15 @@
                                 </div>
                             </div>
                             <span class="objective-progress-score" data-bind="text: score + '%'">0%</span>
-                        </div>
-                        <!-- /ko -->
-                        <!-- ko ifnot: affectProgress -->
-                        <div class="objective-progress">
+                            <!-- /ko -->
+                            <!-- ko ifnot: affectProgress -->
                             <div class="objective-progressbar-holder">
                                 <div class="objective-progressbar-wrapper not-affect-progress">
                                     <div class="objective-progressbar-border">No questions</div>
                                 </div>
                             </div>
+                            <!-- /ko -->
                         </div>
-                        <!-- /ko -->
                     </div>
                     <div class="objective-start course-action-block">
                         <a class="small-page-action-btn start-btn" href="#" data-bind="attr: { href: '#/objective/' + questions[0].objectiveId + '/question/' + questions[0].id }">Start</a>

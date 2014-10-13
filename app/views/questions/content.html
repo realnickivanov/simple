@@ -16,6 +16,7 @@
             <div class="objective-info">
                 <span data-bind="text: objective.title">objective title</span>
                 <div class="objective-progress">
+                    <!-- ko if: objective.affectProgress -->
                     <div class="objective-progressbar-holder">
                         <div class="objective-progressbar-inside">
                             <div class="objective-progressbar-score" data-bind="style: { width: 100 - objective.score() + '%' }" style="width: 0;">&nbsp;</div>
@@ -29,6 +30,14 @@
                         </div>
                     </div>
                     <span class="objective-progress-score" data-bind="text: objective.score() + '%'">0%</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: objective.affectProgress -->
+                    <div class="objective-progressbar-holder">
+                        <div class="objective-progressbar-wrapper not-affect-progress">
+                            <div class="objective-progressbar-border">No questions</div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
             <div class="questions-navigation-container">
@@ -38,7 +47,7 @@
             </div>
         </header>
         <!-- ko ifnot: isLoadingNewQuestion -->
-            <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
+        <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
         <!-- /ko -->
     </div>
     <!-- ko ifnot: isLoadingNewQuestion -->
