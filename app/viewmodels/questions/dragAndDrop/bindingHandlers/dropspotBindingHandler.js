@@ -60,7 +60,7 @@
 
             ko.utils.extend(options, {
                 cursorAt: { left: 5, top: 10 },
-                tolerance: 'pointer',
+                tolerance: 'intersect',
                 helper: 'clone',
                 scroll: false,
                 appendTo: containerSelector,
