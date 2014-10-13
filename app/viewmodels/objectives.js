@@ -29,6 +29,7 @@
                         title: item.title,
                         score: item.score(),
                         questions: item.questions,
+                        affectProgress: item.affectProgress
                     };
                 });
             },
