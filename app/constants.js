@@ -12,7 +12,10 @@
             informationContent: "informationContent",
             statement: "statement"
         },
-        defaultImageUrl: 'img/singleSelectImageAnwer.png'
+        defaultImageUrl: 'img/singleSelectImageAnwer.png',
+        events: {
+            appClosed: 'appClosed'
+        }
     };
 
 });

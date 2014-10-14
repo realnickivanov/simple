@@ -1801,7 +1801,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .text-matching-target-placeholder-text {
     display: table-cell;
     text-align: center;
-    vertical-align: middle;    
+    vertical-align: middle;
     width: 100%;
     word-break: break-all;
     word-wrap: break-word;
@@ -1914,10 +1914,10 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     width: 100px;
 }
 
-.statement-option .question-answer-radiobutton {
-    display: inline-block;
-    cursor: pointer;
-}
+    .statement-option .question-answer-radiobutton {
+        display: inline-block;
+        cursor: pointer;
+    }
 
 .statement-label {
     padding: 10px;
@@ -1925,7 +1925,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 .statement-text {
-    white-space: pre-wrap;    
+    white-space: pre-wrap;
 }
 /* #endregion */
 
@@ -1944,6 +1944,30 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .image-wrapper {
     overflow-x: auto;
 }
+
+/*#region blockout */
+
+.blockout {
+    visibility: hidden;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: #323a45;
+    opacity: 0;
+    -ms-transition: opacity 250ms ease-in;
+    -webkit-transition: opacity 250ms ease-in;
+    transition: opacity 250ms ease-in;
+    z-index: 100;
+}
+
+    .blockout.active {
+        visibility: visible;
+        opacity: 0.8;
+    }
+
+/*#endregion */
 
 /*! normalize.css v1.1.2 | MIT License | git.io/normalize */
 
