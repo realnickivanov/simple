@@ -8,11 +8,15 @@
             dragAndDrop: "dragAndDropText",
             singleSelectText: "singleSelectText",
             singleSelectImage: "singleSelectImage",
-            textMatching: "textMatching",
-            informationContent: "informationContent",
-            hotspot: "hotspot"
+            textMatching: "textMatching",            
+            hotspot: "hotspot",            
+            statement: "statement",
+            informationContent: "informationContent"
         },
-        defaultImageUrl: 'img/singleSelectImageAnwer.png'
+        defaultImageUrl: 'img/singleSelectImageAnwer.png',
+        events: {
+            appClosed: 'appClosed'
+        }
     };
 
 });

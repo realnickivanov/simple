@@ -126,6 +126,16 @@ table {
     bottom: -7px;
 }
 
+.objective-progressbar-wrapper.not-affect-progress {
+    border-color: #3a3a3a;
+    background-color: #3a3a3a;
+    text-align: center;
+    font-family: 'Segoe UI';
+    color: #999;
+    font-size: 13px;
+    line-height: 10px;
+}
+
 .objective-progressbar-inside {
     background-color: #33b3e2;
 }
@@ -821,4 +831,17 @@ table {
         border-color: rgba(49, 182, 231, 1);
     }
 
+/* #endregion */
+
+/* #region statement question type */
+.statement-header {
+    font-size: 18px;
+    font-family: 'Segoe UI-Semibold';
+    color: #31b6e7;
+}
+
+.statement-label {
+    font-size: 16px;
+    font-family: 'Segoe UI';
+}
 /* #endregion */

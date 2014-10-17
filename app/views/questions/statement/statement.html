@@ -1,0 +1,28 @@
+﻿<!-- ko if: content -->
+<div class="question-content-wrapper">
+    <div class="question-content" data-bind="html: content, imageWrap: {}, css: { 'enabled': content }"></div>
+</div>
+<!-- /ko -->
+<!-- ko if: statements().length -->
+<div class="statement">
+    <div class="statement-headers-group">
+        <div class="statement-header"></div>
+        <div class="statement-header statement-option">True</div>
+        <div class="statement-header statement-option">False</div>
+    </div>
+
+    <!-- ko foreach: statements -->
+    <div class="statement-item question-answer-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
+        <div class="statement-label">
+            <span class="statement-text" data-bind="text: text"></span>
+        </div>
+        <div class="statement-option">
+            <a class="question-answer-radiobutton" data-bind="click:$parent.markStatementAsTrue, css: { checked: isTrueChecked() }">&nbsp;</a>
+        </div>
+        <div class="statement-option">
+            <a class="question-answer-radiobutton" data-bind="click:$parent.markStatementAsFalse, css: { checked: isFalseChecked() }">&nbsp;</a>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

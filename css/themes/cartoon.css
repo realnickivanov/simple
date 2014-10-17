@@ -95,7 +95,7 @@
 .finish-btn,
 .try-again-btn {
     color: white;
-    background-color: #f58972;
+    background-color: #f26c4f;
     border: 1px solid #d77864;
     opacity: 0.8;
 }
@@ -105,19 +105,7 @@
     .try-again-btn:hover,
     .try-again-btn:active {
         color: white;
-        background-color: #f26c4f;
-    }
-
-.red-btn {
-    color: white;
-    background-color: #f58972;
-    border: 1px solid #d77864;
-    opacity: 0.8;
-}
-
-    .red-btn:hover,
-    .red-btn:active {
-        background-color: #f26c4f;
+        background-color: #d5553a;
     }
 
 /*#endregion action-buttons*/
@@ -136,6 +124,16 @@
 .objective-progressbar-wrapper {
     border: 2px solid #e8e8e8;
     border-radius: 10px;
+}
+
+.objective-progressbar-wrapper.not-affect-progress {
+    border-color: #f8f8f8;
+    background-color: #f8f8f8;
+    text-align: center;
+    font-family: 'OpenSans';
+    color: #999;
+    font-size: 13px;
+    line-height: 10px;
 }
 
 .objective-progressbar-inside {
@@ -675,6 +673,19 @@
         border-color: rgba(65, 183, 216, 1);
     }
 
+/* #endregion */
+
+/* #region statement question type */
+.statement-header {
+    font-size: 18px;
+    font-family: 'OpenSans-Semibold';
+    color: #3ba4c1;
+}
+
+ .statement-label {
+    font-size: 16px;
+    font-family: 'OpenSans';
+}
 /* #endregion */
 
 .course-intro-text a,
