@@ -31,7 +31,7 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
 
         function calculateScore(isMultiple, spots, placedMarks) {
             if (!_.isArray(spots) || spots.length == 0) {
-                return placedMarks.length === 0;
+                return placedMarks.length ? 0 : 100;
             }
 
             var answerCorrect;
