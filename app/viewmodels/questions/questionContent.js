@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/textMatching/textMatching', 'viewmodels/questions/statement/statement''viewmodels/questions/hotspot/hotspot'],
-	function(router, constants, navigationModule, multipleSelectQuestionViewModel, singleSelectTextQuestionViewModel, fillInTheBlankQuestionViewModel, dragAndDropQuestionViewModel, singleSelectImageQuestionViewModel, textMatchingViewModel, statementViewModel, hotspotViewModel) {
+﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/textMatching/textMatching', 'viewmodels/questions/statement/statement', 'viewmodels/questions/hotspot/hotspot'],
+	function (router, constants, navigationModule, multipleSelectQuestionViewModel, singleSelectTextQuestionViewModel, fillInTheBlankQuestionViewModel, dragAndDropQuestionViewModel, singleSelectImageQuestionViewModel, textMatchingViewModel, statementViewModel, hotspotViewModel) {
 	    "use strict";
 
 	    var viewModel = {
@@ -82,7 +82,7 @@
 	            case constants.questionTypes.statement:
 	                return statementViewModel;
 	            case constants.questionTypes.hotspot:
-	            	return hotspotViewModel;
+	                return hotspotViewModel;
 	            default:
 	                return multipleSelectQuestionViewModel;
 	        }
