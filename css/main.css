@@ -1694,7 +1694,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     vertical-align: middle;
     white-space: pre-wrap;
     width: 100%;
-    word-break: break-all;
     word-wrap: break-word;
 }
 
