@@ -7,6 +7,7 @@
         isMobileDevice: null,
         isIE9: null,
         isFirefox: null,
+        isChromeWithPageCoordsBug: null,
 
         initialize: initialize
     };
@@ -21,7 +22,12 @@
         browserSupport.isMobileDevice = isMobileDevice();
         browserSupport.isSupportedMobile = isSupportedMobile();
         browserSupport.isSupportedBrowser = isSupportedBrowser(browserInfo);
+        browserSupport.isChromeWithPageCoordsBug = isChromeWithPageCoordsBug();
     };
+
+    function isChromeWithPageCoordsBug() {
+        return window.navigator.appVersion.match(/Chrome\/(.*?) /)[1] == "38.0.2125.102";
+    }
 
     function getBrowserInfo() {
         var N = navigator.appName,
