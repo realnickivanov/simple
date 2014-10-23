@@ -12,7 +12,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/css/durandal.css</file>
+    <file>/css/hotspot.css</file>
     <file>/css/ie10mobile.css</file>
     <file>/css/main.css</file>
     <file>/css/normalize.css</file>

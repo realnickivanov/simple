@@ -8,9 +8,10 @@
             dragAndDrop: "dragAndDropText",
             singleSelectText: "singleSelectText",
             singleSelectImage: "singleSelectImage",
-            textMatching: "textMatching",
-            informationContent: "informationContent",
-            statement: "statement"
+            textMatching: "textMatching",            
+            hotspot: "hotspot",            
+            statement: "statement",
+            informationContent: "informationContent"
         },
         defaultImageUrl: 'img/singleSelectImageAnwer.png',
         events: {

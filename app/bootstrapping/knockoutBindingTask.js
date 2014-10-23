@@ -4,6 +4,8 @@
     'bootstrapping/knockoutBindings/focusHandlerBinding',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
     'bootstrapping/knockoutBindings/imageWrapBinding',
+    'bootstrapping/knockoutBindings/backgroundBinding',
+    'bootstrapping/knockoutBindings/areaBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
     'viewmodels/questions/textMatching/bindingHandlers/draggableBindingHandler',
     'viewmodels/questions/textMatching/bindingHandlers/droppableBindingHandler',

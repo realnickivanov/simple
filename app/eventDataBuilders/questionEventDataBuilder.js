@@ -8,7 +8,8 @@
         buildSingleSelectImageQuestionSubmittedEventData: buildSingleSelectImageQuestionSubmittedEventData,
         buildTextMatchingQuestionSubmittedEventData: buildTextMatchingQuestionSubmittedEventData,
         buildLearningContentExperiencedEventData: buildLearningContentExperiencedEventData,
-        buildStatementQuestionSubmittedEventData: buildStatementQuestionSubmittedEventData
+        buildStatementQuestionSubmittedEventData: buildStatementQuestionSubmittedEventData,        
+        buildHotspotQuestionSubmittedEventData: buildHotspotQuestionSubmittedEventData
     };
 
     function buildSingleSelectTextQuestionSubmittedEventData(question) {
@@ -76,7 +77,7 @@
         guard.throwIfNotAnObject(objective, 'Objective is not found');
 
         return {
-            type: "other",
+            type: "dragAndDrop",
             question: {
                 id: question.id,
                 title: question.title,
@@ -86,6 +87,35 @@
                 }),
                 correctAnswersTexts: _.map(question.answers, function (item) {
                     return '(' + item.correctPosition.x + ',' + item.correctPosition.y + ')';
+                })
+            },
+            objective: {
+                id: objective.id,
+                title: objective.title
+            }
+        };
+    }
+
+    function buildHotspotQuestionSubmittedEventData(question) {
+        guard.throwIfNotAnObject(question, 'Question is not an object');
+
+        var objective = objectiveRepository.get(question.objectiveId);
+        guard.throwIfNotAnObject(objective, 'Objective is not found');
+       
+        return {
+            type: "hotspot",
+            question: {
+                id: question.id,
+                title: question.title,
+                score: question.score(),
+                spots: _.map(question.spots, function (spot) {
+                    var polygonCoordinates = _.map(spot, function (spotCoordinates) {
+                        return '(' + spotCoordinates.x + ',' + spotCoordinates.y + ')';
+                    });
+                    return polygonCoordinates.join("[,]");
+                }),
+                placedMarkers: _.map(question.placedMarks, function (mark) {
+                    return '(' + mark.x + ',' + mark.y + ')';
                 })
             },
             objective: {
