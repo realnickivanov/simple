@@ -933,7 +933,7 @@ input[type="checkbox"] {
     position: relative;
     padding: 10px 8px;
     font-size: 16px;
-    cursor: default;
+    cursor: pointer;
 }
 
     .question-answer-item + .question-answer-item {
@@ -943,29 +943,30 @@ input[type="checkbox"] {
 .question-answer-wrapper {
     position: absolute;
     top: 50%;
+    margin-top: -17px;
 }
 
 .question-answer-checkbox {
     display: block;
-    height: 24px;
-    width: 24px;
-    margin: 1px;
+    height: 34px;
+    width: 34px;
 }
 
 .question-answer-radiobutton {
     position: relative;
     display: block;
-    width: 25px;
-    height: 25px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
     .question-answer-radiobutton.checked:before {
         content: '';
         display: block;
         position: absolute;
-        height: 15px;
-        width: 15px;
+        height: 18px;
+        width: 18px;
         top: 0;
         bottom: 0;
         left: 0;
@@ -975,8 +976,9 @@ input[type="checkbox"] {
     }
 
 .question-answer-text {
+    display: inline-block;
     white-space: pre-wrap;
-    margin-left: 40px;
+    margin-left: 50px;
     word-wrap: break-word;
     cursor: text;
 }
@@ -1327,7 +1329,9 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .blankInput {
     padding: 7px 5px 8px;
     margin: 8px;
+    border: 1px solid #d8dde5;
     border-radius: 3px;
+    color: #333;
     word-break: normal;
     -moz-user-select: text;
     -webkit-user-select: text;
@@ -1335,17 +1339,32 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     user-select: text;
 }
 
+    .blankInput:focus {
+        border: #5bc0de 1px solid;
+        outline: none;
+    }
+
+.blank-answers.disabled .blankInput, .blank-answers.disabled .custom-select {
+    color: #777;
+    background: #fafafa;
+}
+
 .custom-select {
-    position: relative;
     display: inline-block;
-    background-color: white;
+    vertical-align: middle;
     height: 36px;
+    position: relative;
     margin: 8px;
+    background-color: white;
     border: #d8dde5 1px solid;
     border-radius: 3px;
     vertical-align: middle;
     cursor: pointer;
 }
+
+    .custom-select.active {
+        border: 1px solid #5bc0de;
+    }
 
     .custom-select.expanded {
         border-bottom-left-radius: 0;
@@ -1403,12 +1422,15 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     .custom-select .select-list {
         display: none;
         width: 100%;
+        position: absolute;
+        top: 35px;
         padding: 0;
         margin: 0;
         background-color: white;
-        position: absolute;
+        border-bottom: 1px solid #d8dde5;
+        border-left: 1px solid #d8dde5;
+        border-right: 1px solid #d8dde5;
         list-style: none;
-        top: 35px;
     }
 
     .custom-select.expanded .select-list {
@@ -1642,7 +1664,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .thumbnail-wrapper {
     display: block;
     position: relative;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .thumbnail-holder {
@@ -1835,7 +1857,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     vertical-align: middle;
     white-space: pre-wrap;
     width: 100%;
-    word-break: break-all;
     word-wrap: break-word;
 }
 
@@ -1953,12 +1974,11 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .text-matching-target-text {
     display: table-cell;
+    vertical-align: middle;
     height: 100%;
     text-align: center;
-    vertical-align: middle;
     white-space: pre-wrap;
     width: 100%;
-    word-break: break-all;
     word-wrap: break-word;
 }
 
@@ -2015,7 +2035,8 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     }
 
 .statement-label {
-    padding: 10px;
+    padding: 10px 33px;
+    font-size: 16px;
     word-wrap: break-word;
 }
 
@@ -2023,22 +2044,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     white-space: pre-wrap;
 }
 /* #endregion */
-
-.overlay-binding-wrapper {
-    position: relative;
-}
-
-.overlay-binding {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-
-.image-wrapper {
-    overflow-x: auto;
-}
 
 /*#region blockout */
 
@@ -2063,6 +2068,26 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     }
 
 /*#endregion */
+
+/*#region bindings styles*/
+
+.overlay-binding-wrapper {
+    position: relative;
+}
+
+.overlay-binding {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.image-wrapper {
+    overflow-x: auto;
+}
+
+/*#endregion bindings styles*/
 
 /*! normalize.css v1.1.2 | MIT License | git.io/normalize */
 
