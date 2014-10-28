@@ -112,7 +112,7 @@
                     var polygonCoordinates = _.map(spot, function (spotCoordinates) {
                         return '(' + spotCoordinates.x + ',' + spotCoordinates.y + ')';
                     });
-                    return polygonCoordinates.join("[,]");
+                    return polygonCoordinates.join("[.]");
                 }),
                 placedMarkers: _.map(question.placedMarks, function (mark) {
                     return '(' + mark.x + ',' + mark.y + ')';
