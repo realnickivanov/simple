@@ -98,6 +98,8 @@
             return themes;
         })(),
 
+        translations: [{ key: '[course]', value: ko.observable('Course') }, { key: '[start course]', value: ko.observable('Start course') }, { key: '[finish course]', value: ko.observable('Finish course') }],
+
         hasStarterPlan: ko.observable(true),
         statements: {
             started: ko.observable(true),
@@ -139,7 +141,10 @@
             },
             theme: {
                 key: viewModel.themes.selected()
-            }
+            },
+            translations: $.map(viewModel.translations, function (value) {
+                return { key: value.key, value: value.value() };
+            })
         };
 
         viewModel.isFailed(false);
@@ -383,6 +388,14 @@
             if (settings.theme && settings.theme.key) {
                 viewModel.themes.setSelected(settings.theme.key);
             }
+
+            $.each(settings.translations, function (i) {
+                $.each(viewModel.translations, function (j) {
+                    if (settings.translations[i].key === viewModel.translations[j].key) {
+                        viewModel.translations[j].value(settings.translations[i].value);
+                    }
+                });
+            });
         },
         error: function () {
             viewModel.masteryScore(100);
