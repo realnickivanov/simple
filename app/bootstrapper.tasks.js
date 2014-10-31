@@ -5,6 +5,7 @@
                 require('bootstrapping/browserSupportTask'),
                 require('bootstrapping/viewLocatorTask'),
                 require('bootstrapping/knockoutBindingTask'),
+                require('bootstrapping/binderTask')
             ];
         }
     };
