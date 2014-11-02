@@ -3,7 +3,7 @@
 
     return {
         execute: function () {
-            binder.bindingComplete = function (obj, view) {
+            binder.binding = function (obj, view) {
                 localization.localize(view);
             }
         }
