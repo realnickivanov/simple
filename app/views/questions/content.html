@@ -7,7 +7,7 @@
             <div class="navigation-home-link" data-bind="click: backToObjectives">
                 <div class="navigation-home-link-wrapper">
                     <div class="navigation-home-link-arrow"></div>
-                    <div class="navigation-home-link-block">Home</div>
+                    <div class="navigation-home-link-block" data-translate-text="[home]">Home</div>
                 </div>
             </div>
             <div class="objective-image-holder">
@@ -42,7 +42,19 @@
             </div>
             <div class="questions-navigation-container">
                 <div class="questions-navigation">
-                    <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="    text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind="    attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+                    <!-- ko if: isPreviousQuestionAvailable() -->
+                    <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous' }" data-translate-title="[previous question]">&nbsp;</a>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isPreviousQuestionAvailable() -->
+                    <span class="question-navigation-button previous disabled">&nbsp;</span>
+                    <!-- /ko -->
+                    <span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span>
+                    <!-- ko if: isNextQuestionAvailable() -->
+                    <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isNextQuestionAvailable() -->
+                    <span class="question-navigation-button disabled">&nbsp;</span>
+                    <!-- /ko -->
                 </div>
             </div>
         </header>
@@ -54,7 +66,19 @@
     <div class="navigation-link-container clearfix">
         <div class="questions-navigation-container bottom">
             <div class="questions-navigation">
-                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: isPreviousQuestionAvailable() ? 'previous' : '' }, css: { disabled: !isPreviousQuestionAvailable() }">&nbsp;</a><span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span><a class="question-navigation-button" data-bind=" attr: { href: navigationContext.nextQuestionUrl, title: isNextQuestionAvailable() ? 'next' : '' }, css: { disabled: !isNextQuestionAvailable() }">&nbsp;</a>
+                <!-- ko if: isPreviousQuestionAvailable() -->
+                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous' }" data-translate-title="[previous question]">&nbsp;</a>
+                <!-- /ko -->
+                <!-- ko ifnot: isPreviousQuestionAvailable() -->
+                <span class="question-navigation-button previous disabled">&nbsp;</span>
+                <!-- /ko -->
+                <span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span>
+                <!-- ko if: isNextQuestionAvailable() -->
+                <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
+                <!-- /ko -->
+                <!-- ko ifnot: isNextQuestionAvailable() -->
+                <span class="question-navigation-button disabled">&nbsp;</span>
+                <!-- /ko -->
             </div>
         </div>
     </div>

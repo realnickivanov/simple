@@ -98,7 +98,36 @@
             return themes;
         })(),
 
-        translations: [{ key: '[course]', value: ko.observable('Course') }, { key: '[start course]', value: ko.observable('Start course') }, { key: '[finish course]', value: ko.observable('Finish course') }],
+        translations: [
+            { key: '[course]', value: ko.observable('Course') },
+            { key: '[start course]', value: ko.observable('Start course') },
+            { key: '[finish course]', value: ko.observable('Finish course') },
+
+            { key: '[xapi header]', value: ko.observable('Your credentials for progress tracking') },
+            { key: '[xapi description]', value: ko.observable('Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".') },
+            { key: '[xapi name placeholder]', value: ko.observable('Your name') },
+            { key: '[xapi email placeholder]', value: ko.observable('Your e-mail') },
+            { key: '[xapi name is not valid]', value: ko.observable('Fill in your name') },
+            { key: '[xapi email is not valid]', value: ko.observable('Enter a valid e-mail') },
+            { key: '[xapi do not report]', value: ko.observable('Do not report, just start') },
+            { key: '[xapi report and start course]', value: ko.observable('Start and report my progress') },
+            { key: '[learning objectives]', value: ko.observable('Learning objectives:') },
+            { key: '[start]', value: ko.observable('Start') },
+            { key: '[home]', value: ko.observable('Home') },
+            { key: '[learning content]', value: ko.observable('Learning content') },
+            { key: '[submit]', value: ko.observable('Submit') },
+            { key: '[try again]', value: ko.observable('Try again') },
+            { key: '[next]', value: ko.observable('Next') },
+            { key: '[correct answer]', value: ko.observable('Correct answer') },
+            { key: '[incorrect answer]', value: ko.observable('Incorrect answer') },
+            { key: '[not found message]', value: ko.observable("Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below.") },
+            { key: '[something is wrong]', value: ko.observable('Something is wrong') },
+            { key: '[skip reporting]', value: ko.observable('If you continue without restarting, your learning progress will not be reported.') },
+            { key: '[restart course]', value: ko.observable('Restart course') },
+            { key: '[continue anyway]', value: ko.observable('Continue anyway') },
+            { key: '[previous question]', value: ko.observable('previous') },
+            { key: '[next question]', value: ko.observable('next') }
+        ],
 
         hasStarterPlan: ko.observable(true),
         statements: {

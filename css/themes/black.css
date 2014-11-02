@@ -80,7 +80,7 @@ table {
     color: white;
 }
 
-    .course-title:before {
+    .course-label {
         font-family: OpenSans-Semibold, sans-serif;
     }
 

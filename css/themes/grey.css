@@ -61,13 +61,7 @@ body {
         background: #95a7ba;
     }
 
-.course-name {
-    color: #333;
-    font-family: Segoe UI-Semibold, sans-serif;
-    font-weight: normal;
-}
-
-.course-title:before {
+.course-label {
     color: #333;
     font-family: Segoe UI-Semibold, sans-serif;
 }
