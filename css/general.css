@@ -1021,9 +1021,15 @@ input[type="checkbox"] {
 }
 
 .result-text {
-    position: relative;
-    font-size: 26px;
     cursor: default;
+    display: inline-block;
+    font-size: 26px;
+    line-height: 38px;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
     .result-text:before {
@@ -1043,7 +1049,7 @@ input[type="checkbox"] {
 
     .result-btn-holder .small-page-action-btn {
         min-width: 160px;
-        width: auto;
+        width: 160px;
     }
 
 .feedback-content {
