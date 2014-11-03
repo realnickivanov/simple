@@ -6,9 +6,9 @@
         "key": ""
     },
     "xApi": {
-        "enabled": false,
+        "enabled": true,
         "lrs": {
-            "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements",
+            "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements/",
             "credentials": {
                 "username": "",
                 "password": ""
@@ -48,7 +48,7 @@
             { "key": "[page not found title]", "value": "Page not found (404)" },
             { "key": "[page not found message]", "value": "Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below." },
             { "key": "[tracking and tracing header]", "value": "Your credentials for progress tracking" },
-            { "key": "[tracking and tracing hint]", "value": 'Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".' },
+            { "key": "[tracking and tracing hint]", "value": "Please enter your credentials and click 'Start and report my progress' to enable progress tracking. Otherwise, click 'Do not report, just start'." },
             { "key": "[tracking and tracing name field]", "value": "Your name" },
             { "key": "[tracking and tracing email field]", "value": "Your e-mail" },
             { "key": "[tracking and tracing name is not valid]", "value": "Fill in your name" },
