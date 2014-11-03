@@ -32,7 +32,7 @@
     <!-- ko if: isCorrectAnswered -->
     <div class="result-block correct" data-bind="scrollIntoView: isAnswered">
         <div class="result-text-wrapper">
-            <span class="result-text" data-translate-text="[correct answer]">Correct answer</span>
+            <div class="result-text" data-translate-text="[correct answer]">Correct answer</div>
         </div>
         <div class="question-feedback-holder" data-bind="visible: correctFeedback, html: correctFeedback, imageWrap: {}"></div>
         <div class="result-btn-holder">
@@ -48,7 +48,7 @@
     <!-- ko if: isWrongAnswered -->
     <div class="result-block incorrect" data-bind="scrollIntoView: isAnswered">
         <div class="result-text-wrapper">
-            <span class="result-text" data-translate-text="[incorrect answer]">Incorrect answer</span>
+            <div class="result-text" data-translate-text="[incorrect answer]">Incorrect answer</div>
         </div>
         <div class="question-feedback-holder" data-bind="visible: incorrectFeedback, html: incorrectFeedback, imageWrap: {}"></div>
         <div class="result-btn-holder">
