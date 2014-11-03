@@ -434,10 +434,10 @@ input[type="checkbox"] {
     word-wrap: break-word;
 }
 
-    .course-label {
-        content: 'Course: ';
-        font-weight: normal;
-    }
+.course-label {
+    content: 'Course: ';
+    font-weight: normal;
+}
 
 .page-caption {
     padding: 25px 20px;
@@ -458,19 +458,20 @@ input[type="checkbox"] {
 /*#region action-buttons*/
 
 .small-page-action-btn {
+    box-sizing: border-box;
     display: inline-block;
+    font-size: 16px;
     line-height: 20px;
     -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    vertical-align: top;
-    outline: 0;
-    font-size: 16px;
-    text-align: center;
-    word-wrap: break-word;
     -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
+    outline: 0;
     overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    white-space: nowrap;
+    word-wrap: break-word;
 }
 
 .middle-page-action-btn {
@@ -646,8 +647,10 @@ input[type="checkbox"] {
     width: 50px;
     position: relative;
     margin-left: -1px;
+    overflow: hidden;
     padding-left: 4px;
     padding-top: 27px;
+    text-overflow: ellipsis;
     z-index: 1;
 }
 
