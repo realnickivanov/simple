@@ -44,7 +44,7 @@
                             <!-- ko ifnot: affectProgress -->
                             <div class="objective-progressbar-holder">
                                 <div class="objective-progressbar-wrapper not-affect-progress">
-                                    <div class="objective-progressbar-border">No questions</div>
+                                    <div class="objective-progressbar-border" data-translate-text="[no questions]">No questions</div>
                                 </div>
                             </div>
                             <!-- /ko -->
@@ -59,7 +59,7 @@
         <div class="objectives-page-layout" data-bind="visible: status() == statuses.sendingRequests">
             <div class="objectives-page-layout-block"></div>
             <div class="objectives-page-layout-loader">
-                <span class="objectives-page-layout-loader-text">reporting progress...</span>
+                <span class="objectives-page-layout-loader-text" data-translate-text="[tracking and tracing reporting progress]">reporting progress...</span>
             </div>
         </div>
     </div>
