@@ -102,7 +102,6 @@
             { key: '[course]', value: ko.observable('Course') },
             { key: '[start course]', value: ko.observable('Start course') },
             { key: '[finish course]', value: ko.observable('Finish course') },
-
             { key: '[xapi header]', value: ko.observable('Your credentials for progress tracking') },
             { key: '[xapi description]', value: ko.observable('Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".') },
             { key: '[xapi name placeholder]', value: ko.observable('Your name') },
@@ -126,7 +125,8 @@
             { key: '[restart course]', value: ko.observable('Restart course') },
             { key: '[continue anyway]', value: ko.observable('Continue anyway') },
             { key: '[previous question]', value: ko.observable('previous') },
-            { key: '[next question]', value: ko.observable('next') }
+            { key: '[next question]', value: ko.observable('next') },
+            { key: '[thank you message]', value: ko.observable('Thank you. It is now safe to close this page.') }
         ],
 
         hasStarterPlan: ko.observable(true),
