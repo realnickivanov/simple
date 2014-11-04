@@ -159,6 +159,12 @@ body {
         line-height: 10px;
     }
 
+    .objective-progressbar-wrapper.not-affect-progress .objective-progressbar-border{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 .objective-progressbar-inside {
     background: -moz-linear-gradient(left, #41b7d8 0%, #3492ad 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#41b7d8), color-stop(100%,#3492ad));

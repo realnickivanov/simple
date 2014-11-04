@@ -169,6 +169,12 @@ body {
         line-height: 10px;
     }
 
+    .objective-progressbar-wrapper.not-affect-progress .objective-progressbar-border{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 .objective-progressbar-inside {
     background: #727272;
 }

@@ -80,9 +80,9 @@ table {
     color: white;
 }
 
-    .course-label {
-        font-family: OpenSans-Semibold, sans-serif;
-    }
+.course-label {
+    font-family: OpenSans-Semibold, sans-serif;
+}
 
 .page-caption {
     font-family: Segoe UI-Semibold, sans-serif;
@@ -161,6 +161,12 @@ table {
     color: #999;
     font-size: 13px;
     line-height: 10px;
+}
+
+.objective-progressbar-wrapper.not-affect-progress .objective-progressbar-border {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .objective-progressbar-inside {
