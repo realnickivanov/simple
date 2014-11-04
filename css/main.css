@@ -24,6 +24,62 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Heuristica-Bold';
+    src: url('./font/heuristica-bold.eot');
+    src: url('./font/heuristica-bold.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-bold.woff') format('woff'), url('./font/heuristica-bold.ttf') format('truetype'), url('./font/heuristica-bold.svg#HeuristicaBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Heuristica-Regular';
+    src: url('./font/heuristica-regular.eot');
+    src: url('./font/heuristica-regular.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-regular.woff') format('woff'), url('./font/heuristica-regular.ttf') format('truetype'), url('./font/heuristica-regular.svg#HeuristicaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Heuristica-Italic';
+    src: url('./font/heuristica-italic.eot');
+    src: url('./font/heuristica-italic.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-italic.woff') format('woff'), url('./font/heuristica-italic.ttf') format('truetype'), url('./font/heuristica-italic.svg#HeuristicaItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Heuristica-BoldItalic';
+    src: url('./font/heuristica-bolditalic.eot');
+    src: url('./font/heuristica-bolditalic.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-bolditalic.woff') format('woff'), url('./font/heuristica-bolditalic.ttf') format('truetype'), url('./font/heuristica-bolditalic.svg#HeuristicaBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Intro-Regular';
+    src: url('./font/intro.eot');
+    src: url('./font/intro.eot?#iefix') format('embedded-opentype'), url('./font/intro.woff') format('woff'), url('./font/intro.ttf') format('truetype'), url('./font/intro.svg#IntroRegularRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RobotoSlab-Bold';
+    src: url('./font/robotoslab-bold.eot');
+    src: url('./font/robotoslab-bold.eot?#iefix') format('embedded-opentype'), url('./font/robotoslab-bold.woff') format('woff'), url('./font/robotoslab-bold.ttf') format('truetype'), url('./font/robotoslab-bold.svg#RobotoSlabBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RobotoSlab-Regular';
+    src: url('./font/robotoslab-regular.eot');
+    src: url('./font/robotoslab-regular.eot?#iefix') format('embedded-opentype'), url('./font/robotoslab-regular.woff') format('woff'), url('./font/robotoslab-regular.ttf') format('truetype'), url('./font/robotoslab-regular.svg#RobotoSlabRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*#endregion FONTS CONNECTIONS*/
 
 /*#region tag styles*/
@@ -238,6 +294,7 @@ input[type="checkbox"] {
 
 .content {
     position: relative;
+    padding-bottom: 25px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -718,24 +775,31 @@ input[type="checkbox"] {
 }
 
 .learning-content-title,
+.information-content-title,
+.question-title {
+    position: relative;
+    padding: 15px 30px;
+}
+
+.learning-content-title,
 .information-content-title {
+    font-family: 'Intro-Regular';
+    text-transform: uppercase;
+    line-height: normal;
+    font-size: 18px;
     cursor: default;
+}
+
+.question-section {
+    font-family: 'Heuristica-Regular';
+    font-size: 18px;
 }
 
 .question-title {
     cursor: text;
 }
 
-.learning-content-title,
-.information-content-title,
-.question-title {
-    position: relative;
-    font-size: 18px;
-    word-wrap: break-word;
-}
-
     .learning-content-title:before,
-    .learning-content-title:after,
     .information-content-title:before,
     .question-title:before {
         content: '';
@@ -746,16 +810,22 @@ input[type="checkbox"] {
         box-sizing: border-box;
     }
 
-.question-section {
-    padding-top: 20px;
+.learning-content-expander-indicator {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-top: -3px;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
 }
-
-.question-content-wrapper {
-    padding-top: 25px;
+.learning-content-expander-indicator.expanded {
+    border-width: 0 6px 6px 6px;
 }
 
 .question-content {
-    font-size: 16px;
+    padding: 0 30px 20px;
     word-wrap: break-word;
     overflow-x: auto;
     cursor: default;
@@ -769,7 +839,7 @@ input[type="checkbox"] {
 .question-answer-item {
     line-height: normal;
     position: relative;
-    padding: 10px 8px;
+    padding: 15px 8px;
     font-size: 16px;
     cursor: pointer;
 }
@@ -818,7 +888,6 @@ input[type="checkbox"] {
     white-space: pre-wrap;
     margin-left: 50px;
     word-wrap: break-word;
-    cursor: text;
 }
 
 .question-feedback-holder {
@@ -830,23 +899,12 @@ input[type="checkbox"] {
 }
 
 .btn-submit-wrapper {
+    margin: 20px;
     text-align: center;
 }
 
-.btn-submit {
-    outline: none;
-    padding: 10px;
-    font-size: 20px;
-    line-height: 30px;
-    width: 100%;
-}
-
-    .btn-submit:hover {
-        opacity: 1;
-    }
-
 .result-block {
-    margin: 20px 30px 30px;
+    margin: 20px 30px 0;
     text-align: center;
     overflow: auto;
 }
@@ -872,7 +930,7 @@ input[type="checkbox"] {
 .result-btn-holder {
     display: inline-block;
     width: 100%;
-    padding-top: 20px;
+    padding: 20px 0;
     white-space: nowrap;
 }
 
@@ -937,17 +995,14 @@ input[type="checkbox"] {
 
 /*#region learning content view*/
 
-.learning-contents {
-    padding: 20px 15px;
-}
-
 .learning-content-items {
     padding: 0;
     margin: 0;
 }
 
     .learning-content-items .learning-content-item {
-        padding: 0 10px;
+        position: relative;
+        padding-bottom: 35px;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
         overflow: hidden;
@@ -955,10 +1010,29 @@ input[type="checkbox"] {
         cursor: default;
     }
 
-        .learning-content-items .learning-content-item + .learning-content-item {
-            padding-top: 15px;
-            margin-top: 15px;
+        .learning-content-items .learning-content-item:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 0;
+            margin-bottom: 20px;
+        }
+
+        .learning-content-items .learning-content-item:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            width: 200px;
+            height: 0;
+            margin: 0 auto;
             border-top: solid 1px #e0e0e0;
+        }
+
+        .learning-content-items .learning-content-item:last-child:after {
+            display: none;
         }
 
 /*#endregion of learning content view*/
@@ -1869,6 +1943,10 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
     .statement-option .question-answer-radiobutton {
         display: inline-block;
+        cursor: default;
+    }
+
+    .statement-item.enabled .statement-option .question-answer-radiobutton {
         cursor: pointer;
     }
 
@@ -1922,7 +2000,142 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 .image-wrapper {
-    overflow-x: auto;
+    /*overflow-x: auto;*/
+    text-align: center;
 }
 
 /*#endregion bindings styles*/
+
+/*#region styled content */
+
+.styled-content {
+    padding: 0 30px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 30px;
+    text-align: justify;
+}
+
+    .styled-content h1,
+    .styled-content h2,
+    .styled-content h3 {
+        margin: 40px 0 15px 0;
+        -webkit-margin-before: 40px;
+        -webkit-margin-after: 15px;
+        font-weight: normal;
+    }
+
+    .styled-content h1 {
+        font-size: 26px;
+    }
+
+    .styled-content h2 {
+        font-size: 24px;
+    }
+
+    .styled-content h3 {
+        font-size: 20px;
+    }
+
+    .styled-content p,
+    .styled-content ul,
+    .styled-content ol {
+        margin: 20px 0 0 0;
+    }
+
+    .styled-content ul,
+    .styled-content ol {
+        padding-left: 30px;
+        list-style-position: inside;
+    }
+
+    .styled-content ul {
+        list-style: none;
+    }
+
+        .styled-content ul > li:before {
+            display: inline-block;
+            width: 20px;
+        }
+
+    .styled-content img {
+        margin: 40px 0 20px;
+    }
+
+        .styled-content img[style*="left"] {
+            margin-right: 30px;
+        }
+
+        .styled-content img[style*="right"] {
+            margin-left: 30px;
+        }
+
+    .styled-content cite {
+        position: relative;
+        display: block;
+        margin: 15px 165px;
+        font-size: 18px;
+        font-style: normal;
+        line-height: 30px;
+        white-space: pre-line;
+    }
+
+        .styled-content cite:before,
+        .styled-content cite:after {
+            position: absolute;
+            font-size: 50px;
+        }
+
+        .styled-content cite:before {
+            content: '“';
+            top: 3px;
+            margin-left: -35px;
+        }
+
+        .styled-content cite:after {
+            content: '”';
+            bottom: -23px;
+        }
+
+    .styled-content a {
+        border-width: 0 0 1px 0;
+        border-style: solid;
+    }
+
+    .styled-content mark {
+        padding: 0 3px;
+        color: inherit;
+    }
+
+    .styled-content table {
+        margin: 40px auto 0;
+        font-size: 16px;
+    }
+
+    .styled-content th,
+    .styled-content td {
+        text-align: left;
+    }
+
+    .styled-content table p {
+        margin: 0;
+    }
+
+    .styled-content em {
+        font-style: normal;
+    }
+
+    .styled-content strong,
+    .styled-content th {
+        font-weight: normal;
+    }
+
+@media (max-width: 875px) {
+    .styled-content cite {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+}
+
+/*#endregion */
