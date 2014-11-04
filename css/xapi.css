@@ -32,16 +32,19 @@
 }
 
 .xapi-error-container-button {
-    height: 48px;
-    line-height: 30px;
-    width: 268px;
-    position: absolute;
-    bottom: 0;
     border: 1px solid black;
-    outline: none;
+    bottom: 0;
     color: #FFFFFF;
     font-size: 19px;
+    height: 48px;
+    line-height: 30px;
     opacity: 0.8;
+    outline: none;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 268px;
 }
 
     .xapi-error-container-button:hover {
