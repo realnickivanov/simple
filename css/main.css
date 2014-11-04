@@ -1427,6 +1427,14 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     font-size: 12px;
 }
 
+.dnd-dropspot-tooltip .dnd-drop-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 10px;
+    display: block;
+}
+
 .drag .dnd-dropspot.dnd-drop + .dnd-dropspot-tooltip, .drag .dnd-dropspot.current + .dnd-dropspot-tooltip {
     display: block;
 }
