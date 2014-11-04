@@ -160,6 +160,14 @@
         return viewModel.enableXAPI() && viewModel.authenticationRequired();
     });
 
+    viewModel.escapeHtml = function(html) {
+        return $('<div/>').text(html).html();
+    }
+
+    viewModel.unescapeHtml = function(text) {
+        return $('<div/>').html(text).text();
+    }
+
     viewModel.saveChanges = function () {
         var settings = {
             logo: {
@@ -186,7 +194,7 @@
                 key: viewModel.themes.selected()
             },
             translations: $.map(viewModel.translations, function (value) {
-                return { key: value.key, value: value.value() };
+                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
             })
         };
 
@@ -435,7 +443,7 @@
             $.each(settings.translations, function (i) {
                 $.each(viewModel.translations, function (j) {
                     if (settings.translations[i].key === viewModel.translations[j].key) {
-                        viewModel.translations[j].value(settings.translations[i].value);
+                        viewModel.translations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
                     }
                 });
             });
