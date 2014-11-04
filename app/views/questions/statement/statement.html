@@ -1,6 +1,6 @@
 ﻿<!-- ko if: content -->
 <div class="question-content-wrapper">
-    <div class="question-content" data-bind="html: content, imageWrap: {}, css: { 'enabled': content }"></div>
+    <div class="question-content styled-content" data-bind="html: content, imageWrap: {}"></div>
 </div>
 <!-- /ko -->
 <!-- ko if: statements().length -->
@@ -12,7 +12,7 @@
     </div>
 
     <!-- ko foreach: statements -->
-    <div class="statement-item question-answer-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
+    <div class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
         <div class="statement-label">
             <span class="statement-text" data-bind="text: text"></span>
         </div>
