@@ -1494,12 +1494,18 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .dnd-no-values-caption {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -12px 0 0 -61px;
-    font-size: 14px;
-    opacity: 0.8;
     color: #999;
+    font-size: 14px;
+    left: 0;
+    margin-top: -12px;
+    opacity: 0.8;
+    overflow: hidden;
+    padding: 0 12px;
+    text-align: center;
+    text-overflow: ellipsis;
+    top: 50%;
+    white-space: nowrap;
+    width: 100%;
 }
 
 .dnd-dragable-text-holder {
@@ -1589,13 +1595,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     font-size: 12px;
 }
 
-.dnd-dropspot-tooltip .dnd-drop-text {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 0 10px;
-    display: block;
-}
+    .dnd-dropspot-tooltip .dnd-drop-text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 10px;
+        display: block;
+    }
 
 .drag .dnd-dropspot.dnd-drop + .dnd-dropspot-tooltip, .drag .dnd-dropspot.current + .dnd-dropspot-tooltip {
     display: block;
@@ -2043,6 +2049,8 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 .statement-option {
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 100px;
 }
 
