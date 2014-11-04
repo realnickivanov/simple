@@ -1,9 +1,8 @@
-﻿define([], function () {
+﻿define(['modulesInitializer'], function (modulesInitializer) {
 
     return {
-        activate: function() {
-            
+        activate: function () {
+            return modulesInitializer.init();
         }
     };
-
 });

@@ -38,10 +38,6 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
         app.start().then(function () {
             bootstrapper.run();
           
-            if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
-                app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
-                return;
-            }
             var modules = [],
                 promises = [];
 
@@ -51,6 +47,12 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
 
             Q.allSettled(promises).then(function () {
                 modulesInitializer.register(modules);
+
+                if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
+                    app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
+                    return;
+                }
+
                 app.setRoot('viewmodels/shell');
             });
 
