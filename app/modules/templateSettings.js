@@ -25,12 +25,10 @@
             if (!_.isEmptyOrWhitespace(settings.logo.url)) {
                 that.logoUrl = settings.logo.url;
             }
-
             //Theme initialization
             if (!_.isEmptyOrWhitespace(settings.theme.key)) {
                 that.theme.key = settings.theme.key;
             }
-
             if (_.isArray(settings.translations)) {
                 that.translations = settings.translations;
             }

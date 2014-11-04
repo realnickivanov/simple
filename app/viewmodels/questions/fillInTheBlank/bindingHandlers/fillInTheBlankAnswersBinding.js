@@ -1,7 +1,6 @@
 ﻿define(['durandal/composition', 'translation'], function (composition, translation) {
 
-    var blankInputSelector = '.blankInput,.blankSelect',
-        placeHolder = translation.getTextByKey('[fill in the blank choose answer]');
+    var blankInputSelector = '.blankInput,.blankSelect';
 
     ko.bindingHandlers.fillInTheBlankAnswers = {
         init: function (element, valueAccessor) {
@@ -51,7 +50,7 @@
                     if (!disabled) {
                         $currentItem.addClass(cssClasses.currentSelectedItemTextPlaceholder);
                     }
-                    $currentItem.text(disabled ? blankValue.value : placeHolder);
+                    $currentItem.text(disabled ? blankValue.value : translation.getTextByKey('[fill in the blank choose answer]'));
                     $('.' + cssClasses.listItem, $blankItem).removeClass(cssClasses.selected);
                 }
             });
