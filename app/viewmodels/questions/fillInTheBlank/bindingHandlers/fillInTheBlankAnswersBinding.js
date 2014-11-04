@@ -1,7 +1,7 @@
-﻿define(['durandal/composition'], function (composition) {
+﻿define(['durandal/composition', 'translation'], function (composition, translation) {
 
     var blankInputSelector = '.blankInput,.blankSelect',
-        placeHolder = 'Choose the answer...';
+        placeHolder = translation.getTextByKey('[fill in the blank choose answer]');
 
     ko.bindingHandlers.fillInTheBlankAnswers = {
         init: function (element, valueAccessor) {

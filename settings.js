@@ -41,6 +41,7 @@
             { "key": "[statement question false text]", "value": "False" },
             { "key": "[drag and drop question all texts are placed]", "value": "All texts are placed" },
             { "key": "[drag and drop question drop here]", "value": "Drop here" },
+            { "key": "[fill in the blank choose answer]", "value": "Choose the answer..." },
             { "key": "[thank you message]", "value": "Thank you. It is now safe to close this page." },
             { "key": "[there are no questions]", "value": "No questions" },
             { "key": "[browser not supported]", "value": "Your browser is currently not supported." },

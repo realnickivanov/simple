@@ -24,7 +24,6 @@
 	        tryAnswerAgain: tryAnswerAgain,
 
 	        navigateNext: navigateNext,
-	        navigateNextText: navigateNextText,
 
 	        activate: activate
 	    };
@@ -43,11 +42,7 @@
 	        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
 	        router.navigate(nextUrl);
 	    }
-
-	    function navigateNextText() {
-	        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next' : 'Home';
-	    }
-
+	    
 	    function toggleExpand() {
 	        return viewModel.isExpanded(!viewModel.isExpanded());
 	    }

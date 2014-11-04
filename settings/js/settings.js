@@ -119,6 +119,7 @@
             { key: '[statement question false text]', value: ko.observable('False') },
             { key: '[drag and drop question all texts are placed]', value: ko.observable('All texts are placed') },
             { key: '[drag and drop question drop here]', value: ko.observable('Drop here') },
+            { key: '[fill in the blank choose answer]', value: ko.observable('Choose the answer...') },
             { key: '[thank you message]', value: ko.observable('Thank you. It is now safe to close this page.') },
             { key: '[there are no questions]', value: ko.observable('No questions') },
             { key: '[browser not supported]', value: ko.observable('Your browser is currently not supported.') },
