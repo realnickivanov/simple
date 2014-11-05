@@ -1048,13 +1048,15 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .xapi-form-caption {
     text-align: center;
+    word-wrap: break-word;
 }
 
 .xapi-form-text {
-    width: 100%;
+    cursor: default;
     line-height: normal;
     position: relative;
-    cursor: default;
+    width: 100%;
+    word-wrap: break-word;
 }
 
     .xapi-form-text:before {

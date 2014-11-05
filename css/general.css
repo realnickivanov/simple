@@ -1210,13 +1210,15 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .xapi-form-caption {
     text-align: center;
+    word-wrap: break-word;
 }
 
 .xapi-form-text {
-    width: 100%;
+    cursor: default;
     line-height: normal;
     position: relative;
-    cursor: default;
+    width: 100%;
+    word-wrap: break-word;
 }
 
     .xapi-form-text:before {
@@ -2687,6 +2689,10 @@ table {
     font-size: 18px;
 }
 
+.xapi-error-container-buttons {
+    margin: 50px 0;
+}
+
 .xapi-error-container-button {
     border: 1px solid black;
     bottom: 0;
@@ -2697,7 +2703,6 @@ table {
     opacity: 0.8;
     outline: none;
     overflow: hidden;
-    position: absolute;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 268px;
@@ -2710,13 +2715,13 @@ table {
     .xapi-error-container-button.restart {
         background-color: #f26c4f;
         border-color: #F38971;
-        left: 0;
+        float: left;
     }
 
     .xapi-error-container-button.continue {
         background-color: #343a41;
         border-color: #62676B;
-        right: 0;
+        float: right;
     }
 
 /*#endregion xApi error page */
