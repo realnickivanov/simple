@@ -2676,17 +2676,19 @@ table {
 }
 
 .xapi-error-container-header {
-    font-family: Tahoma, sans-serif;
+    font-family: Tahoma,sans-serif;
     font-size: 24px;
     font-weight: normal;
-    text-transform: uppercase;
+    margin: 0 0 0 185px;
     padding: 21px 0;
-    margin: 0;
+    text-transform: uppercase;
+    word-wrap: break-word;
 }
 
 .xapi-error-container-description {
     font-family: Arial, sans-serif;
     font-size: 18px;
+    word-wrap: break-word;
 }
 
 .xapi-error-container-buttons {
