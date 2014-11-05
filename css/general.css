@@ -2115,20 +2115,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 /*#endregion bindings styles*/
-
-
-
-@-moz-document url-prefix() {
-
-    button.small-page-action-btn, input[type='button'].small-page-action-btn {
-        padding: 0 !important;
-    }
-
-        button.small-page-action-btn::-moz-focus-inner, input[type='button'].small-page-action-btn::-moz-focus-inner {
-            padding: 11px 10px !important;
-        }
-}
-
 /*! normalize.css v1.1.2 | MIT License | git.io/normalize */
 
 /* ==========================================================================
@@ -2793,16 +2779,3 @@ table {
     }
 
 /*#endregion xApi not supported page */
-
-
-@-moz-document url-prefix() {
-
-    button.xapi-error-container-button, input[type='button'].xapi-error-container-button {
-        padding: 0;
-    }
-
-        button.xapi-error-container-button::-moz-focus-inner, input[type='button'].xapi-error-container-button::-moz-focus-inner {
-            padding: 0 10px;
-        }
-}
-
