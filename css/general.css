@@ -2151,15 +2151,15 @@ video {
     *zoom: 1;
 }
 
-    /**
+/**
  * Prevent modern browsers from displaying `audio` without controls.
  * Remove excess height in iOS 5 devices.
  */
 
-    audio:not([controls]) {
-        display: none;
-        height: 0;
-    }
+audio:not([controls]) {
+    display: none;
+    height: 0;
+}
 
 /**
  * Address styling not present in IE 7/8/9, Firefox 3, and Safari 4.
@@ -2358,15 +2358,15 @@ q {
     quotes: none;
 }
 
-    /**
+/**
  * Address `quotes` property not supported in Safari 4.
  */
 
-    q:before,
-    q:after {
-        content: '';
-        content: none;
-    }
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
 
 /**
  * Address inconsistent and variable font size in all browsers.
@@ -2559,17 +2559,17 @@ input[type="reset"],
 input[type="submit"] {
     -webkit-appearance: button; /* 2 */
     cursor: pointer; /* 3 */
-    *overflow: visible; /* 4 */
+    *overflow: visible;  /* 4 */
 }
 
-    /**
+/**
  * Re-set default cursor for disabled elements.
  */
 
-    button[disabled],
-    html input[disabled] {
-        cursor: default;
-    }
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
 
 /**
  * 1. Address box sizing set to content-box in IE 8/9.
@@ -2599,15 +2599,15 @@ input[type="search"] {
     box-sizing: content-box;
 }
 
-    /**
+/**
  * Remove inner padding and search cancel button in Safari 5 and Chrome
  * on OS X.
  */
 
-    input[type="search"]::-webkit-search-cancel-button,
-    input[type="search"]::-webkit-search-decoration {
-        -webkit-appearance: none;
-    }
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
 
 /**
  * Remove inner padding and border in Firefox 3+.

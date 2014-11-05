@@ -4,6 +4,12 @@
         throw new Error("underscore not found.");
     }
 
+    if (typeof String.prototype.trim !== 'function') {
+        String.prototype.trim = function () {
+            return this.replace(/^\s+|\s+$/g, '');
+        }
+    }
+
     _.isEmptyOrWhitespace = function (obj) {
         if (!_.isString(obj))
             throw new TypeError;
