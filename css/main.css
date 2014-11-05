@@ -1951,3 +1951,16 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 /*#endregion bindings styles*/
+
+
+
+@-moz-document url-prefix() {
+
+    button.small-page-action-btn, input[type='button'].small-page-action-btn {
+        padding: 0;
+    }
+
+        button.small-page-action-btn::-moz-focus-inner, input[type='button'].small-page-action-btn::-moz-focus-inner {
+            padding: 0 10px;
+        }
+}
