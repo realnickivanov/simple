@@ -1,4 +1,4 @@
-﻿define([], function() {
+﻿define([], function () {
 
     return {
         initialize: initialize,
@@ -16,7 +16,7 @@
 
     function initialize(settings) {
         var that = this;
-        return Q.fcall(function() {
+        return Q.fcall(function () {
             //Mastery score initialization
             var score = Number(settings.masteryScore.score);
             that.masteryScore.score = (_.isNumber(score) && score >= 0 && score <= 100) ? score : 100;
@@ -25,10 +25,12 @@
             if (!_.isEmptyOrWhitespace(settings.logo.url)) {
                 that.logoUrl = settings.logo.url;
             }
-
             //Theme initialization
             if (!_.isEmptyOrWhitespace(settings.theme.key)) {
                 that.theme.key = settings.theme.key;
+            }
+            if (_.isArray(settings.translations)) {
+                that.translations = settings.translations;
             }
         });
     }

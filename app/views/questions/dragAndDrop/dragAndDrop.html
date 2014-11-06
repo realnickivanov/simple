@@ -11,7 +11,7 @@
             </div>
         </div>
         <!-- ko if: stockDropspot.items().length == 0 -->
-        <div class="dnd-no-values-caption">
+        <div class="dnd-no-values-caption" data-translate-text="[drag and drop question all texts are placed]">
             All texts are placed
         </div>
         <!-- /ko -->
@@ -25,7 +25,9 @@
                         <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
                     </div>
                 </div>
-                <div class="dnd-dropspot-tooltip show-on-drag">Drop here</div>
+                <div class="dnd-dropspot-tooltip show-on-drag">
+                    <span class="dnd-drop-text" data-translate-text="[drag and drop question drop here]">Drop here</span>
+                </div>
             </div>
             <!-- /ko -->
             <img class="dnd-image" src="" data-bind="attr:{src: question.background}" />

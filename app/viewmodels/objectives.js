@@ -38,7 +38,6 @@
                 if (status() != statuses.readyToFinish) {
                     return;
                 }
-
                 status(statuses.sendingRequests);
                 var course = repository.get();
                 course.finish(onCourseFinishedCallback);

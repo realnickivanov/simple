@@ -272,10 +272,10 @@ input[type="checkbox"] {
     word-wrap: break-word;
 }
 
-    .course-title:before {
-        content: 'Course: ';
-        font-weight: normal;
-    }
+.course-label {
+    content: 'Course: ';
+    font-weight: normal;
+}
 
 .page-caption {
     padding: 25px 20px;
@@ -296,19 +296,20 @@ input[type="checkbox"] {
 /*#region action-buttons*/
 
 .small-page-action-btn {
+    box-sizing: border-box;
     display: inline-block;
+    font-size: 16px;
     line-height: 20px;
     -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    vertical-align: top;
-    outline: 0;
-    font-size: 16px;
-    text-align: center;
-    word-wrap: break-word;
     -ms-text-overflow: ellipsis;
-    text-overflow: ellipsis;
+    outline: 0;
     overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    -webkit-box-sizing: border-box;
+    white-space: nowrap;
+    word-wrap: break-word;
 }
 
 .middle-page-action-btn {
@@ -484,8 +485,10 @@ input[type="checkbox"] {
     width: 50px;
     position: relative;
     margin-left: -1px;
+    overflow: hidden;
     padding-left: 4px;
     padding-top: 27px;
+    text-overflow: ellipsis;
     z-index: 1;
 }
 
@@ -856,9 +859,15 @@ input[type="checkbox"] {
 }
 
 .result-text {
-    position: relative;
-    font-size: 26px;
     cursor: default;
+    display: inline-block;
+    font-size: 26px;
+    line-height: 38px;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
     .result-text:before {
@@ -878,7 +887,7 @@ input[type="checkbox"] {
 
     .result-btn-holder .small-page-action-btn {
         min-width: 160px;
-        width: auto;
+        width: 160px;
     }
 
 .feedback-content {
@@ -1039,13 +1048,15 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .xapi-form-caption {
     text-align: center;
+    word-wrap: break-word;
 }
 
 .xapi-form-text {
-    width: 100%;
+    cursor: default;
     line-height: normal;
     position: relative;
-    cursor: default;
+    width: 100%;
+    word-wrap: break-word;
 }
 
     .xapi-form-text:before {
@@ -1112,9 +1123,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .xapi-form-message {
     display: none;
-    position: absolute;
-    top: 100%;
     left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 100%;
+    white-space: nowrap;
 }
 
 .xapi-form-row.error .xapi-form-message {
@@ -1323,12 +1338,18 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .dnd-no-values-caption {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -12px 0 0 -61px;
-    font-size: 14px;
-    opacity: 0.8;
     color: #999;
+    font-size: 14px;
+    left: 0;
+    margin-top: -12px;
+    opacity: 0.8;
+    overflow: hidden;
+    padding: 0 12px;
+    text-align: center;
+    text-overflow: ellipsis;
+    top: 50%;
+    white-space: nowrap;
+    width: 100%;
 }
 
 .dnd-dragable-text-holder {
@@ -1417,6 +1438,14 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     color: #fff;
     font-size: 12px;
 }
+
+    .dnd-dropspot-tooltip .dnd-drop-text {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 10px;
+        display: block;
+    }
 
 .drag .dnd-dropspot.dnd-drop + .dnd-dropspot-tooltip, .drag .dnd-dropspot.current + .dnd-dropspot-tooltip {
     display: block;
@@ -1864,6 +1893,8 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 }
 
 .statement-option {
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 100px;
 }
 

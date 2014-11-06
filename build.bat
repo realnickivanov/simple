@@ -31,6 +31,7 @@ xcopy settings\css\fonts\*.* "%BUILD_PATH%\settings\css\fonts\*.*" /s /f /y
 xcopy settings\img\*.* "%BUILD_PATH%\settings\img\*.*" /s /f /y
 
 mkdir "%BUILD_PATH%\settings\js"
-copy settings\js\vendor.js "%BUILD_PATH%\settings\js\vendor.js"
+copy settings\js\vendor.min.js "%BUILD_PATH%\settings\js\vendor.min.js"
+copy settings\js\settings.min.js "%BUILD_PATH%\settings\js\settings.min.js"
 
 copy settings\settings.html "%BUILD_PATH%\settings\settings.html"

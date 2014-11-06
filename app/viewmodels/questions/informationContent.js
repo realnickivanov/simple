@@ -4,9 +4,7 @@
     var viewModel = {
         title: null,
         learningContents: null,
-
         navigateNext: navigateNext,
-        navigateNextText: navigateNextText,
 
         activate: activate
     };
@@ -17,11 +15,7 @@
         var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
         router.navigate(nextUrl);
     }
-
-    function navigateNextText() {
-        return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? 'Next' : 'Home';
-    }
-
+    
     function activate(objectiveId, question) {
         return Q.fcall(function () {
             viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, question.id);
@@ -30,5 +24,4 @@
             viewModel.learningContents = question.learningContents;
         });
     }
-
 });

@@ -1,5 +1,4 @@
-﻿///#source 1 1 /js/jquery-1.9.1.js
-/*!
+﻿/*!
  * jQuery JavaScript Library v1.9.1
  * http://jquery.com/
  *
@@ -9597,7 +9596,6 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 })( window );
 
-///#source 1 1 /js/jquery-ui-1.10.4.custom.js
 /*! jQuery UI - v1.10.4 - 2014-06-19
 * http://jqueryui.com
 * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.draggable.js, jquery.ui.droppable.js, jquery.ui.sortable.js
@@ -13170,7 +13168,6 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 })(jQuery);
 
-///#source 1 1 /js/jquery-ui.customizations.js
 //Customization made as fix for Drag and drop cursor offset
 
 $.fn.extend({
@@ -13190,7 +13187,6 @@ $.fn.extend({
 	}
 });
 
-///#source 1 1 /js/jquery.ui.touch-punch.js
 /*!
  * jQuery UI Touch Punch 0.2.3
  *
@@ -13371,7 +13367,6 @@ $.fn.extend({
   };
 
 })(jQuery);
-///#source 1 1 /js/knockout-2.2.1.js
 // Knockout JavaScript library v2.2.1
 // (c) Steven Sanderson - http://knockoutjs.com/
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -13458,7 +13453,6 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 {open:"__.push($1 || '');"},F.tmpl.tag.ko_with={open:"with($1) {",close:"} "})};b.qa.prototype=new b.v;w=new b.qa;0<w.Db&&b.wa(w);b.b("jqueryTmplTemplateEngine",b.qa)}"function"===typeof require&&"object"===typeof exports&&"object"===typeof module?L(module.exports||exports):"function"===typeof define&&define.amd?define(["exports"],L):L(x.ko={});m;
 })();
 
-///#source 1 1 /js/knockout-sortable.js
 // knockout-sortable 0.8.8 | (c) 2014 Ryan Niemeyer |  http://www.opensource.org/licenses/mit-license
 ;(function(factory) {
     if (typeof define === "function" && define.amd) {
@@ -13791,7 +13785,6 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 
 });
 
-///#source 1 1 /js/q.js
 // vim:ts=4:sts=4:sw=4:
 /*!
  *
@@ -15730,7 +15723,6 @@ return Q;
 
 });
 
-///#source 1 1 /js/underscore-1.5.1.js
 //     Underscore.js 1.5.1
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -16978,11 +16970,16 @@ return Q;
 
 }).call(this);
 
-///#source 1 1 /js/underscore.extensions.js
 (function () {
     "use strict";
     if (typeof (_) !== "function") {
         throw new Error("underscore not found.");
+    }
+
+    if (typeof String.prototype.trim !== 'function') {
+        String.prototype.trim = function () {
+            return this.replace(/^\s+|\s+$/g, '');
+        }
     }
 
     _.isEmptyOrWhitespace = function (obj) {

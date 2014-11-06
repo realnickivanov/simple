@@ -18,30 +18,38 @@
 }
 
 .xapi-error-container-header {
-    font-family: Tahoma, sans-serif;
+    font-family: Tahoma,sans-serif;
     font-size: 24px;
     font-weight: normal;
-    text-transform: uppercase;
+    margin: 0 0 0 185px;
     padding: 21px 0;
-    margin: 0;
+    text-transform: uppercase;
+    word-wrap: break-word;
 }
 
 .xapi-error-container-description {
     font-family: Arial, sans-serif;
     font-size: 18px;
+    word-wrap: break-word;
+}
+
+.xapi-error-container-buttons {
+    margin: 50px 0;
 }
 
 .xapi-error-container-button {
-    height: 48px;
-    line-height: 30px;
-    width: 268px;
-    position: absolute;
-    bottom: 0;
     border: 1px solid black;
-    outline: none;
+    bottom: 0;
     color: #FFFFFF;
     font-size: 19px;
+    height: 48px;
+    line-height: 30px;
     opacity: 0.8;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 268px;
 }
 
     .xapi-error-container-button:hover {
@@ -51,13 +59,13 @@
     .xapi-error-container-button.restart {
         background-color: #f26c4f;
         border-color: #F38971;
-        left: 0;
+        float: left;
     }
 
     .xapi-error-container-button.continue {
         background-color: #343a41;
         border-color: #62676B;
-        right: 0;
+        float: right;
     }
 
 /*#endregion xApi error page */

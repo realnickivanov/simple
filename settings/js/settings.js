@@ -98,6 +98,51 @@
             return themes;
         })(),
 
+        translations: [
+            { key: '[course]', value: ko.observable('Course') },
+            { key: '[start course]', value: ko.observable('Start course') },
+            { key: '[finish course]', value: ko.observable('Finish course') },
+            { key: '[learning objectives]', value: ko.observable('Learning objectives:') },
+            { key: '[start]', value: ko.observable('Start') },
+            { key: '[home]', value: ko.observable('Home') },
+            { key: '[learning content]', value: ko.observable('Learning content') },
+            { key: '[submit]', value: ko.observable('Submit') },
+            { key: '[try again]', value: ko.observable('Try again') },
+            { key: '[next]', value: ko.observable('Next') },
+            { key: '[correct answer]', value: ko.observable('Correct answer') },
+            { key: '[incorrect answer]', value: ko.observable('Incorrect answer') },
+            { key: '[previous question]', value: ko.observable('previous') },
+            { key: '[next question]', value: ko.observable('next') },
+            { key: '[text matching question hint]', value: ko.observable('Drag items from right column to the left to match the pairs') },
+            { key: '[text matching question drop here]', value: ko.observable('Drop here') },
+            { key: '[statement question true text]', value: ko.observable('True') },
+            { key: '[statement question false text]', value: ko.observable('False') },
+            { key: '[drag and drop question all texts are placed]', value: ko.observable('All texts are placed') },
+            { key: '[drag and drop question drop here]', value: ko.observable('Drop here') },
+            { key: '[fill in the blank choose answer]', value: ko.observable('Choose the answer...') },
+            { key: '[thank you message]', value: ko.observable('Thank you. It is now safe to close this page.') },
+            { key: '[there are no questions]', value: ko.observable('No questions') },
+            { key: '[browser not supported]', value: ko.observable('Your browser is currently not supported.') },
+            { key: '[browser not supported hint]', value: ko.observable('Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.') },
+            { key: '[page not found title]', value: ko.observable('Page not found (404)') },
+            { key: '[page not found message]', value: ko.observable("Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below.") },
+            { key: '[tracking and tracing header]', value: ko.observable('Your credentials for progress tracking') },
+            { key: '[tracking and tracing hint]', value: ko.observable('Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".') },
+            { key: '[tracking and tracing name field]', value: ko.observable('Your name') },
+            { key: '[tracking and tracing email field]', value: ko.observable('Your e-mail') },
+            { key: '[tracking and tracing name is not valid]', value: ko.observable('Fill in your name') },
+            { key: '[tracking and tracing email is not valid]', value: ko.observable('Enter a valid e-mail') },
+            { key: '[tracking and tracing skip reporting]', value: ko.observable('Do not report, just start') },
+            { key: '[tracking and tracing start]', value: ko.observable('Start and report my progress') },
+            { key: '[tracking and tracing error]', value: ko.observable('Something is wrong') },
+            { key: '[tracking and tracing error hint]', value: ko.observable('If you continue without restarting, your learning progress will not be reported.') },
+            { key: '[tracking and tracing restart course]', value: ko.observable('Restart course') },
+            { key: '[tracking and tracing continue anyway]', value: ko.observable('Continue anyway') },
+            { key: '[tracking and tracing reporting progress]', value: ko.observable('reporting progress...') },
+            { key: '[tracking and tracing not supported]', value: ko.observable('Progress tracking cannot be established') },
+            { key: '[tracking and tracing not supported hint]', value: ko.observable('Sorry, this course does not support progress tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari, IE10+ in order to track your progress, or just start the course without tracking.') }
+        ],
+
         hasStarterPlan: ko.observable(true),
         statements: {
             started: ko.observable(true),
@@ -114,6 +159,14 @@
     viewModel.credentialsEnabled = ko.computed(function () {
         return viewModel.enableXAPI() && viewModel.authenticationRequired();
     });
+
+    viewModel.escapeHtml = function(html) {
+        return $('<div/>').text(html).html();
+    }
+
+    viewModel.unescapeHtml = function(text) {
+        return $('<div/>').html(text).text();
+    }
 
     viewModel.saveChanges = function () {
         var settings = {
@@ -139,7 +192,10 @@
             },
             theme: {
                 key: viewModel.themes.selected()
-            }
+            },
+            translations: $.map(viewModel.translations, function (value) {
+                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
+            })
         };
 
         viewModel.isFailed(false);
@@ -383,6 +439,14 @@
             if (settings.theme && settings.theme.key) {
                 viewModel.themes.setSelected(settings.theme.key);
             }
+
+            $.each(settings.translations, function (i) {
+                $.each(viewModel.translations, function (j) {
+                    if (settings.translations[i].key === viewModel.translations[j].key) {
+                        viewModel.translations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
+                    }
+                });
+            });
         },
         error: function () {
             viewModel.masteryScore(100);
