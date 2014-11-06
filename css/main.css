@@ -1123,9 +1123,13 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 .xapi-form-message {
     display: none;
-    position: absolute;
-    top: 100%;
     left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 100%;
+    white-space: nowrap;
 }
 
 .xapi-form-row.error .xapi-form-message {
