@@ -99,7 +99,7 @@
         })(),
 
         translations: [
-            { key: '[course]', value: ko.observable('Course') },
+            { key: '[course]', value: ko.observable('Course:') },
             { key: '[start course]', value: ko.observable('Start course') },
             { key: '[finish course]', value: ko.observable('Finish course') },
             { key: '[learning objectives]', value: ko.observable('Learning objectives:') },
@@ -160,11 +160,11 @@
         return viewModel.enableXAPI() && viewModel.authenticationRequired();
     });
 
-    viewModel.escapeHtml = function(html) {
+    viewModel.escapeHtml = function (html) {
         return $('<div/>').text(html).html();
     }
 
-    viewModel.unescapeHtml = function(text) {
+    viewModel.unescapeHtml = function (text) {
         return $('<div/>').html(text).text();
     }
 
