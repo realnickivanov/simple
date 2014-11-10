@@ -282,6 +282,7 @@ input[type="checkbox"] {
     margin: 0;
     font-size: 20px;
     font-weight: normal;
+    word-wrap: break-word;
 }
 
 .course-action-block {

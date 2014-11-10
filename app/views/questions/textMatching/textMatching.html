@@ -8,7 +8,7 @@
     <div data-bind="syncHeightScope: { scope: question.id }"></div>
 
     <div class="text-matching-caption-wrapper">
-        <div class="text-matching-caption" data-translate-text="[text matching question hint]">Drag items from right column to the left to match the pairs</div>
+        <div class="text-matching-caption" data-translate-text="[text matching question hint]" data-translate-title="[text matching question hint]">Drag items from right column to the left to match the pairs</div>
     </div>
     <div class="text-matching" data-bind="overlay: isAnswered">
 
@@ -24,7 +24,7 @@
                 <div class="text-matching-target-placeholder-wrapper" style="" data-bind="droppable: $data, accept: 1">
                     <div class="text-matching-target-placeholder">
                         <div class="text-matching-target-placeholder-text-wrapper">
-                            <div class="text-matching-target-placeholder-text" data-bind="syncHeight: $root.question.id" data-translate-text="[text matching question drop here]">
+                            <div class="text-matching-target-placeholder-text" data-bind="syncHeight: $root.question.id" data-translate-text="[text matching question drop here]" data-translate-title="[text matching question drop here]">
                                 Drop here
                             </div>
                         </div>

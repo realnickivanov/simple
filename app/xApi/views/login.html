@@ -6,7 +6,7 @@
                 <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
             </h1>
         </header>
-        
+
         <div class="xapi-form-holder">
             <div class="xapi-form-info">
                 <h2 class="xapi-form-caption page-caption selectable" data-translate-text="[tracking and tracing header]">Your credentials for progress tracking</h2>
@@ -19,22 +19,22 @@
                     <div class="xapi-form-input-holder">
                         <span class="xapi-form-input-wrapper"></span>
                         <input placeholder="Your name" data-translate-placeholder="[tracking and tracing name field]" tabindex="5" class="xapi-form-input selectable" type="text" ondrop="return false;" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: function () { username.markAsModified().trim(); } }">
-                        <span class="xapi-form-message" data-bind="visible: !username.isValid() && username.isModified()" data-translate-text="[tracking and tracing name is not valid]">Fill in your name</span>
+                        <span class="xapi-form-message" data-bind="visible: !username.isValid() && username.isModified()" data-translate-text="[tracking and tracing name is not valid]" data-translate-title="[tracking and tracing name is not valid]">Fill in your name</span>
                     </div>
                 </div>
                 <div class="xapi-form-row email" data-bind="css: { error: !usermail.isValid() && usermail.isModified() }">
                     <div class="xapi-form-input-holder">
                         <span class="xapi-form-input-wrapper"></span>
                         <input placeholder="Your e-mail" data-translate-placeholder="[tracking and tracing email field]" tabindex="5" class="xapi-form-input selectable" type="text" ondrop="return false;" data-bind="value: usermail, valueUpdate: 'afterkeydown', event: { blur: function () { usermail.markAsModified().trim(); } }">
-                        <span class="xapi-form-message" data-bind="visible: !usermail.isValid() && usermail.isModified()" data-translate-text="[tracking and tracing email is not valid]">Enter a valid e-mail</span>
+                        <span class="xapi-form-message" data-bind="visible: !usermail.isValid() && usermail.isModified()" data-translate-text="[tracking and tracing email is not valid]" data-translate-title="[tracking and tracing email is not valid]">Enter a valid e-mail</span>
                     </div>
 
                 </div>
             </div>
             <div class="xapi-btn-container clearfix">
-                <a class="xapi-nav-link" href="#" data-bind="click: skip" data-translate-text="[tracking and tracing skip reporting]">Do not report, just start</a>
+                <a class="xapi-nav-link" href="#" data-bind="click: skip" data-translate-text="[tracking and tracing skip reporting]" data-translate-title="[tracking and tracing skip reporting]">Do not report, just start</a>
                 <div class="xapi-nav-btn">
-                    <a class="small-page-action-btn start-btn" href="#" data-bind="click: login" data-translate-text="[tracking and tracing start]">Start and report my progress</a>
+                    <a class="small-page-action-btn start-btn" href="#" data-bind="click: login" data-translate-text="[tracking and tracing start]" data-translate-title="[tracking and tracing start]">Start and report my progress</a>
                 </div>
             </div>
         </div>
