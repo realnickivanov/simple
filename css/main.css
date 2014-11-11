@@ -2090,7 +2090,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
         }
 
         .custom-select ul > li:before {
-            display: none;
+            display: none !important;
         }
 
     .styled-content .image-wrapper {
