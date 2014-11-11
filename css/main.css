@@ -2020,7 +2020,8 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     bottom: 0;
 }
 
-.image-wrapper {
+.image-wrapper,
+.table-wrapper {
     overflow-x: auto;
     text-align: center;
 }
@@ -2145,8 +2146,12 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
         color: inherit;
     }
 
+    .styled-content .table-wrapper {
+        width: 100%;
+        margin: 20px 0;
+    }
+
     .styled-content table {
-        margin: 20px auto;
         font-size: 16px;
     }
 

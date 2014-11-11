@@ -3,7 +3,7 @@
     'viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankAnswersBinding',
     'bootstrapping/knockoutBindings/focusHandlerBinding',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
-    'bootstrapping/knockoutBindings/imageWrapBinding',
+    'bootstrapping/knockoutBindings/elementsWrapBinding',
     'bootstrapping/knockoutBindings/backgroundBinding',
     'bootstrapping/knockoutBindings/areaBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
