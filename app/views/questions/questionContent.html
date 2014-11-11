@@ -10,7 +10,7 @@
         <section id="learning-contents" class="learning-contents">
             <ul class="learning-content-items unstyled">
                 <!-- ko foreach: learningContents-->
-                <li class="learning-content-item styled-content" data-bind="html: content, imageWrap: {}"></li>
+                <li class="learning-content-item styled-content" data-bind="html: content, elementsWrap: {}"></li>
                 <!-- /ko -->
             </ul>
         </section>
@@ -35,7 +35,7 @@
         <div class="result-text-wrapper">
             <div class="result-text" data-translate-text="[correct answer]" data-translate-title="[correct answer]">Correct answer</div>
         </div>
-        <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, imageWrap: {}"></div>
+        <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
             <!-- ko if: navigationContext.nextQuestionUrl -->
             <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
@@ -51,7 +51,7 @@
         <div class="result-text-wrapper">
             <div class="result-text" data-translate-text="[incorrect answer]" data-translate-title="[incorrect answer]">Incorrect answer</div>
         </div>
-        <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, imageWrap: {}"></div>
+        <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
             <button class="small-page-action-btn try-again-btn" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
             <span class="feedback-btn-whitespace"></span>

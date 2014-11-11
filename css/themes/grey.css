@@ -795,6 +795,8 @@ body {
     }
 
     .styled-content table {
+        display: inline-table;
+        margin-bottom: 10px;
         border: 2px solid #999999;
         border-collapse: separate;
     }
