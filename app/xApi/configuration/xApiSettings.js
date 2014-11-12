@@ -24,11 +24,27 @@
             init: init
         };
 
+        var defaultXapi = {
+            lrs: {
+                uri: 'https://easydev.waxlrs.com/TCAPI/statements',
+                authenticationRequired: true,
+                credentials: {
+                    username: 'RvSn9J4KbNpx37l6WSN6',
+                    password: 'xS59aSths74X6fQUnG4H'
+                }
+            },
+            allowedVerbs: ['started', 'stopped', 'experienced', 'mastered', 'answered', 'passed', 'failed']
+        };
+
         return settings;
 
         function init(templateSettings) {
             return Q.fcall(function () {
-                $.extend(settings.xApi, templateSettings);
+                if (templateSettings.selectedLrs != 'default') {
+                    $.extend(settings.xApi, templateSettings);
+                } else {
+                    $.extend(settings.xApi, defaultXapi);
+                }
             });
         }
     }
