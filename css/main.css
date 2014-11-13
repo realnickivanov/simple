@@ -1307,6 +1307,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
     .custom-select .current-selected-item-text-placeholder {
         color: #999;
+        font-size: 14px;
     }
 
     .custom-select .pointer-wrapper {
