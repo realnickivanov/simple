@@ -59,7 +59,7 @@
 @font-face {
     font-family: 'Intro-Regular';
     src: url('./font/intro.eot');
-    src: url('./font/intro.eot?#iefix') format('embedded-opentype'), url('./font/intro.woff') format('woff'), url('./font/intro.ttf') format('truetype'), url('./font/intro.svg#IntroRegularRegular') format('svg');
+    src: url('./font/intro.eot?#iefix') format('embedded-opentype'), url('./font/intro.woff') format('woff'), url('./font/intro.ttf') format('truetype'), url('./font/intro.svg#IntroRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -152,7 +152,7 @@ menu, ol, ul {
 
 /*#region common classes styles*/
 
-.unstyled  {
+.unstyled {
     margin-left: 0;
     list-style: none;
 }
@@ -228,7 +228,7 @@ input[type="checkbox"] {
 
 .header {
     display: table;
-    min-height: 40px;
+    min-height: 52px;
     width: 100%;
     padding: 5px 0 5px 20px;
 }
@@ -432,32 +432,33 @@ input[type="checkbox"] {
 
 .objective-progressbar-masteryscore-indicator {
     position: absolute;
-    top: 2px;
-    margin-left: -4px;
-    height: 22px;
-    width: 8px;
 }
 
 .objective-progressbar-masteryscore-indicator-value {
-    margin: 0 auto;
-    height: 22px;
-    width: 2px;
-    background-color: rgb(128,128,128);
+    height: 100%;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
 .objective-progressbar-masteryscore-indicator-tooltip {
-    display: none;
+    visibility: hidden;
+    width: 122px;
     position: absolute;
-    width: 40px;
+    bottom: 100%;
+    right: 50%;
+    margin-right: -61px;
+    padding: 2px 5px;
+    color: white;
+    font-family: 'OpenSans', sans-serif;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity .2s ease;
+    -moz-transition: opacity .2s ease;
+    -webkit-transition: opacity .2s ease;
     text-align: center;
-    top: -34px;
-    left: -16px;
-    padding: 2px;
-    background: white;
-    border-radius: 2px;
-    box-shadow: 0 0 1px rgba(0,0,0,0.5);
-    font-size: 13px;
-    color: #000000;
 }
 
     .objective-progressbar-masteryscore-indicator-tooltip:after {
@@ -470,30 +471,15 @@ input[type="checkbox"] {
         left: 50%;
         margin-top: -6px;
         margin-left: -5px;
-        box-shadow: 0 0 1px rgba(0,0,0,0.5);
         -moz-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
-        background: white;
-    }
-
-    .objective-progressbar-masteryscore-indicator-tooltip:before {
-        content: '';
-        display: block;
-        height: 8px;
-        width: 20px;
-        position: absolute;
-        top: 92%;
-        left: 40%;
-        margin-top: -6px;
-        margin-left: -5px;
-        background: white;
-        z-index: 100;
     }
 
 .objective-progressbar-masteryscore-indicator:hover .objective-progressbar-masteryscore-indicator-tooltip {
-    display: block;
+    visibility: visible;
+    opacity: 0.9;
 }
 
 /*#endregion objective linear progressbar*/
@@ -731,13 +717,12 @@ input[type="checkbox"] {
 .questions-navigation-container {
     display: table-cell;
     vertical-align: bottom;
-    width: 142px;
+    width: 160px;
     text-align: center;
 }
 
     .questions-navigation-container.bottom {
         float: right;
-        width: 165px;
         text-align: center;
     }
 
@@ -772,9 +757,13 @@ input[type="checkbox"] {
 /*#region question view*/
 
 .question .page-header {
-    padding: 0 10px 0 0;
+    padding: 0;
     margin-top: 15px;
     margin-bottom: 20px;
+}
+
+.learning-content-title {
+    text-align: center;
 }
 
 .learning-content-title,
@@ -786,7 +775,7 @@ input[type="checkbox"] {
 
 .learning-content-title,
 .information-content-title {
-    font-family: 'Intro-Regular';
+    font-family: 'Intro-Regular', sans-serif;
     text-transform: uppercase;
     line-height: normal;
     font-size: 18px;
@@ -823,9 +812,10 @@ input[type="checkbox"] {
     border-style: solid;
     border-width: 6px 6px 0 6px;
 }
-.learning-content-expander-indicator.expanded {
-    border-width: 0 6px 6px 6px;
-}
+
+    .learning-content-expander-indicator.expanded {
+        border-width: 0 6px 6px 6px;
+    }
 
 .question-content {
     padding: 0 30px 20px;
@@ -1214,7 +1204,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .xapi-nav-link {
     display: block;
     line-height: 20px;
-    max-width: 46%;
+    max-width: 45%;
     margin: 10px 0 0;
     float: left;
     font-size: 16px;
@@ -1307,7 +1297,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
     .custom-select .current-selected-item-text-placeholder {
         color: #999;
-        font-size: 14px;
     }
 
     .custom-select .pointer-wrapper {
@@ -1968,9 +1957,9 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
         cursor: default;
     }
 
-    .statement-item.enabled .statement-option .question-answer-radiobutton {
-        cursor: pointer;
-    }
+.statement-item.enabled .statement-option .question-answer-radiobutton {
+    cursor: pointer;
+}
 
 .statement-label {
     padding: 10px 33px;
@@ -2021,8 +2010,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     bottom: 0;
 }
 
-.image-wrapper,
-.table-wrapper {
+.image-wrapper {
     overflow-x: auto;
     text-align: center;
 }
@@ -2090,93 +2078,89 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
             width: 20px;
         }
 
-        .custom-select ul > li:before {
-            display: none !important;
-        }
+.custom-select ul > li:before {
+    display: none;
+}
 
-    .styled-content .image-wrapper {
-        margin: 40px 0 20px;
+.styled-content .image-wrapper {
+    margin: 40px 0 20px;
+}
+
+    .styled-content .image-wrapper[style*="float:left"],
+    .styled-content .image-wrapper[style*="float: left"] {
+        margin-top: 10px;
+        margin-right: 30px;
     }
 
-        .styled-content .image-wrapper[style*="float:left"],
-        .styled-content .image-wrapper[style*="float: left"] {
-            margin-top: 10px;
-            margin-right: 30px;
-        }
-
-        .styled-content .image-wrapper[style*="float:right"],
-        .styled-content .image-wrapper[style*="float: right"] {
-            margin-top: 10px;
-            margin-left: 30px;
-        }
-
-    .styled-content cite {
-        position: relative;
-        display: block;
-        margin: 15px 165px;
-        font-size: 18px;
-        font-style: normal;
-        line-height: 30px;
-        white-space: pre-line;
+    .styled-content .image-wrapper[style*="float:right"],
+    .styled-content .image-wrapper[style*="float: right"] {
+        margin-top: 10px;
+        margin-left: 30px;
     }
 
-        .styled-content cite:before,
-        .styled-content cite:after {
-            position: absolute;
-            font-size: 50px;
-        }
+.styled-content cite {
+    position: relative;
+    display: block;
+    margin: 15px 165px;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 30px;
+    white-space: pre-line;
+}
 
-        .styled-content cite:before {
-            content: "\201C";
-            top: 3px;
-            margin-left: -35px;
-        }
-
-        .styled-content cite:after {
-            content: "\201D";
-            bottom: -23px;
-        }
-
-    .styled-content a {
-        border-width: 0 0 1px 0;
-        border-style: solid;
+    .styled-content cite:before,
+    .styled-content cite:after {
+        position: absolute;
+        font-size: 50px;
     }
 
-    .styled-content mark {
-        padding: 0 3px;
-        color: inherit;
+    .styled-content cite:before {
+        content: "\201C";
+        top: 3px;
+        margin-left: -35px;
     }
 
-    .styled-content .table-wrapper {
-        width: 100%;
-        margin: 20px 0;
+    .styled-content cite:after {
+        content: "\201D";
+        bottom: -23px;
     }
 
-    .styled-content table {
-        font-size: 16px;
-    }
+.styled-content a {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+}
 
-    .styled-content th,
-    .styled-content td {
-        text-align: left;
-    }
+.styled-content mark {
+    padding: 0 3px;
+    color: inherit;
+}
 
-    .styled-content table p {
-        margin: 0;
-    }
+.styled-content table {
+    margin: 20px auto;
+    font-size: 16px;
+}
 
-    .styled-content ul p {
-        display: inline;
-    }
+.styled-content th,
+.styled-content td {
+    text-align: left;
+}
 
-    .styled-content em {
-        font-style: normal;
-    }
+.styled-content table p {
+    margin: 0;
+}
 
-    .styled-content strong,
-    .styled-content th {
-        font-weight: normal;
-    }
+.styled-content ul p {
+    display: inline;
+}
+
+.styled-content em {
+    font-style: normal;
+}
+
+.styled-content strong,
+.styled-content th {
+    font-weight: normal;
+}
 
 @media (max-width: 875px) {
     .styled-content cite {
