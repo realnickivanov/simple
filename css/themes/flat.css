@@ -757,7 +757,6 @@ body {
     }
 
     .styled-content table {
-        display: inline-block;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;

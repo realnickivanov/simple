@@ -2322,6 +2322,11 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
         text-align: left;
     }
 
+    .styled-content table {
+        table-layout:fixed;
+        display:inline-table;
+    }
+
     .styled-content table p {
         margin: 0;
     }
