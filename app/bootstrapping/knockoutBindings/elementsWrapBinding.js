@@ -17,7 +17,6 @@
                 var $table = $(table),
                     $wrapper = $(tableWrapper);
 
-                //$table.css('width', '100%').css('height', 'auto').attr('align', null);
                 $table.wrap($wrapper);
             });
         }
