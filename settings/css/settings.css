@@ -900,6 +900,7 @@ body, html, input, h1 {
     background: #fffddd;
     padding: 7px;
     border-radius: 10px;
+    display: inline-block;
     font-weight: normal;
 }
 
