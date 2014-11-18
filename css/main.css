@@ -2153,6 +2153,10 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     text-align: left;
 }
 
+.styled-content table .image-wrapper {
+    overflow-x:hidden;
+}
+
 .styled-content table p {
     margin: 0;
 }
