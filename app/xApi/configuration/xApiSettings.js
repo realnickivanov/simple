@@ -24,11 +24,27 @@
             init: init
         };
 
+        var defaultXapi = {
+            lrs: {
+                uri: 'http://reports.easygenerator.com/xApi/statements',
+                authenticationRequired: false,
+                credentials: {
+                    username: '',
+                    password: ''
+                }
+            },
+            allowedVerbs: ['started', 'stopped', 'experienced', 'mastered', 'answered', 'passed', 'failed']
+        };
+
         return settings;
 
         function init(templateSettings) {
             return Q.fcall(function () {
-                $.extend(settings.xApi, templateSettings);
+                if (templateSettings.selectedLrs != 'default') {
+                    $.extend(settings.xApi, templateSettings);
+                } else {
+                    $.extend(settings.xApi, defaultXapi);
+                }
             });
         }
     }

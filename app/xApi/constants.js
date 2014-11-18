@@ -55,9 +55,14 @@
             other: "other"
         };
 
+        var extenstionKeys = {
+            courseId: "http://easygenerator/expapi/course/id"
+        }
+
         return {
             verbs: verbs,
-            interactionTypes: interactionTypes
+            interactionTypes: interactionTypes,
+            extenstionKeys: extenstionKeys
         };
     }
 );

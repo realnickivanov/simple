@@ -1,7 +1,6 @@
 ﻿define(['./configuration/xApiSettings', './base64', './errorsHandler'],
     function (xApiSettings, base64, errorsHandler) {
 
-        var moduleSettings = null;
         var eventManager = {
             requestQueue: [],
             init: init,
@@ -9,8 +8,7 @@
         };
         return eventManager;
 
-        function init(settings) {
-            moduleSettings = settings;
+        function init() {
             return Q.fcall(function () {
                 initXDomainRequestTransport();
             });
@@ -126,7 +124,7 @@
         }
 
         function createRequest(statement) {
-            var lrsUrl = moduleSettings.lrs.uri;
+            var lrsUrl = xApiSettings.xApi.lrs.uri;
 
             if (lrsUrl.indexOf("/statements") === -1)
                 lrsUrl = lrsUrl + "/statements";
@@ -134,9 +132,9 @@
             var userName = '';
             var password = '';
 
-            if (moduleSettings.lrs.authenticationRequired) {
-                userName = moduleSettings.lrs.credentials.username;
-                password = moduleSettings.lrs.credentials.password;
+            if (xApiSettings.xApi.lrs.authenticationRequired) {
+                userName = xApiSettings.xApi.lrs.credentials.username;
+                password = xApiSettings.xApi.lrs.credentials.password;
             } else {
                 userName = xApiSettings.anonymousCredentials.username;
                 password = xApiSettings.anonymousCredentials.password;
@@ -147,7 +145,6 @@
             headers["Content-Type"] = "application/json";
             var auth = "Basic " + base64.encode(userName + ':' + password);
             headers["Authorization"] = auth;
-            
 
             var options = {};
 
