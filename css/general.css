@@ -605,22 +605,28 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-.objective-progressbar-masteryscore-indicator-tooltip {
-    visibility: hidden;
-    width: 122px;
+.objective-progressbar-masteryscore-indicator-tooltip-wrapper {
+    display: none;
+    width: 180px;
     position: absolute;
     bottom: 100%;
-    right: 50%;
-    margin-right: -61px;
+    left: 50%;
+    margin-left: -90px;
+    text-align: center;
+    z-index: 1;
+}
+
+.objective-progressbar-masteryscore-indicator-tooltip {
+    display: inline-block;
+    min-width: 122px;
+    max-width: 180px;
+    position: relative;
     padding: 2px 5px;
     color: white;
     font-family: 'OpenSans', sans-serif;
     font-size: 12px;
-    opacity: 0;
-    transition: opacity .2s ease;
-    -moz-transition: opacity .2s ease;
-    -webkit-transition: opacity .2s ease;
     text-align: center;
+    opacity: 0.9;
 }
 
     .objective-progressbar-masteryscore-indicator-tooltip:after {
@@ -639,9 +645,8 @@ input[type="checkbox"] {
         transform: rotate(45deg);
     }
 
-.objective-progressbar-masteryscore-indicator:hover .objective-progressbar-masteryscore-indicator-tooltip {
-    visibility: visible;
-    opacity: 0.9;
+.objective-progressbar-masteryscore-indicator:hover .objective-progressbar-masteryscore-indicator-tooltip-wrapper {
+    display: block;
 }
 
 /*#endregion objective linear progressbar*/
@@ -2313,6 +2318,10 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 .styled-content th,
 .styled-content td {
     text-align: left;
+}
+
+.styled-content table .image-wrapper {
+    overflow-x: hidden;
 }
 
 .styled-content table p {

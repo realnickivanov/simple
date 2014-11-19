@@ -457,9 +457,8 @@ input[type="checkbox"] {
 .objective-progressbar-masteryscore-indicator-tooltip {
     display: inline-block;
     min-width: 122px;
-    max-width: 220px;
+    max-width: 180px;
     position: relative;
-    margin-top: 6px;
     padding: 2px 5px;
     color: white;
     font-family: 'OpenSans', sans-serif;
