@@ -48,7 +48,7 @@
                     <!-- ko ifnot: isPreviousQuestionAvailable() -->
                     <span class="question-navigation-button previous disabled">&nbsp;</span>
                     <!-- /ko -->
-                    <span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span>
+                    <span class="questions-counter"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span data-translate-text="[of]">&nbsp;</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
                     <!-- ko if: isNextQuestionAvailable() -->
                     <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
                     <!-- /ko -->
@@ -72,7 +72,7 @@
                 <!-- ko ifnot: isPreviousQuestionAvailable() -->
                 <span class="question-navigation-button previous disabled">&nbsp;</span>
                 <!-- /ko -->
-                <span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span>
+                <span class="questions-counter"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span data-translate-text="[of]">&nbsp;</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
                 <!-- ko if: isNextQuestionAvailable() -->
                 <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
                 <!-- /ko -->
