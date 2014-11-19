@@ -22,7 +22,9 @@
                             <div class="objective-progressbar-score" data-bind="style: { width: 100 - objective.score() + '%' }" style="width: 0;">&nbsp;</div>
                             <div class="objective-progressbar-masteryscore-indicator" data-bind="style: { left: masteryScore + '%' }">
                                 <div class="objective-progressbar-masteryscore-indicator-value"></div>
-                                <div class="objective-progressbar-masteryscore-indicator-tooltip" data-bind="text: masteryScore + '% to complete'"></div>
+                                <div class="objective-progressbar-masteryscore-indicator-tooltip-wrapper">
+                                    <div class="objective-progressbar-masteryscore-indicator-tooltip" data-bind="text: masteryScore + '% to complete'"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="objective-progressbar-wrapper">
@@ -48,7 +50,7 @@
                     <!-- ko ifnot: isPreviousQuestionAvailable() -->
                     <span class="question-navigation-button previous disabled">&nbsp;</span>
                     <!-- /ko -->
-                    <span class="questions-counter"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span data-translate-text="[of]">&nbsp;</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
+                    <span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span>
                     <!-- ko if: isNextQuestionAvailable() -->
                     <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
                     <!-- /ko -->
@@ -72,7 +74,7 @@
                 <!-- ko ifnot: isPreviousQuestionAvailable() -->
                 <span class="question-navigation-button previous disabled">&nbsp;</span>
                 <!-- /ko -->
-                <span class="questions-counter"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span data-translate-text="[of]">&nbsp;</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
+                <span class="questions-counter" data-bind="text: navigationContext.currentQuestionIndex + ' of ' + navigationContext.questionsCount"></span>
                 <!-- ko if: isNextQuestionAvailable() -->
                 <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
                 <!-- /ko -->
