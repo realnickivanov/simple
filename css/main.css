@@ -518,7 +518,7 @@ input[type="checkbox"] {
 
 .navigation-home-link {
     display: table-cell;
-    width: 55px;
+    width: 65px;
     vertical-align: middle;
     position: relative;
     cursor: pointer;
@@ -529,14 +529,14 @@ input[type="checkbox"] {
 }
 
 .navigation-home-link-block {
-    height: 55px;
-    width: 50px;
+    height: 65px;
+    width: 60px;
     position: relative;
     margin-left: -1px;
     overflow: hidden;
-    padding-left: 4px;
-    padding-top: 27px;
+    padding-top: 32px;
     text-overflow: ellipsis;
+    text-align: center;
     z-index: 1;
 }
 
