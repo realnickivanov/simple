@@ -34,6 +34,8 @@
                 { "key": "[submit]", "value": "Submit" },
                 { "key": "[try again]", "value": "Try again" },
                 { "key": "[next]", "value": "Next" },
+                { "key": "[of]", "value": "of" },
+                { "key": "[to complete]", "value": "to complete" },
                 { "key": "[correct answer]", "value": "Correct answer" },
                 { "key": "[incorrect answer]", "value": "Incorrect answer" },
                 { "key": "[previous question]", "value": "previous" },
