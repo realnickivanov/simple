@@ -4,29 +4,17 @@
         localize: function () {
             $('[data-translate-text]').each(function () {
                 var key = $(this).attr('data-translate-text');
-                try {
-                    $(this).text(translation.getTextByKey(key));
-                } catch (exeption) {
-                    console.error(exeption);
-                }
+                $(this).text(translation.getTextByKey(key));
             });
 
             $('[data-translate-placeholder]').each(function () {
                 var key = $(this).attr('data-translate-placeholder');
-                try {
-                    $(this).attr("placeholder", translation.getTextByKey(key));
-                } catch (exeption) {
-                    console.error(exeption);
-                }
+                $(this).attr("placeholder", translation.getTextByKey(key));
             });
 
             $('[data-translate-title]').each(function () {
                 var key = $(this).attr('data-translate-title');
-                try {
-                    $(this).attr("title", translation.getTextByKey(key));
-                } catch (exeption) {
-                    console.error(exeption);
-                }
+                $(this).attr("title", translation.getTextByKey(key));
             });
         }
     }
