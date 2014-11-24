@@ -48,8 +48,10 @@
                     { key: '[tracking and tracing not supported hint]', value: 'Sorry, this course does not result tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari or IE10+ in order to track your progress, or just start the course without tracking.' }
         ];
 
-        spec.translations = mapTranslations(spec.translations);
-
+        if (!_.isNullOrUndefined(spec) && !_.isNullOrUndefined(spec.translations)) {
+            spec.translations = mapTranslations(spec.translations);
+        }
+        
         function mapTranslations(translations) {
             return translations.concat(_.difference(defaultTranslations, translations));
         }
