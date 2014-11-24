@@ -1035,12 +1035,6 @@ input[type="checkbox"] {
 
 /*#region not supported browser view */
 
-html.ie7, .ie7 body, .ie7 .application-wrapper,
-html.ie8, .ie8 body, .ie8 .application-wrapper {
-    overflow-y: hidden;
-    min-width: 600px;
-}
-
 .not-supported-browser {
     padding-top: 100px;
     text-align: center;
@@ -1056,9 +1050,6 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     white-space: nowrap;
 }
 
-.ie7 .browser-group {
-    display: inline;
-}
 
 /*#endregion not supported browser view */
 

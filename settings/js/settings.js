@@ -173,9 +173,7 @@
                     { key: '[tracking and tracing error hint]', value: 'If you continue without restarting, your learning results will not be reported.' },
                     { key: '[tracking and tracing restart course]', value: 'Restart course' },
                     { key: '[tracking and tracing continue anyway]', value: 'Continue anyway' },
-                    { key: '[tracking and tracing reporting progress]', value: 'reporting results...' },
-                    { key: '[tracking and tracing not supported]', value: 'Result tracking cannot be established' },
-                    { key: '[tracking and tracing not supported hint]', value: 'Sorry, this course does not result tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari or IE10+ in order to track your progress, or just start the course without tracking.' }
+                    { key: '[tracking and tracing reporting progress]', value: 'reporting results...' }
             ],
 
             nl: [
@@ -220,9 +218,7 @@
                     { key: '[tracking and tracing error hint]', value: 'Als je doorgaat worden je leerresultaten niet vastgelegd' },
                     { key: '[tracking and tracing restart course]', value: 'Herstart cursus' },
                     { key: '[tracking and tracing continue anyway]', value: 'Ga door' },
-                    { key: '[tracking and tracing reporting progress]', value: 'Resultaten vastleggen...' },
-                    { key: '[tracking and tracing not supported]', value: 'Het vastleggen van de resultaten is niet gelukt' },
-                    { key: '[tracking and tracing not supported hint]', value: 'Sorry, resultaten kunnen niet worden vastgelegd met Internet Explorer 9. Gebruik Chrome, Firefox, Safari of IE10+ of start de cursus zonder uw resultaten vast te leggen.' }
+                    { key: '[tracking and tracing reporting progress]', value: 'Resultaten vastleggen...' }
             ],
             ua: [
                     { key: "[course]", value: "Курс :" },
@@ -266,9 +262,7 @@
                     { key: "[tracking and tracing error hint]", value: "Натисніть 'Спробувати ще'. Якщо помилка повторюється і ви бажаєте продовжити курс без відправки результатів - натисніть 'Продовжити'." },
                     { key: "[tracking and tracing restart course]", value: "Спробувати ще" },
                     { key: "[tracking and tracing continue anyway]", value: "Продовжити" },
-                    { key: "[tracking and tracing reporting progress]", value: "Надсилаемо прогресс..." },
-                    { key: "[tracking and tracing not supported]", value: "Неможливе відстеження прогресу" },
-                    { key: "[tracking and tracing not supported hint]", value: "Вибачте, курс не підтримує відправлення результатіва в Internet Explorer 9. Будь-ласка, використовуйте один з наступних браузерів: Chrome, Firefox, Safari, IE10+, якщо бажаєте відстежувати прогрес, або просто почніть курс без відправки результатів" }
+                    { key: "[tracking and tracing reporting progress]", value: "Надсилаемо прогресс..." }
             ],
 
             xx: [
@@ -313,9 +307,7 @@
                     { key: '[tracking and tracing error hint]', value: ko.observable('If you continue without restarting, your learning progress will not be reported.') },
                     { key: '[tracking and tracing restart course]', value: ko.observable('Restart course') },
                     { key: '[tracking and tracing continue anyway]', value: ko.observable('Continue anyway') },
-                    { key: '[tracking and tracing reporting progress]', value: ko.observable('reporting progress...') },
-                    { key: '[tracking and tracing not supported]', value: ko.observable('Progress tracking cannot be established') },
-                    { key: '[tracking and tracing not supported hint]', value: ko.observable('Sorry, this course does not support progress tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari, IE10+ in order to track your progress, or just start the course without tracking.') }
+                    { key: '[tracking and tracing reporting progress]', value: ko.observable('reporting progress...') }
             ]
         },
 
@@ -703,28 +695,7 @@
             $input: $('#logoInput')
         },
 
-        initFrame: function () {
-            $('#logoForm').attr('action', imageUploader.apiUrl);
-            $('#logoFrame').on('readystatechange', function () {
-                if (this.readyState != "complete") {
-                    return;
-                }
-
-                try {
-                    var response = this.contentDocument.body.innerHTML;
-                    imageUploader.handleResponse(response);
-                } catch (e) {
-                    imageUploader.status.fail(imageUploader.somethingWentWrongMessage);
-                    imageUploader.button.enable();
-                }
-            });
-        },
-
         init: function () {
-            if (window.top.navigator.userAgent.match(/MSIE 9/i)) {
-                imageUploader.initFrame();
-            }
-
             imageUploader.button.$input.on('change', imageUploader.processFile);
             imageUploader.button.enable();
         },
