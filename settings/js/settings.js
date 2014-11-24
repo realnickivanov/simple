@@ -819,6 +819,20 @@
             }
 
             var customTranslations = viewModel.getCustomTranslations();
+
+            if (extraData.customTranslations.length == 0 && settings.translations != null) {
+                $.each(settings.translations, function (i) {
+                    $.each(customTranslations, function (j) {
+                        if (settings.translations[i].key === customTranslations[j].key) {
+                            customTranslations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
+                        }
+                    });
+                });
+                
+                viewModel.selectedLanguage("xx");
+                return;
+            }
+
             $.each(extraData.customTranslations, function (i) {
                 $.each(customTranslations, function (j) {
                     if (extraData.customTranslations[i].key === customTranslations[j].key) {
