@@ -46,8 +46,10 @@
                     { key: '[tracking and tracing reporting progress]', value: 'reporting results...' }
         ];
 
-        spec.translations = mapTranslations(spec.translations);
-
+        if (!_.isNullOrUndefined(spec) && !_.isNullOrUndefined(spec.translations)) {
+            spec.translations = mapTranslations(spec.translations);
+        }
+        
         function mapTranslations(translations) {
             return translations.concat(_.difference(defaultTranslations, translations));
         }
