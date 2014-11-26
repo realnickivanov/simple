@@ -27,7 +27,7 @@
                     { key: '[fill in the blank choose answer]', value: 'Choose the answer...' },
                     { key: '[thank you message]', value: 'Thank you, you can close the page now' },
                     { key: '[there are no questions]', value: 'No questions' },
-                    { key: '[browser not supported]', value: 'Your browser is not supported, use Chrome, Firefox or IE10+' },
+                    { key: '[browser not supported]', value: 'Your browser is currently not supported.' },
                     { key: '[browser not supported hint]', value: 'Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.' },
                     { key: '[page not found title]', value: 'Page not found (404)' },
                     { key: '[page not found message]', value: "Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below." },
