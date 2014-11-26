@@ -27,7 +27,7 @@
                     { key: '[fill in the blank choose answer]', value: 'Choose the answer...' },
                     { key: '[thank you message]', value: 'Thank you, you can close the page now' },
                     { key: '[there are no questions]', value: 'No questions' },
-                    { key: '[browser not supported]', value: 'Your browser is not supported, use Chrome, Firefox, Safari or IE10+' },
+                    { key: '[browser not supported]', value: 'Your browser is currently not supported.' },
                     { key: '[browser not supported hint]', value: 'Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.' },
                     { key: '[page not found title]', value: 'Page not found (404)' },
                     { key: '[page not found message]', value: "Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below." },
@@ -43,9 +43,7 @@
                     { key: '[tracking and tracing error hint]', value: 'If you continue without restarting, your learning results will not be reported.' },
                     { key: '[tracking and tracing restart course]', value: 'Restart course' },
                     { key: '[tracking and tracing continue anyway]', value: 'Continue anyway' },
-                    { key: '[tracking and tracing reporting progress]', value: 'reporting results...' },
-                    { key: '[tracking and tracing not supported]', value: 'Result tracking cannot be established' },
-                    { key: '[tracking and tracing not supported hint]', value: 'Sorry, this course does not result tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari or IE10+ in order to track your progress, or just start the course without tracking.' }
+                    { key: '[tracking and tracing reporting progress]', value: 'reporting results...' }
         ];
 
         if (!_.isNullOrUndefined(spec) && !_.isNullOrUndefined(spec.translations)) {

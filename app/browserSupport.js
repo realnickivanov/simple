@@ -5,7 +5,6 @@
         isSupportedMobile: null,
         isSupportedBrowser: null,
         isMobileDevice: null,
-        isIE9: null,
         isFirefox: null,
         isChromeWithPageCoordsBug: null,
 
@@ -16,7 +15,6 @@
 
     function initialize() {
         var browserInfo = getBrowserInfo();
-        browserSupport.isIE9 = isIE9(browserInfo);
         browserSupport.isFirefox = isFirefox(browserInfo);
 
         browserSupport.isMobileDevice = isMobileDevice();
@@ -44,10 +42,6 @@
         var version = parseInt(M[1], 10);
 
         return { browser: browser, version: version };
-    };
-
-    function isIE9(browserInfo) {
-        return browserInfo.browser == "msie" && browserInfo.version == 9;
     };
 
     function isFirefox(browserInfo) {
@@ -86,12 +80,12 @@
         if (navigator.appName.toLowerCase() == "opera" || navigator.userAgent.indexOf("OPR") != -1)
             return false;
 
-        //IE 9+, Chrome 28+, Firefox 22+, Safari 5+ are supported
+        //IE 10+, Chrome 28+, Firefox 22+, Safari 5+ are supported
         var browser = browserInfo.browser;
         var version = browserInfo.version;
 
         if (browser == "chrome" && version >= 28 ||
-                browser == "msie" && version >= 9 ||
+                browser == "msie" && version >= 10 ||
                 browser == "firefox" && version >= 22 ||
                 browser == "safari" && version >= 533)
             return true;
