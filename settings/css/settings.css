@@ -50,7 +50,7 @@ body, html, input, h1 {
     font: 13px 'OpenSans';
     text-decoration:none;
     border: 1px solid transparent;
-    border-radius: 5px;
+    border-radius: 2px;
     cursor: pointer;
 }
 
@@ -156,6 +156,10 @@ body, html, input, h1 {
         border-color: #469dd5;
     }
 
+    .settings-tabs-item:hover {
+        color: #7c858e;
+    }
+
     .settings-tabs-item.customization {
         padding-left: 30px;
     }
@@ -215,6 +219,10 @@ body, html, input, h1 {
     padding: 20px 16px;
 }
 
+.tab-header-container {
+    margin-bottom: 30px;
+}
+
 .tab-header-container > * {
     display: inline-block;
 }
@@ -234,6 +242,39 @@ body, html, input, h1 {
     font-size: 12px;
     color: #a7abb1;    
 }
+
+.tab-content-container {
+    
+}
+
+.tab-content-row {
+    
+}
+
+/*region Course logo*/
+
+.course-logo-title {
+    font: 14px 'OpenSans-Semibold';
+    color: #42515f;
+}
+
+.course-logo-url-container {
+    font-size: 13px;
+    color: #42515f;
+}
+
+.course-logo-url {
+    
+}
+
+.course-logo-url-clear-btn {
+    
+}
+
+/*endregion*/
+
+
+
 
 .page-container { 
     height: 100%;
