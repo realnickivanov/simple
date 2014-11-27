@@ -1,21 +1,21 @@
 ﻿/*#region FONTS */
 
 @font-face {
-    font-family: 'Open Sans';
+    font-family: 'OpenSans';
     font-style: normal;
     font-weight: 400;
     src: local('Open Sans'), local('OpenSans'), url(fonts/opensans-400.woff) format('woff');
 }
 
 @font-face {
-    font-family: 'Open Sans';
+    font-family: 'OpenSans-Semibold';
     font-style: normal;
     font-weight: 600;
     src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(fonts/opensans-600.woff) format('woff');
 }
 
 @font-face {
-    font-family: 'Open Sans';
+    font-family: 'OpenSans-Italic';
     font-style: italic;
     font-weight: 400;
     src: local('Open Sans Italic'), local('OpenSans-Italic'), url(fonts/opensans-italic-400.woff) format('woff');
@@ -23,16 +23,219 @@
 
 /*#endregion */
 
+/*#region general css*/
 body, html, input, h1 {
     padding: 0;
     margin: 0;
-    font-family: 'Open Sans';
+    font-family: 'OpenSans';
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
 }
 
-.page-container {
+.clearfix {
+    clear: both;
+}
+
+.unstyled {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+/*#endregion*/
+
+/*region buttons*/
+.btn {
+	display:inline-block;
+    font: 13px 'OpenSans';
+    text-decoration:none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn.uppercase {
+    text-transform: uppercase;
+}
+
+.btn.green {
+    background-color: #65bd77;
+    border-color: #61b472;
+    color: #fff;
+}
+
+    .btn.green:hover,
+    .btn.green:active {
+        background-color: #5fb06f;
+    }
+
+.btn.grey {
+    font-family: 'OpenSans-Semibold';
+    background-color: #f2f4f6;
+    border-color: #9ea4b5;
+    color: #42515f;
+}
+    
+    .btn.grey:hover,
+    .btn.grey:active {
+        background-color: #e7e7e7;
+        border-color: #cacaca;
+        color: #42515f;
+    }
+/*endregion buttons*/
+
+.settings-container {
+    height: 100%;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*region header*/
+.settings-header {
+    margin-bottom: 5px;
+    font: 19px 'OpenSans-Semibold';
+    color: #303133;
+    overflow: hidden;
+    cursor: default;
+}
+
+.settings-header > * {
+    display: inline-block;
+}
+
+.settings-header .settings-title {
+    padding: 6px 0;
+    font: 19px 'OpenSans-Semibold';
+}
+
+.apply-settings.btn  {
+    float: right;
+    padding: 10px 15px 7px;
+}
+/*endregion header*/
+
+/*region content*/
+.settings-content-wrapper {
+    background-color: #f9fafc;
+    border: 1px solid #e9e9eb;
+}
+/*endregion*/
+
+.settings-tabs-container {
+    
+}
+
+.settings-tabs-wrapper {
+    font: 13px 'OpenSans-Semibold';
+    text-transform: uppercase;
+    color: #42515f;
+}
+
+.settings-tabs-wrapper > li {
+    display: inline-block;
+}
+
+.settings-tabs-item {
+    position: relative;
+    padding: 2px 10px 12px 0;
+    padding-left: 30px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+    .settings-tabs-item:before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+    }
+
+    .settings-tabs-item.active {
+        border-color: #469dd5;
+    }
+
+    .settings-tabs-item.customization {
+        padding-left: 30px;
+    }
+
+    .settings-tabs-item.mastery-score {
+        padding-left: 40px;
+    }
+
+    .settings-tabs-item.track-and-trace {
+        padding-left: 44px;
+    }
+
+    .settings-tabs-item.lenguages {
+        padding-left: 44px;
+    }
+
+    .settings-tabs-item.customization:before {
+        left: 7px;
+        background: url("../img/sprites_16.png") 0 0 no-repeat;
+    }
+
+    .settings-tabs-item.customization:hover:before {
+        background: url("../img/sprites_16.png") 0 -21px no-repeat;
+    }
+
+    .settings-tabs-item.mastery-score:before {
+        top: 3px;
+        left: 16px;
+        background: url("../img/sprites_16.png") -21px 0 no-repeat;
+    }
+
+    .settings-tabs-item.mastery-score:hover:before {
+        background: url("../img/sprites_16.png") -21px -21px no-repeat;
+    }
+
+    .settings-tabs-item.track-and-trace:before {
+        top: 4px;
+        left: 18px;
+        background: url("../img/sprites_16.png") -42px 0 no-repeat;
+    }
+
+    .settings-tabs-item.track-and-trace:hover:before {
+        background: url("../img/sprites_16.png") -42px -21px no-repeat;
+    }
+
+    .settings-tabs-item.lenguages:before {
+        top: 3px;
+        left: 20px;
+        background: url("../img/sprites_16.png") -63px 0 no-repeat;
+    }
+
+    .settings-tabs-item.lenguages:hover:before {
+        background: url("../img/sprites_16.png") -63px -21px no-repeat;
+    }
+
+.settings-tab-container {
+    padding: 20px 16px;
+}
+
+.tab-header-container > * {
+    display: inline-block;
+}
+
+.tab-header-wrapper {
+    vertical-align: top;
+    padding-left: 16px;
+    padding-top: 26px;
+}
+
+.tab-header-title {
+    font: 19px 'OpenSans-Semibold';
+    color: #42515f;
+}
+
+.tab-header-content-text {
+    font-size: 12px;
+    color: #a7abb1;    
+}
+
+.page-container { 
     height: 100%;
     width: 100%;
     -moz-box-sizing: border-box;
@@ -48,12 +251,6 @@ body, html, input, h1 {
     position: relative;
     background-color: #f2f2f2;
     border-bottom: 1px solid #e0dede;
-}
-
-.clearfix:after {
-    content: '';
-    display: block;
-    clear: both;
 }
 
 .page-title-wrapper {
