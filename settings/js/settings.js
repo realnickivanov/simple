@@ -25,11 +25,26 @@
 
             data.lrsOptions = [
                 { key: 'default', text: 'easygenerator (recommended)' },
-                { key: 'custom', text: 'custom LRS' }
+                { key: 'custom', text: 'Custom LRS' }
             ];
+
             data.selectedLrs = ko.observable(data.lrsOptions[0].key);
 
-            data.customLrsEnabled = ko.computed(function() {
+            ko.utils.arrayMap(data.lrsOptions, function (lrsOption) {
+                lrsOption.isSelected = ko.observable(false);
+                lrsOption.select = function () {
+                    ko.utils.arrayForEach(data.lrsOptions, function (item) {
+                        item.isSelected(false);
+                    });
+                    lrsOption.isSelected(true);
+                    data.selectedLrs(lrsOption.key);
+                };
+                return lrsOption;
+            });
+
+            data.lrsOptions[0].isSelected(true);
+
+            data.customLrsEnabled = ko.computed(function () {
                 return data.enableXAPI() && data.selectedLrs() != data.lrsOptions[0].key;
             });
 
@@ -38,7 +53,7 @@
             data.lapLogin = ko.observable();
             data.lapPassword = ko.observable();
 
-            data.credentialsEnabled = ko.computed(function() {
+            data.credentialsEnabled = ko.computed(function () {
                 return data.customLrsEnabled() && data.authenticationRequired();
             });
 
@@ -57,6 +72,10 @@
 
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
+        advancedSettingsExpanded: ko.observable(true),
+        toggleAdvancedSettings: function() {
+            this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
+        },
 
         logo: (function () {
             var logo = {};
@@ -563,7 +582,7 @@
             indicatorHolder: 'dropdown-indicator-holder',
             indicator: 'dropdown-indicator'
         },
-        init: function(element, valueAccessor) {
+        init: function(element) {
             var $element = $(element),
                 cssClasses = ko.bindingHandlers.dropdown.cssClasses;
 
@@ -648,6 +667,33 @@
                         $element.trigger('change');
                     });
             });
+        }
+    };
+
+    ko.bindingHandlers.tabs = {
+        init: function(element) {
+            var $element = $(element),
+                dataTabLink = 'data-tab-link',
+                dataTab = 'data-tab',
+                activeClass = 'active',
+                $tabLinks = $element.find('[' + dataTabLink + ']'),
+                $tabs = $element.find('[' + dataTab + ']');
+
+            $tabLinks.first().addClass(activeClass);
+            $tabs.first().show();
+
+            $tabLinks.each(function(index, item) {
+                var $item = $(item);
+                $item.on('click', function () {
+                    var key = $item.data('tab-link'),
+                        currentContentTab = $element.find('[' + dataTab + '="' + key + '"]');
+                    $tabLinks.removeClass(activeClass);
+                    $item.addClass(activeClass);
+                    $tabs.hide();
+                    currentContentTab.show();
+                });
+            });
+
         }
     };
 
