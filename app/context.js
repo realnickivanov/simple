@@ -7,7 +7,7 @@
             initialize = function () {
                 var that = this;
                 return $.ajax({
-                    url: 'content/data.js?v=' + Math.random(),
+                    url: 'content/data.js',
                     contentType: 'application/json',
                     dataType: 'json'
                 }).then(function (response) {
