@@ -44,8 +44,8 @@
                 var image = new Image();
                 image.className = 'image';
                 image.style.display = "none";
-                image.style.width = 'auto';
-                image.style.height = 'auto';  //Fix for IE
+                image.style.width = 'auto'; //Fix for IE
+                image.style.height = 'auto'; 
                 image.onload = function () {
                     $rootElement.append(image);
                     updatePreviewImageSize($element);
