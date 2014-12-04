@@ -53,7 +53,7 @@ gulp.task('build-app', ['clean'], function () {
        .pipe(minifyCss())
        .pipe(gulp.dest(output + '/css/themes'));
 
-    gulp.src('img/**/*.{jpeg,jpg,png,gif}')
+    gulp.src('img/**')
        .pipe(gulp.dest(output + '/img'));
 
     gulp.src(['js/require.js'])
@@ -88,7 +88,7 @@ gulp.task('build-settings', ['clean'], function () {
       .pipe(minifyCss())
       .pipe(gulp.dest(output + '/settings/css'));
 
-    gulp.src('settings/img/*.{jpeg,jpg,png,gif}')
+    gulp.src('settings/img/**')
       .pipe(gulp.dest(output + '/settings/img'));
 
     return gulp.src(['settings/js/settings.js'])
