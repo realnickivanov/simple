@@ -1,1 +1,2 @@
 CALL gulp build
+PAUSE
