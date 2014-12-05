@@ -9,7 +9,8 @@
                 return $.ajax({
                     url: 'content/data.js',
                     contentType: 'application/json',
-                    dataType: 'json'
+                    dataType: 'json',
+                    cache: false
                 }).then(function (response) {
                     that.course = new Course({
                         id: response.id,

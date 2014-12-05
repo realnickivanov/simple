@@ -18,7 +18,7 @@
         starterAccessType = 1;
 
     var viewModel = {
-        trackingData: (function() {
+        trackingData: (function () {
             var data = {};
 
             data.enableXAPI = ko.observable(false),
@@ -29,7 +29,7 @@
             ];
             data.selectedLrs = ko.observable(data.lrsOptions[0].key);
 
-            data.customLrsEnabled = ko.computed(function() {
+            data.customLrsEnabled = ko.computed(function () {
                 return data.enableXAPI() && data.selectedLrs() != data.lrsOptions[0].key;
             });
 
@@ -38,7 +38,7 @@
             data.lapLogin = ko.observable();
             data.lapPassword = ko.observable();
 
-            data.credentialsEnabled = ko.computed(function() {
+            data.credentialsEnabled = ko.computed(function () {
                 return data.customLrsEnabled() && data.authenticationRequired();
             });
 
@@ -124,7 +124,7 @@
             themes.setSelected(themes.default);
 
             themes.openDemo = function () {
-                window.open(templateUrl + '?theme=' + themes.selected(), '_blank');
+                window.open(templateUrl + '?v=' + new Date().getTime() + '&theme=' + themes.selected(), '_blank');
             };
 
             return themes;
@@ -373,7 +373,7 @@
                         password: viewModel.trackingData.lapPassword()
                     }
                 },
-                allowedVerbs: $.map(viewModel.trackingData.statements, function(value, key) {
+                allowedVerbs: $.map(viewModel.trackingData.statements, function (value, key) {
                     return value() ? key : undefined;
                 })
             },
@@ -461,27 +461,27 @@
     };
 
     ko.bindingHandlers.switchToggle = {
-        init: function(element, valueAccessor) {
+        init: function (element, valueAccessor) {
             var switchToggle = ko.bindingHandlers.switchToggle,
                 viewModel = switchToggle.viewModel(element, valueAccessor),
                 value = ko.unwrap(valueAccessor().value());
 
             viewModel.setInitialValue(value);
 
-            switchToggle.onClick(element, function() {
+            switchToggle.onClick(element, function () {
                 viewModel.toggle();
 
                 var currentValue = ko.unwrap(valueAccessor().value());
                 valueAccessor().value(!currentValue);
             });
         },
-        update: function(element, valueAccessor) {
+        update: function (element, valueAccessor) {
             var viewModel = ko.bindingHandlers.switchToggle.viewModel(element, valueAccessor),
                 value = ko.unwrap(valueAccessor().value());
 
             viewModel.updateValue(value);
         },
-        viewModel: function(element) {
+        viewModel: function (element) {
             var $element = $(element),
                 $wrapper = $('.switch-toggle-wrapper', $element);
 
@@ -528,11 +528,11 @@
                 toggle: toggle
             }
         },
-        onClick: function(element, handler) {
+        onClick: function (element, handler) {
             var $element = $(element),
                 isMouseDownFired = false;
 
-            $element.mousedown(function(event) {
+            $element.mousedown(function (event) {
                 if (event.which != 1)
                     return;
 
@@ -540,7 +540,7 @@
                 handler();
             });
 
-            $element.click(function() {
+            $element.click(function () {
                 if (isMouseDownFired) {
                     isMouseDownFired = false;
                     return;
@@ -563,7 +563,7 @@
             indicatorHolder: 'dropdown-indicator-holder',
             indicator: 'dropdown-indicator'
         },
-        init: function(element, valueAccessor) {
+        init: function (element, valueAccessor) {
             var $element = $(element),
                 cssClasses = ko.bindingHandlers.dropdown.cssClasses;
 
@@ -589,7 +589,7 @@
                 .addClass(cssClasses.optionsList)
                 .appendTo($element);
 
-            $currentItemElement.on('click', function(e) {
+            $currentItemElement.on('click', function (e) {
                 if ($element.hasClass(cssClasses.disabled)) {
                     return;
                 }
@@ -598,19 +598,19 @@
                 e.stopPropagation();
             });
 
-            var collapseHandler = function() {
+            var collapseHandler = function () {
                 $currentItemElement.removeClass(cssClasses.expanded);
             };
 
             $('html').bind('click', collapseHandler);
             $(window).bind('blur', collapseHandler);
 
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
                 $('html').unbind('click', collapseHandler);
                 $(window).unbind('blur', collapseHandler);
             });
         },
-        update: function(element, valueAccessor) {
+        update: function (element, valueAccessor) {
             var $element = $(element),
                 cssClasses = ko.bindingHandlers.dropdown.cssClasses,
 
@@ -633,7 +633,7 @@
 
             $optionsListElement.empty();
 
-            $.each(options, function(index, option) {
+            $.each(options, function (index, option) {
                 if (option[optionsValue] == currentValue) {
                     $currentItemTextElement.text(option[optionsText]);
                     return;
@@ -643,7 +643,7 @@
                     .addClass(cssClasses.optionItem)
                     .appendTo($optionsListElement)
                     .text(option[optionsText])
-                    .on('click', function(e) {
+                    .on('click', function (e) {
                         value(option[optionsValue]);
                         $element.trigger('change');
                     });
@@ -803,7 +803,7 @@
             viewModel.trackingData.lapPassword(settings.xApi.lrs.credentials.password || '');
 
             if (settings.xApi.allowedVerbs) {
-                $.each(viewModel.trackingData.statements, function(key, value) {
+                $.each(viewModel.trackingData.statements, function (key, value) {
                     value($.inArray(key, settings.xApi.allowedVerbs) > -1);
                 });
             }
@@ -829,7 +829,7 @@
                         }
                     });
                 });
-                
+
                 viewModel.selectedLanguage("xx");
                 return;
             }

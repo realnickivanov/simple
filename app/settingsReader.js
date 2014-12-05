@@ -1,14 +1,15 @@
 ﻿define(['models/templateSettings'], function (TemplateSettings) {
 
+    var ticks = new Date().getTime();
     function readTemplateSettings() {
-        return read('settings.js')
+        return read('settings.js?_=' + ticks)
             .then(function (result) {
                 return new TemplateSettings(result);
         });
     }
 
     function readPublishSettings() {
-        return read('publishSettings.js');
+        return read('publishSettings.js?_=' + ticks);
     }
 
     function read(filename) {
