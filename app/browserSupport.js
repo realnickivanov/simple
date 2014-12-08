@@ -80,12 +80,11 @@
         if (navigator.appName.toLowerCase() == "opera" || navigator.userAgent.indexOf("OPR") != -1)
             return false;
 
-        //IE 10+, Chrome 28+, Firefox 22+, Safari 5+ are supported
+        //Chrome 28+, Firefox 22+, Safari 5+ are supported
         var browser = browserInfo.browser;
         var version = browserInfo.version;
 
         if (browser == "chrome" && version >= 28 ||
-                browser == "msie" && version >= 10 ||
                 browser == "firefox" && version >= 22 ||
                 browser == "safari" && version >= 533)
             return true;
