@@ -1214,6 +1214,27 @@ input[type="checkbox"] {
     overflow: hidden;
 }
 
+.xapi-start-text {
+    display: inline-block;
+    max-width: 241px;
+    overflow: hidden;
+    padding-right: 5px;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+    .xapi-nav-btn .small-page-action-btn:after {
+        content: "*";
+    }
+
+.xapi-start-agreement {
+    color: #777777;
+    font-size: 12px;
+    line-height: 20px;
+    padding-top: 5px;
+    text-align: center;
+}
+
 /*#endregion xapi-btn-container*/
 
 /*#region input fill in the blank*/
