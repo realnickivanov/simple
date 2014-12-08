@@ -30,7 +30,6 @@
 
             data.selectedLrs = ko.observable(data.lrsOptions[0].key);
 
-            data.customLrsEnabled = ko.computed(function () {
             ko.utils.arrayMap(data.lrsOptions, function (lrsOption) {
                 lrsOption.isSelected = ko.computed({
                     read: function() {
