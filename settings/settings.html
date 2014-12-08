@@ -41,13 +41,13 @@
                         <span class="tabs-item-short-title">language</span>
                     </li>
                 </ul>
-                <div class="settings-tab-container customization" data-tab="customization" style="display: none;">
+                <div class="settings-tab-container customization" data-tab="customization">
                     <div class="tab-header-container">
                         <img src="img/graphical.png" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title">Customize your course</h1>
                             <div class="tab-header-content">
-                                <span class="tab-header-content-text">Here appears some shirt description for mastery score settings</span>
+                                <span class="tab-header-content-text">Change the look and feel of the course</span>
                             </div>
                         </div>
                     </div>
@@ -68,14 +68,14 @@
                                         </form>
                                     </div>
                                     <div class="template-logo-container">
-                                        <div class="template-logo-wrapper" data-bind="style: { display: logo.hasLogo() ? 'none' : 'inline-block' }">
+                                        <div class="template-logo-wrapper" data-bind="style: { display: logo.hasLogo() || logo.isError() ? 'none' : 'inline-block' }">
                                             <div class="template-logo-emty-img"></div>
                                             <div class="template-logo-empty-text">
                                                 Your logo will appear here
-                                                <p>(recomended size 300 x 50 px)</p>
+                                                <p>(recommended size 300 x 50 px)</p>
                                             </div>
                                         </div>
-                                        <div class="template-logo-wrapper" data-bind="style: { display: logo.isError() ? 'inline-block' : 'none' }">
+                                        <div class="template-logo-wrapper error" data-bind="style: { display: logo.isError() ? 'inline-block' : 'none' }">
                                             <div class="template-logo-emty-img"></div>
                                             <div class="template-logo-empty-text">
                                                 <span data-bind="text: logo.errorText">Unsupported image format</span>
@@ -127,13 +127,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="settings-tab-container mastery-score" data-tab="mastery-score" style="display: none;">
+                <div class="settings-tab-container mastery-score" data-tab="mastery-score">
                     <div class="tab-header-container">
                         <img src="img/mastery.png" />
                         <div class="tab-header-wrapper">
                             <h1 class="tab-header-title">Mastery score settings</h1>
                             <div class="tab-header-content">
-                                <span class="tab-header-content-text">Here appears some shirt description for mastery score settings</span>
+                                <span class="tab-header-content-text">The score a learner needs to pass the course</span>
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="settings-tab-container track-and-trace" data-tab="track-and-trace" style="display: none;">
+                <div class="settings-tab-container track-and-trace" data-tab="track-and-trace">
                     <div class="tab-header-container">
                         <img src="img/track.png" />
                         <div class="tab-header-wrapper">
@@ -170,7 +170,9 @@
                         </div>
                     </div>
                     <div class="tab-content-container">
-                        <div class="tab-content-title" data-bind="click: toggleAdvancedSettings, css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }">Advanced settings</div>
+                        <div class="tab-content-title-container" data-bind="click: toggleAdvancedSettings" style="display: inline-block">
+                            <div class="tab-content-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }">Advanced settings</div>
+                        </div>
                         <div class="template-selector-container" data-bind="visible: advancedSettingsExpanded()">
                             <div class="selector-items-container">
                                 <h2 class="selector-title">Report to:</h2>
@@ -185,9 +187,9 @@
                             <div class="selector-preview-container">
                                 <h2 class="selector-title">Custom LRS settings</h2>
                                 <div class="preview-row">
-                                    <label class="preview-label">LRS URL</label>
+                                    <label for="lrsUrl" class="preview-label">LRS URL</label>
                                     <div class="preview-col">
-                                        <input class="preview-text-input" type="text" />
+                                        <input class="preview-text-input" id="lrsUrl" type="text" data-bind="value: trackingData.lrsUrl, enable: trackingData.customLrsEnabled" />
                                     </div>
                                 </div>
                                 <div class="preview-row checkbox">
@@ -260,7 +262,7 @@
                                             <div class="switcher-text">Answered</div>
                                         </div>
                                         <div class="switcher statement">
-                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: trackingData.statements.experienced }">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: trackingData.statements.mastered }">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
                                                     <div class="switch-toogle-blob"></div>
@@ -272,7 +274,7 @@
                                     </div>
                                     <div class="statements-container">
                                         <div class="switcher statement">
-                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: trackingData.statements.mastered }">
+                                            <div class="switch-toggle-slider" data-bind="switchToggle: { value: trackingData.statements.experienced }">
                                                 <div class="switch-toggle-wrapper">
                                                     <div class="switch-toggle-on"></div>
                                                     <div class="switch-toogle-blob"></div>
@@ -298,7 +300,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="settings-tab-container languages" data-tab="languages" style="display: none;">
+                <div class="settings-tab-container languages" data-tab="languages">
                     <div class="tab-header-container">
                         <img src="img/language.png">
                         <div class="tab-header-wrapper">
@@ -326,7 +328,7 @@
                                         <div class="input-wrapper">
                                             <!-- ko if: $parent.isCustom() -->
                                             <div class="choose-language-table-input-wrapper">
-                                                <input class="choose-language-table-input" data-bind="value: value" />
+                                                <input type="text" class="choose-language-table-input" data-bind="value: value" />
                                                 <span class="edit-icon"></span>
                                             </div>
                                             <!-- /ko -->

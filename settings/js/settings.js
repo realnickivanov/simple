@@ -31,7 +31,12 @@
             data.selectedLrs = ko.observable(data.lrsOptions[0].key);
 
             ko.utils.arrayMap(data.lrsOptions, function (lrsOption) {
-                lrsOption.isSelected = ko.observable(false);
+                lrsOption.isSelected = ko.computed({
+                    read: function() {
+                        return data.selectedLrs() == lrsOption.key;
+                    },
+                    write: function() {}
+                });
                 lrsOption.select = function () {
                     ko.utils.arrayForEach(data.lrsOptions, function (item) {
                         item.isSelected(false);
@@ -41,8 +46,6 @@
                 };
                 return lrsOption;
             });
-
-            data.lrsOptions[0].isSelected(true);
 
             data.customLrsEnabled = ko.computed(function () {
                 return data.enableXAPI() && data.selectedLrs() != data.lrsOptions[0].key;
@@ -72,7 +75,7 @@
 
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
-        advancedSettingsExpanded: ko.observable(true),
+        advancedSettingsExpanded: ko.observable(false),
         toggleAdvancedSettings: function() {
             this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
         },
@@ -679,13 +682,15 @@
                 $tabLinks = $element.find('[' + dataTabLink + ']'),
                 $tabs = $element.find('[' + dataTab + ']');
 
+            $tabs.hide();
+
             $tabLinks.first().addClass(activeClass);
             $tabs.first().show();
 
             $tabLinks.each(function(index, item) {
                 var $item = $(item);
                 $item.on('click', function () {
-                    var key = $item.data('tab-link'),
+                    var key = $item.attr(dataTabLink),
                         currentContentTab = $element.find('[' + dataTab + '="' + key + '"]');
                     $tabLinks.removeClass(activeClass);
                     $item.addClass(activeClass);
