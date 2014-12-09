@@ -151,9 +151,10 @@ input[type="text"] {
     }
 
 .save-message {
+    position: relative;
     display: block;
     padding-right: 23px;
-    position: relative;
+    font-style: italic;
 }
 
     .save-message:before {
