@@ -442,7 +442,7 @@ body {
 /*#region xapi-login-form*/
 
 .xapi-form-holder {
-    max-width: 557px;
+    max-width: 577px;
     padding-top: 40px;
 }
 
@@ -543,7 +543,7 @@ body {
 }
 
 .xapi-nav-btn .small-page-action-btn {
-    width: 255px;
+    width: 272px;
 }
 
 .xapi-nav-link {

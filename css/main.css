@@ -358,7 +358,7 @@ input[type="checkbox"] {
     width: 130px;
     padding: 11px 10px;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 21px;
     -moz-box-sizing: border-box;
     -ms-text-overflow: ellipsis;
     outline: 0;
@@ -1204,7 +1204,7 @@ input[type="checkbox"] {
 .xapi-nav-link {
     display: block;
     line-height: 20px;
-    max-width: 45%;
+    max-width: 43%;
     margin: 10px 0 0;
     float: left;
     font-size: 16px;
@@ -1212,6 +1212,27 @@ input[type="checkbox"] {
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.xapi-start-text {
+    display: inline-block;
+    max-width: 241px;
+    overflow: hidden;
+    padding-right: 5px;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+    .xapi-nav-btn .small-page-action-btn:after {
+        content: "*";
+    }
+
+.xapi-start-agreement {
+    color: #777777;
+    font-size: 12px;
+    line-height: 20px;
+    padding-top: 5px;
+    text-align: center;
 }
 
 /*#endregion xapi-btn-container*/

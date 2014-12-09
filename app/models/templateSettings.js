@@ -62,7 +62,8 @@
                 "key": ""
             },
             "xApi": {
-                "enabled": false,
+                "enabled": true,
+                "selectedLrs": "default",
                 "lrs": {
                     "uri": "",
                     "credentials": {
