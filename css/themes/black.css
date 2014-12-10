@@ -624,7 +624,7 @@ body:before {
 }
 
 .xapi-nav-btn .small-page-action-btn {
-    min-width: 250px;
+    width: 272px;
 }
 
 .xapi-nav-link {

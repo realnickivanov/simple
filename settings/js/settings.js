@@ -21,7 +21,7 @@
         trackingData: (function () {
             var data = {};
 
-            data.enableXAPI = ko.observable(false),
+            data.enableXAPI = ko.observable(true),
 
             data.lrsOptions = [
                 { key: 'default', text: 'easygenerator (recommended)' },
@@ -830,7 +830,7 @@
         url: settingsURL,
         dataType: "json",
         success: function (response) {
-            var defaultSettings = { logo: {}, xApi: { lrs: { credentials: {} } }, masteryScore: {} },
+            var defaultSettings = { logo: {}, xApi: { enabled: true, selectedLrs: "default", lrs: { credentials: {} } }, masteryScore: {} },
                 defaultExtraData = { customTranslations: [] };
 
             var settings, extraData;
