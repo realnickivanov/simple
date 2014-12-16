@@ -620,15 +620,10 @@ body:before {
 /*#region xapi-btn-container*/
 
 .xapi-btn-container {
-    padding: 30px 0;
-}
-
-.xapi-nav-btn .small-page-action-btn {
-    width: 272px;
+    padding: 30px 0 10px;
 }
 
 .xapi-nav-link {
-    margin: 10px 0 0 10px;
     border-bottom: 1px solid #41b7d8;
     color: #41b7d8;
 }
@@ -636,27 +631,6 @@ body:before {
     .xapi-nav-link:hover {
         color: #0088ae;
     }
-
-@media (max-width: 800px) {
-
-    .xapi-btn-container {
-        text-align: center;
-    }
-
-    .xapi-nav-link {
-        max-width: none;
-        float: none;
-        margin-bottom: 20px;
-    }
-
-    .xapi-nav-btn {
-        float: none;
-    }
-
-        .xapi-nav-btn .small-page-action-btn {
-            width: auto;
-        }
-}
 
 /*#endregion xapi-btn-container*/
 
