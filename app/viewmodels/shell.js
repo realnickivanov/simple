@@ -1,7 +1,8 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'constants'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, constants) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'progressProviderAdapter', 'constants'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, progressProviderAdapter, constants) {
 
-        return {
+
+        var viewModel = {
             router: router,
             cssName: ko.computed(function () {
                 var activeItem = router.activeItem();
@@ -31,6 +32,7 @@
             isNavigatingToAnotherView: ko.observable(false),
             isClosed: ko.observable(false),
 
+
             activate: function () {
                 var that = this;
 
@@ -49,20 +51,36 @@
                 return modulesInitializer.init().then(function () {
                     that.logoUrl(templateSettings.logoUrl);
 
-                    return themesInjector.init().then(function () {
+                    if (progressProviderAdapter.current) {
+                        viewModel.saveProgress = function () {
+                            progressProviderAdapter.current.saveProgress({
+                                fragment: router.activeInstruction().fragment
+                            });
+                        }
+                    }
 
+                    return themesInjector.init().then(function () {
                         return context.initialize().then(function (dataContext) {
                             app.title = dataContext.course.title;
+
+                            var progress = progressProviderAdapter.current.getProgress();
+                            if (progress && progress.fragment) {
+                                window.location.hash = progress.fragment;
+                            }
 
                             return router.map(routes)
                                 .buildNavigationModel()
                                 .mapUnknownRoutes('viewmodels/404', '404')
-                                .activate('');
+                                .activate();
                         });
                     });
                 });
             }
 
         };
+
+
+
+        return viewModel;
 
     });

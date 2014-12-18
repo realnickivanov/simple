@@ -1,5 +1,5 @@
-﻿define(['moduleLoader', 'eventManager'],
-    function (moduleLoader, eventManager) {
+﻿define(['moduleLoader', 'eventManager', 'progressProviderAdapter'],
+    function (moduleLoader, eventManager, progressProviderAdapter) {
 
         "use strict";
 
@@ -46,6 +46,9 @@
                 }
                 if (_.isFunction(module.courseFinished)) {
                     eventManager.subscribeForEvent(eventManager.events.courseFinished).then(module.courseFinished);
+                }
+                if (_.isObject(module.progressProvider)) {
+                    progressProviderAdapter.register(module.progressProvider);
                 }
             });
         }

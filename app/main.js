@@ -41,8 +41,9 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             var modules = [],
                 promises = [];
 
-            promises.push(readTemplateSettings());
+            modules['modules/localStorage_progressProvider'] = true;
 
+            promises.push(readTemplateSettings());
             promises.push(readPublishSettings());
 
             Q.allSettled(promises).then(function () {

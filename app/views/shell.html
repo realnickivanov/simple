@@ -19,6 +19,11 @@
         </li>
         <!-- /ko -->
         <!-- /ko -->
+        <!-- ko if: $root.saveProgress -->
+        <li class="navigation-menu-item">
+            <button data-bind="click: saveProgress">Save my current progress</button>
+        </li>
+        <!-- /ko -->
     </ul>
 </div>
 <div class="loader" data-bind="visible: isNavigatingToAnotherView()">
