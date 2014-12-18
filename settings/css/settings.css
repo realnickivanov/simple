@@ -887,7 +887,7 @@ input[type="text"] {
 }
 
 .input-wrapper {
-    height: 38px;
+    min-height: 38px;
     position: relative;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
