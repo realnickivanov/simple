@@ -1,6 +1,6 @@
 ﻿<!-- ko if: content-->
 <div class="question-content-wrapper">
-    <div class="question-content" data-bind="html: content, imageWrap: {}"></div>
+    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
 </div>
 <!-- /ko -->
 <div class="dnd-wrapper" data-bind="css:{ disabled: isAnswered}">
@@ -11,7 +11,7 @@
             </div>
         </div>
         <!-- ko if: stockDropspot.items().length == 0 -->
-        <div class="dnd-no-values-caption" data-translate-text="[drag and drop question all texts are placed]">
+        <div class="dnd-no-values-caption" data-translate-text="[drag and drop question all texts are placed]" data-translate-title="[drag and drop question all texts are placed]">
             All texts are placed
         </div>
         <!-- /ko -->
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="dnd-dropspot-tooltip show-on-drag">
-                    <span class="dnd-drop-text" data-translate-text="[drag and drop question drop here]">Drop here</span>
+                    <span class="dnd-drop-text" data-translate-text="[drag and drop question drop here]" data-translate-title="[drag and drop question drop here]">Drop here</span>
                 </div>
             </div>
             <!-- /ko -->

@@ -1,18 +1,18 @@
 ﻿<!-- ko if: content -->
 <div class="question-content-wrapper">
-    <div class="question-content" data-bind="html: content, imageWrap: {}, css: { 'enabled': content }"></div>
+    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
 </div>
 <!-- /ko -->
 <!-- ko if: statements().length -->
 <div class="statement">
     <div class="statement-headers-group">
         <div class="statement-header"></div>
-        <div class="statement-header statement-option" data-translate-text="[statement question true text]">True</div>
-        <div class="statement-header statement-option" data-translate-text="[statement question false text]">False</div>
+        <div class="statement-header statement-option" data-translate-text="[statement question true text]" data-translate-title="[statement question true text]">True</div>
+        <div class="statement-header statement-option" data-translate-text="[statement question false text]" data-translate-title="[statement question false text]">False</div>
     </div>
 
     <!-- ko foreach: statements -->
-    <div class="statement-item question-answer-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
+    <div class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
         <div class="statement-label">
             <span class="statement-text" data-bind="text: text"></span>
         </div>

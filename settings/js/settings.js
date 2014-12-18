@@ -15,16 +15,71 @@
         index = location.toString().indexOf('/settings/settings.html'),
         templateUrl = location.toString().substring(0, index),
 
-        starterAccessType = 1;
+        starterAccessType = 1,
+        translations = window.getTranslations();
 
     var viewModel = {
-        enableXAPI: ko.observable(false),
-        lrsUrl: ko.observable(''),
-        authenticationRequired: ko.observable(false),
-        lapLogin: ko.observable(),
-        lapPassword: ko.observable(),
+        trackingData: (function () {
+            var data = {};
+
+            data.enableXAPI = ko.observable(true),
+
+            data.lrsOptions = [
+                { key: 'default', text: 'easygenerator (recommended)' },
+                { key: 'custom', text: 'Custom LRS' }
+            ];
+
+            data.selectedLrs = ko.observable(data.lrsOptions[0].key);
+
+            ko.utils.arrayMap(data.lrsOptions, function (lrsOption) {
+                lrsOption.isSelected = ko.computed({
+                    read: function() {
+                        return data.selectedLrs() == lrsOption.key;
+                    },
+                    write: function() {}
+                });
+                lrsOption.select = function () {
+                    ko.utils.arrayForEach(data.lrsOptions, function (item) {
+                        item.isSelected(false);
+                    });
+                    lrsOption.isSelected(true);
+                    data.selectedLrs(lrsOption.key);
+                };
+                return lrsOption;
+            });
+
+            data.customLrsEnabled = ko.computed(function () {
+                return data.enableXAPI() && data.selectedLrs() != data.lrsOptions[0].key;
+            });
+
+            data.lrsUrl = ko.observable('');
+            data.authenticationRequired = ko.observable(false);
+            data.lapLogin = ko.observable();
+            data.lapPassword = ko.observable();
+
+            data.credentialsEnabled = ko.computed(function () {
+                return data.customLrsEnabled() && data.authenticationRequired();
+            });
+
+            data.statements = {
+                started: ko.observable(true),
+                stopped: ko.observable(true),
+                experienced: ko.observable(true),
+                mastered: ko.observable(true),
+                answered: ko.observable(true),
+                passed: ko.observable(true),
+                failed: ko.observable(true)
+            };
+
+            return data;
+        })(),
+
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
+        advancedSettingsExpanded: ko.observable(false),
+        toggleAdvancedSettings: function() {
+            this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
+        },
 
         logo: (function () {
             var logo = {};
@@ -92,80 +147,62 @@
             themes.setSelected(themes.default);
 
             themes.openDemo = function () {
-                window.open(templateUrl + '?theme=' + themes.selected(), '_blank');
+                window.open(templateUrl + '?v=' + new Date().getTime() + '&theme=' + themes.selected(), '_blank');
             };
 
             return themes;
         })(),
 
-        translations: [
-            { key: '[course]', value: ko.observable('Course') },
-            { key: '[start course]', value: ko.observable('Start course') },
-            { key: '[finish course]', value: ko.observable('Finish course') },
-            { key: '[learning objectives]', value: ko.observable('Learning objectives:') },
-            { key: '[start]', value: ko.observable('Start') },
-            { key: '[home]', value: ko.observable('Home') },
-            { key: '[learning content]', value: ko.observable('Learning content') },
-            { key: '[submit]', value: ko.observable('Submit') },
-            { key: '[try again]', value: ko.observable('Try again') },
-            { key: '[next]', value: ko.observable('Next') },
-            { key: '[correct answer]', value: ko.observable('Correct answer') },
-            { key: '[incorrect answer]', value: ko.observable('Incorrect answer') },
-            { key: '[previous question]', value: ko.observable('previous') },
-            { key: '[next question]', value: ko.observable('next') },
-            { key: '[text matching question hint]', value: ko.observable('Drag items from right column to the left to match the pairs') },
-            { key: '[text matching question drop here]', value: ko.observable('Drop here') },
-            { key: '[statement question true text]', value: ko.observable('True') },
-            { key: '[statement question false text]', value: ko.observable('False') },
-            { key: '[drag and drop question all texts are placed]', value: ko.observable('All texts are placed') },
-            { key: '[drag and drop question drop here]', value: ko.observable('Drop here') },
-            { key: '[fill in the blank choose answer]', value: ko.observable('Choose the answer...') },
-            { key: '[thank you message]', value: ko.observable('Thank you. It is now safe to close this page.') },
-            { key: '[there are no questions]', value: ko.observable('No questions') },
-            { key: '[browser not supported]', value: ko.observable('Your browser is currently not supported.') },
-            { key: '[browser not supported hint]', value: ko.observable('Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.') },
-            { key: '[page not found title]', value: ko.observable('Page not found (404)') },
-            { key: '[page not found message]', value: ko.observable("Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below.") },
-            { key: '[tracking and tracing header]', value: ko.observable('Your credentials for progress tracking') },
-            { key: '[tracking and tracing hint]', value: ko.observable('Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".') },
-            { key: '[tracking and tracing name field]', value: ko.observable('Your name') },
-            { key: '[tracking and tracing email field]', value: ko.observable('Your e-mail') },
-            { key: '[tracking and tracing name is not valid]', value: ko.observable('Fill in your name') },
-            { key: '[tracking and tracing email is not valid]', value: ko.observable('Enter a valid e-mail') },
-            { key: '[tracking and tracing skip reporting]', value: ko.observable('Do not report, just start') },
-            { key: '[tracking and tracing start]', value: ko.observable('Start and report my progress') },
-            { key: '[tracking and tracing error]', value: ko.observable('Something is wrong') },
-            { key: '[tracking and tracing error hint]', value: ko.observable('If you continue without restarting, your learning progress will not be reported.') },
-            { key: '[tracking and tracing restart course]', value: ko.observable('Restart course') },
-            { key: '[tracking and tracing continue anyway]', value: ko.observable('Continue anyway') },
-            { key: '[tracking and tracing reporting progress]', value: ko.observable('reporting progress...') },
-            { key: '[tracking and tracing not supported]', value: ko.observable('Progress tracking cannot be established') },
-            { key: '[tracking and tracing not supported hint]', value: ko.observable('Sorry, this course does not support progress tracking in Internet Explorer 9. Please use one of the following browser: Chrome, Firefox, Safari, IE10+ in order to track your progress, or just start the course without tracking.') }
+        defaultTranslations: $.extend(translations, {
+            xx: $.map(translations.en, function (item) {
+                return { key: item.key, value: ko.observable(item.value) };
+            })
+        }),
+
+        languages: [
+            {
+                key: "en",
+                name: "English"
+            },
+            {
+                key: "nl",
+                name: "Dutch"
+            },
+            {
+                key: "ua",
+                name: "Ukrainian"
+            },
+            {
+                key: "xx",
+                name: "Custom"
+            }
         ],
 
         hasStarterPlan: ko.observable(true),
-        statements: {
-            started: ko.observable(true),
-            stopped: ko.observable(true),
-            experienced: ko.observable(true),
-            mastered: ko.observable(true),
-            answered: ko.observable(true),
-            passed: ko.observable(true),
-            failed: ko.observable(true)
-        },
         masteryScore: ko.observable('')
     };
 
-    viewModel.credentialsEnabled = ko.computed(function () {
-        return viewModel.enableXAPI() && viewModel.authenticationRequired();
-    });
-
-    viewModel.escapeHtml = function(html) {
+    viewModel.escapeHtml = function (html) {
         return $('<div/>').text(html).html();
     }
 
-    viewModel.unescapeHtml = function(text) {
+    viewModel.unescapeHtml = function (text) {
         return $('<div/>').html(text).text();
+    }
+
+    viewModel.selectedLanguage = ko.observable(viewModel.languages[0].key);
+
+    viewModel.isCustom = ko.computed(function () {
+        var language = viewModel.selectedLanguage();
+        return language == "xx";
+    });
+
+    viewModel.translations = ko.computed(function () {
+        return viewModel.defaultTranslations[viewModel.selectedLanguage()];
+    });
+
+    viewModel.getCustomTranslations = function () {
+        return viewModel.defaultTranslations["xx"];
     }
 
     viewModel.saveChanges = function () {
@@ -174,16 +211,17 @@
                 url: viewModel.logo.url()
             },
             xApi: {
-                enabled: viewModel.enableXAPI(),
+                enabled: viewModel.trackingData.enableXAPI(),
+                selectedLrs: viewModel.trackingData.selectedLrs(),
                 lrs: {
-                    uri: viewModel.lrsUrl(),
-                    authenticationRequired: viewModel.authenticationRequired(),
+                    uri: viewModel.trackingData.lrsUrl(),
+                    authenticationRequired: viewModel.trackingData.authenticationRequired(),
                     credentials: {
-                        username: viewModel.lapLogin(),
-                        password: viewModel.lapPassword()
+                        username: viewModel.trackingData.lapLogin(),
+                        password: viewModel.trackingData.lapPassword()
                     }
                 },
-                allowedVerbs: $.map(viewModel.statements, function (value, key) {
+                allowedVerbs: $.map(viewModel.trackingData.statements, function (value, key) {
                     return value() ? key : undefined;
                 })
             },
@@ -193,15 +231,22 @@
             theme: {
                 key: viewModel.themes.selected()
             },
-            translations: $.map(viewModel.translations, function (value) {
-                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
+            translations: $.map(viewModel.defaultTranslations[viewModel.selectedLanguage()], function (item) {
+                return { key: item.key, value: viewModel.escapeHtml(viewModel.isCustom() ? item.value() : item.value) };
             })
         };
 
         viewModel.isFailed(false);
         viewModel.isSaved(false);
 
-        $.post(settingsURL, { settings: JSON.stringify(settings) })
+        var extraData = {
+            selectedLanguage: viewModel.selectedLanguage(),
+            customTranslations: $.map(viewModel.getCustomTranslations(), function (value) {
+                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
+            })
+        }
+
+        $.post(settingsURL, { settings: JSON.stringify(settings), extraData: JSON.stringify(extraData) })
             .done(function () {
                 viewModel.isSaved(true);
             })
@@ -263,6 +308,226 @@
         }
     };
 
+    ko.bindingHandlers.switchToggle = {
+        init: function (element, valueAccessor) {
+            var switchToggle = ko.bindingHandlers.switchToggle,
+                viewModel = switchToggle.viewModel(element, valueAccessor),
+                value = ko.unwrap(valueAccessor().value());
+
+            viewModel.setInitialValue(value);
+
+            switchToggle.onClick(element, function () {
+                viewModel.toggle();
+
+                var currentValue = ko.unwrap(valueAccessor().value());
+                valueAccessor().value(!currentValue);
+            });
+        },
+        update: function (element, valueAccessor) {
+            var viewModel = ko.bindingHandlers.switchToggle.viewModel(element, valueAccessor),
+                value = ko.unwrap(valueAccessor().value());
+
+            viewModel.updateValue(value);
+        },
+        viewModel: function (element) {
+            var $element = $(element),
+                $wrapper = $('.switch-toggle-wrapper', $element);
+
+            function setInitialValue(value) {
+                setElementValue(value);
+                updateElementPosition(value);
+            }
+
+            function toggle() {
+                var value = getValue();
+                setElementValue(!value);
+
+                $wrapper.stop().animate({
+                    marginLeft: calculateElementLeftMargin(!value)
+                }, 250);
+            }
+
+            function getValue() {
+                return $element.hasClass('on');
+            }
+
+            function updateValue(value) {
+                if (getValue() != value) {
+                    setInitialValue(value);
+                }
+            }
+
+            function setElementValue(value) {
+                $element.toggleClass('on', value);
+                $element.toggleClass('off', !value);
+            }
+
+            function updateElementPosition(value) {
+                $wrapper.css('margin-left', calculateElementLeftMargin(value) + 'px');
+            }
+
+            function calculateElementLeftMargin(value) {
+                return value ? 0 : $element.height() - $element.width();
+            }
+
+            return {
+                setInitialValue: setInitialValue,
+                updateValue: updateValue,
+                toggle: toggle
+            }
+        },
+        onClick: function (element, handler) {
+            var $element = $(element),
+                isMouseDownFired = false;
+
+            $element.mousedown(function (event) {
+                if (event.which != 1)
+                    return;
+
+                isMouseDownFired = true;
+                handler();
+            });
+
+            $element.click(function () {
+                if (isMouseDownFired) {
+                    isMouseDownFired = false;
+                    return;
+                }
+
+                handler();
+            });
+        }
+    };
+
+    ko.bindingHandlers.dropdown = {
+        cssClasses: {
+            dropdown: 'dropdown',
+            disabled: 'disabled',
+            expanded: 'expanded',
+            optionsList: 'dropdown-options-list',
+            optionItem: 'dropdown-options-item',
+            currentItem: 'dropdown-current-item',
+            currentItemText: 'dropdown-current-item-text',
+            indicatorHolder: 'dropdown-indicator-holder',
+            indicator: 'dropdown-indicator'
+        },
+        init: function (element, valueAccessor) {
+            var $element = $(element),
+                cssClasses = ko.bindingHandlers.dropdown.cssClasses;
+
+            $element.addClass(cssClasses.dropdown);
+
+            var $currentItemElement = $('<div />')
+                .addClass(cssClasses.currentItem)
+                .appendTo($element);
+
+            $('<div />')
+                .addClass(cssClasses.currentItemText)
+                .appendTo($currentItemElement);
+
+            var $indicatorHolder = $('<div />')
+                .addClass(cssClasses.indicatorHolder)
+                .appendTo($currentItemElement);
+
+            $('<span />')
+                .addClass(cssClasses.indicator)
+                .appendTo($indicatorHolder);
+
+            $('<ul />')
+                .addClass(cssClasses.optionsList)
+                .appendTo($element);
+
+            $currentItemElement.on('click', function (e) {
+                if ($element.hasClass(cssClasses.disabled)) {
+                    return;
+                }
+
+                $currentItemElement.toggleClass(cssClasses.expanded);
+                e.stopPropagation();
+            });
+
+            var collapseHandler = function () {
+                $currentItemElement.removeClass(cssClasses.expanded);
+            };
+
+            $('html').bind('click', collapseHandler);
+            $(window).bind('blur', collapseHandler);
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $('html').unbind('click', collapseHandler);
+                $(window).unbind('blur', collapseHandler);
+            });
+        },
+        update: function (element, valueAccessor) {
+            var $element = $(element),
+                cssClasses = ko.bindingHandlers.dropdown.cssClasses,
+
+                $optionsListElement = $element.find('ul.' + cssClasses.optionsList),
+                $currentItemTextElement = $element.find('div.' + cssClasses.currentItemText);
+
+
+            var options = valueAccessor().options,
+                optionsText = valueAccessor().optionsText,
+                value = valueAccessor().value,
+                optionsValue = valueAccessor().optionsValue,
+                currentValue = ko.unwrap(value),
+                disable = ko.unwrap(valueAccessor().disable);
+
+            if (disable) {
+                $element.toggleClass(cssClasses.disabled);
+            } else {
+                $element.removeClass(cssClasses.disabled);
+            }
+
+            $optionsListElement.empty();
+
+            $.each(options, function (index, option) {
+                if (option[optionsValue] == currentValue) {
+                    $currentItemTextElement.text(option[optionsText]);
+                    return;
+                }
+
+                $('<li />')
+                    .addClass(cssClasses.optionItem)
+                    .appendTo($optionsListElement)
+                    .text(option[optionsText])
+                    .on('click', function (e) {
+                        value(option[optionsValue]);
+                        $element.trigger('change');
+                    });
+            });
+        }
+    };
+
+    ko.bindingHandlers.tabs = {
+        init: function(element) {
+            var $element = $(element),
+                dataTabLink = 'data-tab-link',
+                dataTab = 'data-tab',
+                activeClass = 'active',
+                $tabLinks = $element.find('[' + dataTabLink + ']'),
+                $tabs = $element.find('[' + dataTab + ']');
+
+            $tabs.hide();
+
+            $tabLinks.first().addClass(activeClass);
+            $tabs.first().show();
+
+            $tabLinks.each(function(index, item) {
+                var $item = $(item);
+                $item.on('click', function () {
+                    var key = $item.attr(dataTabLink),
+                        currentContentTab = $element.find('[' + dataTab + '="' + key + '"]');
+                    $tabLinks.removeClass(activeClass);
+                    $item.addClass(activeClass);
+                    $tabs.hide();
+                    currentContentTab.show();
+                });
+            });
+
+        }
+    };
+
     //#endregion Binding handlers
 
     ko.applyBindings(viewModel, $("#settingsForm")[0]);
@@ -307,28 +572,7 @@
             $input: $('#logoInput')
         },
 
-        initFrame: function () {
-            $('#logoForm').attr('action', imageUploader.apiUrl);
-            $('#logoFrame').on('readystatechange', function () {
-                if (this.readyState != "complete") {
-                    return;
-                }
-
-                try {
-                    var response = this.contentDocument.body.innerHTML;
-                    imageUploader.handleResponse(response);
-                } catch (e) {
-                    imageUploader.status.fail(imageUploader.somethingWentWrongMessage);
-                    imageUploader.button.enable();
-                }
-            });
-        },
-
         init: function () {
-            if (window.top.navigator.userAgent.match(/MSIE 9/i)) {
-                imageUploader.initFrame();
-            }
-
             imageUploader.button.$input.on('change', imageUploader.processFile);
             imageUploader.button.enable();
         },
@@ -411,18 +655,36 @@
         cache: false,
         url: settingsURL,
         dataType: "json",
-        success: function (json) {
-            var settings;
+        success: function (response) {
+            var defaultSettings = { logo: {}, xApi: { enabled: true, selectedLrs: "default", lrs: { credentials: {} } }, masteryScore: {} },
+                defaultExtraData = { customTranslations: [] };
+
+            var settings, extraData;
             try {
-                settings = JSON.parse(json);
+                settings = JSON.parse(response.settings) || defaultSettings;
             } catch (e) {
-                settings = { logo: {}, xApi: { lrs: { credentials: {} } }, masteryScore: {} };
+                settings = defaultSettings;
             }
-            viewModel.enableXAPI(settings.xApi.enabled || false);
-            viewModel.lrsUrl(settings.xApi.lrs.uri || '');
-            viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
-            viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
-            viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
+            try {
+                extraData = JSON.parse(response.extraData) || defaultExtraData;
+            } catch (e) {
+                extraData = defaultExtraData;
+            }
+
+            viewModel.trackingData.enableXAPI(settings.xApi.enabled || false);
+            var defaultLrs = settings.xApi.enabled ? 'custom' : 'default';
+            viewModel.trackingData.selectedLrs(settings.xApi.selectedLrs || defaultLrs);
+            viewModel.trackingData.lrsUrl(settings.xApi.lrs.uri || '');
+            viewModel.trackingData.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
+            viewModel.trackingData.lapLogin(settings.xApi.lrs.credentials.username || '');
+            viewModel.trackingData.lapPassword(settings.xApi.lrs.credentials.password || '');
+
+            if (settings.xApi.allowedVerbs) {
+                $.each(viewModel.trackingData.statements, function (key, value) {
+                    value($.inArray(key, settings.xApi.allowedVerbs) > -1);
+                });
+            }
+
             viewModel.logo.url(settings.logo.url || '');
             if (typeof settings.masteryScore != 'undefined' && settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
                 viewModel.masteryScore(settings.masteryScore.score);
@@ -430,23 +692,36 @@
                 viewModel.masteryScore(100);
             }
 
-            if (settings.xApi.allowedVerbs) {
-                $.each(viewModel.statements, function (key, value) {
-                    value($.inArray(key, settings.xApi.allowedVerbs) > -1);
-                });
-            }
-
             if (settings.theme && settings.theme.key) {
                 viewModel.themes.setSelected(settings.theme.key);
             }
 
-            $.each(settings.translations, function (i) {
-                $.each(viewModel.translations, function (j) {
-                    if (settings.translations[i].key === viewModel.translations[j].key) {
-                        viewModel.translations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
+            var customTranslations = viewModel.getCustomTranslations();
+
+            if (extraData.customTranslations.length == 0 && settings.translations != null) {
+                $.each(settings.translations, function (i) {
+                    $.each(customTranslations, function (j) {
+                        if (settings.translations[i].key === customTranslations[j].key) {
+                            customTranslations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
+                        }
+                    });
+                });
+
+                viewModel.selectedLanguage("xx");
+                return;
+            }
+
+            $.each(extraData.customTranslations, function (i) {
+                $.each(customTranslations, function (j) {
+                    if (extraData.customTranslations[i].key === customTranslations[j].key) {
+                        customTranslations[j].value(viewModel.unescapeHtml(extraData.customTranslations[i].value));
                     }
                 });
             });
+
+            if (extraData.selectedLanguage != null && extraData.selectedLanguage != undefined) {
+                viewModel.selectedLanguage(extraData.selectedLanguage);
+            }
         },
         error: function () {
             viewModel.masteryScore(100);

@@ -17,7 +17,6 @@
             obj.verb = spec.verb;
             obj.object = spec.object;
             obj.timestamp = (new Date()).toISOString();
-            
 
             if (_.isObject(spec.context)) {
                 obj.context = spec.context;

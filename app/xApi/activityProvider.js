@@ -12,12 +12,13 @@
                 init: init,
                 createActor: createActor,
                 rootCourseUrl: null,
-                turnOffSubscriptions: turnOffSubscriptions
+                turnOffSubscriptions: turnOffSubscriptions,
+                courseId: null
             };
 
         return activityProvider;
 
-        function init(actorData, activityName, activityUrl) {
+        function init(courseId, actorData, activityName, activityUrl) {
             return Q.fcall(function () {
                 if (_.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
@@ -27,6 +28,7 @@
                 activityProvider.activityName = activityName;
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl !== undefined ? activityUrl.split("?")[0].split("#")[0] : '';
+                activityProvider.courseId = courseId;
 
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
@@ -105,7 +107,7 @@
             var groupingUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
             var object = createActivity(learningContentUrl, question.title);
 
-            var context = new contextModel({
+            var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, question.title)],
                     grouping: [createActivity(groupingUrl, objective.title)]
@@ -162,7 +164,7 @@
 
             var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
 
-            var context = new contextModel({
+            var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, objective.title)]
                 })
@@ -192,7 +194,7 @@
 
             var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
 
-            var context = new contextModel({
+            var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, objective.title)]
                 })
@@ -222,7 +224,7 @@
 
             var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
 
-            var context = new contextModel({
+            var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, objective.title)]
                 })
@@ -251,7 +253,7 @@
 
             var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
 
-            var context = new contextModel({
+            var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, objective.title)]
                 })
@@ -291,7 +293,7 @@
 
             var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
 
-            var context = new contextModel({
+            var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, objective.title)]
                 })
@@ -324,8 +326,18 @@
             });
         }
 
+        function createContextModel(contextSpec) {
+            contextSpec = contextSpec || {};
+            var contextExtensions = contextSpec.extensions || {};
+            contextExtensions[constants.extenstionKeys.courseId] = activityProvider.courseId;
+            contextSpec.extensions = contextExtensions;
+           
+            return new contextModel(contextSpec);
+        }
+
         function createStatement(verb, result, activity, context) {
             var activityData = activity || createActivity(null, activityProvider.activityName);
+            context = context || createContextModel();
 
             return statementModel({
                 actor: activityProvider.actor,
