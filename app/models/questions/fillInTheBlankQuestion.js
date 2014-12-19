@@ -3,9 +3,15 @@
         "use strict";
 
         function FillInTheBlankQuestion(spec) {
-            Question.call(this, spec);
+            var _protected = {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
 
-            this.submitAnswer = submitAnswer;
+                submit: submitAnswer
+            };
+
+            Question.call(this, spec, _protected);
+
             this.answerGroupsValues = null;
 
             this.answerGroups = _.map(spec.answerGroups, function (answerGroup) {
@@ -59,9 +65,45 @@
                 var answerGroup = _.find(answerGroups, function (answerGroup) {
                     return answerGroup.id === answerGroupValue.id;
                 });
-                
+
                 answerGroup.answeredText = answerGroupValue.value;
             });
+        }
+
+        function getProgress() {
+            if (this.isCorrectAnswered) {
+                return 100;
+            } else {
+                return _.chain(this.answerGroups)
+                    .filter(function (group) {
+                        return !!group.answeredText;
+                    })
+                    .reduce(function (obj, ctx) {
+                        obj[ctx.id] = ctx.answeredText;
+                        return obj;
+                    }, {})
+                    .value();
+            }
+        }
+
+        function restoreProgress(progress) {
+            // OMG
+            var inputValues = _.chain(this.answerGroups)
+                .map(function (answerGroup) {
+                    var correct = _.chain(answerGroup.answers)
+                        .find(function (answer) {
+                            return answer.isCorrect;
+                        }).value();
+
+                    return {
+                        id: answerGroup.id,
+                        value: progress === 100 ? correct.text : progress[answerGroup.id],
+                        answers: answerGroup.answers
+                    };
+                }).value();
+
+            saveAnsweredTexts(inputValues, this.answerGroups);
+            this.score(calculateScore(inputValues, this.answerGroups));
         }
 
     });

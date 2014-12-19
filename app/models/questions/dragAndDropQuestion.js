@@ -3,9 +3,16 @@
         "use strict";
 
         function DragAndDropQuestion(spec) {
-            Question.call(this, spec);
+            var _protected = {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
+            };
+
+            Question.call(this, spec, _protected);
+
             this.background = spec.background;
-            this.submitAnswer = submitAnswer;
 
             this.answers = _.map(spec.dropspots, function (answer) {
                 return new DraggableAnswer({
@@ -35,7 +42,7 @@
                 eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(this)
             );
         }
-        
+
         function calculateScore(answers) {
             var hasIncorrectAnswer = _.some(answers, function (answer) {
                 return answer.currentPosition.x != answer.correctPosition.x || answer.currentPosition.y != answer.correctPosition.y;
@@ -51,6 +58,18 @@
                 });
                 answer.currentPosition = dragableText.position;
             });
+        }
+
+        function getProgress() {
+            if (this.isCorrectAnswered) {
+                return 100;
+            } else {
+                debugger;
+            }
+        }
+
+        function restoreProgress(progress) {
+            debugger;
         }
 
     });
