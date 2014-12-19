@@ -3,31 +3,38 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
         "use strict";
 
         function Hotspot(spec) {
-            Question.call(this, spec);
+            var _protected = {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
+            };
+
+            Question.call(this, spec, _protected);
 
             this.background = spec.background;
             this.spots = spec.spots;
             this.isMultiple = spec.isMultiple;
             this.placedMarks = [];
-
-            this.submitAnswer = function (marks) {
-                guard.throwIfNotArray(marks, 'Marks is not array.');
-
-                this.isAnswered = true;
-                this.placedMarks = _.map(marks, function (mark) { return { x: mark.x, y: mark.y }; });
-
-                var scores = calculateScore(this.isMultiple, this.spots, this.placedMarks);
-
-                this.score(scores);
-                this.isCorrectAnswered = scores == 100;
-
-                eventManager.answersSubmitted(
-                    eventDataBuilder.buildHotspotQuestionSubmittedEventData(this)
-                );
-            };
         };
 
         return Hotspot;
+
+        function submitAnswer(marks) {
+            guard.throwIfNotArray(marks, 'Marks is not array.');
+
+            this.isAnswered = true;
+            this.placedMarks = _.map(marks, function (mark) { return { x: mark.x, y: mark.y }; });
+
+            var scores = calculateScore(this.isMultiple, this.spots, this.placedMarks);
+
+            this.score(scores);
+            this.isCorrectAnswered = scores == 100;
+
+            eventManager.answersSubmitted(
+                eventDataBuilder.buildHotspotQuestionSubmittedEventData(this)
+            );
+        };
 
         function calculateScore(isMultiple, spots, placedMarks) {
             if (!_.isArray(spots) || spots.length == 0) {
@@ -75,4 +82,17 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
 
             return inside;
         };
+
+        function getProgress() {
+            return this.placedMarks;
+        }
+
+        function restoreProgress(progress) {
+            var that = this;
+            _.each(progress, function (mark) {
+                that.placedMarks.push(mark);
+            });
+            
+            this.score(calculateScore(that.isMultiple, that.spots, that.placedMarks));
+        }
     });
