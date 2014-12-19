@@ -1,11 +1,17 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/checkableAnswer', 'durandal/app'],
-    function (eventManager, guard, eventDataBuilder, Question, CheckableAnswer, app) {
+﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/checkableAnswer'],
+    function (eventManager, guard, eventDataBuilder, Question, CheckableAnswer) {
         "use strict";
 
         function MultipleSelectQuestion(spec) {
-            Question.call(this, spec);
 
-            this.submitAnswer = submitAnswer;
+            var _protected = {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
+            };
+
+            Question.call(this, spec, _protected);
 
             this.answers = _.map(spec.answers, function (answer) {
                 return new CheckableAnswer({
@@ -14,14 +20,6 @@
                     text: answer.text
                 });
             });
-
-            this.progress = function (data) {
-                if (data) {
-                    return restoreProgress.call(this, data);
-                } else {
-                    return getProgress.call(this);
-                }
-            };
         }
 
         return MultipleSelectQuestion;
@@ -40,8 +38,6 @@
             eventManager.answersSubmitted(
                 eventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData(this)
             );
-
-            app.trigger('question:answered', this);
         }
         function calculateScore(answers) {
             var hasIncorrectCheckedAnswer = _.some(answers, function (answer) {
@@ -69,9 +65,7 @@
             _.each(this.answers, function (answer) {
                 answer.isChecked = progress === 100 ? answer.isCorrect : progress && progress.indexOf(answer.id) > -1;
             });
-            this.score(calculateScore(this.answers));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
+            this.score(calculateScore(this.answers));            
         }
 
     });

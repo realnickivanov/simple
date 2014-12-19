@@ -3,7 +3,15 @@
         "use strict";
 
         function TextMatchingQuestion(spec) {
-            Question.call(this, spec);
+
+            var _protected = {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
+            };
+
+            Question.call(this, spec, _protected);
 
             this.answers = _.map(spec.answers, function (answer) {
                 return {
@@ -13,7 +21,6 @@
                     attemptedValue: null
                 };
             });
-            this.submitAnswer = submitAnswer;
         }
 
         return TextMatchingQuestion;
@@ -45,4 +52,40 @@
             }) ? 100 : 0;
         }
 
+        function getProgress() {
+            if (this.isCorrectAnswered) {
+                return 100;
+            } else {
+                return _.chain(this.answers)
+                    .filter(function (answer) {
+                        return !!answer.attemptedValue;
+                    })
+                    .map(function (answer) {
+                        return {
+                            id: answer.id,
+                            attemptedValue: answer.attemptedValue
+                        }
+                    })
+                    .reduce(function (obj, ctx) {
+                        obj[ctx.id] = ctx.attemptedValue;
+                        return obj;
+                    }, {})
+                    .value();
+            }
+        }
+
+        function restoreProgress(progress) {
+            if (progress === 100) {
+                _.each(this.answers, function (answer) {
+                    answer.attemptedValue = answer.value;
+                });
+            } else {
+                _.each(this.answers, function (answer) {
+                    if (progress[answer.id]) {
+                        answer.attemptedValue = progress[answer.id];
+                    }
+                });
+            }
+            this.score(getScore(this.answers));            
+        }
     });

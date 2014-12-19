@@ -1,8 +1,8 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'plugins/http'],
-    function (eventManager, guard, eventDataBuilder, http) {
+﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'plugins/http', 'durandal/app'],
+    function (eventManager, guard, eventDataBuilder, http, app) {
         "use strict";
 
-        function Question(spec) {
+        function Question(spec, _protected) {
             if (typeof spec == typeof undefined) {
                 throw 'You should provide a specification to create an Question';
             }
@@ -32,6 +32,21 @@
             this.load = load;
 
             this.learningContentExperienced = learningContentExperienced;
+
+            this.progress = function (data) {
+                if (data) {
+                    _protected.restoreProgress.call(this, data);
+
+                    this.isAnswered = true;
+                    this.isCorrectAnswered = this.score() == 100;
+                } else {
+                    return _protected.getProgress.call(this);
+                }
+            };
+            this.submitAnswer = function () {
+                _protected.submit.apply(this, arguments);
+                app.trigger('question:answered', this);
+            }
         }
 
         return Question;
