@@ -61,7 +61,7 @@
                     })
                     .map(function (answer) {
                         return answer.id;
-                    }).valueOf();
+                    }).value();
             }
         }
 

@@ -17,44 +17,12 @@
 
 
     app.on('question:answered').then(function (question) {
-        self.progress[question.id] = question.progress();
+        try {
+            self.progress[question.id] = question.progress();
+        } catch (e) {
+            console.error(e);
+        }
     });
-
-    //eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(function (data) {
-    //    var question = data.question;
-    //    if (question.score === 100) {
-    //        self.progress[question.id] = 100;
-    //    } else {
-    //        switch (data.type) {
-    //            case 'choice':
-    //                self.progress[question.id] = question.selectedAnswersIds;
-    //                break;
-    //            case 'fill-in':
-
-    //                break;
-    //            case "dragAndDrop":
-
-    //                break;
-    //            case "hotspot":
-
-    //                break;
-    //            case "matching":
-    //                self.progress[question.id] = _.chain(question.answers)
-    //                    .filter(function (answer) {
-    //                        return !!answer.attemptedValue;
-    //                    })
-    //                    .map(function (answer) {
-    //                        return {
-    //                            id: answer.id,
-    //                            attemptedValue: answer.attemptedValue
-    //                        }
-    //                    }).value();
-
-    //                break;
-    //        }
-    //    }
-    //});
-
 
     return context;
 
@@ -74,7 +42,7 @@
     function use(storage) {
         if (_.isFunction(storage.getProgress) && _.isFunction(storage.saveProgress)) {
             self.storage = storage;
-            self.progress = storage.getProgress();
+            self.progress = storage.getProgress() || {};
         } else {
             throw 'Cannot use this storage';
         }
