@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'progressProviderAdapter', 'constants'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, progressProviderAdapter, constants) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'progressContext', 'constants'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, progressContext, constants) {
 
 
         var viewModel = {
@@ -51,22 +51,15 @@
                 return modulesInitializer.init().then(function () {
                     that.logoUrl(templateSettings.logoUrl);
 
-                    if (progressProviderAdapter.current) {
+                    if (progressContext.ready) {
                         viewModel.saveProgress = function () {
-                            progressProviderAdapter.current.saveProgress({
-                                fragment: router.activeInstruction().fragment
-                            });
+                            progressContext.save();
                         }
                     }
 
                     return themesInjector.init().then(function () {
                         return context.initialize().then(function (dataContext) {
                             app.title = dataContext.course.title;
-
-                            var progress = progressProviderAdapter.current.getProgress();
-                            if (progress && progress.fragment) {
-                                window.location.hash = progress.fragment;
-                            }
 
                             return router.map(routes)
                                 .buildNavigationModel()
