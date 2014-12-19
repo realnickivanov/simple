@@ -46,7 +46,8 @@
                 });
 
                 var selectedDropspot = _.find(viewModel.dropspots(), function (dropspot) {
-                    return dropspot.position == answer.currentPosition;
+                    return dropspot.position.x == answer.currentPosition.x
+                        && dropspot.position.y == answer.currentPosition.y;
                 });
 
                 if (selectedDropspot) {

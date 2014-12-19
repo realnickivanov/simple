@@ -37,6 +37,7 @@
             this.score(calculateScore(this.answers));
             this.isCorrectAnswered = this.score() == 100;
 
+            console.dir(this.answers);
 
             eventManager.answersSubmitted(
                 eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(this)
@@ -64,12 +65,36 @@
             if (this.isCorrectAnswered) {
                 return 100;
             } else {
-                debugger;
+                return _.chain(this.answers)
+                    .filter(function (answer) {
+                        return answer.currentPosition
+                            && answer.currentPosition.x
+                            && answer.currentPosition.x > -1
+                            && answer.currentPosition.y
+                            && answer.currentPosition.y > -1;
+                    })
+                    .reduce(function (obj, ctx) {
+                        obj[ctx.id] = ctx.currentPosition;
+                        return obj;
+                    }, {})
+                    .value();
             }
         }
 
         function restoreProgress(progress) {
-            debugger;
+            if (progress === 100) {
+                _.each(this.answers, function (answer) {
+                    answer.currentPosition = { x: answer.correctPosition.x, y: answer.correctPosition.y }
+                });
+            } else {
+                _.each(this.answers, function (answer) {
+                    if (progress[answer.id]) {
+                        answer.currentPosition = progress[answer.id];
+                    }
+                });
+
+            }
+            this.score(calculateScore(this.answers));
         }
 
     });
