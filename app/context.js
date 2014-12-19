@@ -1,5 +1,5 @@
-﻿define(['models/course', 'models/objective', 'models/questions/questionsFactory'],
-    function (Course, Objective, questionsFactory) {
+﻿define(['models/course', 'models/objective', 'models/questions/questionsFactory', 'progressContext'],
+    function (Course, Objective, questionsFactory, progressContext) {
 
         var
             course = {},
@@ -12,6 +12,8 @@
                     dataType: 'json',
                     cache: false
                 }).then(function (response) {
+                    var progress = progressContext.get();
+
                     that.course = new Course({
                         id: response.id,
                         title: response.title,
@@ -31,6 +33,16 @@
                             })
                             .value()
                     });
+
+                    if (_.isObject(progress)) {
+                        _.each(that.course.objectives, function (objective) {
+                            _.each(objective.questions, function (question) {
+                                if (progress[question.id]) {
+                                    question.progress(progress[question.id]);
+                                }
+                            });
+                        });
+                    }
 
                     return {
                         course: that.course
