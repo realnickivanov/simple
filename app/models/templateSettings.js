@@ -31,6 +31,7 @@
                     { key: '[browser not supported hint]', value: 'Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.' },
                     { key: '[page not found title]', value: 'Page not found (404)' },
                     { key: '[page not found message]', value: "Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click 'Home' link below." },
+                    { key: '[save my current progress]', value: "Save my current progress" },
                     { key: '[tracking and tracing header]', value: 'Your credentials for progress tracking' },
                     { key: '[tracking and tracing hint]', value: 'Please enter your credentials and click "Start and report my results "to enable result tracking. Otherwise, click "Do not report, just start".' },
                     { key: '[tracking and tracing name field]', value: 'Your name' },

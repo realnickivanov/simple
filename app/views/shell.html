@@ -1,30 +1,23 @@
-﻿<div class="header" data-bind="css: 'module-' + cssName()">
-    <ul class="navigation-menu">
-        <li class="navigation-menu-item">
+﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
+    <div class="main-logo">
+        <span class="main-logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
             <a href="#objectives">
-                <img alt="" src="" class="main-logo" data-bind="attr: { src: logoUrl }">
+                <img alt="" src="" data-bind="attr: { src: logoUrl }">
             </a>
             <!-- /ko -->
             <!-- ko ifnot: viewSettings().rootLinkEnabled -->
-            <span>
-                <img alt="" src="" class="main-logo" data-bind="attr: { src: logoUrl }">
-            </span>
+            <img alt="" src="" data-bind="attr: { src: logoUrl }">
             <!-- /ko -->
-        </li>
-        <!-- ko if: viewSettings().navigationEnabled -->
-        <!-- ko foreach: router.navigationModel -->
-        <li class="navigation-menu-item" data-bind="css: { active: isActive }">
-            <a class="navigation-menu-item-link pull-right" data-bind="html: settings.caption, attr: { href: hash }"></a>
-        </li>
-        <!-- /ko -->
-        <!-- /ko -->
-        <!-- ko if: $root.saveProgress -->
-        <li class="navigation-menu-item">
-            <button data-bind="click: saveProgress">Save my current progress</button>
-        </li>
-        <!-- /ko -->
-    </ul>
+        </span>
+    </div>
+    <!-- ko if: $root.saveProgress -->
+    <div class="save-progress">
+        <div class="content-wrapper">
+            <a href="#" class="save-progress-btn" data-translate-title="[save my current progress]" data-bind="click: saveProgress"><span class="save-progress-btn-text" data-translate-text="[save my current progress]">Save my current progress</span></a>
+        </div>
+    </div>
+    <!-- /ko -->
 </div>
 <div class="loader" data-bind="visible: isNavigatingToAnotherView()">
     <div class="loader-image"></div>

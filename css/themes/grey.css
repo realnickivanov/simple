@@ -15,6 +15,14 @@ body {
     background-color: #333;
 }
 
+.save-progress-btn {
+    background-color: #4d77a1;
+}
+
+    .save-progress-btn:hover {
+        background-color: #3e5c7a;
+    }
+
 /*#endregion header css-styles*/
 
 /*#region content css-styles*/

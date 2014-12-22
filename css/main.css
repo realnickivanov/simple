@@ -227,60 +227,77 @@ input[type="checkbox"] {
 /*#region header css-styles*/
 
 .header {
-    display: table;
-    min-height: 52px;
-    width: 100%;
     padding: 5px 0 5px 20px;
-}
+    position: relative;
+ }
 
     .header.module-home .main-logo {
         cursor: default;
     }
 
-.navigation-menu {
-    display: table-row;
-    width: 100%;
+.main-logo{
+	display: table;
+	float: left;
+	height: 42px;
+    position: relative;
+    z-index: 100;
+}
+
+.main-logo-img{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+    .main-logo-img img{
+	    max-height: 50px;
+	    max-width: 300px;
+	}
+
+.save-progress {
+    position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+	width: 100%;
+    z-index: 1;
+}
+
+    .save-progress .content-wrapper {
+        height: 100%;
+        padding-bottom: 0;
+        position: relative;
+    }
+
+.save-progress-btn {
+    bottom: 0;
+    color: #ffffff;
+    display: inline-block;
+    font-family: Intro-Regular;
+    font-size: 14px;
+    max-width: 335px;
+    overflow: hidden;
+    padding: 9px 20px 9px 54px;
+    position: absolute;
+    right: 25px;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+
+.save-progress-btn-text {
     position: relative;
 }
 
-.navigation-menu,
-.navigation-menu-item {
-    display: table-row;
-    margin: 0;
-    padding: 0;
-}
-
-.navigation-menu-item {
-    display: table-cell;
-    vertical-align: middle;
-    height: 32px;
-    width: 170px;
-}
-
-.navigation-menu-item-link {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 0 27px;
-}
-
-    .navigation-menu-item-link:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-        cursor: pointer;
+    .save-progress-btn-text:before {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjU0NEM5RjQ2ODZDMDExRTRCNDI1RUU1NUNCMDlDNzczIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjU0NEM5RjQ3ODZDMDExRTRCNDI1RUU1NUNCMDlDNzczIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NTQ0QzlGNDQ4NkMwMTFFNEI0MjVFRTU1Q0IwOUM3NzMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NTQ0QzlGNDU4NkMwMTFFNEI0MjVFRTU1Q0IwOUM3NzMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5aKddAAAABz0lEQVR42rTWTygEURwH8Lf/srGSUJslDlIujpQi5aClcEBy5EIc1EZ7cN+TkvawFyEuctXKRZIDuchB8qe22L3Yotbf7BrfX35bzzRjZneaX312p/fezu+9N783rVAUpQrWIQk5pfD4hDkQWhz42BRCjMAWpMVvDMINXArjaIUgbMAUfPzpRYIUxFSZd2Fcb1YsCKVAk1zh1ZxCQB7nRA4/PKlm5TKYdQDiMEBzhBM4gmY4g478QErg0LiBzyCBS/p9Pu6gjSd7ABPU6Na5gdMgQY6/v6W2en5u7fw8VqFFL0G5QYIk9MOhatsoXmAY1iCkl6DSRPXEVSsOyLUDV7T9bp3t8XPp+oS56IV3rQ6tBLSv87AIQyYT0PmZMZuAYplZDqewOWxP4P6nr0E6UI/8XSP1Z+CZ6z8jjTGVgKonLK1wH0qgWxqTgD2Y5utIIQneYJvr+Rg6eewOXHPiJqjmtnShW+SFHk5wwdce7nPwdZfqPXSueSd+zUYMXs3FCNON9VZQxkv3SG0LMMnbMma1il6hT6N9tphz8GXTEaiALCV4gEYbEtRBKl96Ia6OWz40VoKeXy2MQoyetheWIAFZxXrQX597iNKfgh8BBgAzRpKFYePHngAAAABJRU5ErkJggg==') /*save.png*/;
+        content: '';
+        height: 24px;
+        left: -34px;
+        position: absolute;
+        width: 24px;
     }
-
-.navigation-menu a,
-.navigation-menu a:visited,
-.navigation-menu a:focus,
-.navigation-menu a:active {
-    color: #fff;
-    font-size: 18px;
-    font-family: Tahoma, Arial, sans-serif;
-}
-
-.main-logo {
-    max-height: 50px;
-    max-width: 300px;
-}
 
 /*#endregion header css-styles*/
 
