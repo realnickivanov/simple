@@ -51,7 +51,7 @@
                 return modulesInitializer.init().then(function () {
                     that.logoUrl(templateSettings.logoUrl);
 
-                    if (progressContext.ready) {
+                    if (progressContext.ready()) {
                         viewModel.saveProgress = function () {
                             progressContext.save();
                         }

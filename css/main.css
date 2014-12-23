@@ -279,7 +279,7 @@ input[type="checkbox"] {
 
 .save-progress-btn-text {
     display: block;
-    font-family: Intro-Regular;
+    font-family: 'OpenSans-Semibold';
     font-size: 14px;
     max-width: 295px;
     min-width: 90px;
