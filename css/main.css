@@ -269,9 +269,9 @@ input[type="checkbox"] {
     }
 
 .save-progress-btn {
+    border: 0;
     bottom: 0;
     color: #ffffff;
-    display: block;
     outline: 0;
     padding: 10px 20px 8px;
     position: absolute;
