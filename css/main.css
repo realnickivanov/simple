@@ -272,6 +272,7 @@ input[type="checkbox"] {
     bottom: 0;
     color: #ffffff;
     display: block;
+    outline: 0;
     padding: 10px 20px 8px;
     position: absolute;
     right: 25px;
