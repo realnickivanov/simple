@@ -1232,9 +1232,9 @@ input[type="checkbox"] {
     vertical-align: bottom;
 }
 
-    .xapi-nav-start .small-page-action-btn:after {
-        content: "*";
-    }
+.xapi-nav-start .small-page-action-btn:after {
+    content: "*";
+}
 
 .xapi-start-agreement {
     color: #777777;
@@ -1250,7 +1250,7 @@ input[type="checkbox"] {
         text-align: center;
     }
 
-    .xapi-nav-start, .xapi-nav-skip{
+    .xapi-nav-start, .xapi-nav-skip {
         float: none;
     }
 
@@ -1258,9 +1258,9 @@ input[type="checkbox"] {
         margin: 10px 0 0;
     }
 
-        .xapi-nav-start .small-page-action-btn {
-            width: auto;
-        }
+    .xapi-nav-start .small-page-action-btn {
+        width: auto;
+    }
 }
 
 /*#endregion xapi-btn-container*/
@@ -2156,23 +2156,26 @@ input[type="checkbox"] {
     font-style: normal;
     line-height: 30px;
     white-space: pre-line;
+    overflow: hidden;
+    padding: 10px 40px; 
 }
 
     .styled-content cite:before,
     .styled-content cite:after {
         position: absolute;
+        line-height: 35px;
         font-size: 50px;
     }
 
     .styled-content cite:before {
         content: "\201C";
-        top: 3px;
+        top: 10px;
         margin-left: -35px;
     }
 
     .styled-content cite:after {
         content: "\201D";
-        bottom: -23px;
+        bottom: -20px;
     }
 
 .styled-content a {
