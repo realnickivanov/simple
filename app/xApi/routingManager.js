@@ -19,9 +19,9 @@
                 router.guardRoute = function (model, route) {
                     
                     if (route.config.route == guardView) {
-                        return moduleInitializer.getInitStatus() ? '' : true;
+                        return moduleInitializer.isActivated() ? '' : true;
                     }
-                    if (!moduleInitializer.getInitStatus()) {
+                    if (!moduleInitializer.isActivated()) {
                         return guardView;
                     }
                     if (_.isFunction(existingGuard)) {

@@ -42,7 +42,7 @@
         function onModuleLoaded(module) {
             return Q.fcall(function () {
                 if (_.isFunction(module.initialize)) {
-                    module.initialize(modulesConfigs[module.__moduleId__]);
+                    module.initialize(modulesConfigs[module.__moduleId__], progressContext.get());
                 }
                 if (_.isFunction(module.courseFinished)) {
                     eventManager.subscribeForEvent(eventManager.events.courseFinished).then(module.courseFinished);

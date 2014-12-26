@@ -28,9 +28,10 @@
     }
 
     function saveProgress(progress) {
+        var string = JSON.stringify(progress);
 
-        localStorage.setItem(KEY, JSON.stringify(progress));
-        console.log('Progress was saved:');
+        localStorage.setItem(KEY, string);
+        console.log('Progress was saved (' + string.length + ' length):');
         console.dir(progress);
     }
 

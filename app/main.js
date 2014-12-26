@@ -40,7 +40,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             var modules = [],
                 promises = [];
 
-            //modules['modules/localStorage_progressProvider'] = true;
+            modules['modules/localStorage_progressProvider'] = true;
 
             promises.push(readTemplateSettings());
             promises.push(readPublishSettings());

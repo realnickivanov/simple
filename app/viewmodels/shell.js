@@ -55,6 +55,8 @@
                         viewModel.saveProgress = function () {
                             progressContext.save();
                         }
+
+                        window.location.hash = progressContext.get() && progressContext.get().url;
                     }
 
                     return themesInjector.init().then(function () {
