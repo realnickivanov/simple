@@ -14,14 +14,14 @@
     <!-- ko if: $root.saveProgress -->
     <div class="save-progress">
         <div class="content-wrapper">
-            <!-- ko if: $root.isProgressSavedToStorage -->
-            <button data-translate-title="[progress has been saved]" class="save-progress-btn progress-saved">
-                <span data-translate-text="[progress has been saved]" class="save-progress-text">Progress has been saved</span>
-            </button>
-            <!-- /ko -->
-            <!-- ko ifnot: $root.isProgressSavedToStorage -->
+            <!-- ko if: $root.isProgressDirty -->
             <button data-translate-title="[save my current progress]" class="save-progress-btn" data-bind="click: saveProgress">
                 <span data-translate-text="[save my current progress]" class="save-progress-text">Save my current progress</span>
+            </button>
+            <!-- /ko -->
+            <!-- ko ifnot: $root.isProgressDirty -->
+            <button data-translate-title="[progress has been saved]" class="save-progress-btn progress-saved">
+                <span data-translate-text="[progress has been saved]" class="save-progress-text">Progress has been saved</span>
             </button>
             <!-- /ko -->
         </div>

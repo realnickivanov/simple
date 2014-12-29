@@ -56,6 +56,12 @@
                             progressContext.save();
                         }
 
+                        viewModel.isProgressDirty = ko.observable(true);
+
+                        app.on('progressContext:dirty:changed').then(function(isProgressDirty) {
+                            viewModel.isProgressDirty(isProgressDirty);
+                        });
+
                         window.location.hash = progressContext.get() && progressContext.get().url;
                     }
 
