@@ -54,11 +54,9 @@
                     if (progressContext.ready()) {
                         viewModel.saveProgress = function() {
                             progressContext.save();
-                        };
+                        }
 
-                        viewModel.isProgressSavedToStorage = ko.computed(function () {
-                            return progressContext.isSavedToStorage();
-                        });
+                        window.location.hash = progressContext.get() && progressContext.get().url;
                     }
 
                     return themesInjector.init().then(function () {

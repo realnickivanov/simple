@@ -34,11 +34,11 @@
                             .value()
                     });
 
-                    if (_.isObject(progress)) {
+                    if (_.isObject(progress) && _.isObject(progress.answers)) {
                         _.each(that.course.objectives, function (objective) {
                             _.each(objective.questions, function (question) {
-                                if (progress[question.id]) {
-                                    question.progress(progress[question.id]);
+                                if (progress.answers[question.id]) {
+                                    question.progress(progress.answers[question.id]);
                                 }
                             });
                         });

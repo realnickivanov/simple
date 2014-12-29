@@ -10,7 +10,7 @@
             },
             
             continueLearning = function () {
-                xApiInitializer.turnOff();
+                xApiInitializer.deactivate();
                 router.navigate(navigateBackUrl);
             },
 
