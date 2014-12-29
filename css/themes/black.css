@@ -47,7 +47,7 @@ body:before {
     background-color: #236881;
 }
 
-    .save-progress-btn:hover {
+    .save-progress-btn:hover, .save-progress-btn.progress-saved {
         background-color: #2c88aa;
     }
 

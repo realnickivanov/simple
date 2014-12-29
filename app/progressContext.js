@@ -11,7 +11,9 @@
 
 
             use: use,
-            ready: ready
+            ready: ready,
+
+            isSavedToStorage: ko.observable(null) 
         }
     ;
 
@@ -19,6 +21,7 @@
     app.on('question:answered').then(function (question) {
         try {
             self.progress[question.id] = question.progress();
+            context.isSavedToStorage(false);
         } catch (e) {
             console.error(e);
         }
@@ -33,6 +36,7 @@
         }
 
         self.storage.saveProgress(self.progress);
+        context.isSavedToStorage(true);
     }
 
     function get() {
@@ -43,6 +47,12 @@
         if (_.isFunction(storage.getProgress) && _.isFunction(storage.saveProgress)) {
             self.storage = storage;
             self.progress = storage.getProgress() || {};
+
+            window.onbeforeunload = function() {
+                if (context.isSavedToStorage() === false) {
+                    return 'Progress has not been saved!';
+                }
+            }
         } else {
             throw 'Cannot use this storage';
         }

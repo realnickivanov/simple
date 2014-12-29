@@ -52,9 +52,13 @@
                     that.logoUrl(templateSettings.logoUrl);
 
                     if (progressContext.ready()) {
-                        viewModel.saveProgress = function () {
+                        viewModel.saveProgress = function() {
                             progressContext.save();
-                        }
+                        };
+
+                        viewModel.isProgressSavedToStorage = ko.computed(function () {
+                            return progressContext.isSavedToStorage();
+                        });
                     }
 
                     return themesInjector.init().then(function () {
