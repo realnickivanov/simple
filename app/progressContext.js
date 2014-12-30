@@ -70,10 +70,10 @@
         if (_.isFunction(storage.getProgress) && _.isFunction(storage.saveProgress)) {
             self.storage = storage;
             var progress = storage.getProgress();
-            if (progress) {
+            if (!_.isEmpty(progress)) {
                 self.progress = progress;
             }
-            
+
             window.onbeforeunload = function() {
                 if (context.isDirty === true) {
                     return 'Progress has not been saved!';
