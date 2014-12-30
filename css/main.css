@@ -838,6 +838,12 @@ input[type="checkbox"] {
     cursor: default;
 }
 
+.question-content:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
 .question-answers-list {
     padding: 0 20px;
     list-style-type: none;
