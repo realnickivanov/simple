@@ -52,9 +52,15 @@
                     that.logoUrl(templateSettings.logoUrl);
 
                     if (progressContext.ready()) {
-                        viewModel.saveProgress = function () {
+                        viewModel.saveProgress = function() {
                             progressContext.save();
                         }
+
+                        viewModel.isProgressDirty = ko.observable(true);
+
+                        app.on('progressContext:dirty:changed').then(function(isProgressDirty) {
+                            viewModel.isProgressDirty(isProgressDirty);
+                        });
 
                         window.location.hash = progressContext.get() && progressContext.get().url;
                     }

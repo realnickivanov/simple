@@ -15,22 +15,26 @@
 
 
             use: use,
-            ready: ready
+            ready: ready,
+
+            isDirty: null 
         }
     ;
 
-
     app.on('user:authenticated').then(function (user) {
         self.progress.user = user;
+        setProgressDirty(true);
     });
 
     app.on('user:authentication-skipped').then(function () {
         self.progress.user = 0;
+        setProgressDirty(true);
     });
 
     app.on('question:answered').then(function (question) {
         try {
             self.progress.answers[question.shortId] = question.progress();
+            setProgressDirty(true);
         } catch (e) {
             console.error(e);
         }
@@ -38,9 +42,15 @@
 
     router.on('router:navigation:composition-complete', function (obj, instruction) {
         self.progress.url = instruction.fragment;
+        setProgressDirty(true);
     });
 
     return context;
+
+    function setProgressDirty(isDirty) {
+        context.isDirty = isDirty;
+        app.trigger('progressContext:dirty:changed', isDirty);
+    }
 
     function save() {
 
@@ -49,6 +59,7 @@
         }
 
         self.storage.saveProgress(self.progress);
+        setProgressDirty(false);
     }
 
     function get() {
@@ -59,8 +70,14 @@
         if (_.isFunction(storage.getProgress) && _.isFunction(storage.saveProgress)) {
             self.storage = storage;
             var progress = storage.getProgress();
-            if (progress) {
+            if (!_.isEmpty(progress)) {
                 self.progress = progress;
+            }
+
+            window.onbeforeunload = function() {
+                if (context.isDirty === true) {
+                    return 'Progress has not been saved!';
+                }
             }
         } else {
             throw 'Cannot use this storage';
