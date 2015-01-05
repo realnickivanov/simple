@@ -8,6 +8,7 @@
             }
 
             this.id = spec.id;
+            this.shortId = spec.shortId;
             this.objectiveId = spec.objectiveId;
             this.title = spec.title;
             this.hasContent = spec.hasContent;

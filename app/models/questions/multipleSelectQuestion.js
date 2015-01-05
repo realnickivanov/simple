@@ -13,13 +13,17 @@
 
             Question.call(this, spec, _protected);
 
-            this.answers = _.map(spec.answers, function (answer) {
-                return new CheckableAnswer({
-                    id: answer.id,
-                    isCorrect: answer.isCorrect,
-                    text: answer.text
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.answers, function (answer) {
+                    return new CheckableAnswer({
+                        id: answer.id,
+                        shortId: index++,
+                        isCorrect: answer.isCorrect,
+                        text: answer.text
+                    });
                 });
-            });
+            })();
         }
 
         return MultipleSelectQuestion;
@@ -56,16 +60,16 @@
                         return answer.isChecked;
                     })
                     .map(function (answer) {
-                        return answer.id;
+                        return answer.shortId;
                     }).value();
             }
         }
 
         function restoreProgress(progress) {
             _.each(this.answers, function (answer) {
-                answer.isChecked = progress === 100 ? answer.isCorrect : progress && progress.indexOf(answer.id) > -1;
+                answer.isChecked = progress === 100 ? answer.isCorrect : progress && progress.indexOf(answer.shortId) > -1;
             });
-            this.score(calculateScore(this.answers));            
+            this.score(calculateScore(this.answers));
         }
 
     });

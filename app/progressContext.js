@@ -30,7 +30,7 @@
 
     app.on('question:answered').then(function (question) {
         try {
-            self.progress.answers[question.id] = question.progress();
+            self.progress.answers[question.shortId] = question.progress();
         } catch (e) {
             console.error(e);
         }
