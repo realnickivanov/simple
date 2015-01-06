@@ -14,16 +14,16 @@
     <!-- ko if: $root.saveProgress -->
     <div class="save-progress">
         <div class="content-wrapper">
-            <!-- ko if: $root.isProgressDirty -->
-            <button data-translate-title="[save my current progress]" class="save-progress-btn" data-bind="click: saveProgress">
-                <span data-translate-text="[save my current progress]" class="save-progress-text">Save my current progress</span>
+            <button class="save-progress-btn" data-bind="click: saveProgress, css: {'progress-saved' : !$root.isProgressDirty()}">
+                <span class="save-progress-wrapper">
+                    <span class="save-progress-text-wrapper">
+                        <span data-translate-title="[save my current progress]" data-translate-text="[save my current progress]" class="save-progress-text">Save my current progress</span>
+                    </span>
+                    <span class="progress-saved-text-wrapper">
+                        <span data-translate-title="[progress has been saved]" data-translate-text="[progress has been saved]" class="progress-saved-text">Progress has been saved</span>
+                    </span>
+                </span>
             </button>
-            <!-- /ko -->
-            <!-- ko ifnot: $root.isProgressDirty -->
-            <button data-translate-title="[progress has been saved]" class="save-progress-btn progress-saved">
-                <span data-translate-text="[progress has been saved]" class="save-progress-text">Progress has been saved</span>
-            </button>
-            <!-- /ko -->
         </div>
     </div>
     <!-- /ko -->

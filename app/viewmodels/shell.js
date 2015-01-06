@@ -52,11 +52,13 @@
                     that.logoUrl(templateSettings.logoUrl);
 
                     if (progressContext.ready()) {
-                        viewModel.saveProgress = function() {
-                            progressContext.save();
-                        }
-
                         viewModel.isProgressDirty = ko.observable(true);
+
+                        viewModel.saveProgress = function () {
+                            if (viewModel.isProgressDirty()) {
+                                progressContext.save();
+                            }
+                        }
 
                         app.on('progressContext:dirty:changed').then(function(isProgressDirty) {
                             viewModel.isProgressDirty(isProgressDirty);
