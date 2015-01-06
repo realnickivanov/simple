@@ -19,7 +19,7 @@ body {
     border-radius: 5px 5px 0 0;
 }
 
-    .save-progress-btn:hover, .save-progress-btn.progress-saved {
+    .save-progress-btn:hover, .save-progress-btn.saved {
         background-color: #0088ae;
     }
 
