@@ -33,6 +33,7 @@
         localStorage.setItem(KEY, string);
         console.log('Progress was saved (' + string.length + ' length):');
         console.dir(progress);
+        return true;
     }
 
 });

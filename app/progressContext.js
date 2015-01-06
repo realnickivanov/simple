@@ -58,8 +58,11 @@
             return;
         }
 
-        self.storage.saveProgress(self.progress);
-        setProgressDirty(false);
+        if (self.storage.saveProgress(self.progress)) {
+            setProgressDirty(false);
+        } else {
+            alert("An error occured. Please contact your teacher.");
+        }
     }
 
     function get() {
