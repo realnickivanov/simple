@@ -2,6 +2,8 @@
     function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion, Hotspot) {
         "use strict";
 
+        var index = 0;
+
         return {
             createQuestion: createQuestion
         };
@@ -12,6 +14,7 @@
             guard.throwIfNotString(question.type, 'Question type is invalid');
             var questionData = {
                 id: question.id,
+                shortId: index++,
                 objectiveId: objectiveId,
                 title: question.title,
                 type: question.type,
