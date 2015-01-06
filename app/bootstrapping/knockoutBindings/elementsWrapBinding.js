@@ -9,14 +9,15 @@
             $('img', $element).each(function (index, image) {
                 var $image = $(image),
                     $wrapper = $(imageWrapper).css('float', $image.css('float'));
-
+                   
+                $(image).css('float', 'none');
                 $image.wrap($wrapper);
             });
 
             $('table', $element).each(function (index, table) {
                 var $table = $(table),
-                    $wrapper = $(tableWrapper);
-
+                    $wrapper = $(tableWrapper).css('text-align', $table.attr('align'));
+                $table.attr('align', 'center');
                 $table.wrap($wrapper);
             });
         }

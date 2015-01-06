@@ -61,7 +61,7 @@
                 { key: '[try again]', value: 'Probeer opnieuw' },
                 { key: '[next]', value: 'Volgende' },
                 { key: '[correct answer]', value: 'Juist antwoord' },
-                { key: '[incorrect answer]', value: 'Onluist antwoord' },
+                { key: '[incorrect answer]', value: 'Onjuist antwoord' },
                 { key: '[previous question]', value: 'Vorige' },
                 { key: '[next question]', value: 'Volgende' },
                 { key: '[of]', value: 'van' },

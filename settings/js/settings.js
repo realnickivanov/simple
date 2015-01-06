@@ -12,7 +12,7 @@
         baseURL = location.protocol + "//" + location.host,
         settingsURL = baseURL + "/api/course/" + courseId + "/template/" + templateId,
 
-        index = location.toString().indexOf('/settings/settings.html'),
+        index = location.toString().indexOf('/settings/settings'),
         templateUrl = location.toString().substring(0, index),
 
         starterAccessType = 1,
