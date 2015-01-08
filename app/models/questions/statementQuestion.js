@@ -12,13 +12,17 @@
 
             Question.call(this, spec, _protected);
 
-            this.statements = _.map(spec.statements, function (statement) {
-                return new StatementAnswer({
-                    id: statement.id,
-                    text: statement.text,
-                    isCorrect: statement.isCorrect
+            this.statements = (function () {
+                var index = 0;
+                return _.map(spec.statements, function (statement) {
+                    return new StatementAnswer({
+                        id: statement.id,
+                        shortId: index++,
+                        text: statement.text,
+                        isCorrect: statement.isCorrect
+                    });
                 });
-            });
+            })();
         }
 
         return StatementQuestion;
@@ -54,7 +58,7 @@
                         return _.isBoolean(statement.userAnswer);
                     })
                     .reduce(function (obj, ctx) {
-                        obj[ctx.id] = ctx.userAnswer;
+                        obj[ctx.shortId] = ctx.userAnswer ? 1 : 0;
                         return obj;
                     }, {})
                     .value();
@@ -65,7 +69,11 @@
         function restoreProgress(progress) {
             _.chain(this.statements)
                 .each(function (statement) {
-                    statement.userAnswer = progress === 100 ? statement.isCorrect : progress[statement.id];
+                    if (progress == 100) {
+                        statement.userAnswer = statement.isCorrect;
+                    } else {
+                        statement.userAnswer = !!progress[statement.shortId];
+                    }
                 });
             this.score(calculateScore.call(this));
         }

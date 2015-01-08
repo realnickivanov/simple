@@ -14,12 +14,16 @@
 
             this.correctAnswerId = spec.correctAnswerId;
             this.checkedAnswerId = null;
-            this.answers = _.map(spec.answers, function (answer) {
-                return new CheckableImageAnswer({
-                    id: answer.id,
-                    image: answer.image || constants.defaultImageUrl
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.answers, function (answer) {
+                    return new CheckableImageAnswer({
+                        id: answer.id,
+                        shortId: index++,
+                        image: answer.image || constants.defaultImageUrl
+                    });
                 });
-            });
+            })();
         }
 
         return SingleSelectImageQuestion;
@@ -42,16 +46,33 @@
         }
 
         function getProgress() {
-            if (this.isCorrectAnswered) {
+            var that = this;
+            if (that.isCorrectAnswered) {
                 return 100;
             } else {
-                return this.checkedAnswerId;
+                var checked = _.find(that.answers, function (answer) {
+                    return answer.id == that.checkedAnswerId;
+                });
+
+                return checked ? checked.shortId : undefined;
             }
         }
 
         function restoreProgress(progress) {
-            this.checkedAnswerId = progress === 100 ? this.correctAnswerId : progress;
-            this.score(calculateScore(this.checkedAnswerId, this.correctAnswerId));
+            var that = this;            
+            if (progress === 100) {
+                that.checkedAnswerId = that.correctAnswerId;
+            } else {
+                var checked = _.find(that.answers, function (answer) {
+                    return answer.shortId == progress;
+                });
+                
+                if (checked) {
+                    that.checkedAnswerId = checked.id;
+                }
+
+            }
+            that.score(calculateScore(that.checkedAnswerId, that.correctAnswerId));
         }
 
     });

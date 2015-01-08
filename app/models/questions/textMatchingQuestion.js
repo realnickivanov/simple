@@ -13,14 +13,18 @@
 
             Question.call(this, spec, _protected);
 
-            this.answers = _.map(spec.answers, function (answer) {
-                return {
-                    id: answer.id,
-                    key: answer.key,
-                    value: answer.value,
-                    attemptedValue: null
-                };
-            });
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.answers, function (answer) {
+                    return {
+                        id: answer.id,
+                        shortId: index++,
+                        key: answer.key,
+                        value: answer.value,
+                        attemptedValue: null
+                    };
+                });
+            })();
         }
 
         return TextMatchingQuestion;
@@ -62,12 +66,12 @@
                     })
                     .map(function (answer) {
                         return {
-                            id: answer.id,
+                            shortId: answer.shortId,
                             attemptedValue: answer.attemptedValue
                         }
                     })
                     .reduce(function (obj, ctx) {
-                        obj[ctx.id] = ctx.attemptedValue;
+                        obj[ctx.shortId] = ctx.attemptedValue;
                         return obj;
                     }, {})
                     .value();
@@ -81,11 +85,11 @@
                 });
             } else {
                 _.each(this.answers, function (answer) {
-                    if (progress[answer.id]) {
-                        answer.attemptedValue = progress[answer.id];
+                    if (progress[answer.shortId]) {
+                        answer.attemptedValue = progress[answer.shortId];
                     }
                 });
             }
-            this.score(getScore(this.answers));            
+            this.score(getScore(this.answers));
         }
     });

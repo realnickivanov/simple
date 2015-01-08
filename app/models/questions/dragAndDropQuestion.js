@@ -14,15 +14,19 @@
 
             this.background = spec.background;
 
-            this.answers = _.map(spec.dropspots, function (answer) {
-                return new DraggableAnswer({
-                    id: answer.id,
-                    isCorrect: true,
-                    text: answer.text,
-                    x: answer.x,
-                    y: answer.y
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.dropspots, function (answer) {
+                    return new DraggableAnswer({
+                        id: answer.id,
+                        shortId: index++,
+                        isCorrect: true,
+                        text: answer.text,
+                        x: answer.x,
+                        y: answer.y
+                    });
                 });
-            });
+            })();
         }
 
         return DragAndDropQuestion;
@@ -36,8 +40,6 @@
 
             this.score(calculateScore(this.answers));
             this.isCorrectAnswered = this.score() == 100;
-
-            console.dir(this.answers);
 
             eventManager.answersSubmitted(
                 eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(this)
@@ -74,7 +76,7 @@
                             && answer.currentPosition.y > -1;
                     })
                     .reduce(function (obj, ctx) {
-                        obj[ctx.id] = ctx.currentPosition;
+                        obj[ctx.shortId] = ctx.currentPosition;
                         return obj;
                     }, {})
                     .value();
@@ -88,8 +90,8 @@
                 });
             } else {
                 _.each(this.answers, function (answer) {
-                    if (progress[answer.id]) {
-                        answer.currentPosition = progress[answer.id];
+                    if (progress[answer.shortId]) {
+                        answer.currentPosition = progress[answer.shortId];
                     }
                 });
 

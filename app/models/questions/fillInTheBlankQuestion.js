@@ -14,19 +14,23 @@
 
             this.answerGroupsValues = null;
 
-            this.answerGroups = _.map(spec.answerGroups, function (answerGroup) {
-                return new AnswerGroup({
-                    id: answerGroup.id,
-                    type: answerGroup.type,
-                    answers: _.map(answerGroup.answers, function (answer) {
-                        return new Answer({
-                            id: answer.id,
-                            isCorrect: answer.isCorrect,
-                            text: answer.text
-                        });
-                    })
+            this.answerGroups = (function () {
+                var index = 0;
+                return _.map(spec.answerGroups, function (answerGroup) {
+                    return new AnswerGroup({
+                        id: answerGroup.id,
+                        shortId: index++,
+                        type: answerGroup.type,
+                        answers: _.map(answerGroup.answers, function (answer) {
+                            return new Answer({
+                                id: answer.id,
+                                isCorrect: answer.isCorrect,
+                                text: answer.text
+                            });
+                        })
+                    });
                 });
-            });
+            })();
         }
 
         return FillInTheBlankQuestion;
@@ -79,7 +83,7 @@
                         return !!group.answeredText;
                     })
                     .reduce(function (obj, ctx) {
-                        obj[ctx.id] = ctx.answeredText;
+                        obj[ctx.shortId] = ctx.answeredText;
                         return obj;
                     }, {})
                     .value();
@@ -94,10 +98,10 @@
                         .find(function (answer) {
                             return answer.isCorrect;
                         }).value();
-
+                    
                     return {
                         id: answerGroup.id,
-                        value: progress === 100 ? correct.text : progress[answerGroup.id],
+                        value: progress === 100 ? correct.text : progress[answerGroup.shortId],
                         answers: answerGroup.answers
                     };
                 }).value();

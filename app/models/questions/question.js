@@ -35,7 +35,7 @@
             this.learningContentExperienced = learningContentExperienced;
 
             this.progress = function (data) {
-                if (data) {
+                if (!_.isNullOrUndefined(data)) {
                     _protected.restoreProgress.call(this, data);
 
                     this.isAnswered = true;
