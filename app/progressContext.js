@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router'], function (app, router) {
+﻿define(['durandal/app', 'plugins/router', 'translation'], function (app, router, translation) {
 
     var
         self = {
@@ -61,7 +61,7 @@
         if (self.storage.saveProgress(self.progress)) {
             setProgressDirty(false);
         } else {
-            alert("An error occured. Please contact your teacher.");
+            alert(translation.getTextByKey('[course progress cannot be saved]'));
         }
     }
 
@@ -79,7 +79,7 @@
 
             window.onbeforeunload = function() {
                 if (context.isDirty === true) {
-                    return 'Progress has not been saved!';
+                    return translation.getTextByKey('[progress not saved]');
                 }
             }
         } else {
