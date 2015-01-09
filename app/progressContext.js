@@ -41,7 +41,10 @@
     });
 
     router.on('router:navigation:composition-complete', function (obj, instruction) {
-        if (self.progress.url != instruction.fragment) {
+        if (_.isEmpty(self.progress.url)) {
+            self.progress.url = instruction.fragment;
+        }
+        else if (self.progress.url != instruction.fragment) {
             self.progress.url = instruction.fragment;
             setProgressDirty(true);
         }
