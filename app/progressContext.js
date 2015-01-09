@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'translation'], function (app, router, translation) {
+﻿define(['durandal/app', 'plugins/router', 'translation', 'eventManager'], function (app, router, translation, eventManager) {
 
     var
         self = {
@@ -41,8 +41,10 @@
     });
 
     router.on('router:navigation:composition-complete', function (obj, instruction) {
-        self.progress.url = instruction.fragment;
-        setProgressDirty(true);
+        if (self.progress.url != instruction.fragment) {
+            self.progress.url = instruction.fragment;
+            setProgressDirty(true);
+        }
     });
 
     return context;
@@ -50,6 +52,11 @@
     function setProgressDirty(isDirty) {
         context.isDirty = isDirty;
         app.trigger('progressContext:dirty:changed', isDirty);
+    }
+
+    function finish() {
+        save();
+        context.isDirty = false;
     }
 
     function save() {
@@ -76,6 +83,8 @@
             if (!_.isEmpty(progress)) {
                 self.progress = progress;
             }
+
+            eventManager.subscribeForEvent(eventManager.events.courseFinished).then(finish);
 
             window.onbeforeunload = function() {
                 if (context.isDirty === true) {
