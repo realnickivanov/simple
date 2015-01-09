@@ -91,7 +91,6 @@
         }
 
         function restoreProgress(progress) {
-            // OMG
             var inputValues = _.chain(this.answerGroups)
                 .map(function (answerGroup) {
                     var correct = _.chain(answerGroup.answers)

@@ -10,16 +10,6 @@
 define('jquery', function () { return jQuery; });
 define('knockout', function () { return ko; });
 
-ko.bindingHandlers.context = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        viewModel.__context__ = element.getContext('2d');
-    },
-    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        var callback = ko.utils.unwrapObservable(allBindingsAccessor().contextCallback);
-        callback.call(viewModel, viewModel.__context__);
-    }
-};
-
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader', 'bootstrapper'],
     function (app, viewLocator, system, modulesInitializer, browserSupport, settingsReader, bootstrapper) {
         app.title = 'easygenerator';
@@ -33,27 +23,25 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             widget: true
         });
 
-
         app.start().then(function () {
             bootstrapper.run();
-          
-            var modules = [],
-                promises = [];
+
+            var modules = [];
 
             modules['modules/localStorage_progressProvider'] = true;
 
-            promises.push(readTemplateSettings());
-            promises.push(readPublishSettings());
+            return readPublishSettings().then(function () {
+                return readTemplateSettings().then(function() {
+                    modulesInitializer.register(modules);
+                    if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
+                        app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
+                        return;
+                    }
 
-            Q.allSettled(promises).then(function () {
-                modulesInitializer.register(modules);
-
-                if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
-                    app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
-                    return;
-                }
-
-                app.setRoot('viewmodels/shell');
+                    app.setRoot('viewmodels/shell');
+                });
+            }).catch(function(e) {
+                console.error(e);
             });
 
             function readTemplateSettings() {
@@ -64,8 +52,8 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             }
 
             function readPublishSettings() {
-                return settingsReader.readPublishSettings().then(function(settings) {
-                    _.each(settings.modules, function(module) {
+                return settingsReader.readPublishSettings().then(function (settings) {
+                    _.each(settings.modules, function (module) {
                         modules[module.name] = true;
                     });
                 });
