@@ -78,7 +78,7 @@
                 { key: '[thank you message]', value: 'Bedankt, je kan nu de pagina sluiten' },
                 { key: '[save my current progress]', value: "Sla mijn voortgang op" },
                 { key: '[progress has been saved]', value: "Voortgang is opgeslagen!" },
-                { key: '[progress not saved]', value: "Uw cursus voortgang is nog niet opgeslagen! Als u de voortgang wilt opslaan:\n  1. Druk op  \"Stay on this Page\"\n  2. Kies \"Bewaar mijn voortgang\" bovenaan de pagina van de cursus.\nOf druk op \"Leave this page\" om de cursus te sluiten zonder uw voortgang op te slaan." },
+                { key: '[progress not saved]', value: "Uw cursus voortgang is nog niet opgeslagen! Als u de voortgang wilt opslaan:\n  1. Druk op  \"Op deze pagina blijven\"\n  2. Kies \"Bewaar mijn voortgang\" bovenaan de pagina van de cursus.\nOf druk op \"Deze pagina verlaten\" om de cursus te sluiten zonder uw voortgang op te slaan." },
                 { key: '[progress cannot be saved]', value: "Cursus voortgang kan niet worden opgeslagen. Probeer het opnieuw of neem contact op met de docent als het probleem blijft bestaan." },
                 { key: '[there are no questions]', value: 'Geen vragen' },
                 { key: '[browser not supported]', value: 'Uw browser wordt niet ondersteund.' },
