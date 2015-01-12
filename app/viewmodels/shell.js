@@ -48,28 +48,45 @@
                     that.isClosed(true);
                 });
 
-                return modulesInitializer.init().then(function () {
-                    that.logoUrl(templateSettings.logoUrl);
 
-                    if (progressContext.ready()) {
-                        viewModel.isProgressDirty = ko.observable(true);
+                return context.initialize().then(function (dataContext) {
+                    return modulesInitializer.init().then(function () {
+                        that.logoUrl(templateSettings.logoUrl);
 
-                        viewModel.saveProgress = function () {
-                            if (viewModel.isProgressDirty()) {
-                                progressContext.save();
-                            }
-                        }
-
-                        app.on('progressContext:dirty:changed').then(function(isProgressDirty) {
-                            viewModel.isProgressDirty(isProgressDirty);
-                        });
-
-                        window.location.hash = progressContext.get() && progressContext.get().url;
-                    }
-
-                    return themesInjector.init().then(function () {
-                        return context.initialize().then(function (dataContext) {
+                        return themesInjector.init().then(function () {
                             app.title = dataContext.course.title;
+
+                            if (progressContext.ready()) {
+                                viewModel.isProgressDirty = ko.observable(true);
+
+                                viewModel.saveProgress = function () {
+                                    if (viewModel.isProgressDirty()) {
+                                        progressContext.save();
+                                    }
+                                }
+
+                                app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
+                                    viewModel.isProgressDirty(isProgressDirty);
+                                });
+
+
+                                var progress = progressContext.get();
+                                if (_.isObject(progress)) {
+                                    if (_.isString(progress.url)) {
+                                        window.location.hash = progress.url;
+                                    }
+
+                                    if (_.isObject(progress.answers)) {
+                                        _.each(dataContext.course.objectives, function (objective) {
+                                            _.each(objective.questions, function (question) {
+                                                if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
+                                                    question.progress(progress.answers[question.shortId]);
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            }
 
                             return router.map(routes)
                                 .buildNavigationModel()

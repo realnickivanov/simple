@@ -1,9 +1,10 @@
-﻿define(['durandal/app', 'plugins/router', 'translation'], function (app, router, translation) {
+﻿define(['durandal/app', 'plugins/router', 'translation', 'context'], function (app, router, translation, dataContext) {
 
     var
         self = {
             storage: null,
             progress: {
+                _v: 1,
                 url: '',
                 answers: {},
                 user: null
@@ -17,7 +18,7 @@
             use: use,
             ready: ready,
 
-            isDirty: null 
+            isDirty: null
         }
     ;
 
@@ -71,17 +72,21 @@
 
     function use(storage) {
         if (_.isFunction(storage.getProgress) && _.isFunction(storage.saveProgress)) {
+
             self.storage = storage;
-            var progress = storage.getProgress();
-            if (!_.isEmpty(progress)) {
+            self.progress._v = dataContext.course.createdOn.getTime();
+
+            var progress = self.storage.getProgress();
+            if (!_.isEmpty(progress) && progress._v === self.progress._v) {
                 self.progress = progress;
             }
 
-            window.onbeforeunload = function() {
+            window.onbeforeunload = function () {
                 if (context.isDirty === true) {
                     return translation.getTextByKey('[progress not saved]');
                 }
             }
+
         } else {
             throw 'Cannot use this storage';
         }

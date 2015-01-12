@@ -6,6 +6,10 @@
             var course = {
                 id: spec.id,
                 title: spec.title,
+
+                createdBy: spec.createdBy,
+                createdOn: spec.createdOn,
+
                 hasIntroductionContent: spec.hasIntroductionContent,
                 objectives: spec.objectives
             }

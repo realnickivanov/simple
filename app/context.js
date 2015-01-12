@@ -1,18 +1,18 @@
-﻿define(['models/course', 'models/objective', 'models/questions/questionsFactory', 'progressContext'],
-    function (Course, Objective, questionsFactory, progressContext) {
+﻿define(['models/course', 'models/objective', 'models/questions/questionsFactory'],
+    function (Course, Objective, questionsFactory) {
 
         var
             course = {},
 
             initialize = function () {
+                var dfd = Q.defer();
                 var that = this;
-                return $.ajax({
+                $.ajax({
                     url: 'content/data.js',
                     contentType: 'application/json',
                     dataType: 'json',
                     cache: false
-                }).then(function (response) {
-                    var progress = progressContext.get();
+                }).done(function (response) {
 
                     that.course = new Course({
                         id: response.id,
@@ -31,23 +31,19 @@
                                     })
                                 });
                             })
-                            .value()
+                            .value(),
+                        createdOn: new Date(response.createdOn),
+                        createdBy: response.createdBy
                     });
 
-                    if (_.isObject(progress) && _.isObject(progress.answers)) {
-                        _.each(that.course.objectives, function (objective) {
-                            _.each(objective.questions, function (question) {
-                                if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
-                                    question.progress(progress.answers[question.shortId]);
-                                }
-                            });
-                        });
-                    }
-
-                    return {
+                    dfd.resolve({
                         course: that.course
-                    };
+                    });
+                }).fail(function() {
+                    dfd.reject('Unable to load data.js');
                 });
+
+                return dfd.promise;
             };
 
         return {

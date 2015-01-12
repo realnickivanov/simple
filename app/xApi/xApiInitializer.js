@@ -30,7 +30,7 @@
         function initialize(settings, progressContext) {
             return Q.fcall(function () {
                 moduleSettings = settings;
-
+                
                 if (progressContext && progressContext.user) {
                     activate(progressContext.user.username, progressContext.user.email);
                 }
@@ -55,7 +55,7 @@
             }
 
             url = url + '?course_id=' + context.course.id;
-            
+
             return Q.all([
                   xApiSettings.init(moduleSettings),
                   requestManager.init(moduleSettings),
@@ -66,7 +66,6 @@
             }).fail(function (reason) {
                 xApiInitializer.deactivate();
                 errorsHandler.handleError(reason);
-                debugger;
             });;
         }
     }
