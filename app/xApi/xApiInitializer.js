@@ -1,5 +1,5 @@
-﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'xApi/configuration/xApiSettings', './statementQueueHandler', './errorsHandler', 'context'],
-    function (router, routingManager, requestManager, activityProvider, xApiSettings, statementQueueHandler, errorsHandler, context) {
+﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'xApi/configuration/xApiSettings', './statementQueueHandler', './errorsHandler', 'context', 'progressContext'],
+    function (router, routingManager, requestManager, activityProvider, xApiSettings, statementQueueHandler, errorsHandler, context, progressContext) {
         "use strict";
 
         var
@@ -27,16 +27,18 @@
         }
 
         //Initialization function for moduleManager
-        function initialize(settings, progressContext) {
+        function initialize(settings) {
             return Q.fcall(function () {
                 moduleSettings = settings;
 
-                if (_.isObject(progressContext)) {
-                    if (_.isObject(progressContext.user)) {
-                        activate(progressContext.user.username, progressContext.user.email);
+
+                var progress = progressContext.get();
+                if (_.isObject(progress)) {
+                    if (_.isObject(progress.user)) {
+                        activate(progress.user.username, progress.user.email);
                         return;
                     }
-                    if (progressContext.user === 0) {
+                    if (progress.user === 0) {
                         deactivate();
                         return;
                     }
