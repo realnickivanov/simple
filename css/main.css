@@ -1811,6 +1811,7 @@ input[type="checkbox"] {
 }
 
 .text-matching-source {
+    display:table-cell;
     border: 2px solid;
     border-radius: 7px;
     cursor: default;
@@ -1818,7 +1819,6 @@ input[type="checkbox"] {
     position: relative;
     text-align: center;
     vertical-align: middle;
-    width: 100%;
 }
 
 .text-matching-source-text-wrapper {
