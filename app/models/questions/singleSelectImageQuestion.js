@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'guard', 'constants', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/checkableImageAnswer'],
-    function (eventManager, guard, constants, eventDataBuilder, Question, CheckableImageAnswer) {
+﻿define(['guard', 'constants', 'models/questions/question', 'models/answers/checkableImageAnswer'],
+    function (guard, constants, Question, CheckableImageAnswer) {
         "use strict";
 
         function SingleSelectImageQuestion(spec) {
@@ -35,10 +35,6 @@
             this.score(calculateScore(checkedAnswerId, this.correctAnswerId));
             this.isAnswered = true;
             this.isCorrectAnswered = this.score() == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData(this)
-            );
         }
 
         function calculateScore(answerId, correctAnswerId) {
@@ -59,14 +55,14 @@
         }
 
         function restoreProgress(progress) {
-            var that = this;            
+            var that = this;
             if (progress === 100) {
                 that.checkedAnswerId = that.correctAnswerId;
             } else {
                 var checked = _.find(that.answers, function (answer) {
                     return answer.shortId == progress;
                 });
-                
+
                 if (checked) {
                     that.checkedAnswerId = checked.id;
                 }

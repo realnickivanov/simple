@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/draggableAnswer'],
-    function (eventManager, guard, eventDataBuilder, Question, DraggableAnswer) {
+﻿define(['guard', 'models/questions/question', 'models/answers/draggableAnswer'],
+    function (guard, Question, DraggableAnswer) {
         "use strict";
 
         function DragAndDropQuestion(spec) {
@@ -40,10 +40,6 @@
 
             this.score(calculateScore(this.answers));
             this.isCorrectAnswered = this.score() == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(this)
-            );
         }
 
         function calculateScore(answers) {

@@ -1,5 +1,5 @@
-﻿define(['models/questions/question', 'eventManager', 'eventDataBuilders/questionEventDataBuilder', ],
-    function (Question, eventManager, eventDataBuilder) {
+﻿define(['models/questions/question'],
+    function (Question) {
         "use strict";
 
         function TextMatchingQuestion(spec) {
@@ -44,10 +44,6 @@
             this.score(getScore(this.answers));
             this.isAnswered = true;
             this.isCorrectAnswered = this.score() == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildTextMatchingQuestionSubmittedEventData(this)
-            );
         }
 
         function getScore(answers) {

@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/answerGroup', 'models/answers/answer'],
-    function (eventManager, guard, eventDataBuilder, Question, AnswerGroup, Answer) {
+﻿define(['guard', 'models/questions/question', 'models/answers/answerGroup', 'models/answers/answer'],
+    function (guard, Question, AnswerGroup, Answer) {
         "use strict";
 
         function FillInTheBlankQuestion(spec) {
@@ -45,10 +45,6 @@
             this.isCorrectAnswered = this.score() == 100;
 
             saveAnsweredTexts(inputValues, this.answerGroups);
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildFillInQuestionSubmittedEventData(this)
-            );
         }
 
         function calculateScore(answerGroupValues, pointer) {
@@ -97,7 +93,7 @@
                         .find(function (answer) {
                             return answer.isCorrect;
                         }).value();
-                    
+
                     return {
                         id: answerGroup.id,
                         value: progress === 100 ? correct.text : progress[answerGroup.shortId],

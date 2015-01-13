@@ -22,26 +22,18 @@
         }
     ;
 
-    app.on('user:authenticated').then(function (user) {
-        self.progress.user = user;
+    return context;
+
+    function setProgressDirty(isDirty) {
+        context.isDirty = isDirty;
+        app.trigger('progressContext:dirty:changed', isDirty);
+    }
+
+    function markAsDirty() {
         setProgressDirty(true);
-    });
+    }
 
-    app.on('user:authentication-skipped').then(function () {
-        self.progress.user = 0;
-        setProgressDirty(true);
-    });
-
-    app.on('question:answered').then(function (question) {
-        try {
-            self.progress.answers[question.shortId] = question.progress();
-            setProgressDirty(true);
-        } catch (e) {
-            console.error(e);
-        }
-    });
-
-    router.on('router:navigation:composition-complete', function (obj, instruction) {
+    function navigated(obj, instruction) {
         if (_.isEmpty(self.progress.url)) {
             self.progress.url = instruction.fragment;
         }
@@ -49,13 +41,25 @@
             self.progress.url = instruction.fragment;
             setProgressDirty(true);
         }
-    });
+    }
 
-    return context;
+    function authenticated(user) {
+        self.progress.user = user;
+        setProgressDirty(true);
+    }
 
-    function setProgressDirty(isDirty) {
-        context.isDirty = isDirty;
-        app.trigger('progressContext:dirty:changed', isDirty);
+    function authenticationSkipped() {
+        self.progress.user = 0;
+        setProgressDirty(true);
+    }
+
+    function questionAnswered(question) {
+        try {
+            self.progress.answers[question.shortId] = question.progress();
+            setProgressDirty(true);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     function finish() {
@@ -91,13 +95,21 @@
                 self.progress = progress;
             }
 
+            eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(questionAnswered).then(markAsDirty);
             eventManager.subscribeForEvent(eventManager.events.courseFinished).then(finish);
+
+            app.on('user:authenticated').then(authenticated).then(markAsDirty);
+            app.on('user:authentication-skipped').then(authenticationSkipped).then(markAsDirty);
+
+            router.on('router:navigation:composition-complete', navigated);
 
             window.onbeforeunload = function () {
                 if (context.isDirty === true) {
                     return translation.getTextByKey('[progress not saved]');
                 }
             }
+
+            setProgressDirty(false);
 
         } else {
             throw 'Cannot use this storage';

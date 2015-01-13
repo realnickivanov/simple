@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'eventDataBuilders/courseEventDataBuilder'],
-    function (eventManager, eventDataBuilder) {
+﻿define(['eventManager'],
+    function (eventManager) {
 
         var ctor = function (spec) {
 
@@ -34,7 +34,7 @@
             });
 
             course.finish = function (callback) {
-                eventManager.courseFinished(eventDataBuilder.buildCourseFinishedEventData(course), function () {
+                eventManager.courseFinished(course, function () {
                     eventManager.turnAllEventsOff();
                     callback();
                 });

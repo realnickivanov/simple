@@ -1,5 +1,5 @@
-﻿define(['models/questions/question', 'models/answers/statementAnswer', 'guard', 'eventManager', 'eventDataBuilders/questionEventDataBuilder'],
-    function (Question, StatementAnswer, guard, eventManager, questionEventDataBuilder) {
+﻿define(['models/questions/question', 'models/answers/statementAnswer', 'guard'],
+    function (Question, StatementAnswer, guard) {
         "use strict";
 
         function StatementQuestion(spec) {
@@ -38,9 +38,6 @@
             this.score(calculateScore.call(this));
             this.isAnswered = true;
             this.isCorrectAnswered = this.score() == 100;
-
-            var eventData = questionEventDataBuilder.buildStatementQuestionSubmittedEventData(this);
-            eventManager.answersSubmitted(eventData);
         }
 
         function calculateScore() {

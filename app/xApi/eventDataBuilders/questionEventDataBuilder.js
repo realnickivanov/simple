@@ -8,7 +8,7 @@
         buildSingleSelectImageQuestionSubmittedEventData: buildSingleSelectImageQuestionSubmittedEventData,
         buildTextMatchingQuestionSubmittedEventData: buildTextMatchingQuestionSubmittedEventData,
         buildLearningContentExperiencedEventData: buildLearningContentExperiencedEventData,
-        buildStatementQuestionSubmittedEventData: buildStatementQuestionSubmittedEventData,        
+        buildStatementQuestionSubmittedEventData: buildStatementQuestionSubmittedEventData,
         buildHotspotQuestionSubmittedEventData: buildHotspotQuestionSubmittedEventData
     };
 
@@ -101,7 +101,7 @@
 
         var objective = objectiveRepository.get(question.objectiveId);
         guard.throwIfNotAnObject(objective, 'Objective is not found');
-       
+
         return {
             type: "hotspot",
             question: {
@@ -166,19 +166,19 @@
             question: {
                 id: question.id,
                 title: question.title,
-                answers: _.map(question.statements, function(item) {
+                answers: _.map(question.statements, function (item) {
                     return {
                         id: item.id,
                         text: item.text
                     };
                 }),
                 score: question.score(),
-                selectedAnswersIds: _.chain(question.statements).filter(function(statement) {
+                selectedAnswersIds: _.chain(question.statements).filter(function (statement) {
                     return !_.isNullOrUndefined(statement.userAnswer);
-                }).map(function(statement) {
+                }).map(function (statement) {
                     return statement.id + '[.]' + statement.userAnswer;
                 }).value(),
-                correctAnswersIds: _.map(question.statements, function(item) {
+                correctAnswersIds: _.map(question.statements, function (item) {
                     return item.id + '[.]' + item.isCorrect;
                 })
             },

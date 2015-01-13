@@ -1,5 +1,5 @@
-﻿define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue'],
-    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue) {
+﻿define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', './eventDataBuilders/courseEventDataBuilder', './eventDataBuilders/questionEventDataBuilder', 'constants'],
+    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, courseEventDataBuilder, questionEventDataBuilder, globalConstants) {
 
         "use strict";
 
@@ -55,7 +55,9 @@
             pushStatementIfSupported(createStatement(constants.verbs.started));
         }
 
-        function enqueueCourseFinished(finishedEventData) {
+        function enqueueCourseFinished(course) {
+            var finishedEventData = courseEventDataBuilder.buildCourseFinishedEventData(course);
+
             if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
                 throw errorsHandler.errors.notEnoughDataInSettings;
             }
@@ -94,9 +96,11 @@
             }
         }
 
-        function learningContentExperienced(eventData) {
-            var question = eventData.question,
-                objective = eventData.objective;
+        function learningContentExperienced(question, spentTime) {
+
+            var eventData = questionEventDataBuilder.buildLearningContentExperiencedEventData(question, spentTime);
+
+            var objective = eventData.objective;
 
             var result = new resultModel({
                 duration: dateTimeConverter.timeToISODurationString(eventData.spentTime)
@@ -117,23 +121,73 @@
             pushStatementIfSupported(createStatement(constants.verbs.experienced, result, object, context));
         }
 
-        function enqueueAnsweredQuestionsStatements(eventData) {
-            switch (eventData.type) {
-                case constants.interactionTypes.choice:
-                    enqueueSingleSelectTextQuestionAnsweredStatement(eventData);
-                    break;
-                case constants.interactionTypes.fillIn:
-                    enqueueFillInQuestionAnsweredStatement(eventData);
-                    break;
-                case constants.interactionTypes.dragAndDrop:
-                    enqueueDragAndDropTextQuestionAnsweredStatement(eventData);
-                    break;
-                case constants.interactionTypes.hotspot:
-                    enqueueHotSpotQuestionAnsweredStatement(eventData);
-                    break;
-                case constants.interactionTypes.matching:
-                    enqueueMatchingQuestionAnsweredStatement(eventData);
-                    break;
+        function enqueueAnsweredQuestionsStatements(question) {
+
+            var eventData = null;
+            try {
+
+
+                switch (question.type) {
+                    case globalConstants.questionTypes.multipleSelect:
+                    case globalConstants.questionTypes.singleSelectText:
+                        eventData = questionEventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData(question);
+                        eventData.answers = question.answers;
+                        break;
+                    case globalConstants.questionTypes.dragAndDrop:
+
+                        eventData = questionEventDataBuilder.buildDragAndDropTextQuestionSubmittedEventData(question);
+                        eventData.background = question.background;
+                        eventData.dropspots = question.dropspots;
+                        break;
+                    case globalConstants.questionTypes.fillInTheBlank:
+                        eventData = questionEventDataBuilder.buildFillInQuestionSubmittedEventData(question);
+                        eventData.answerGroups = question.answerGroups;
+                        break;
+                    case globalConstants.questionTypes.singleSelectImage:
+                        eventData = questionEventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData(question);
+                        eventData.correctAnswerId = question.correctAnswerId;
+                        eventData.answers = question.answers;
+                        break;
+                    case globalConstants.questionTypes.textMatching:
+                        eventData = questionEventDataBuilder.buildTextMatchingQuestionSubmittedEventData(question);
+                        eventData.answers = question.answers;
+                        break;
+                    case globalConstants.questionTypes.statement:
+                        eventData = questionEventDataBuilder.buildStatementQuestionSubmittedEventData(question);
+                        eventData.statements = question.answers;
+                        break;
+                    case globalConstants.questionTypes.hotspot:
+                        eventData = questionEventDataBuilder.buildHotspotQuestionSubmittedEventData(question);
+                        eventData.statements = question.answers;
+                        eventData.spots = question.spots;
+                        eventData.isMultiple = question.isMultiple;
+                        eventData.background = question.background;
+                        break;
+                }
+
+                if (eventData == null) {
+                    return;
+                }
+
+                switch (eventData.type) {
+                    case constants.interactionTypes.choice:
+                        enqueueSingleSelectTextQuestionAnsweredStatement(eventData);
+                        break;
+                    case constants.interactionTypes.fillIn:
+                        enqueueFillInQuestionAnsweredStatement(eventData);
+                        break;
+                    case constants.interactionTypes.dragAndDrop:
+                        enqueueDragAndDropTextQuestionAnsweredStatement(eventData);
+                        break;
+                    case constants.interactionTypes.hotspot:
+                        enqueueHotSpotQuestionAnsweredStatement(eventData);
+                        break;
+                    case constants.interactionTypes.matching:
+                        enqueueMatchingQuestionAnsweredStatement(eventData);
+                        break;
+                }
+            } catch (e) {
+                debugger;
             }
         }
 
@@ -331,7 +385,7 @@
             var contextExtensions = contextSpec.extensions || {};
             contextExtensions[constants.extenstionKeys.courseId] = activityProvider.courseId;
             contextSpec.extensions = contextExtensions;
-           
+
             return new contextModel(contextSpec);
         }
 

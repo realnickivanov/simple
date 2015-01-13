@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'plugins/http', 'durandal/app'],
-    function (eventManager, guard, eventDataBuilder, http, app) {
+﻿define(['eventManager', 'guard', 'plugins/http', 'durandal/app'],
+    function (eventManager, guard, http, app) {
         "use strict";
 
         function Question(spec, _protected) {
@@ -47,15 +47,15 @@
             this.submitAnswer = function () {
                 _protected.submit.apply(this, arguments);
                 app.trigger('question:answered', this);
+
+                eventManager.answersSubmitted(this);
             }
         }
 
         return Question;
 
         function learningContentExperienced(spentTime) {
-            eventManager.learningContentExperienced(
-                eventDataBuilder.buildLearningContentExperiencedEventData(this, spentTime)
-            );
+            eventManager.learningContentExperienced(this, spentTime);
         }
 
         function loadContent() {

@@ -1,5 +1,5 @@
-define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders/questionEventDataBuilder'],
-    function (Question, guard, eventManager, eventDataBuilder) {
+define(['models/questions/question', 'guard'],
+    function (Question, guard) {
         "use strict";
 
         function Hotspot(spec) {
@@ -30,10 +30,6 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
 
             this.score(scores);
             this.isCorrectAnswered = scores == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildHotspotQuestionSubmittedEventData(this)
-            );
         };
 
         function calculateScore(isMultiple, spots, placedMarks) {
@@ -92,7 +88,7 @@ define(['models/questions/question', 'guard', 'eventManager', 'eventDataBuilders
             _.each(progress, function (mark) {
                 that.placedMarks.push(mark);
             });
-            
+
             this.score(calculateScore(that.isMultiple, that.spots, that.placedMarks));
         }
     });
