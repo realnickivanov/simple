@@ -18,7 +18,7 @@
             use: use,
             ready: ready,
 
-            isDirty: null 
+            isDirty: null
         }
     ;
 
@@ -43,11 +43,11 @@
 
     router.on('router:navigation:composition-complete', function (obj, instruction) {
         if (_.isEmpty(self.progress.url)) {
-        self.progress.url = instruction.fragment;
+            self.progress.url = instruction.fragment;
         }
         else if (self.progress.url != instruction.fragment) {
             self.progress.url = instruction.fragment;
-        setProgressDirty(true);
+            setProgressDirty(true);
         }
     });
 
@@ -93,7 +93,7 @@
 
             eventManager.subscribeForEvent(eventManager.events.courseFinished).then(finish);
 
-            window.onbeforeunload = function() {
+            window.onbeforeunload = function () {
                 if (context.isDirty === true) {
                     return translation.getTextByKey('[progress not saved]');
                 }

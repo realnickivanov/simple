@@ -51,6 +51,7 @@
 
         function skip() {
             xApiInitializer.deactivate();
+            app.trigger('user:authentication-skipped');
             startCourse();
         };
 

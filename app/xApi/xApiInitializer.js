@@ -30,13 +30,21 @@
         function initialize(settings, progressContext) {
             return Q.fcall(function () {
                 moduleSettings = settings;
-                
-                if (progressContext && progressContext.user) {
-                    activate(progressContext.user.username, progressContext.user.email);
+
+                if (_.isObject(progressContext)) {
+                    if (_.isObject(progressContext.user)) {
+                        activate(progressContext.user.username, progressContext.user.email);
+                        return;
+                    }
+                    if (progressContext.user === 0) {
+                        deactivate();
+                        return;
+                    }
                 }
 
                 routingManager.createGuard(xApiInitializer, 'login');
                 routingManager.mapRoutes();
+
             });
         }
 
