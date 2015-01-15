@@ -3,14 +3,13 @@
         "use strict";
 
         function StatementQuestion(spec) {
-            var _protected = {
+
+            Question.call(this, spec, {
                 getProgress: getProgress,
                 restoreProgress: restoreProgress,
 
                 submit: submitAnswer
-            };
-
-            Question.call(this, spec, _protected);
+            });
 
             this.statements = (function () {
                 var index = 0;
@@ -35,7 +34,7 @@
                 statement.userAnswer = !_.isNullOrUndefined(userAnswer) ? userAnswer.answer : null;
             });
 
-            this.score(calculateScore.call(this));
+            return calculateScore.call(this);
         }
 
         function calculateScore() {

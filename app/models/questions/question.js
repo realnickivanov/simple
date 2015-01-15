@@ -45,7 +45,7 @@
                 }
             };
             this.submitAnswer = function () {
-                _protected.submit.apply(this, arguments);
+                this.score(_protected.submit.apply(this, arguments));
 
                 this.isAnswered = true;
                 this.isCorrectAnswered = this.score() == 100;
