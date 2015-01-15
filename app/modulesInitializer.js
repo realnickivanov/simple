@@ -25,18 +25,29 @@
 
         function init() {
             var moduleIds = _.keys(modulesConfigs);
-            var modulesCount = moduleIds.length;
-            var moduleId;
-            var promises = [];
+            var modulesToLoad = [];
 
-            for (var i = 0; i < modulesCount; i++) {
-                moduleId = moduleIds[i];
+            for (var i = 0; i < moduleIds.length; i++) {
+                var moduleId = moduleIds[i];
                 if (_moduleHasToBeLoaded(moduleId, modulesConfigs[moduleId])) {
-                    promises.push(moduleLoader.loadModule(moduleId).then(onModuleLoaded).fail(onModuleLoadingFailed));
+                    modulesToLoad.push(moduleId);
                 }
             }
+            
+            var dfd = Q.defer();
+            function loadModulesSequentially() {
+                if (modulesToLoad.length == 0) {
+                    dfd.resolve();
+                }
 
-            return Q.allSettled(promises);
+                var module = modulesToLoad.shift();
+                moduleLoader.loadModule(module).then(onModuleLoaded).fail(onModuleLoadingFailed).then(function () {
+                    loadModulesSequentially();
+                });
+            }
+
+            loadModulesSequentially();
+            return dfd.promise;
         }
 
         function onModuleLoaded(module) {
