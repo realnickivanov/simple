@@ -3,14 +3,13 @@
         "use strict";
 
         function DragAndDropQuestion(spec) {
-            var _protected = {
+
+            Question.call(this, spec, {
                 getProgress: getProgress,
                 restoreProgress: restoreProgress,
 
                 submit: submitAnswer
-            };
-
-            Question.call(this, spec, _protected);
+            });
 
             this.background = spec.background;
 
@@ -36,10 +35,7 @@
 
             saveAnswersState(dragableTexts, this.answers);
 
-            this.isAnswered = true;
-
-            this.score(calculateScore(this.answers));
-            this.isCorrectAnswered = this.score() == 100;
+            return calculateScore(this.answers);
         }
 
         function calculateScore(answers) {

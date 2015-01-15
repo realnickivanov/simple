@@ -3,14 +3,13 @@ define(['models/questions/question', 'guard'],
         "use strict";
 
         function Hotspot(spec) {
-            var _protected = {
+
+            Question.call(this, spec, {
                 getProgress: getProgress,
                 restoreProgress: restoreProgress,
 
                 submit: submitAnswer
-            };
-
-            Question.call(this, spec, _protected);
+            });
 
             this.background = spec.background;
             this.spots = spec.spots;
@@ -23,13 +22,9 @@ define(['models/questions/question', 'guard'],
         function submitAnswer(marks) {
             guard.throwIfNotArray(marks, 'Marks is not array.');
 
-            this.isAnswered = true;
             this.placedMarks = _.map(marks, function (mark) { return { x: mark.x, y: mark.y }; });
 
-            var scores = calculateScore(this.isMultiple, this.spots, this.placedMarks);
-
-            this.score(scores);
-            this.isCorrectAnswered = scores == 100;
+            return calculateScore(this.isMultiple, this.spots, this.placedMarks);
         };
 
         function calculateScore(isMultiple, spots, placedMarks) {

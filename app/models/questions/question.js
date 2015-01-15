@@ -45,8 +45,10 @@
                 }
             };
             this.submitAnswer = function () {
-                _protected.submit.apply(this, arguments);
-                app.trigger('question:answered', this);
+                this.score(_protected.submit.apply(this, arguments));
+
+                this.isAnswered = true;
+                this.isCorrectAnswered = this.score() == 100;
 
                 eventManager.answersSubmitted(this);
             }

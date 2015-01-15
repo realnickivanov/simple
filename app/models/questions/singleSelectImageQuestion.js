@@ -3,14 +3,13 @@
         "use strict";
 
         function SingleSelectImageQuestion(spec) {
-            var _protected = {
+
+            Question.call(this, spec, {
                 getProgress: getProgress,
                 restoreProgress: restoreProgress,
 
                 submit: submitAnswer
-            };
-
-            Question.call(this, spec, _protected);
+            });
 
             this.correctAnswerId = spec.correctAnswerId;
             this.checkedAnswerId = null;
@@ -32,9 +31,7 @@
 
             this.checkedAnswerId = checkedAnswerId;
 
-            this.score(calculateScore(checkedAnswerId, this.correctAnswerId));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
+            return calculateScore(checkedAnswerId, this.correctAnswerId);
         }
 
         function calculateScore(answerId, correctAnswerId) {

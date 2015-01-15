@@ -4,14 +4,12 @@
 
         function MultipleSelectQuestion(spec) {
 
-            var _protected = {
+            Question.call(this, spec, {
                 getProgress: getProgress,
                 restoreProgress: restoreProgress,
 
                 submit: submitAnswer
-            };
-
-            Question.call(this, spec, _protected);
+            });
 
             this.answers = (function () {
                 var index = 0;
@@ -35,9 +33,7 @@
                 answer.isChecked = _.contains(checkedAnswerIds, answer.id);
             });
 
-            this.score(calculateScore(this.answers));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
+            return calculateScore(this.answers);
         }
 
         function calculateScore(answers) {

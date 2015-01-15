@@ -3,14 +3,13 @@
         "use strict";
 
         function FillInTheBlankQuestion(spec) {
-            var _protected = {
+
+            Question.call(this, spec, {
                 getProgress: getProgress,
                 restoreProgress: restoreProgress,
 
                 submit: submitAnswer
-            };
-
-            Question.call(this, spec, _protected);
+            });
 
             this.answerGroupsValues = null;
 
@@ -38,13 +37,10 @@
         function submitAnswer(inputValues) {
             guard.throwIfNotArray(inputValues, 'Input values is not array.');
 
-            this.answerGroupsValues = inputValues;
-            this.isAnswered = true;
-
-            this.score(calculateScore(inputValues, this.answerGroups));
-            this.isCorrectAnswered = this.score() == 100;
-
             saveAnsweredTexts(inputValues, this.answerGroups);
+            this.answerGroupsValues = inputValues;
+
+            return calculateScore(inputValues, this.answerGroups);
         }
 
         function calculateScore(answerGroupValues, pointer) {
