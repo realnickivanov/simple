@@ -2122,17 +2122,21 @@ input[type="checkbox"] {
 
     .styled-content ul,
     .styled-content ol {
-        padding-left: 30px;
-        list-style-position: inside;
+        padding-left: 50px;
     }
 
     .styled-content ul {
         list-style: none;
     }
 
+     .styled-content ul > li {
+         position: relative;
+     }
+
         .styled-content ul > li:before {
-            display: inline-block;
+            position: absolute;
             width: 20px;
+            left: -20px;
         }
 
 .custom-select ul > li:before {
