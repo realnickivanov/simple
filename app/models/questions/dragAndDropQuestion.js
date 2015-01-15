@@ -36,10 +36,7 @@
 
             saveAnswersState(dragableTexts, this.answers);
 
-            this.isAnswered = true;
-
             this.score(calculateScore(this.answers));
-            this.isCorrectAnswered = this.score() == 100;
         }
 
         function calculateScore(answers) {

@@ -39,10 +39,7 @@
             guard.throwIfNotArray(inputValues, 'Input values is not array.');
 
             this.answerGroupsValues = inputValues;
-            this.isAnswered = true;
-
             this.score(calculateScore(inputValues, this.answerGroups));
-            this.isCorrectAnswered = this.score() == 100;
 
             saveAnsweredTexts(inputValues, this.answerGroups);
         }

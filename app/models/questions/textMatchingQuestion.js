@@ -42,8 +42,6 @@
             });
 
             this.score(getScore(this.answers));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
         }
 
         function getScore(answers) {

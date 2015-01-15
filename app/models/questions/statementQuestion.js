@@ -36,8 +36,6 @@
             });
 
             this.score(calculateScore.call(this));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
         }
 
         function calculateScore() {

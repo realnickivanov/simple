@@ -35,9 +35,7 @@
                 answer.isChecked = _.contains(checkedAnswerIds, answer.id);
             });
 
-            this.score(calculateScore(this.answers));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
+            this.score(calculateScore(this.answers));            
         }
 
         function calculateScore(answers) {

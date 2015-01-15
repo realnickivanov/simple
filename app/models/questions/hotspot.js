@@ -23,13 +23,10 @@ define(['models/questions/question', 'guard'],
         function submitAnswer(marks) {
             guard.throwIfNotArray(marks, 'Marks is not array.');
 
-            this.isAnswered = true;
             this.placedMarks = _.map(marks, function (mark) { return { x: mark.x, y: mark.y }; });
 
             var scores = calculateScore(this.isMultiple, this.spots, this.placedMarks);
-
             this.score(scores);
-            this.isCorrectAnswered = scores == 100;
         };
 
         function calculateScore(isMultiple, spots, placedMarks) {

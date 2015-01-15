@@ -33,8 +33,6 @@
             this.checkedAnswerId = checkedAnswerId;
 
             this.score(calculateScore(checkedAnswerId, this.correctAnswerId));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
         }
 
         function calculateScore(answerId, correctAnswerId) {
