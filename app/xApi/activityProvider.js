@@ -67,7 +67,7 @@
             }
 
             var result = new resultModel({
-                score: new scoreModel(course.score() / 100)
+                score: new scoreModel(course.result())
             });
 
             var resultVerb = course.isCompleted() ? xApiSettings.scoresDistribution.positiveVerb : constants.verbs.failed;

@@ -18,20 +18,24 @@
                 return objective.affectProgress;
             });
 
-            course.score = ko.computed(function () {
+            course.score = function () {
                 var result = _.reduce(affectProgressObjectives, function (memo, objective) {
                     return memo + objective.score();
                 }, 0);
 
                 var objectivesLength = affectProgressObjectives.length;
                 return objectivesLength == 0 ? 0 : Math.floor(result / objectivesLength);
-            });
+            };
 
-            course.isCompleted = ko.computed(function () {
+            course.result = function() {
+                return course.score() / 100;
+            }
+
+            course.isCompleted = function () {
                 return !_.some(affectProgressObjectives, function (objective) {
                     return !objective.isCompleted();
                 });
-            });
+            };
 
             course.finish = function (callback) {
                 eventManager.courseFinished(course, function () {
