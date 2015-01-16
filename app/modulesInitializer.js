@@ -38,10 +38,12 @@
             function loadModulesSequentially() {
                 if (modulesToLoad.length == 0) {
                     dfd.resolve();
+                    return;
                 }
 
-                var module = modulesToLoad.shift();
-                moduleLoader.loadModule(module).then(onModuleLoaded).fail(onModuleLoadingFailed).then(function () {
+                
+                var module = modulesToLoad.shift();                
+                moduleLoader.loadModule(module).then(onModuleLoaded).fail(onModuleLoadingFailed).then(function() {
                     loadModulesSequentially();
                 });
             }

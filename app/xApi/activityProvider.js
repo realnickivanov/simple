@@ -95,9 +95,6 @@
         function enqueueQuestionAnsweredStatement(question) {
 
             try {
-
-
-
                 guard.throwIfNotAnObject(question, 'Question is not an object');
 
                 var objective = objectiveRepository.get(question.objectiveId);
@@ -145,9 +142,6 @@
                         pushStatementIfSupported(statement);
                     }
                 }
-
-
-
 
             } catch (e) {
                 console.error(e);
