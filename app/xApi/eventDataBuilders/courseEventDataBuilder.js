@@ -3,7 +3,7 @@
     var buildCourseFinishedEventData = function (course) {
         guard.throwIfNotAnObject(course, 'Course is not an object');
         return {
-            result: course.score() / 100,
+            result: course.result(),
             isCompleted: course.isCompleted(),
             objectives: _.map(course.objectives, function (objective) {
                 return {
