@@ -32,8 +32,8 @@
 
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(enqueuenlearningContentExperienced));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(enqueueAnsweredQuestionsStatements));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(enqueuenLearningContentExperienced));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(enqueueQuestionAnsweredStatement));
             });
         }
 
@@ -88,44 +88,64 @@
             return dfd.promise;
         }
 
-        function enqueuenlearningContentExperienced(question, spentTime) {
-            pushStatementIfSupported(getlearningContentExperiencedStatement(question, spentTime));
+        function enqueuenLearningContentExperienced(question, spentTime) {
+            pushStatementIfSupported(getLearningContentExperiencedStatement(question, spentTime));
         }
 
-        function enqueueAnsweredQuestionsStatements(question) {
+        function enqueueQuestionAnsweredStatement(question) {
 
             try {
 
-                var statement = null;
+
+
+                guard.throwIfNotAnObject(question, 'Question is not an object');
+
+                var objective = objectiveRepository.get(question.objectiveId);
+                guard.throwIfNotAnObject(objective, 'Objective is not found');
+
+
+                var parts = null;
 
                 switch (question.type) {
                     case globalConstants.questionTypes.multipleSelect:
                     case globalConstants.questionTypes.singleSelectText:
-                        statement = getSingleSelectTextQuestionAnsweredStatement(question);
+                        parts = getSingleSelectTextQuestionActivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.fillInTheBlank:
-                        statement = getFillInQuestionAnsweredStatement(question);
+                        parts = getFillInQuestionActivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.singleSelectImage:
-                        statement = getSingleSelectImageQuestionAnsweredStatement(question);
+                        parts = getSingleSelectImageQuestionAcitivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.statement:
-                        statement = getStatementQuestionAnsweredStatement(question);
+                        parts = getStatementQuestionActivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.dragAndDrop:
-                        statement = getDragAndDropTextQuestionAnsweredStatement(question);
+                        parts = getDragAndDropTextQuestionActivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.textMatching:
-                        statement = getMatchingQuestionAnsweredStatement(question);
+                        parts = getMatchingQuestionActivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.hotspot:
-                        statement = getHotSpotQuestionAnsweredStatement(question);
+                        parts = getHotSpotQuestionActivityAndResult(question);
                         break;
                 }
 
-                if (statement) {
-                    pushStatementIfSupported(statement);
+                var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+
+                var context = createContextModel({
+                    contextActivities: new contextActivitiesModel({
+                        parent: [createActivity(parentUrl, objective.title)]
+                    })
+                });
+
+                if (parts) {
+                    var statement = createStatement(constants.verbs.answered, parts.result, parts.object, context);;
+                    if (statement) {
+                        pushStatementIfSupported(statement);
+                    }
                 }
+
 
 
 
@@ -134,306 +154,204 @@
             }
         }
 
-        function getSingleSelectTextQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
-
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score() / 100),
-                response: getItemsIds(question.answers, function (item) {
-                    return item.isChecked;
-                }).toString()
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.choice,
-                    correctResponsesPattern: [getItemsIds(question.answers, function (item) {
-                        return item.isCorrect;
-                    }).join("[,]")],
-                    choices: _.map(question.answers, function (item) {
-                        return {
-                            id: item.id,
-                            description: new languageMapModel(item.text)
-                        };
+        function getSingleSelectTextQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score() / 100),
+                    response: getItemsIds(question.answers, function (item) {
+                        return item.isChecked;
+                    }).toString()
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.choice,
+                        correctResponsesPattern: [
+                            getItemsIds(question.answers, function (item) {
+                                return item.isCorrect;
+                            }).join("[,]")
+                        ],
+                        choices: _.map(question.answers, function (item) {
+                            return {
+                                id: item.id,
+                                description: new languageMapModel(item.text)
+                            };
+                        })
                     })
                 })
-            });
+            };
+        }
 
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
+        function getStatementQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score / 100),
+                    response: _.chain(question.statements).filter(function (statement) {
+                        return !_.isNullOrUndefined(statement.userAnswer);
+                    }).map(function (statement) {
+                        return statement.id + '[.]' + statement.userAnswer;
+                    }).value().toString()
+                }),
+                activity: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.choice,
+                        correctResponsesPattern: [
+                            _.map(question.statements, function (item) {
+                                return item.id + '[.]' + item.isCorrect;
+                            }).join("[,]")
+                        ],
+                        choices: _.map(question.answers, function (item) {
+                            return {
+                                id: item.id,
+                                description: new languageMapModel(item.text)
+                            };
+                        })
+                    })
                 })
-            });
+            };
+        }
 
-            return createStatement(constants.verbs.answered, result, object, context);
+        function getSingleSelectImageQuestionAcitivityAndResult(question) {
 
-            function getItemsIds(items, filter) {
-                return _.chain(items)
-                   .filter(function (item) {
-                       return filter(item);
-                   })
-                   .map(function (item) {
-                       return item.id;
-                   }).value();
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score / 100),
+                    response: getItemsIds(question.answers, function (item) {
+                        return item.isChecked;
+                    }).toString()
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.choice,
+                        correctResponsesPattern: [[question.correctAnswerId].join("[,]")],
+                        choices: _.map(question.answers, function (item) {
+                            return {
+                                id: item.id,
+                                description: new languageMapModel(item.image)
+                            };
+                        })
+                    })
+                })
+            };
+
+        }
+
+        function getFillInQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score / 100),
+                    response: _.map(question.answerGroups, function (item) {
+                        return item.answeredText;
+                    }).toString()
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.fillIn,
+                        correctResponsesPattern: [
+                            _.flatten(_.map(question.answerGroups, function (item) {
+                                return item.getCorrectText();
+                            })).join("[,]")
+                        ]
+                    })
+                })
+            };
+        }
+
+        function getHotSpotQuestionActivityAndResult(question) {
+
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score() / 100),
+                    response: _.map(question.placedMarks, function (mark) {
+                        return '(' + mark.x + ',' + mark.y + ')';
+                    }).join("[,]")
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.other,
+                        correctResponsesPattern: [_.map(question.spots, function (spot) {
+                            var polygonCoordinates = _.map(spot, function (spotCoordinates) {
+                                return '(' + spotCoordinates.x + ',' + spotCoordinates.y + ')';
+                            });
+                            return polygonCoordinates.join("[.]");
+                        }).join("[,]")]
+                    })
+                })
             }
         }
 
-        function getStatementQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
+        function getDragAndDropTextQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score() / 100),
+                    response: _.map(question.answers, function (item) {
+                        return '(' + item.currentPosition.x + ',' + item.currentPosition.y + ')';
+                    }).join("[,]")
+                }),
 
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score / 100),
-                response: _.chain(question.statements).filter(function (statement) {
-                    return !_.isNullOrUndefined(statement.userAnswer);
-                }).map(function (statement) {
-                    return statement.id + '[.]' + statement.userAnswer;
-                }).value().toString()
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.choice,
-                    correctResponsesPattern: [_.map(question.statements, function (item) {
-                        return item.id + '[.]' + item.isCorrect;
-                    }).join("[,]")],
-                    choices: _.map(question.answers, function (item) {
-                        return {
-                            id: item.id,
-                            description: new languageMapModel(item.text)
-                        };
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.other,
+                        correctResponsesPattern: [_.map(question.answers, function (item) {
+                            return '(' + item.correctPosition.x + ',' + item.correctPosition.y + ')';
+                        }).join("[,]")]
                     })
                 })
-            });
-
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
-                })
-            });
-
-            return createStatement(constants.verbs.answered, result, object, context);
-        }
-
-        function getSingleSelectImageQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
-
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score / 100),
-                response: getItemsIds(question.answers, function (item) {
-                    return item.isChecked;
-                }).toString()
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.choice,
-                    correctResponsesPattern: [[question.correctAnswerId].join("[,]")],
-                    choices: _.map(question.answers, function (item) {
-                        return {
-                            id: item.id,
-                            description: new languageMapModel(item.image)
-                        };
-                    })
-                })
-            });
-
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
-                })
-            });
-
-            return createStatement(constants.verbs.answered, result, object, context);
-
-            function getItemsIds(items, filter) {
-                return _.chain(items)
-                   .filter(function (item) {
-                       return filter(item);
-                   })
-                   .map(function (item) {
-                       return item.id;
-                   }).value();
             }
         }
 
-        function getFillInQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
+        function getMatchingQuestionActivityAndResult(question) {
 
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score / 100),
-                response: _.map(question.answerGroups, function (item) {
-                    return item.answeredText;
-                }).toString()
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.fillIn,
-                    correctResponsesPattern: [_.flatten(_.map(question.answerGroups, function (item) {
-                        return item.getCorrectText();
-                    })).join("[,]")]
-                })
-            });
-
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
-                })
-            });
-
-            return createStatement(constants.verbs.answered, result, object, context);
-        }
-
-        function getHotSpotQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
-
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score() / 100),
-                response: _.map(question.placedMarks, function (mark) {
-                    return '(' + mark.x + ',' + mark.y + ')';
-                }).join("[,]")
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.other,
-                    correctResponsesPattern: [_.map(question.spots, function (spot) {
-                        var polygonCoordinates = _.map(spot, function (spotCoordinates) {
-                            return '(' + spotCoordinates.x + ',' + spotCoordinates.y + ')';
-                        });
-                        return polygonCoordinates.join("[.]");
-                    }).join("[,]")]
-                })
-            });
-
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
-                })
-            });
-
-            return createStatement(constants.verbs.answered, result, object, context);
-        }
-
-        function getDragAndDropTextQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
-
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score() / 100),
-                response: _.map(question.answers, function (item) {
-                    return '(' + item.currentPosition.x + ',' + item.currentPosition.y + ')';
-                }).join("[,]")
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.other,
-                    correctResponsesPattern: [_.map(question.answers, function (item) {
-                        return '(' + item.correctPosition.x + ',' + item.correctPosition.y + ')';
-                    }).join("[,]")]
-                })
-            });
-
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
-                })
-            });
-
-            return createStatement(constants.verbs.answered, result, object, context);
-        }
-
-        function getMatchingQuestionAnsweredStatement(question) {
-            guard.throwIfNotAnObject(question, 'Question is not an object');
-
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
-
-            var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
-            var result = new resultModel({
-                score: new scoreModel(question.score() / 100),
-                response: _.map(question.answers, function (answer) {
-                    return answer.key.toLowerCase() + "[.]" + (answer.attemptedValue ? answer.attemptedValue.toLowerCase() : "");
-                }).join("[,]")
-            });
-
-            var object = new activityModel({
-                id: questionUrl,
-                definition: new interactionDefinitionModel({
-                    name: new languageMapModel(question.title),
-                    interactionType: constants.interactionTypes.matching,
-                    correctResponsesPattern: [_.map(question.answers, function (answer) {
-                        return answer.key.toLowerCase() + "[.]" + answer.value.toLowerCase();
-                    }).join("[,]")],
-                    source: _.map(question.answers, function (answer) {
-                        return { id: answer.key.toLowerCase(), description: new languageMapModel(answer.key) }
-                    }),
-                    target: _.map(question.answers, function (answer) {
-                        return { id: answer.value.toLowerCase(), description: new languageMapModel(answer.value) }
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score() / 100),
+                    response: _.map(question.answers, function (answer) {
+                        return answer.key.toLowerCase() + "[.]" + (answer.attemptedValue ? answer.attemptedValue.toLowerCase() : "");
+                    }).join("[,]")
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.matching,
+                        correctResponsesPattern: [_.map(question.answers, function (answer) {
+                            return answer.key.toLowerCase() + "[.]" + answer.value.toLowerCase();
+                        }).join("[,]")],
+                        source: _.map(question.answers, function (answer) {
+                            return { id: answer.key.toLowerCase(), description: new languageMapModel(answer.key) }
+                        }),
+                        target: _.map(question.answers, function (answer) {
+                            return { id: answer.value.toLowerCase(), description: new languageMapModel(answer.value) }
+                        })
                     })
                 })
-            });
+            };
 
-            var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-
-            var context = createContextModel({
-                contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(parentUrl, objective.title)]
-                })
-            });
-
-            return createStatement(constants.verbs.answered, result, object, context);
         }
 
-        function getlearningContentExperiencedStatement(question, spentTime) {
+        function getItemsIds(items, filter) {
+            return _.chain(items)
+               .filter(function (item) {
+                   return filter(item);
+               })
+               .map(function (item) {
+                   return item.id;
+               }).value();
+        }
+
+
+        function getLearningContentExperiencedStatement(question, spentTime) {
             guard.throwIfNotAnObject(question, 'Question is not an object');
             guard.throwIfNotNumber(spentTime, 'SpentTime is not a number');
 
