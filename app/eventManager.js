@@ -35,8 +35,8 @@
                 app.trigger(events.answersSubmitted, data);
             },
             
-            learningContentExperienced = function (data) {
-                app.trigger(events.learningContentExperienced, data);
+            learningContentExperienced = function (data, spentTime) {
+                app.trigger(events.learningContentExperienced, data, spentTime);
             },
             
             executeAfterSubscribersDone = function (event, eventData, callback) {

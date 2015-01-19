@@ -32,7 +32,7 @@
 
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(enqueuenLearningContentExperienced));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(enqueueLearningContentExperienced));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(enqueueQuestionAnsweredStatement));
             });
         }
@@ -88,7 +88,7 @@
             return dfd.promise;
         }
 
-        function enqueuenLearningContentExperienced(question, spentTime) {
+        function enqueueLearningContentExperienced(question, spentTime) {
             pushStatementIfSupported(getLearningContentExperiencedStatement(question, spentTime));
         }
 
