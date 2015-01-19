@@ -187,7 +187,7 @@
                         return statement.id + '[.]' + statement.userAnswer;
                     }).value().toString()
                 }),
-                activity: new activityModel({
+                object: new activityModel({
                     id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
