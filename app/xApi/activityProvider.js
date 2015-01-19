@@ -180,7 +180,7 @@
         function getStatementQuestionActivityAndResult(question) {
             return {
                 result: new resultModel({
-                    score: new scoreModel(question.score / 100),
+                    score: new scoreModel(question.score() / 100),
                     response: _.chain(question.statements).filter(function (statement) {
                         return !_.isNullOrUndefined(statement.userAnswer);
                     }).map(function (statement) {
@@ -212,7 +212,7 @@
 
             return {
                 result: new resultModel({
-                    score: new scoreModel(question.score / 100),
+                    score: new scoreModel(question.score() / 100),
                     response: getItemsIds(question.answers, function (item) {
                         return item.isChecked;
                     }).toString()
@@ -238,7 +238,7 @@
         function getFillInQuestionActivityAndResult(question) {
             return {
                 result: new resultModel({
-                    score: new scoreModel(question.score / 100),
+                    score: new scoreModel(question.score() / 100),
                     response: _.map(question.answerGroups, function (item) {
                         return item.answeredText;
                     }).toString()
