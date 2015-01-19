@@ -61,7 +61,7 @@
             if (_.isArray(course.objectives)) {
                 _.each(course.objectives, function (objective) {
                     var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score / 100) }), createActivity(objectiveUrl, objective.title));
+                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score() / 100) }), createActivity(objectiveUrl, objective.title));
                     pushStatementIfSupported(statement);
                 });
             }

@@ -43,6 +43,7 @@
                 return _protected.getProgress.call(this);
             }
         };
+
         this.submitAnswer = function () {
             this.score(_protected.submit.apply(this, arguments));
 

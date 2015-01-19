@@ -45,12 +45,10 @@
 
     function authenticated(user) {
         self.progress.user = user;
-        setProgressDirty(true);
     }
 
     function authenticationSkipped() {
         self.progress.user = 0;
-        setProgressDirty(true);
     }
 
     function questionAnswered(question) {
