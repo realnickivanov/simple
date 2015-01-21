@@ -1078,6 +1078,10 @@ input[type="checkbox"] {
     width: 180px;
 }
 
+    .intro.course-action-block .small-page-action-btn {
+        width: 150px;
+    }
+
 .intro-content-wrapper {
     padding: 25px 20px 0;
 }

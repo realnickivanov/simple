@@ -185,7 +185,7 @@
                 { key: "[finish course]", value: "Fine del corso" },
                 { key: "[learning objectives]", value: "Obiettivi di apprendimento" },
                 { key: "[start]", value: "Inizio" },
-                { key: "[home]", value: "Home - Pagina principale" },
+                { key: "[home]", value: "Home" },
                 { key: "[learning content]", value: "Contenuto" },
                 { key: "[submit]", value: "Invia" },
                 { key: "[try again]", value: "Riprova" },
