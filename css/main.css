@@ -905,11 +905,15 @@ input[type="checkbox"] {
 
 .question-feedback-holder {
     display: inline-block;
-    width: 100%;
+    max-width: 100%;
     padding-top: 20px;
     text-align: left;
     overflow: auto;
     word-break: break-all;
+}
+
+.question-feedback-holder.styled-content {
+    text-align: center;
 }
 
 .btn-submit-wrapper {
