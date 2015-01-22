@@ -4,6 +4,12 @@
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
         );
     }
+    
+    function sortByName(a, b) {
+        var aName = a.name.toLowerCase();
+        var bName = b.name.toLowerCase();
+        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+    }
 
     var
         courseId = getURLParameter('courseId'),
@@ -16,7 +22,35 @@
         templateUrl = location.toString().substring(0, index),
 
         starterAccessType = 1,
-        translations = window.getTranslations();
+        translations = window.getTranslations(),
+        allSupportedLanguages = [
+            {
+                key: "cn",
+                name: "Chinese"
+            },
+            {
+                key: "en",
+                name: "English"
+            },
+            {
+                key: "it",
+                name: "Italian"
+            },
+            {
+                key: "nl",
+                name: "Dutch"
+            },
+            {
+                key: "ua",
+                name: "Ukrainian"
+            }
+        ];
+
+    allSupportedLanguages = allSupportedLanguages.sort(sortByName);
+    allSupportedLanguages.push({
+        key: "xx",
+        name: "Custom"
+    });
 
     var viewModel = {
         trackingData: (function () {
@@ -159,32 +193,7 @@
             })
         }),
 
-        languages: [
-            {
-                key: "cn",
-                name: "Chinese"
-            },
-            {
-                key: "en",
-                name: "English"
-            },
-            {
-                key: "it",
-                name: "Italian"
-            },
-            {
-                key: "nl",
-                name: "Dutch"
-            },
-            {
-                key: "ua",
-                name: "Ukrainian"
-            },
-            {
-                key: "xx",
-                name: "Custom"
-            }
-        ],
+        languages: allSupportedLanguages,
 
         hasStarterPlan: ko.observable(true),
         masteryScore: ko.observable('')
@@ -198,7 +207,7 @@
         return $('<div/>').html(text).text();
     }
 
-    viewModel.selectedLanguage = ko.observable(viewModel.languages[1].key);
+    viewModel.selectedLanguage = ko.observable("en");
 
     viewModel.isCustom = ko.computed(function () {
         var language = viewModel.selectedLanguage();
