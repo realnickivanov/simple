@@ -34,10 +34,10 @@
                         width = el ? el.clientWidth : 0;
 
                     [].forEach.call(
-                        table.querySelectorAll('td'),
+                        table.querySelectorAll('div'),
                         function (td) {
                             td.style.width = width + 'px';
-                            td.style['min-width'] = width + 'px';
+                            td.style.maxWidth = width + 'px';
                         }
                     );
 

@@ -986,11 +986,15 @@ input[type="checkbox"] {
 
 .question-feedback-holder {
     display: inline-block;
-    width: 100%;
+    max-width: 100%;
     padding-top: 20px;
     text-align: left;
     overflow: auto;
     word-break: break-all;
+}
+
+.question-feedback-holder.styled-content {
+    text-align: center;
 }
 
 .btn-submit-wrapper {
@@ -1158,6 +1162,10 @@ input[type="checkbox"] {
 .intro.course-action-block {
     width: 180px;
 }
+
+    .intro.course-action-block .small-page-action-btn {
+        width: 150px;
+    }
 
 .intro-content-wrapper {
     padding: 25px 20px 0;
@@ -1892,6 +1900,7 @@ input[type="checkbox"] {
 }
 
 .text-matching-source {
+    display:table-cell;
     border: 2px solid;
     border-radius: 7px;
     cursor: default;
@@ -1899,7 +1908,6 @@ input[type="checkbox"] {
     position: relative;
     text-align: center;
     vertical-align: middle;
-    width: 100%;
 }
 
 .text-matching-source-text-wrapper {
@@ -2203,17 +2211,21 @@ input[type="checkbox"] {
 
     .styled-content ul,
     .styled-content ol {
-        padding-left: 30px;
-        list-style-position: inside;
+        padding-left: 50px;
     }
 
     .styled-content ul {
         list-style: none;
     }
 
+     .styled-content ul > li {
+         position: relative;
+     }
+
         .styled-content ul > li:before {
-            display: inline-block;
+            position: absolute;
             width: 20px;
+            left: -20px;
         }
 
 .custom-select ul > li:before {

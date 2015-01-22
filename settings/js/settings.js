@@ -33,10 +33,10 @@
 
             ko.utils.arrayMap(data.lrsOptions, function (lrsOption) {
                 lrsOption.isSelected = ko.computed({
-                    read: function() {
+                    read: function () {
                         return data.selectedLrs() == lrsOption.key;
                     },
-                    write: function() {}
+                    write: function () { }
                 });
                 lrsOption.select = function () {
                     ko.utils.arrayForEach(data.lrsOptions, function (item) {
@@ -77,7 +77,7 @@
         isSaved: ko.observable(false),
         isFailed: ko.observable(false),
         advancedSettingsExpanded: ko.observable(false),
-        toggleAdvancedSettings: function() {
+        toggleAdvancedSettings: function () {
             this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
         },
 
@@ -161,8 +161,16 @@
 
         languages: [
             {
+                key: "cn",
+                name: "Chinese"
+            },
+            {
                 key: "en",
                 name: "English"
+            },
+            {
+                key: "it",
+                name: "Italian"
             },
             {
                 key: "nl",
@@ -190,11 +198,11 @@
         return $('<div/>').html(text).text();
     }
 
-    viewModel.selectedLanguage = ko.observable(viewModel.languages[0].key);
+    viewModel.selectedLanguage = ko.observable(viewModel.languages[1].key);
 
     viewModel.isCustom = ko.computed(function () {
         var language = viewModel.selectedLanguage();
-        return language == "xx";
+        return language == 'xx';
     });
 
     viewModel.translations = ko.computed(function () {
@@ -202,7 +210,7 @@
     });
 
     viewModel.getCustomTranslations = function () {
-        return viewModel.defaultTranslations["xx"];
+        return viewModel.defaultTranslations['xx'];
     }
 
     viewModel.saveChanges = function () {
@@ -500,7 +508,7 @@
     };
 
     ko.bindingHandlers.tabs = {
-        init: function(element) {
+        init: function (element) {
             var $element = $(element),
                 dataTabLink = 'data-tab-link',
                 dataTab = 'data-tab',
@@ -513,7 +521,7 @@
             $tabLinks.first().addClass(activeClass);
             $tabs.first().show();
 
-            $tabLinks.each(function(index, item) {
+            $tabLinks.each(function (index, item) {
                 var $item = $(item);
                 $item.on('click', function () {
                     var key = $item.attr(dataTabLink),
