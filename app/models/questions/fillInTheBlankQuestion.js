@@ -1,26 +1,35 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/answerGroup', 'models/answers/answer'],
-    function (eventManager, guard, eventDataBuilder, Question, AnswerGroup, Answer) {
+﻿define(['guard', 'models/questions/question', 'models/answers/answerGroup', 'models/answers/answer'],
+    function (guard, Question, AnswerGroup, Answer) {
         "use strict";
 
         function FillInTheBlankQuestion(spec) {
-            Question.call(this, spec);
 
-            this.submitAnswer = submitAnswer;
+            Question.call(this, spec, {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
+            });
+
             this.answerGroupsValues = null;
 
-            this.answerGroups = _.map(spec.answerGroups, function (answerGroup) {
-                return new AnswerGroup({
-                    id: answerGroup.id,
-                    type: answerGroup.type,
-                    answers: _.map(answerGroup.answers, function (answer) {
-                        return new Answer({
-                            id: answer.id,
-                            isCorrect: answer.isCorrect,
-                            text: answer.text
-                        });
-                    })
+            this.answerGroups = (function () {
+                var index = 0;
+                return _.map(spec.answerGroups, function (answerGroup) {
+                    return new AnswerGroup({
+                        id: answerGroup.id,
+                        shortId: index++,
+                        type: answerGroup.type,
+                        answers: _.map(answerGroup.answers, function (answer) {
+                            return new Answer({
+                                id: answer.id,
+                                isCorrect: answer.isCorrect,
+                                text: answer.text
+                            });
+                        })
+                    });
                 });
-            });
+            })();
         }
 
         return FillInTheBlankQuestion;
@@ -28,17 +37,10 @@
         function submitAnswer(inputValues) {
             guard.throwIfNotArray(inputValues, 'Input values is not array.');
 
-            this.answerGroupsValues = inputValues;
-            this.isAnswered = true;
-
-            this.score(calculateScore(inputValues, this.answerGroups));
-            this.isCorrectAnswered = this.score() == 100;
-
             saveAnsweredTexts(inputValues, this.answerGroups);
+            this.answerGroupsValues = inputValues;
 
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildFillInQuestionSubmittedEventData(this)
-            );
+            return calculateScore(inputValues, this.answerGroups);
         }
 
         function calculateScore(answerGroupValues, pointer) {
@@ -59,9 +61,44 @@
                 var answerGroup = _.find(answerGroups, function (answerGroup) {
                     return answerGroup.id === answerGroupValue.id;
                 });
-                
+
                 answerGroup.answeredText = answerGroupValue.value;
             });
+        }
+
+        function getProgress() {
+            if (this.isCorrectAnswered) {
+                return 100;
+            } else {
+                return _.chain(this.answerGroups)
+                    .filter(function (group) {
+                        return !!group.answeredText;
+                    })
+                    .reduce(function (obj, ctx) {
+                        obj[ctx.shortId] = ctx.answeredText;
+                        return obj;
+                    }, {})
+                    .value();
+            }
+        }
+
+        function restoreProgress(progress) {
+            var inputValues = _.chain(this.answerGroups)
+                .map(function (answerGroup) {
+                    var correct = _.chain(answerGroup.answers)
+                        .find(function (answer) {
+                            return answer.isCorrect;
+                        }).value();
+
+                    return {
+                        id: answerGroup.id,
+                        value: progress === 100 ? correct.text : progress[answerGroup.shortId],
+                        answers: answerGroup.answers
+                    };
+                }).value();
+
+            saveAnsweredTexts(inputValues, this.answerGroups);
+            this.score(calculateScore(inputValues, this.answerGroups));
         }
 
     });

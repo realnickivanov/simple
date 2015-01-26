@@ -1,19 +1,28 @@
-﻿define(['models/questions/question', 'eventManager', 'eventDataBuilders/questionEventDataBuilder', ],
-    function (Question, eventManager, eventDataBuilder) {
+﻿define(['models/questions/question'],
+    function (Question) {
         "use strict";
 
         function TextMatchingQuestion(spec) {
-            Question.call(this, spec);
 
-            this.answers = _.map(spec.answers, function (answer) {
-                return {
-                    id: answer.id,
-                    key: answer.key,
-                    value: answer.value,
-                    attemptedValue: null
-                };
+            Question.call(this, spec, {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
             });
-            this.submitAnswer = submitAnswer;
+
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.answers, function (answer) {
+                    return {
+                        id: answer.id,
+                        shortId: index++,
+                        key: answer.key,
+                        value: answer.value,
+                        attemptedValue: null
+                    };
+                });
+            })();
         }
 
         return TextMatchingQuestion;
@@ -30,13 +39,7 @@
                 }
             });
 
-            this.score(getScore(this.answers));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildTextMatchingQuestionSubmittedEventData(this)
-            );
+            return getScore(this.answers);
         }
 
         function getScore(answers) {
@@ -45,4 +48,40 @@
             }) ? 100 : 0;
         }
 
+        function getProgress() {
+            if (this.isCorrectAnswered) {
+                return 100;
+            } else {
+                return _.chain(this.answers)
+                    .filter(function (answer) {
+                        return !!answer.attemptedValue;
+                    })
+                    .map(function (answer) {
+                        return {
+                            shortId: answer.shortId,
+                            attemptedValue: answer.attemptedValue
+                        }
+                    })
+                    .reduce(function (obj, ctx) {
+                        obj[ctx.shortId] = ctx.attemptedValue;
+                        return obj;
+                    }, {})
+                    .value();
+            }
+        }
+
+        function restoreProgress(progress) {
+            if (progress === 100) {
+                _.each(this.answers, function (answer) {
+                    answer.attemptedValue = answer.value;
+                });
+            } else {
+                _.each(this.answers, function (answer) {
+                    if (progress[answer.shortId]) {
+                        answer.attemptedValue = progress[answer.shortId];
+                    }
+                });
+            }
+            this.score(getScore(this.answers));
+        }
     });

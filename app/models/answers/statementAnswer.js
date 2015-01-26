@@ -1,4 +1,4 @@
-﻿define(['models/answers/answer'], function(Answer) {
+﻿define(['models/answers/answer'], function (Answer) {
     "use strict";
 
     function SatementAnswer(spec) {
