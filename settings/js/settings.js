@@ -43,6 +43,10 @@
             {
                 key: "ua",
                 name: "Ukrainian"
+            },
+            {
+                key: "tr",
+                name: "Turkish (Omer Kilic)"
             }
         ];
 
