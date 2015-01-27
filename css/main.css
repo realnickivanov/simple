@@ -1985,7 +1985,6 @@ input[type="checkbox"] {
     text-align: center;
     vertical-align: middle;
     width: 100%;
-    word-break: break-all;
     word-wrap: break-word;
 }
 
