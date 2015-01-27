@@ -46,7 +46,7 @@
             },
             {
                 key: "tr",
-                name: "Turkish (Omer Kilic)"
+                name: "Turkish"
             }
         ];
 
