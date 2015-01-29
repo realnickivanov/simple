@@ -1,5 +1,5 @@
-﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'xApi/configuration/xApiSettings', './statementQueueHandler'],
-    function (router, routingManager, requestManager, activityProvider, xApiSettings, statementQueueHandler) {
+﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'xApi/configuration/xApiSettings', './statementQueueHandler', './errorsHandler', 'context', 'progressContext'],
+    function (router, routingManager, requestManager, activityProvider, xApiSettings, statementQueueHandler, errorsHandler, context, progressContext) {
         "use strict";
 
         var
@@ -7,31 +7,20 @@
             moduleSettings = null,
 
             xApiInitializer = {
-                init: init,
-                getInitStatus: getInitStatus,
-                turnOff: turnOff,
+                isActivated: isActivated,
+                activate: activate,
+                deactivate: deactivate,
+
                 initialize: initialize,
-                createActor: activityProvider.createActor
             };
 
         return xApiInitializer;
 
-        function init(courseId, actorData, activityName, activityUrl) {
-            return Q.all([
-                xApiSettings.init(moduleSettings),
-                requestManager.init(moduleSettings),
-                activityProvider.init(courseId, actorData, activityName, activityUrl)
-            ]).spread(function () {
-                isInitialized = true;
-                statementQueueHandler.handle();
-            });
-        }
-
-        function getInitStatus() {
+        function isActivated() {
             return isInitialized;
         }
 
-        function turnOff() {
+        function deactivate() {
             activityProvider.turnOffSubscriptions();
             routingManager.removeRoutes();
             isInitialized = false;
@@ -41,9 +30,53 @@
         function initialize(settings) {
             return Q.fcall(function () {
                 moduleSettings = settings;
+
+
+                var progress = progressContext.get();
+                if (_.isObject(progress)) {
+                    if (_.isObject(progress.user)) {
+                        activate(progress.user.username, progress.user.email);
+                        return;
+                    }
+                    if (progress.user === 0) {
+                        deactivate();
+                        return;
+                    }
+                }
+
                 routingManager.createGuard(xApiInitializer, 'login');
                 routingManager.mapRoutes();
+
             });
+        }
+
+
+        function activate(username, email) {
+            var actor = activityProvider.createActor(username, email);
+
+            var id = context.course.id;
+            var title = context.course.title;
+
+            var url = "";
+            if (window != window.top && ('referrer' in document)) {
+                url = document.referrer;
+            } else {
+                url = window.location.toString();
+            }
+
+            url = url + '?course_id=' + context.course.id;
+
+            return Q.all([
+                  xApiSettings.init(moduleSettings),
+                  requestManager.init(moduleSettings),
+                  activityProvider.init(id, actor, title, url)
+            ]).spread(function () {
+                isInitialized = true;
+                statementQueueHandler.handle();
+            }).fail(function (reason) {
+                xApiInitializer.deactivate();
+                errorsHandler.handleError(reason);
+            });;
         }
     }
 );

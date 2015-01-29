@@ -1,12 +1,13 @@
-﻿define(['plugins/router', 'eventManager', 'context', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer'],
-    function(router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
+﻿define(['durandal/app', 'plugins/router', 'eventManager', '../configuration/viewConstants', 'xApi/xApiInitializer', 'context'],
+    function (app, router, eventManager, viewConstants, xApiInitializer, context) {
 
         "use strict";
 
         var viewModel = {
             activate: activate,
+
             courseTitle: "\"" + context.course.title + "\"",
-            
+
             usermail: usermail(),
             username: username(),
 
@@ -18,59 +19,51 @@
 
         function usermail() {
             var value = ko.observable('');
-            value.trim = function() {
+            value.trim = function () {
                 value(ko.utils.unwrapObservable(value).trim());
             };
-            value.isValid = ko.computed(function() {
+            value.isValid = ko.computed(function () {
                 return !!value() && viewConstants.patterns.email.test(value().trim());
             });
             value.isModified = ko.observable(false);
-            value.markAsModified = function() {
+            value.markAsModified = function () {
                 value.isModified(true);
                 return value;
             };
             return value;
         }
 
-        function username () {
-                var value = ko.observable('');
-                value.trim = function () {
-                    value(ko.utils.unwrapObservable(value).trim());
-                };
-                value.isValid = ko.computed(function () {
-                    return !!value() && !!value().trim();
-                });
-                value.isModified = ko.observable(false);
-                value.markAsModified = function () {
-                    value.isModified(true);
-                    return value;
-                };
+        function username() {
+            var value = ko.observable('');
+            value.trim = function () {
+                value(ko.utils.unwrapObservable(value).trim());
+            };
+            value.isValid = ko.computed(function () {
+                return !!value() && !!value().trim();
+            });
+            value.isModified = ko.observable(false);
+            value.markAsModified = function () {
+                value.isModified(true);
                 return value;
+            };
+            return value;
         };
 
-        function skip () {
-            xApiInitializer.turnOff();
+        function skip() {
+            xApiInitializer.deactivate();
+            app.trigger('user:authentication-skipped');
             startCourse();
         };
 
-        function login () {
+        function login() {
             if (viewModel.usermail.isValid() && viewModel.username.isValid()) {
-                var title = context.course.title;
+                xApiInitializer.activate(viewModel.username(), viewModel.usermail()).then(function () {
 
-                var pageUrl = "";
-                if (window != window.top && ('referrer' in document)) {
-                    pageUrl = document.referrer;
-                } else {
-                    pageUrl = window.location.toString();
-                }
-
-                var url = pageUrl + '?course_id=' + context.course.id;
-                var actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
-                xApiInitializer.init(context.course.id, actor, title, url).then(function () {
+                    app.trigger('user:authenticated', {
+                        username: viewModel.username(),
+                        email: viewModel.usermail()
+                    });
                     startCourse();
-                }).fail(function (reason) {
-                    xApiInitializer.turnOff();
-                    errorsHandler.handleError(reason);
                 });
             }
             else {
@@ -78,11 +71,11 @@
                 viewModel.username.markAsModified();
             }
         };
-        
-        function startCourse () {
+
+        function startCourse() {
             eventManager.courseStarted();
             router.navigate('');
         };
 
-        function activate () {};
+        function activate() { };
     });

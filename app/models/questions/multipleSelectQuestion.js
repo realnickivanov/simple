@@ -1,19 +1,27 @@
-﻿define(['eventManager', 'guard', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/checkableAnswer'],
-    function (eventManager, guard, eventDataBuilder, Question, CheckableAnswer) {
+﻿define(['guard', 'models/questions/question', 'models/answers/checkableAnswer'],
+    function (guard, Question, CheckableAnswer) {
         "use strict";
 
         function MultipleSelectQuestion(spec) {
-            Question.call(this, spec);
 
-            this.submitAnswer = submitAnswer;
-            
-            this.answers = _.map(spec.answers, function (answer) {
-                return new CheckableAnswer({
-                    id: answer.id,
-                    isCorrect: answer.isCorrect,
-                    text: answer.text
-                });
+            Question.call(this, spec, {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
             });
+
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.answers, function (answer) {
+                    return new CheckableAnswer({
+                        id: answer.id,
+                        shortId: index++,
+                        isCorrect: answer.isCorrect,
+                        text: answer.text
+                    });
+                });
+            })();
         }
 
         return MultipleSelectQuestion;
@@ -25,13 +33,7 @@
                 answer.isChecked = _.contains(checkedAnswerIds, answer.id);
             });
 
-            this.score(calculateScore(this.answers));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildSingleSelectTextQuestionSubmittedEventData(this)
-            );
+            return calculateScore(this.answers);
         }
 
         function calculateScore(answers) {
@@ -41,5 +43,26 @@
 
             return hasIncorrectCheckedAnswer ? 0 : 100;
         }
-     
+
+        function getProgress() {
+            if (this.isCorrectAnswered) {
+                return 100;
+            } else {
+                return _.chain(this.answers)
+                    .filter(function (answer) {
+                        return answer.isChecked;
+                    })
+                    .map(function (answer) {
+                        return answer.shortId;
+                    }).value();
+            }
+        }
+
+        function restoreProgress(progress) {
+            _.each(this.answers, function (answer) {
+                answer.isChecked = progress === 100 ? answer.isCorrect : progress && progress.indexOf(answer.shortId) > -1;
+            });
+            this.score(calculateScore(this.answers));
+        }
+
     });

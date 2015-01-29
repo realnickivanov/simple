@@ -3,6 +3,7 @@
 
     function CheckableImageAnswer(spec) {
         this.id = spec.id;
+        this.shortId = spec.shortId;
         this.image = spec.image;
     }
 

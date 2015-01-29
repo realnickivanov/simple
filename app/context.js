@@ -5,13 +5,15 @@
             course = {},
 
             initialize = function () {
+                var dfd = Q.defer();
                 var that = this;
-                return $.ajax({
+                $.ajax({
                     url: 'content/data.js',
                     contentType: 'application/json',
                     dataType: 'json',
                     cache: false
-                }).then(function (response) {
+                }).done(function (response) {
+
                     that.course = new Course({
                         id: response.id,
                         title: response.title,
@@ -29,13 +31,19 @@
                                     })
                                 });
                             })
-                            .value()
+                            .value(),
+                        createdOn: new Date(response.createdOn),
+                        createdBy: response.createdBy
                     });
 
-                    return {
+                    dfd.resolve({
                         course: that.course
-                    };
+                    });
+                }).fail(function() {
+                    dfd.reject('Unable to load data.js');
                 });
+
+                return dfd.promise;
             };
 
         return {

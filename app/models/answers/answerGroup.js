@@ -1,8 +1,9 @@
-﻿define(function() {
+﻿define(function () {
     "use strict";
 
     function AnswerGroup(spec) {
         this.id = spec.id;
+        this.shortId = spec.shortId;
         this.answeredText = '';
         this.answers = spec.answers;
 

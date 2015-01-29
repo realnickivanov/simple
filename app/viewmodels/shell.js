@@ -1,7 +1,8 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'constants'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, constants) {
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'progressContext', 'constants'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, progressContext, constants) {
 
-        return {
+
+        var viewModel = {
             router: router,
             cssName: ko.computed(function () {
                 var activeItem = router.activeItem();
@@ -31,6 +32,7 @@
             isNavigatingToAnotherView: ko.observable(false),
             isClosed: ko.observable(false),
 
+
             activate: function () {
                 var that = this;
 
@@ -46,23 +48,59 @@
                     that.isClosed(true);
                 });
 
-                return modulesInitializer.init().then(function () {
-                    that.logoUrl(templateSettings.logoUrl);
 
-                    return themesInjector.init().then(function () {
+                return context.initialize().then(function (dataContext) {
+                    return modulesInitializer.init().then(function () {
+                        that.logoUrl(templateSettings.logoUrl);
 
-                        return context.initialize().then(function (dataContext) {
+                        return themesInjector.init().then(function () {
                             app.title = dataContext.course.title;
+
+                            if (progressContext.ready()) {
+                                viewModel.isProgressDirty = ko.observable(true);
+
+                                viewModel.saveProgress = function () {
+                                    if (viewModel.isProgressDirty()) {
+                                        progressContext.save();
+                                    }
+                                }
+
+                                app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
+                                    viewModel.isProgressDirty(isProgressDirty);
+                                });
+
+
+                                var progress = progressContext.get();
+                                if (_.isObject(progress)) {
+                                    if (_.isString(progress.url)) {
+                                        window.location.hash = progress.url;
+                                    }
+
+                                    if (_.isObject(progress.answers)) {
+                                        _.each(dataContext.course.objectives, function (objective) {
+                                            _.each(objective.questions, function (question) {
+                                                if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
+                                                    question.progress(progress.answers[question.shortId]);
+                                                }
+                                            });
+                                        });
+                                    }
+                                }
+                            }
 
                             return router.map(routes)
                                 .buildNavigationModel()
                                 .mapUnknownRoutes('viewmodels/404', '404')
-                                .activate('');
+                                .activate();
                         });
                     });
                 });
             }
 
         };
+
+
+
+        return viewModel;
 
     });

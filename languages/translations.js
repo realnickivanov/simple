@@ -1,6 +1,6 @@
 ﻿$(function () {
 
-    window.getTranslations = function() {
+    window.getTranslations = function () {
         return {
             en: [
                 { key: '[course]', value: 'Course:' },
@@ -27,6 +27,10 @@
                 { key: '[drag and drop question drop here]', value: 'Drop here' },
                 { key: '[fill in the blank choose answer]', value: 'Choose the answer...' },
                 { key: '[thank you message]', value: 'Thank you, you can close the page now' },
+                { key: '[save my current progress]', value: "Save my current progress" },
+                { key: '[progress has been saved]', value: "Progress has been saved!" },
+                { key: '[progress not saved]', value: "Your course progress has not been saved yet! If you want to save it:\n  1. Press \"Stay on this Page\"\n  2. Press \"Save my current progress\" in the top of the page of the course.\nOr Press \"Leave this Page\" to close the course without saving your progress." },
+                { key: '[progress cannot be saved]', value: "Course progress cannot be saved. Please try again or contact your teacher if the problem persists." },
                 { key: '[there are no questions]', value: 'No questions' },
                 { key: '[browser not supported]', value: 'Your browser is currently not supported.' },
                 { key: '[browser not supported hint]', value: 'Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.' },
@@ -72,6 +76,10 @@
                 { key: '[drag and drop question drop here]', value: 'Plaats hier' },
                 { key: '[fill in the blank choose answer]', value: 'Kies het antwoord…' },
                 { key: '[thank you message]', value: 'Bedankt, je kan nu de pagina sluiten' },
+                { key: '[save my current progress]', value: "Sla mijn voortgang op" },
+                { key: '[progress has been saved]', value: "Voortgang is opgeslagen!" },
+                { key: '[progress not saved]', value: "Uw cursus voortgang is nog niet opgeslagen! Als u de voortgang wilt opslaan:\n  1. Druk op  \"Op deze pagina blijven\"\n  2. Kies \"Bewaar mijn voortgang\" bovenaan de pagina van de cursus.\nOf druk op \"Deze pagina verlaten\" om de cursus te sluiten zonder uw voortgang op te slaan." },
+                { key: '[progress cannot be saved]', value: "Cursus voortgang kan niet worden opgeslagen. Probeer het opnieuw of neem contact op met de docent als het probleem blijft bestaan." },
                 { key: '[there are no questions]', value: 'Geen vragen' },
                 { key: '[browser not supported]', value: 'Uw browser wordt niet ondersteund.' },
                 { key: '[browser not supported hint]', value: 'Maak je geen zorgen er is een simpeleoplossing. Klik op een van de iconen beneden en volg de instructies' },
@@ -116,6 +124,10 @@
                 { key: "[drag and drop question drop here]", value: "Сюди" },
                 { key: "[fill in the blank choose answer]", value: "Оберіть варіант..." },
                 { key: "[thank you message]", value: "Дякуємо. Тепер сторінку можна закрити" },
+                { key: '[save my current progress]', value: "Зберегти мій поточний прогрес" },
+                { key: '[progress has been saved]', value: "Прогрес збережено!" },
+                { key: '[progress not saved]', value: "Прогрес ще не був збережений! Якщо бажаєте зберегти його:\n  1. Натисніть \"Залишатися на цій сторінці\".\n  2. Натисніть \"Зберегти мій поточний прогрес\" в верхній частині сторінки курса.\nАбо натисніть \"Залишити цю сторінку\" щоб закрити курс без збереження прогресу." },
+                { key: '[progress cannot be saved]', value: "Прогрес по курсу не може бути збережено. Будь-ласка, зверніться до свого вчителя, якщо проблема не зникне." },
                 { key: "[there are no questions]", value: "Питання відсутні" },
                 { key: "[browser not supported]", value: "Ваш браузер не підтримується" },
                 { key: "[browser not supported hint]", value: "Не хвилюйтеся, це легко виправити. Все, що вам потрібно - це натиснути на одну з іконок, розташованих нижче і дотримуватись інструкцій" },
@@ -222,7 +234,51 @@
                 { key: "[tracking and tracing restart course]", value: "Riavvia il corso" },
                 { key: "[tracking and tracing continue anyway]", value: "Continua lo stesso" },
                 { key: "[tracking and tracing reporting progress]", value: "reporting results..." }
-            ]
+            ],
+            tr: [
+                { key: '[course]', value: 'Ders:' },
+                { key: '[start course]', value: 'Derse başla' },
+                { key: '[finish course]', value: 'Dersi bitir' },
+                { key: '[learning objectives]', value: 'Eğitim hedefleri:' },
+                { key: '[start]', value: 'Başla' },
+                { key: '[home]', value: 'Anasayfa' },
+                { key: '[learning content]', value: 'Eğitim içeriği' },
+                { key: '[submit]', value: 'Gönder' },
+                { key: '[try again]', value: 'Tekrar dene' },
+                { key: '[next]', value: 'İleri' },
+                { key: '[correct answer]', value: 'Doğru cevap' },
+                { key: '[incorrect answer]', value: 'Yanlış cevap' },
+                { key: '[previous question]', value: 'önceki' },
+                { key: '[next question]', value: 'sonraki' },
+                { key: '[of]', value: '/' },
+                { key: '[to complete]', value: 'tamamla' },
+                { key: '[text matching question hint]', value: 'Sağdaki listeden sürükleyerek eşleştirme yap' },
+                { key: '[text matching question drop here]', value: 'Buraya bırak' },
+                { key: '[statement question true text]', value: 'Doğru' },
+                { key: '[statement question false text]', value: 'Yanlış' },
+                { key: '[drag and drop question all texts are placed]', value: 'Tüm metinler yerleştirildi' },
+                { key: '[drag and drop question drop here]', value: 'Buraya bırak' },
+                { key: '[fill in the blank choose answer]', value: 'Cevabı seç...' },
+                { key: '[thank you message]', value: 'Teşekkürler, sayfayı kapatabilirsiniz' },
+                { key: '[there are no questions]', value: 'Soru yok' },
+                { key: '[browser not supported]', value: 'Web tarayıcınız desteklenmiyor.' },
+                { key: '[browser not supported hint]', value: 'Merak etmeyin, kolay bir çözüm var. Yapmanız gereken aşağıdaki ikonları tıklayıp, yönergeleri izlemek.' },
+                { key: '[page not found title]', value: 'Sayfa bulunamadı (404)' },
+                { key: '[page not found message]', value: "Üzgünüz, tıkladığınız sayfa bulunamadı. URL kontrol edin, menüyü kullanın veya 'Anasayfa' linkini tıklayın." },
+                { key: '[tracking and tracing header]', value: 'İlerlemenizi takip için bilgilerinizi girin.' },
+                { key: '[tracking and tracing hint]', value: 'Lütfen bilgilerinizi girin ve "Derse başla ve sonuçları bildir "tıklayın.  İsterseniz "Sonuçları bildirmeden derse başla" tıklayın.' },
+                { key: '[tracking and tracing name field]', value: 'İsminiz' },
+                { key: '[tracking and tracing email field]', value: 'eposta adresiniz' },
+                { key: '[tracking and tracing name is not valid]', value: 'İsminizi girin' },
+                { key: '[tracking and tracing email is not valid]', value: 'Geçerli bir eposta adresi girin' },
+                { key: '[tracking and tracing skip reporting]', value: 'Sonuçları bildirme, derse başla' },
+                { key: '[tracking and tracing start]', value: 'Derse başla ve sonuçları bildir' },
+                { key: '[tracking and tracing error]', value: 'Hata var' },
+                { key: '[tracking and tracing error hint]', value: 'Devam ederseniz, ilerlemeniz raporlanamayacaktır.' },
+                { key: '[tracking and tracing restart course]', value: 'Dersi yeniden yükle' },
+                { key: '[tracking and tracing continue anyway]', value: 'Devam et' },
+                { key: '[tracking and tracing reporting progress]', value: 'İlerleme raporlanıyor...' }
+            ],
         };
     }
 });

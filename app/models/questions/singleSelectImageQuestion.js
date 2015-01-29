@@ -1,20 +1,28 @@
-﻿define(['eventManager', 'guard', 'constants', 'eventDataBuilders/questionEventDataBuilder', 'models/questions/question', 'models/answers/checkableImageAnswer'],
-    function (eventManager, guard, constants, eventDataBuilder, Question, CheckableImageAnswer) {
+﻿define(['guard', 'constants', 'models/questions/question', 'models/answers/checkableImageAnswer'],
+    function (guard, constants, Question, CheckableImageAnswer) {
         "use strict";
 
         function SingleSelectImageQuestion(spec) {
-            Question.call(this, spec);
+
+            Question.call(this, spec, {
+                getProgress: getProgress,
+                restoreProgress: restoreProgress,
+
+                submit: submitAnswer
+            });
+
             this.correctAnswerId = spec.correctAnswerId;
             this.checkedAnswerId = null;
-
-            this.submitAnswer = submitAnswer;
-
-            this.answers = _.map(spec.answers, function (answer) {
-                return new CheckableImageAnswer({
-                    id: answer.id,
-                    image: answer.image || constants.defaultImageUrl
+            this.answers = (function () {
+                var index = 0;
+                return _.map(spec.answers, function (answer) {
+                    return new CheckableImageAnswer({
+                        id: answer.id,
+                        shortId: index++,
+                        image: answer.image || constants.defaultImageUrl
+                    });
                 });
-            });
+            })();
         }
 
         return SingleSelectImageQuestion;
@@ -23,17 +31,41 @@
 
             this.checkedAnswerId = checkedAnswerId;
 
-            this.score(calculateScore(checkedAnswerId, this.correctAnswerId));
-            this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
-
-            eventManager.answersSubmitted(
-                eventDataBuilder.buildSingleSelectImageQuestionSubmittedEventData(this)
-            );
+            return calculateScore(checkedAnswerId, this.correctAnswerId);
         }
 
         function calculateScore(answerId, correctAnswerId) {
             return answerId != correctAnswerId ? 0 : 100;
+        }
+
+        function getProgress() {
+            var that = this;
+            if (that.isCorrectAnswered) {
+                return 100;
+            } else {
+                var checked = _.find(that.answers, function (answer) {
+                    return answer.id == that.checkedAnswerId;
+                });
+
+                return checked ? checked.shortId : undefined;
+            }
+        }
+
+        function restoreProgress(progress) {
+            var that = this;
+            if (progress === 100) {
+                that.checkedAnswerId = that.correctAnswerId;
+            } else {
+                var checked = _.find(that.answers, function (answer) {
+                    return answer.shortId == progress;
+                });
+
+                if (checked) {
+                    that.checkedAnswerId = checked.id;
+                }
+
+            }
+            that.score(calculateScore(that.checkedAnswerId, that.correctAnswerId));
         }
 
     });
