@@ -229,37 +229,37 @@ input[type="checkbox"] {
 .header {
     padding: 5px 0 5px 20px;
     position: relative;
- }
+}
 
     .header.module-home .main-logo {
         cursor: default;
     }
 
-.main-logo{
+.main-logo {
     position: relative;
     z-index: 100;
-	display: table;
-	float: left;
-	height: 42px;
+    display: table;
+    float: left;
+    height: 42px;
 }
 
-.main-logo-img{
-	display: table-cell;
-	vertical-align: middle;
+.main-logo-img {
+    display: table-cell;
+    vertical-align: middle;
 }
 
-    .main-logo-img img{
-	    max-height: 50px;
-	    max-width: 300px;
-	}
+    .main-logo-img img {
+        max-height: 50px;
+        max-width: 300px;
+    }
 
 .save-progress {
     position: absolute;
     z-index: 1;
-	height: 100%;
-	left: 0;
-	top: 0;
-	width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
 }
 
     .save-progress .content-wrapper {
@@ -277,7 +277,6 @@ input[type="checkbox"] {
     position: absolute;
     right: 25px;
     width: 335px;
-
 }
 
 .save-progress-wrapper {
@@ -296,11 +295,10 @@ input[type="checkbox"] {
     position: absolute;
     text-align: center;
     width: 100%;
-
     -webkit-transition: margin-left 0.8s ease-out;
-	-moz-transition: margin-left 0.8s ease-out;
-	-o-transition: margin-left 0.8s ease-out;
-	transition: margin-left 0.8s ease-out; 
+    -moz-transition: margin-left 0.8s ease-out;
+    -o-transition: margin-left 0.8s ease-out;
+    transition: margin-left 0.8s ease-out;
 }
 
 .save-progress.text-wrapper {
@@ -333,7 +331,7 @@ input[type="checkbox"] {
 }
 
 .save-progress .text {
-    padding-left: 34px;    
+    padding-left: 34px;
 }
 
 
@@ -695,6 +693,10 @@ input[type="checkbox"] {
 }
 
 .objectives-list-item {
+    cursor: pointer;
+}
+
+.objectives-list-item {
     display: table;
     width: 100%;
     table-layout: fixed;
@@ -718,10 +720,14 @@ input[type="checkbox"] {
 .objective-info {
     display: table-cell;
     width: 100%;
+    position: relative;
     padding: 0 0 40px;
     font-size: 16px;
     word-wrap: break-word;
-    cursor: default;
+}
+
+.objective-start {
+    padding-right: 10px;
 }
 
 /*#region objectives page layout*/
@@ -919,11 +925,11 @@ input[type="checkbox"] {
     cursor: default;
 }
 
-.question-content:after {
-    content: '';
-    display: block;
-    clear: both;
-}
+    .question-content:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
 
 .question-answers-list {
     padding: 0 20px;
@@ -993,9 +999,9 @@ input[type="checkbox"] {
     word-break: break-all;
 }
 
-.question-feedback-holder.styled-content {
-    text-align: center;
-}
+    .question-feedback-holder.styled-content {
+        text-align: center;
+    }
 
 .btn-submit-wrapper {
     margin: 20px;
@@ -1900,7 +1906,7 @@ input[type="checkbox"] {
 }
 
 .text-matching-source {
-    display:table-cell;
+    display: table-cell;
     border: 2px solid;
     border-radius: 7px;
     cursor: default;
@@ -2217,15 +2223,15 @@ input[type="checkbox"] {
         list-style: none;
     }
 
-     .styled-content ul > li {
-         position: relative;
-     }
-
-        .styled-content ul > li:before {
-            position: absolute;
-            width: 20px;
-            left: -20px;
+        .styled-content ul > li {
+            position: relative;
         }
+
+            .styled-content ul > li:before {
+                position: absolute;
+                width: 20px;
+                left: -20px;
+            }
 
 .custom-select ul > li:before {
     display: none;
@@ -2257,7 +2263,7 @@ input[type="checkbox"] {
     line-height: 30px;
     white-space: pre-line;
     overflow: hidden;
-    padding: 10px 40px; 
+    padding: 10px 40px;
 }
 
     .styled-content cite:before,
