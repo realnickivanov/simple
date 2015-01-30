@@ -66,12 +66,12 @@ body:before {
 
 .content {
     margin-top: 10px;
-    background-color: rgba(40,40,40,0.5);
+    background-color: #282828;
     border: 1px solid #4a494a;
 }
 
 .page-header {
-    padding: 0 20px;
+    padding: 0 30px 0 20px;
     margin: 10px 0;
 }
 
@@ -202,10 +202,10 @@ body:before {
     border: 1px solid #1e3841;
 }
 
-    .objective-progressbar-masteryscore-indicator-tooltip-wrapper:after {
-        background: #1d5062;
-        box-shadow: 1px 1px 0 #1e3841;
-    }
+.objective-progressbar-masteryscore-indicator-tooltip-wrapper:after {
+    background: #1d5062;
+    box-shadow: 1px 1px 0 #1e3841;
+}
 
 /*#endregion objective linear progressbar*/
 
@@ -256,13 +256,20 @@ body:before {
 }
 
 .objectives-list-item-wrapper {
-    padding: 15px 0;
     border-bottom: 1px solid black;
 }
 
     .objectives-list-item-wrapper + .objectives-list-item-wrapper {
         border-top: 1px solid #555555;
     }
+
+    .objectives-list-item-wrapper:hover {
+        background-color: #202020;
+    }
+
+.objectives-list-item {
+    padding: 15px 0;
+}
 
 .objective-image-holder {
     padding: 0 20px 0 10px;

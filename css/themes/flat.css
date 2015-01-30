@@ -44,7 +44,7 @@ body {
 }
 
 .page-header {
-    padding: 0 20px;
+    padding: 0 30px 0 20px;
     margin: 10px 0;
 }
 
@@ -149,7 +149,7 @@ body {
 }
 
 .objective-progress {
-    bottom: 1px;
+    bottom: -2px;
 }
 
 .objective-progressbar-wrapper {
@@ -210,9 +210,9 @@ body {
     border-radius: 3px;
 }
 
-    .objective-progressbar-masteryscore-indicator-tooltip-wrapper:after {
-        background: #55626f;
-    }
+.objective-progressbar-masteryscore-indicator-tooltip-wrapper:after {
+    background: #55626f;
+}
 
 /*#endregion objective linear progressbar*/
 
@@ -245,12 +245,42 @@ body {
 /*#region objectives view*/
 
 .objectives-list-item-wrapper {
-    padding: 16px 0;
+    position: relative;
+    border-radius: 7px;
 }
 
-    .objectives-list-item-wrapper + .objectives-list-item-wrapper {
-        border-top: 1px solid #e5e5e5;
+    .objectives-list-item-wrapper:hover {
+        background-color: #e6e6e6;
     }
+
+        .objectives-list-item-wrapper:hover .objective-progressbar-score {
+            background-color: #e0e0e0;
+        }
+
+        .objectives-list-item-wrapper:hover .objective-progressbar-wrapper {
+            border-color: #e0e0e0;
+        }
+
+    .objectives-list-item-wrapper + .objectives-list-item-wrapper:before {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 1px;
+        background-color: #e5e5e5;
+        left: 7px;
+        right: 7px;
+        top: 0;
+    }
+
+    .objectives-list-item-wrapper + .objectives-list-item-wrapper:hover:before,
+    .objectives-list-item-wrapper:hover + .objectives-list-item-wrapper:before {
+        background-color: #c8c8c8;
+    }
+
+.objectives-list-item {
+    padding: 16px 0;
+    color: #4d4d4d;
+}
 
 .objective-image {
     height: 96px;
@@ -774,8 +804,8 @@ body {
         background-color: #7eccc2;
     }
 
-    .styled-content table {`
-        -moz-border-radius: 5px;
+    .styled-content table {
+        ` -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
         border-collapse: collapse;
