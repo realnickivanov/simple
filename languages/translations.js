@@ -172,7 +172,7 @@
                 { key: "[drag and drop question drop here]", value: "放到这里" },
                 { key: "[fill in the blank choose answer]", value: "选择答案…" },
                 { key: "[thank you message]", value: "谢谢，你现在可以关闭此页面。" },
-				{ key: '[save my current progress]', value: "保存我当前的进度" },
+                { key: '[save my current progress]', value: "保存我当前的进度" },
                 { key: '[progress has been saved]', value: "进度保存成功" },
                 { key: '[progress not saved]', value: '你的进度还没有保存！如果你要保存:\n 1.点击"留在此页" \n 2. 点击此页顶部"保存我当前的进度".\n如果不保存,点击"离开此页"直接关闭课程.' },
                 { key: '[progress cannot be saved]', value: "进度保存不了！请再试一遍.如果问题还存在请联系你的讲师." },
