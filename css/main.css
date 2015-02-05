@@ -715,6 +715,9 @@ input[type="checkbox"] {
     width: 90px;
     position: relative;
     overflow: hidden;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 
 .objective-info {

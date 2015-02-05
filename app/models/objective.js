@@ -6,6 +6,7 @@
             var objective = {
                 id: spec.id,
                 title: spec.title,
+                imageUrl: spec.imageUrl,
                 questions: spec.questions
             };
 
