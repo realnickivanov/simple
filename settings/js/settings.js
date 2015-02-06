@@ -4,45 +4,94 @@
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
         );
     }
-    
+
     function sortByName(a, b) {
         var aName = a.name.toLowerCase();
         var bName = b.name.toLowerCase();
         return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
     }
 
+    function initSettings() {
+        return {
+            logo: {
+                url: viewModel.logo.url()
+            },
+            xApi: {
+                enabled: viewModel.trackingData.enableXAPI(),
+                selectedLrs: viewModel.trackingData.selectedLrs(),
+                lrs: {
+                    uri: viewModel.trackingData.lrsUrl(),
+                    authenticationRequired: viewModel.trackingData.authenticationRequired(),
+                    credentials: {
+                        username: viewModel.trackingData.lapLogin(),
+                        password: viewModel.trackingData.lapPassword()
+                    }
+                },
+                allowedVerbs: $.map(viewModel.trackingData.statements, function (value, key) {
+                    return value() ? key : undefined;
+                })
+            },
+            masteryScore: {
+                score: viewModel.masteryScore()
+            },
+            theme: {
+                key: viewModel.themes.selected()
+            },
+            translations: $.map(viewModel.defaultTranslations[viewModel.selectedLanguage()], function (item) {
+                return { key: item.key, value: viewModel.escapeHtml(viewModel.isCustom() ? item.value() : item.value) };
+            })
+        };
+    }
+
+    function initExtraData() {
+        return {
+            selectedLanguage: viewModel.selectedLanguage(),
+            customTranslations: $.map(viewModel.getCustomTranslations(), function (value) {
+                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
+            })
+        };
+    }
+
+    function sendPostMessage(message) {
+        var editorWindow = window.parent;
+        editorWindow.postMessage(message, window.location.href);
+    }
+
     var
         courseId = getURLParameter('courseId'),
         templateId = getURLParameter('templateId'),
 
-        baseURL = location.protocol + "//" + location.host,
-        settingsURL = baseURL + "/api/course/" + courseId + "/template/" + templateId,
+        baseURL = location.protocol + '//' + location.host,
+        settingsURL = baseURL + '/api/course/' + courseId + '/template/' + templateId,
 
         index = location.toString().indexOf('/settings/settings'),
         templateUrl = location.toString().substring(0, index),
+
+        currentSettings = null,
+        currentExtraData = null,
 
         starterAccessType = 1,
         translations = window.getTranslations(),
         allSupportedLanguages = [
             {
-                key: "cn",
-                name: "Chinese"
+                key: 'cn',
+                name: 'Chinese'
             },
             {
-                key: "en",
-                name: "English"
+                key: 'en',
+                name: 'English'
             },
             {
-                key: "it",
-                name: "Italian"
+                key: 'it',
+                name: 'Italian'
             },
             {
-                key: "nl",
-                name: "Dutch"
+                key: 'nl',
+                name: 'Dutch'
             },
             {
-                key: "ua",
-                name: "Ukrainian"
+                key: 'ua',
+                name: 'Ukrainian'
             },
             {
                 key: "tr",
@@ -52,8 +101,8 @@
 
     allSupportedLanguages = allSupportedLanguages.sort(sortByName);
     allSupportedLanguages.push({
-        key: "xx",
-        name: "Custom"
+        key: 'xx',
+        name: 'Custom'
     });
 
     var viewModel = {
@@ -112,8 +161,6 @@
             return data;
         })(),
 
-        isSaved: ko.observable(false),
-        isFailed: ko.observable(false),
         advancedSettingsExpanded: ko.observable(false),
         toggleAdvancedSettings: function () {
             this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
@@ -122,7 +169,7 @@
         logo: (function () {
             var logo = {};
 
-            logo.url = ko.observable('').extend({ throttle: 300 });
+            logo.url = ko.observable('');
             logo.hasLogo = ko.computed(function () {
                 return logo.url() !== '';
             });
@@ -211,7 +258,7 @@
         return $('<div/>').html(text).text();
     }
 
-    viewModel.selectedLanguage = ko.observable("en");
+    viewModel.selectedLanguage = ko.observable('en');
 
     viewModel.isCustom = ko.computed(function () {
         var language = viewModel.selectedLanguage();
@@ -227,54 +274,27 @@
     }
 
     viewModel.saveChanges = function () {
-        var settings = {
-            logo: {
-                url: viewModel.logo.url()
-            },
-            xApi: {
-                enabled: viewModel.trackingData.enableXAPI(),
-                selectedLrs: viewModel.trackingData.selectedLrs(),
-                lrs: {
-                    uri: viewModel.trackingData.lrsUrl(),
-                    authenticationRequired: viewModel.trackingData.authenticationRequired(),
-                    credentials: {
-                        username: viewModel.trackingData.lapLogin(),
-                        password: viewModel.trackingData.lapPassword()
-                    }
-                },
-                allowedVerbs: $.map(viewModel.trackingData.statements, function (value, key) {
-                    return value() ? key : undefined;
-                })
-            },
-            masteryScore: {
-                score: viewModel.masteryScore()
-            },
-            theme: {
-                key: viewModel.themes.selected()
-            },
-            translations: $.map(viewModel.defaultTranslations[viewModel.selectedLanguage()], function (item) {
-                return { key: item.key, value: viewModel.escapeHtml(viewModel.isCustom() ? item.value() : item.value) };
-            })
-        };
+        var settings = initSettings(),
+            extraData = initExtraData();
 
-        viewModel.isFailed(false);
-        viewModel.isSaved(false);
-
-        var extraData = {
-            selectedLanguage: viewModel.selectedLanguage(),
-            customTranslations: $.map(viewModel.getCustomTranslations(), function (value) {
-                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
-            })
+        if (JSON.stringify(currentSettings) === JSON.stringify(settings) && JSON.stringify(currentExtraData) === JSON.stringify(extraData)) {
+            return;
         }
+
+        sendPostMessage({ type: 'startSave' });
 
         $.post(settingsURL, { settings: JSON.stringify(settings), extraData: JSON.stringify(extraData) })
             .done(function () {
-                viewModel.isSaved(true);
+                currentSettings = settings;
+                currentExtraData = extraData;
+                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are seved' } });
             })
             .fail(function () {
-                viewModel.isFailed(true);
+                sendPostMessage({ type: 'finishSave', data: { success: false, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' } });
             });
     };
+
+    $(window).on('blur', viewModel.saveChanges);
 
     //#region Binding handlers
 
@@ -551,7 +571,7 @@
 
     //#endregion Binding handlers
 
-    ko.applyBindings(viewModel, $("#settingsForm")[0]);
+    ko.applyBindings(viewModel, $('#settingsForm')[0]);
 
     //#region Image uploader
 
@@ -626,7 +646,7 @@
             imageUploader.status.loading();
 
             var formData = new FormData();
-            formData.append("file", file);
+            formData.append('file', file);
 
             $.ajax({
                 url: imageUploader.apiUrl,
@@ -647,15 +667,15 @@
         handleResponse: function (response) {
             try {
                 if (!response) {
-                    throw "Response is empty";
+                    throw 'Response is empty';
                 }
 
-                if (typeof response != "object") {
+                if (typeof response != 'object') {
                     response = JSON.parse(response);
                 }
 
                 if (!response || !response.success || !response.data) {
-                    throw "Request is not success";
+                    throw 'Request is not success';
                 }
 
                 viewModel.logo.url(response.data.url);
@@ -671,13 +691,34 @@
     //#endregion Image uploader
 
     //#region Ajax requests
+    var userInfoDeffered = $.ajax({
+        url: baseURL + '/api/identify',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (user) {
+            if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
+                var hasStarterAccess = user.subscription.accessType >= starterAccessType && new Date(user.subscription.expirationDate) >= new Date();
+                viewModel.hasStarterPlan(hasStarterAccess);
+
+                if (hasStarterAccess) {
+                    imageUploader.init();
+                }
+            } else {
+                viewModel.hasStarterPlan(false);
+            }
+        },
+        error: function () {
+            viewModel.hasStarterPlan(false);
+        }
+    });
 
     $.ajax({
         cache: false,
         url: settingsURL,
-        dataType: "json",
+        dataType: 'json',
         success: function (response) {
-            var defaultSettings = { logo: {}, xApi: { enabled: true, selectedLrs: "default", lrs: { credentials: {} } }, masteryScore: {} },
+            var defaultSettings = { logo: {}, xApi: { enabled: true, selectedLrs: 'default', lrs: { credentials: {} } }, masteryScore: {} },
                 defaultExtraData = { customTranslations: [] };
 
             var settings, extraData;
@@ -728,7 +769,7 @@
                     });
                 });
 
-                viewModel.selectedLanguage("xx");
+                viewModel.selectedLanguage('xx');
                 return;
             }
 
@@ -746,28 +787,12 @@
         },
         error: function () {
             viewModel.masteryScore(100);
-        }
-    });
-
-    $.ajax({
-        url: baseURL + '/api/identify',
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function (user) {
-            if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
-                var hasStarterAccess = user.subscription.accessType >= starterAccessType && new Date(user.subscription.expirationDate) >= new Date();
-                viewModel.hasStarterPlan(hasStarterAccess);
-
-                if (hasStarterAccess) {
-                    imageUploader.init();
-                }
-            } else {
-                viewModel.hasStarterPlan(false);
-            }
         },
-        error: function () {
-            viewModel.hasStarterPlan(false);
+        complete: function () {
+            userInfoDeffered.complete(function () {
+                currentSettings = initSettings();
+                currentExtraData = initExtraData();
+            });
         }
     });
 
