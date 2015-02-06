@@ -29,7 +29,10 @@
                         title: item.title,
                         score: item.score(),
                         questions: item.questions,
-                        affectProgress: item.affectProgress
+                        affectProgress: item.affectProgress,
+                        goToFirstQuestion: function() {
+                            router.navigate('#/objective/' + item.id + '/question/' + item.questions[0].id);
+                        }
                     };
                 });
             },
