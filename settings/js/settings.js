@@ -287,7 +287,7 @@
             .done(function () {
                 currentSettings = settings;
                 currentExtraData = extraData;
-                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are seved' } });
+                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are saved' } });
             })
             .fail(function () {
                 sendPostMessage({ type: 'finishSave', data: { success: false, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' } });
