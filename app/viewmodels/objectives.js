@@ -24,9 +24,11 @@
                 this.score = course.score();
                 this.masteryScore = templateSettings.masteryScore.score;
                 this.objectives = _.map(course.objectives, function (item) {
+
                     return {
                         id: item.id,
                         title: item.title,
+                        imageUrl: item.imageUrl,
                         score: item.score(),
                         questions: item.questions,
                         affectProgress: item.affectProgress,

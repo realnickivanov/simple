@@ -13,7 +13,6 @@
                     dataType: 'json',
                     cache: false
                 }).done(function (response) {
-
                     that.course = new Course({
                         id: response.id,
                         title: response.title,
@@ -26,6 +25,7 @@
                                 return new Objective({
                                     id: objective.id,
                                     title: objective.title,
+                                    imageUrl: objective.imageUrl,
                                     questions: _.map(objective.questions, function (question) {
                                         return questionsFactory.createQuestion(objective.id, question);
                                     })
