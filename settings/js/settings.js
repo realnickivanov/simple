@@ -96,6 +96,14 @@
             {
                 key: "tr",
                 name: "Turkish"
+            },
+            {
+                key: "de",
+                name: "German"
+            },
+            {
+                key: "fr",
+                name: "French"
             }
         ];
 
