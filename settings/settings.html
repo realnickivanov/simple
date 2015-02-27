@@ -12,7 +12,10 @@
     <script src="js/knockout.min.js"></script>
     <!-- endbuild -->
     <!-- build:js js/settings.min.js -->
-    <script src="../languages/translations.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/localize.js"></script>
+    <script src="js/knockoutBindings.js"></script>
+    <script src="js/models.js"></script>
     <script src="js/settings.js"></script>
     <!-- endbuild -->
 </head>
@@ -315,7 +318,7 @@
                                 </tr>
                             </thead>
                             <tbody class="choose-language-table-content">
-                                <!-- ko foreach: translations -->
+                                <!-- ko foreach: [] -->
                                 <tr class="choose-language-table-row">
                                     <td class="choose-language-table-key" data-bind="text: key"></td>
                                     <td class="choose-language-table-text-wrapper">

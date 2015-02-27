@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿$(function (app) {
+
     function getURLParameter(name) {
         return decodeURI(
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
@@ -11,52 +12,6 @@
         return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
     }
 
-    function initSettings() {
-        return {
-            logo: {
-                url: viewModel.logo.url()
-            },
-            xApi: {
-                enabled: viewModel.trackingData.enableXAPI(),
-                selectedLrs: viewModel.trackingData.selectedLrs(),
-                lrs: {
-                    uri: viewModel.trackingData.lrsUrl(),
-                    authenticationRequired: viewModel.trackingData.authenticationRequired(),
-                    credentials: {
-                        username: viewModel.trackingData.lapLogin(),
-                        password: viewModel.trackingData.lapPassword()
-                    }
-                },
-                allowedVerbs: $.map(viewModel.trackingData.statements, function (value, key) {
-                    return value() ? key : undefined;
-                })
-            },
-            masteryScore: {
-                score: viewModel.masteryScore()
-            },
-            theme: {
-                key: viewModel.themes.selected()
-            },
-            translations: $.map(viewModel.defaultTranslations[viewModel.selectedLanguage()], function (item) {
-                return { key: item.key, value: viewModel.escapeHtml(viewModel.isCustom() ? item.value() : item.value) };
-            })
-        };
-    }
-
-    function initExtraData() {
-        return {
-            selectedLanguage: viewModel.selectedLanguage(),
-            customTranslations: $.map(viewModel.getCustomTranslations(), function (value) {
-                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
-            })
-        };
-    }
-
-    function sendPostMessage(message) {
-        var editorWindow = window.parent;
-        editorWindow.postMessage(message, window.location.href);
-    }
-
     var
         courseId = getURLParameter('courseId'),
         templateId = getURLParameter('templateId'),
@@ -64,54 +19,9 @@
         baseURL = location.protocol + '//' + location.host,
         settingsURL = baseURL + '/api/course/' + courseId + '/template/' + templateId,
 
-        index = location.toString().indexOf('/settings/settings'),
-        templateUrl = location.toString().substring(0, index),
-
         currentSettings = null,
-        currentExtraData = null,
+        currentExtraData = null;
 
-        starterAccessType = 1,
-        translations = window.getTranslations(),
-        allSupportedLanguages = [
-            {
-                key: 'cn',
-                name: 'Chinese'
-            },
-            {
-                key: 'en',
-                name: 'English'
-            },
-            {
-                key: 'it',
-                name: 'Italian'
-            },
-            {
-                key: 'nl',
-                name: 'Dutch'
-            },
-            {
-                key: 'ua',
-                name: 'Ukrainian'
-            },
-            {
-                key: "tr",
-                name: "Turkish"
-            },
-            {
-                key: "de",
-                name: "German"
-            },
-            {
-                key: "fr",
-                name: "French"
-            }
-        ];
-
-    allSupportedLanguages = allSupportedLanguages.sort(sortByName);
-    allSupportedLanguages.push({
-        key: 'xx',
-        name: 'Custom'
-    });
 
     var viewModel = {
         trackingData: (function () {
@@ -174,89 +84,52 @@
             this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
         },
 
-        logo: (function () {
-            var logo = {};
+        logo: new app.LogoModel(),
+        themes: new app.Themes(),
 
-            logo.url = ko.observable('');
-            logo.hasLogo = ko.computed(function () {
-                return logo.url() !== '';
-            });
-            logo.clear = function () {
-                logo.url('');
-            };
-            logo.isError = ko.observable(false);
-            logo.errorText = ko.observable('');
-            logo.errorDescription = ko.observable('');
-            logo.isLoading = ko.observable(false);
+        languages: [],
+        selectedLanguage: ko.observable(null),
 
-            return logo;
-        })(),
-
-        themes: (function () {
-            var themes = {};
-
-            themes.list = [
-                {
-                    title: 'Cartoon light',
-                    key: 'cartoon'
-                },
-                {
-                    title: 'Grey scheme',
-                    key: 'grey'
-                },
-                {
-                    title: 'Black scheme',
-                    key: 'black'
-                },
-                {
-                    title: 'Flat scheme',
-                    key: 'flat'
-                }
-            ];
-            themes.default = 'cartoon';
-            themes.selected = ko.observable('');
-
-            ko.utils.arrayMap(themes.list, function (theme) {
-                theme.isSelected = ko.observable(false);
-                theme.select = function () {
-                    ko.utils.arrayForEach(themes.list, function (item) {
-                        item.isSelected(false);
-                    });
-                    theme.isSelected(true);
-                    themes.selected(theme.key);
-                };
-                return theme;
-            });
-
-            themes.setSelected = function (key) {
-                var theme = ko.utils.arrayFirst(themes.list, function (item) {
-                    return item.key == key;
-                });
-                if (!!theme) {
-                    theme.select();
-                }
-            };
-
-            themes.setSelected(themes.default);
-
-            themes.openDemo = function () {
-                window.open(templateUrl + '?v=' + new Date().getTime() + '&theme=' + themes.selected(), '_blank');
-            };
-
-            return themes;
-        })(),
-
-        defaultTranslations: $.extend(translations, {
-            xx: $.map(translations.en, function (item) {
-                return { key: item.key, value: ko.observable(item.value) };
-            })
-        }),
-
-        languages: allSupportedLanguages,
-
-        hasStarterPlan: ko.observable(true),
-        masteryScore: ko.observable('')
+        hasStarterPlan: ko.observable(false),
+        masteryScore: ko.observable(100)
     };
+
+    viewModel.getSettingsData = function () {
+        return {
+            logo: {
+                url: viewModel.logo.url()
+            },
+            xApi: {
+                enabled: viewModel.trackingData.enableXAPI(),
+                selectedLrs: viewModel.trackingData.selectedLrs(),
+                lrs: {
+                    uri: viewModel.trackingData.lrsUrl(),
+                    authenticationRequired: viewModel.trackingData.authenticationRequired(),
+                    credentials: {
+                        username: viewModel.trackingData.lapLogin(),
+                        password: viewModel.trackingData.lapPassword()
+                    }
+                },
+                allowedVerbs: $.map(viewModel.trackingData.statements, function (value, key) {
+                    return value() ? key : undefined;
+                })
+            },
+            masteryScore: {
+                score: viewModel.masteryScore()
+            },
+            theme: {
+                key: viewModel.themes.selected()
+            },
+            selectedLanguage: viewModel.selectedLanguage(),
+            customTranslations: $.map(viewModel.languages['xx'], function (value) {
+                return { key: value.key, value: viewModel.escapeHtml(value.value()) };
+            })
+        };
+    }
+
+    viewModel.getExtraData = function () {
+        return {};
+    }
 
     viewModel.escapeHtml = function (html) {
         return $('<div/>').text(html).html();
@@ -266,24 +139,18 @@
         return $('<div/>').html(text).text();
     }
 
-    viewModel.selectedLanguage = ko.observable('en');
 
     viewModel.isCustom = ko.computed(function () {
-        var language = viewModel.selectedLanguage();
-        return language == 'xx';
-    });
-
-    viewModel.translations = ko.computed(function () {
-        return viewModel.defaultTranslations[viewModel.selectedLanguage()];
+        return viewModel.selectedLanguage() === 'xx';
     });
 
     viewModel.getCustomTranslations = function () {
-        return viewModel.defaultTranslations['xx'];
+        return [];
     }
 
     viewModel.saveChanges = function () {
-        var settings = initSettings(),
-            extraData = initExtraData();
+        var settings = viewModel.getSettingsData(),
+            extraData = viewModel.getExtraData();
 
         if (JSON.stringify(currentSettings) === JSON.stringify(settings) && JSON.stringify(currentExtraData) === JSON.stringify(extraData)) {
             return;
@@ -300,286 +167,108 @@
             .fail(function () {
                 sendPostMessage({ type: 'finishSave', data: { success: false, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' } });
             });
+
+
+        function sendPostMessage(message) {
+            var editorWindow = window.parent;
+            editorWindow.postMessage(message, window.location.href);
+        }
     };
 
     $(window).on('blur', viewModel.saveChanges);
 
-    //#region Binding handlers
+    viewModel.init = function () {
+        var api = window.egApi;
+        return api.init().done(function () {
+            var manifest = api.getManifest(),
+                user = api.getUser(),
+                settings = api.getSettings(),
+                extraData;
 
-    ko.bindingHandlers.fadeVisible = {
-        init: function (element, valueAccessor) {
-            var value = valueAccessor();
-            $(element).toggle(ko.unwrap(value));
-        },
-        update: function (element, valueAccessor) {
-            var value = valueAccessor();
-            if (ko.unwrap(value)) {
-                $(element).fadeIn();
-            } else {
-                $(element).fadeOut();
-            }
-        }
-    };
-
-    ko.bindingHandlers.number = {
-        init: function (element) {
-            var $element = $(element),
-                maxValue = 100;
-            $element.on('keydown', function (e) {
-                var key = e.charCode || e.keyCode || 0;
-                return (key == 8 || key == 9 || key == 46 || (key >= 37 && key <= 40) ||
-                        (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
-            });
-            $element.on('keyup', function () {
-                if ($(this).val() > maxValue) {
-                    $(this).val(maxValue);
-                }
-            });
-        }
-    };
-
-    ko.bindingHandlers.disableDragNDrop = {
-        init: function (element) {
-            $(element).on('dragstart', function (event) {
-                event.preventDefault();
-            });
-        }
-    };
-
-    ko.bindingHandlers.spinner = {
-        init: function (element, valueAccessor) {
-            var masteryScore = valueAccessor();
-
-            $(element).spinner('changed', function (e, newValue) {
-                masteryScore(newValue);
-            });
-
-        }
-    };
-
-    ko.bindingHandlers.switchToggle = {
-        init: function (element, valueAccessor) {
-            var switchToggle = ko.bindingHandlers.switchToggle,
-                viewModel = switchToggle.viewModel(element, valueAccessor),
-                value = ko.unwrap(valueAccessor().value());
-
-            viewModel.setInitialValue(value);
-
-            switchToggle.onClick(element, function () {
-                viewModel.toggle();
-
-                var currentValue = ko.unwrap(valueAccessor().value());
-                valueAccessor().value(!currentValue);
-            });
-        },
-        update: function (element, valueAccessor) {
-            var viewModel = ko.bindingHandlers.switchToggle.viewModel(element, valueAccessor),
-                value = ko.unwrap(valueAccessor().value());
-
-            viewModel.updateValue(value);
-        },
-        viewModel: function (element) {
-            var $element = $(element),
-                $wrapper = $('.switch-toggle-wrapper', $element);
-
-            function setInitialValue(value) {
-                setElementValue(value);
-                updateElementPosition(value);
+            if (user.accessType > 0) {
+                imageUploader.init();
             }
 
-            function toggle() {
-                var value = getValue();
-                setElementValue(!value);
+            var defaultLrs = settings.xApi.enabled ? 'custom' : 'default';
 
-                $wrapper.stop().animate({
-                    marginLeft: calculateElementLeftMargin(!value)
-                }, 250);
-            }
+            viewModel.trackingData.enableXAPI(settings.xApi.enabled || false);
+            viewModel.trackingData.selectedLrs(settings.xApi.selectedLrs || defaultLrs);
+            viewModel.trackingData.lrsUrl(settings.xApi.lrs.uri || '');
+            viewModel.trackingData.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
+            viewModel.trackingData.lapLogin(settings.xApi.lrs.credentials.username || '');
+            viewModel.trackingData.lapPassword(settings.xApi.lrs.credentials.password || '');
 
-            function getValue() {
-                return $element.hasClass('on');
-            }
-
-            function updateValue(value) {
-                if (getValue() != value) {
-                    setInitialValue(value);
-                }
-            }
-
-            function setElementValue(value) {
-                $element.toggleClass('on', value);
-                $element.toggleClass('off', !value);
-            }
-
-            function updateElementPosition(value) {
-                $wrapper.css('margin-left', calculateElementLeftMargin(value) + 'px');
-            }
-
-            function calculateElementLeftMargin(value) {
-                return value ? 0 : $element.height() - $element.width();
-            }
-
-            return {
-                setInitialValue: setInitialValue,
-                updateValue: updateValue,
-                toggle: toggle
-            }
-        },
-        onClick: function (element, handler) {
-            var $element = $(element),
-                isMouseDownFired = false;
-
-            $element.mousedown(function (event) {
-                if (event.which != 1)
-                    return;
-
-                isMouseDownFired = true;
-                handler();
-            });
-
-            $element.click(function () {
-                if (isMouseDownFired) {
-                    isMouseDownFired = false;
-                    return;
-                }
-
-                handler();
-            });
-        }
-    };
-
-    ko.bindingHandlers.dropdown = {
-        cssClasses: {
-            dropdown: 'dropdown',
-            disabled: 'disabled',
-            expanded: 'expanded',
-            optionsList: 'dropdown-options-list',
-            optionItem: 'dropdown-options-item',
-            currentItem: 'dropdown-current-item',
-            currentItemText: 'dropdown-current-item-text',
-            indicatorHolder: 'dropdown-indicator-holder',
-            indicator: 'dropdown-indicator'
-        },
-        init: function (element, valueAccessor) {
-            var $element = $(element),
-                cssClasses = ko.bindingHandlers.dropdown.cssClasses;
-
-            $element.addClass(cssClasses.dropdown);
-
-            var $currentItemElement = $('<div />')
-                .addClass(cssClasses.currentItem)
-                .appendTo($element);
-
-            $('<div />')
-                .addClass(cssClasses.currentItemText)
-                .appendTo($currentItemElement);
-
-            var $indicatorHolder = $('<div />')
-                .addClass(cssClasses.indicatorHolder)
-                .appendTo($currentItemElement);
-
-            $('<span />')
-                .addClass(cssClasses.indicator)
-                .appendTo($indicatorHolder);
-
-            $('<ul />')
-                .addClass(cssClasses.optionsList)
-                .appendTo($element);
-
-            $currentItemElement.on('click', function (e) {
-                if ($element.hasClass(cssClasses.disabled)) {
-                    return;
-                }
-
-                $currentItemElement.toggleClass(cssClasses.expanded);
-                e.stopPropagation();
-            });
-
-            var collapseHandler = function () {
-                $currentItemElement.removeClass(cssClasses.expanded);
-            };
-
-            $('html').bind('click', collapseHandler);
-            $(window).bind('blur', collapseHandler);
-
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                $('html').unbind('click', collapseHandler);
-                $(window).unbind('blur', collapseHandler);
-            });
-        },
-        update: function (element, valueAccessor) {
-            var $element = $(element),
-                cssClasses = ko.bindingHandlers.dropdown.cssClasses,
-
-                $optionsListElement = $element.find('ul.' + cssClasses.optionsList),
-                $currentItemTextElement = $element.find('div.' + cssClasses.currentItemText);
-
-
-            var options = valueAccessor().options,
-                optionsText = valueAccessor().optionsText,
-                value = valueAccessor().value,
-                optionsValue = valueAccessor().optionsValue,
-                currentValue = ko.unwrap(value),
-                disable = ko.unwrap(valueAccessor().disable);
-
-            if (disable) {
-                $element.toggleClass(cssClasses.disabled);
-            } else {
-                $element.removeClass(cssClasses.disabled);
-            }
-
-            $optionsListElement.empty();
-
-            $.each(options, function (index, option) {
-                if (option[optionsValue] == currentValue) {
-                    $currentItemTextElement.text(option[optionsText]);
-                    return;
-                }
-
-                $('<li />')
-                    .addClass(cssClasses.optionItem)
-                    .appendTo($optionsListElement)
-                    .text(option[optionsText])
-                    .on('click', function (e) {
-                        value(option[optionsValue]);
-                        $element.trigger('change');
-                    });
-            });
-        }
-    };
-
-    ko.bindingHandlers.tabs = {
-        init: function (element) {
-            var $element = $(element),
-                dataTabLink = 'data-tab-link',
-                dataTab = 'data-tab',
-                activeClass = 'active',
-                $tabLinks = $element.find('[' + dataTabLink + ']'),
-                $tabs = $element.find('[' + dataTab + ']');
-
-            $tabs.hide();
-
-            $tabLinks.first().addClass(activeClass);
-            $tabs.first().show();
-
-            $tabLinks.each(function (index, item) {
-                var $item = $(item);
-                $item.on('click', function () {
-                    var key = $item.attr(dataTabLink),
-                        currentContentTab = $element.find('[' + dataTab + '="' + key + '"]');
-                    $tabLinks.removeClass(activeClass);
-                    $item.addClass(activeClass);
-                    $tabs.hide();
-                    currentContentTab.show();
+            if (settings.xApi.allowedVerbs) {
+                $.each(viewModel.trackingData.statements, function (key, value) {
+                    value($.inArray(key, settings.xApi.allowedVerbs) > -1);
                 });
-            });
+            }
 
-        }
-    };
+            viewModel.logo.url(settings.logo.url || '');
 
-    //#endregion Binding handlers
+            if (settings.masteryScore && settings.masteryScore.score && settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
+                viewModel.masteryScore(settings.masteryScore.score);
+            }
 
-    ko.applyBindings(viewModel, $('#settingsForm')[0]);
+            if (settings.theme && settings.theme.key) {
+                viewModel.themes.setSelected(settings.theme.key);
+            }
+
+            viewModel.languages = manifestResponse.languages;
+
+            if (settings.customTranslations && settings.customTranslations.length > 0) {
+                viewModel.languages.push({
+                    key: 'xx',
+                    name: 'k',
+                    values: settings.customTranslations
+                });
+            }
+
+            if (settings.selectedLanguage) {
+                //TODO: check if selected existis
+                viewModel.selectedLanguage(settings.selectedLanguage);
+            }
+
+
+
+            //var customTranslations = viewModel.getCustomTranslations();
+
+            //if (extraData.customTranslations.length == 0 && settings.translations != null) {
+            //    $.each(settings.translations, function (i) {
+            //        $.each(customTranslations, function (j) {
+            //            if (settings.translations[i].key === customTranslations[j].key) {
+            //                customTranslations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
+            //            }
+            //        });
+            //    });
+
+            //    viewModel.selectedLanguage('xx');
+            //    return;
+            //}
+
+            //$.each(extraData.customTranslations, function (i) {
+            //    $.each(customTranslations, function (j) {
+            //        if (extraData.customTranslations[i].key === customTranslations[j].key) {
+            //            customTranslations[j].value(viewModel.unescapeHtml(extraData.customTranslations[i].value));
+            //        }
+            //    });
+            //});
+
+            //if (extraData.selectedLanguage != null && extraData.selectedLanguage != undefined) {
+            //    viewModel.selectedLanguage(extraData.selectedLanguage);
+            //}
+
+
+            currentSettings = viewModel.getSettingsData();
+            currentExtraData = viewModel.getExtraData();
+        }).fail(function () {
+            //TODO: should show error
+        });
+    }
+
+    viewModel.init().done(function () {
+        ko.applyBindings(viewModel, $('#settingsForm')[0]);
+    });
 
     //#region Image uploader
 
@@ -591,15 +280,10 @@
 
         status: {
             default: function () {
-                viewModel.logo.isLoading(false);
-                viewModel.logo.isError(false);
+                viewModel.logo.setDefaultStatus();
             },
             fail: function (reason) {
-                viewModel.logo.clear();
-                viewModel.logo.isLoading(false);
-                viewModel.logo.errorText(reason.title);
-                viewModel.logo.errorDescription(reason.description);
-                viewModel.logo.isError(true);
+                viewModel.logo.setFailedStatus(reason.title, reason.description);
             },
             loading: function () {
                 viewModel.logo.isLoading(true);
@@ -698,112 +382,4 @@
 
     //#endregion Image uploader
 
-    //#region Ajax requests
-    var userInfoDeffered = $.ajax({
-        url: baseURL + '/api/identify',
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function (user) {
-            if (user.hasOwnProperty('subscription') && user.subscription.hasOwnProperty('accessType')) {
-                var hasStarterAccess = user.subscription.accessType >= starterAccessType && new Date(user.subscription.expirationDate) >= new Date();
-                viewModel.hasStarterPlan(hasStarterAccess);
-
-                if (hasStarterAccess) {
-                    imageUploader.init();
-                }
-            } else {
-                viewModel.hasStarterPlan(false);
-            }
-        },
-        error: function () {
-            viewModel.hasStarterPlan(false);
-        }
-    });
-
-    $.ajax({
-        cache: false,
-        url: settingsURL,
-        dataType: 'json',
-        success: function (response) {
-            var defaultSettings = { logo: {}, xApi: { enabled: true, selectedLrs: 'default', lrs: { credentials: {} } }, masteryScore: {} },
-                defaultExtraData = { customTranslations: [] };
-
-            var settings, extraData;
-            try {
-                settings = JSON.parse(response.settings) || defaultSettings;
-            } catch (e) {
-                settings = defaultSettings;
-            }
-            try {
-                extraData = JSON.parse(response.extraData) || defaultExtraData;
-            } catch (e) {
-                extraData = defaultExtraData;
-            }
-
-            viewModel.trackingData.enableXAPI(settings.xApi.enabled || false);
-            var defaultLrs = settings.xApi.enabled ? 'custom' : 'default';
-            viewModel.trackingData.selectedLrs(settings.xApi.selectedLrs || defaultLrs);
-            viewModel.trackingData.lrsUrl(settings.xApi.lrs.uri || '');
-            viewModel.trackingData.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
-            viewModel.trackingData.lapLogin(settings.xApi.lrs.credentials.username || '');
-            viewModel.trackingData.lapPassword(settings.xApi.lrs.credentials.password || '');
-
-            if (settings.xApi.allowedVerbs) {
-                $.each(viewModel.trackingData.statements, function (key, value) {
-                    value($.inArray(key, settings.xApi.allowedVerbs) > -1);
-                });
-            }
-
-            viewModel.logo.url(settings.logo.url || '');
-            if (typeof settings.masteryScore != 'undefined' && settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
-                viewModel.masteryScore(settings.masteryScore.score);
-            } else {
-                viewModel.masteryScore(100);
-            }
-
-            if (settings.theme && settings.theme.key) {
-                viewModel.themes.setSelected(settings.theme.key);
-            }
-
-            var customTranslations = viewModel.getCustomTranslations();
-
-            if (extraData.customTranslations.length == 0 && settings.translations != null) {
-                $.each(settings.translations, function (i) {
-                    $.each(customTranslations, function (j) {
-                        if (settings.translations[i].key === customTranslations[j].key) {
-                            customTranslations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
-                        }
-                    });
-                });
-
-                viewModel.selectedLanguage('xx');
-                return;
-            }
-
-            $.each(extraData.customTranslations, function (i) {
-                $.each(customTranslations, function (j) {
-                    if (extraData.customTranslations[i].key === customTranslations[j].key) {
-                        customTranslations[j].value(viewModel.unescapeHtml(extraData.customTranslations[i].value));
-                    }
-                });
-            });
-
-            if (extraData.selectedLanguage != null && extraData.selectedLanguage != undefined) {
-                viewModel.selectedLanguage(extraData.selectedLanguage);
-            }
-        },
-        error: function () {
-            viewModel.masteryScore(100);
-        },
-        complete: function () {
-            userInfoDeffered.complete(function () {
-                currentSettings = initSettings();
-                currentExtraData = initExtraData();
-            });
-        }
-    });
-
-    //#endregion Ajax requests
-
-});
+})(window.app || {});
