@@ -1,10 +1,17 @@
-﻿(function (api) {
+﻿(function (app) {
     var apiData = {
         isInited: false
     };
 
+    var
+        courseId = getURLParameter('courseId'),
+        templateId = getURLParameter('templateId'),
+
+        baseURL = location.protocol + '//' + location.host,
+        settingsURL = baseURL + '/api/course/' + courseId + '/template/' + templateId;
+
     window.egApi = {
-        apiinit: init,
+        init: init,
         getManifest: getManifest,
         getUser: getUser,
         getSettings: getSettings
@@ -13,17 +20,7 @@
     function init() {
         var manifestPromise = $.Deferred().resolve({});
         var userDataPromise = $.Deferred().resolve({ subscription: { accessType: 1 } });
-        var settingsPromise = $.Deferred().resolve({
-            logo: {},
-            xApi: {
-                enabled: true,
-                selectedLrs: 'default',
-                lrs: {
-                    credentials: {}
-                }
-            },
-            masteryScore: {}
-        });
+        var settingsPromise = $.Deferred().resolve({});
 
         //var userDataPromise = $.ajax({
         //    url: baseURL + '/api/identify',
@@ -75,7 +72,19 @@
 
     function getSettings() {
         isInitedGuard();
-        return apiData.settings;
+        var defaultSettings = {
+            logo: {},
+            xApi: {
+                enabled: true,
+                selectedLrs: "default",
+                lrs: {
+                    credentials: {}
+                }
+            },
+            masteryScore: {}
+        };
+
+        return apiData.settings || defaultSettings;
     }
 
     function getUserModel(userData) {
@@ -111,4 +120,10 @@
         return settings;
     }
 
-})();
+    function getURLParameter(name) {
+        return decodeURI(
+            (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
+        );
+    }
+
+})(window.app = window.app || {});
