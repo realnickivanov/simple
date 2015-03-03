@@ -1,8 +1,11 @@
 ﻿(function (app) {
-
     app.LogoModel = LogoModel;
     app.ThemesModel = ThemesModel;
     app.ThemeModel = ThemeModel;
+    app.TrackingDataModel = TrackingDataModel;
+    app.LrsOption = LrsOption;
+    app.LanguagesModel = LanguagesModel;
+    app.LanguageModel = LanguageModel;
 
     function LogoModel() {
         var that = this;
@@ -22,6 +25,8 @@
         that.setDefaultStatus = setDefaultStatus;
         that.setFailedStatus = setFailedStatus;
         that.setLoadingStatus = setLoadingStatus;
+        that.setUrl = setUrl;
+        that.getData = getData;
 
         return that;
 
@@ -40,6 +45,16 @@
 
         function setLoadingStatus() {
             that.isLoading(true);
+        }
+
+        function setUrl(url) {
+            that.url(url || '');
+        }
+
+        function getData() {
+            return {
+                url: that.url()
+            };
         }
     }
 
@@ -63,12 +78,12 @@
             return selectedName;
         }, that);
 
-        that.setSelected = setSelected;
+        that.select = select;
         that.openDemo = openDemo;
 
         return that;
 
-        function setSelected(name) {
+        function select(name) {
             ko.utils.arrayForEach(that.list, function (theme) {
                 theme.isSelected(theme.name === name);
             });
@@ -85,7 +100,6 @@
 
             window.open(templateUrl + '?' + params, '_blank');
         }
-
     }
 
     function ThemeModel(name, isSelected) {
@@ -97,4 +111,183 @@
         return that;
     }
 
-})(window.app || {});
+    function TrackingDataModel() {
+        var that = this;
+
+        that.enableXAPI = ko.observable(true);
+        that.lrsOptions = [
+            new app.LrsOption('default', true),
+            new app.LrsOption('custom')
+        ];
+
+        that.selectedLrs = ko.computed(function () {
+            var selectedName = '';
+            ko.utils.arrayForEach(that.lrsOptions, function (lrsOption) { //foreach because of we need to track selecting of all themes
+                if (lrsOption.isSelected()) {
+                    selectedName = lrsOption.name;
+                }
+            });
+            return selectedName;
+        }, that);
+
+        that.customLrsEnabled = ko.computed(function () {
+            return that.enableXAPI() && that.selectedLrs() != that.lrsOptions[0].key;
+        });
+
+        that.lrsUrl = ko.observable('');
+        that.authenticationRequired = ko.observable(false);
+        that.lapLogin = ko.observable();
+        that.lapPassword = ko.observable();
+
+        that.credentialsEnabled = ko.computed(function () {
+            return that.customLrsEnabled() && that.authenticationRequired();
+        });
+
+        that.statements = {
+            started: ko.observable(true),
+            stopped: ko.observable(true),
+            experienced: ko.observable(true),
+            mastered: ko.observable(true),
+            answered: ko.observable(true),
+            passed: ko.observable(true),
+            failed: ko.observable(true)
+        };
+
+        that.selectLrs = selectLrs;
+        that.setStatements = setStatements;
+        that.setCustomLrsSettings = setCustomLrsSettings;
+        that.setxApiSettings = setxApiSettings;
+        that.getData = getData;
+
+        return that;
+
+        function selectLrs(name) {
+            ko.utils.arrayForEach(that.lrsOptions, function (lrsOptions) {
+                lrsOptions.isSelected(lrsOptions.name === name);
+            });
+        }
+
+        function setStatements(statements) {
+            ko.utils.objectForEach(that.statements, function (key, value) {
+                value(statements.indexOf(key) > -1);
+            });
+        }
+
+        function setCustomLrsSettings(customLrsSettings) {
+            that.lrsUrl(customLrsSettings.uri || '');
+            that.authenticationRequired(customLrsSettings.authenticationRequired || false);
+            that.lapLogin(customLrsSettings.credentials.username || '');
+            that.lapPassword(customLrsSettings.credentials.password || '');
+        }
+
+        function setxApiSettings(xApiSettings) {
+            if (xApiSettings.enabled) {
+                that.enableXAPI(xApiSettings.enabled);
+                if (xApiSettings.selectedLrs) {
+                    that.selectLrs(xApiSettings.selectedLrs);
+                }
+            }
+
+            if (xApiSettings.lrs) {
+                that.setCustomLrsSettings(xApiSettings.lrs);
+            }
+
+            if (xApiSettings.allowedVerbs && xApiSettings.allowedVerbs.length > 0) {
+                that.setStatements(xApiSettings.allowedVerbs);
+            }
+        }
+
+        function getData() {
+            return {
+                enabled: that.enableXAPI(),
+                selectedLrs: that.selectedLrs(),
+                lrs: {
+                    uri: that.lrsUrl(),
+                    authenticationRequired: that.authenticationRequired(),
+                    credentials: {
+                        username: that.lapLogin(),
+                        password: that.lapPassword()
+                    }
+                },
+                allowedVerbs: ko.utils.objectForEach(that.statements, function (key, value) {
+                    return value() ? key : undefined;
+                })
+            }
+        }
+    }
+
+    function LrsOption(name, isSelected) {
+        var that = this;
+
+        that.name = name;
+        that.isSelected = ko.observable(isSelected === true);
+
+        return that;
+    }
+
+    function LanguagesModel() {
+        var that = this;
+
+        var customLanguage = 'xx';
+
+        that.selected = ko.observable(null);
+        that.languages = [new app.LanguageModel(customLanguage)];
+
+        that.addLanguages = addLanguages;
+        that.select = select;
+        that.isCustomSelected = isCustomSelected;
+        that.setCustomTranslations = setCustomTranslations;
+        that.getCustomTranslations = getCustomTranslations;
+
+        return that;
+
+        function addLanguages(languages) {
+            ko.utils.arrayForEach(languages, function (language) {
+                that.languages.unshift(new app.LanguageModel(language.name, [], language.url));
+            });
+        }
+
+        function select(name) {
+            //TODO: check if selected existis
+            that.selected(name);
+        }
+
+        function isCustomSelected() {
+            return that.selected() === customLanguage;
+        }
+
+        function setCustomTranslations(translations) {
+            getLanguage(customLanguage).updateTranslations(translations);
+        }
+
+        function getLanguage(name) {
+            return ko.utils.arrayFirst(that.languages, function (language) {
+                return language.name === name;
+            });
+        }
+
+        function getCustomTranslations() {
+            var custom = getLanguage(customLanguage);
+            if (custom) {
+                return custom.translations;
+            }
+            return [];
+        }
+    }
+
+    function LanguageModel(name, translations, url) {
+        var that = this;
+
+        that.name = name;
+        that.translations = translations || [];
+        that.url = url || '';
+        that.updateTranslations = updateTranslations;
+
+        return that;
+
+        function updateTranslations(newTranslations) {
+            that.translations = newTranslations;
+        }
+    }
+
+})(window.app = window.app || {});
