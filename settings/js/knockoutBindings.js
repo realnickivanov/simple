@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿(function () {
 
     ko.bindingHandlers.fadeVisible = {
         init: function (element, valueAccessor) {
