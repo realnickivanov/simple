@@ -79,14 +79,24 @@
         }, that);
 
         that.select = select;
+        that.selectByName = selectByName;
         that.openDemo = openDemo;
 
         return that;
 
-        function select(name) {
+        function select(item) {
+            ko.utils.arrayForEach(that.list, function (theme) {
+                theme.isSelected(false);
+            });
+
+            item.isSelected(true);
+        }
+
+        function selectByName(name) {
             ko.utils.arrayForEach(that.list, function (theme) {
                 theme.isSelected(theme.name === name);
             });
+
         }
 
         function openDemo() {
@@ -113,6 +123,8 @@
 
     function TrackingDataModel() {
         var that = this;
+
+        that.advancedSettingsExpanded = ko.observable(false);
 
         that.enableXAPI = ko.observable(true);
         that.lrsOptions = [
@@ -153,7 +165,9 @@
             failed: ko.observable(true)
         };
 
+        that.toggleAdvancedSettings = toggleAdvancedSettings;
         that.selectLrs = selectLrs;
+        that.selectLrsByName = selectLrsByName;
         that.setStatements = setStatements;
         that.setCustomLrsSettings = setCustomLrsSettings;
         that.setxApiSettings = setxApiSettings;
@@ -161,9 +175,20 @@
 
         return that;
 
-        function selectLrs(name) {
+        function toggleAdvancedSettings () {
+            that.advancedSettingsExpanded(!that.advancedSettingsExpanded());
+        }
+
+        function selectLrs(lrs) {
             ko.utils.arrayForEach(that.lrsOptions, function (lrsOptions) {
-                lrsOptions.isSelected(lrsOptions.name === name);
+                lrsOptions.isSelected(false);
+            });
+            lrs.isSelected(true);
+        }
+
+        function selectLrsByName(name) {
+            ko.utils.arrayForEach(that.lrsOptions, function (lrsOption) {
+                lrsOption.isSelected(lrsOption.name === name);
             });
         }
 
@@ -172,7 +197,7 @@
                 value(statements.indexOf(key) > -1);
             });
         }
-
+        s
         function setCustomLrsSettings(customLrsSettings) {
             that.lrsUrl(customLrsSettings.uri || '');
             that.authenticationRequired(customLrsSettings.authenticationRequired || false);
@@ -184,7 +209,7 @@
             if (xApiSettings.enabled) {
                 that.enableXAPI(xApiSettings.enabled);
                 if (xApiSettings.selectedLrs) {
-                    that.selectLrs(xApiSettings.selectedLrs);
+                    that.selectLrsByName(xApiSettings.selectedLrs);
                 }
             }
 

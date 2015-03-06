@@ -1,5 +1,5 @@
 ﻿(function (app) {
-    
+
     function sortByName(a, b) {
         var aName = a.name.toLowerCase();
         var bName = b.name.toLowerCase();
@@ -7,7 +7,8 @@
     }
     var
         currentSettings = null,
-        currentExtraData = null;
+        currentExtraData = null,
+        baseURL = location.protocol + '//' + location.host;
 
     var viewModel = {
         trackingData: new app.TrackingDataModel(),
@@ -16,13 +17,10 @@
         themes: new app.ThemesModel(),
 
         masteryScore: ko.observable(100),
-
-        advancedSettingsExpanded: ko.observable(false),
-        toggleAdvancedSettings: function () {
-            this.advancedSettingsExpanded(!this.advancedSettingsExpanded());
-        }
+       
+        userHasStarterPlan: ko.observable(false)
     };
-  
+
     viewModel.getSettingsData = function () {
         return {
             logo: viewModel.logo.getData(),
@@ -83,6 +81,7 @@
                 settings = api.getSettings();
 
             if (user.accessType > 0) {
+                viewModel.userHasStarterPlan(true);
                 imageUploader.init();
             }
 
@@ -97,7 +96,7 @@
             }
 
             if (settings.theme && settings.theme.key) {
-                viewModel.themes.setSelected(settings.theme.key);
+                viewModel.themes.selectByName(settings.theme.key);
             }
 
             if (manifest.languages) {
@@ -142,12 +141,7 @@
             //TODO: should show error
         });
     }
-
-    viewModel.init().done(function () {
-        debugger;
-        ko.applyBindings(viewModel, $('#settingsForm')[0]);
-    });
-
+    
     //#region Image uploader
 
     var imageUploader = {
@@ -259,5 +253,11 @@
     };
 
     //#endregion Image uploader
+
+    viewModel.init().done(function () {
+        $(document).ready(function () {
+            ko.applyBindings(viewModel, $('.settings-container')[0]);
+        });
+    });
 
 })(window.app = window.app || {});

@@ -1,5 +1,4 @@
 ﻿(function () {
-
     ko.bindingHandlers.fadeVisible = {
         init: function (element, valueAccessor) {
             var value = valueAccessor();
@@ -43,7 +42,6 @@
     ko.bindingHandlers.spinner = {
         init: function (element, valueAccessor) {
             var masteryScore = valueAccessor();
-
             $(element).spinner('changed', function (e, newValue) {
                 masteryScore(newValue);
             });
@@ -270,4 +268,4 @@
 
         }
     };
-});
+})();
