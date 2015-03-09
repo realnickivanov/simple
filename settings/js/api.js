@@ -14,7 +14,8 @@
         init: init,
         getManifest: getManifest,
         getUser: getUser,
-        getSettings: getSettings
+        getSettings: getSettings,
+        saveSettings: saveSettings
     }
 
     function init() {
@@ -124,6 +125,25 @@
         return decodeURI(
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
         );
+    }
+
+    function saveSettings(settings, extraSettings, finishSaveMessage, failSaveMessage){
+        sendPostMessage({ type: 'startSave' });
+
+        return $.post(settingsURL, { settings, extraSettings })
+                .done(function () {
+                    currentSettings = settings;
+                    currentExtraData = extraData;
+                    sendPostMessage({ type: 'finishSave', data: { success: true, message: finishSaveMessage } });
+                })
+                .fail(function () {
+                    sendPostMessage({ type: 'finishSave', data: { success: false, message: failSaveMessage } });
+                });
+
+        function sendPostMessage(message) {
+            var editorWindow = window.parent;
+            editorWindow.postMessage(message, window.location.href);
+        }
     }
 
 })(window.app = window.app || {});

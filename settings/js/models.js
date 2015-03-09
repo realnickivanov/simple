@@ -68,7 +68,7 @@
             new app.ThemeModel('flat')
         ];
 
-        that.selected = ko.computed(function () {
+        that.selectedThemeName = ko.computed(function () {
             var selectedName = '';
             ko.utils.arrayForEach(that.list, function (theme) { //foreach because of we need to track selecting of all themes
                 if (theme.isSelected()) {
@@ -105,7 +105,7 @@
 
             var params = [
                 'v=' + new Date().getTime(),
-                'theme=' + that.selected()
+                'theme=' + that.selectedThemeName()
             ].join('&');
 
             window.open(templateUrl + '?' + params, '_blank');

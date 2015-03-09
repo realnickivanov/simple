@@ -99,11 +99,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-content-row">
+                        <div class="tab-content-row" data-bind="with: themes">
                             <div class="template-selector-container">
                                 <div class="selector-items-container">
                                     <h2 class="selector-title">Choose color scheme:</h2>
-                                    <ul class="selector-items-wrapper unstyled" data-bind="foreach: themes.list">
+                                    <ul class="selector-items-wrapper unstyled" data-bind="foreach: list">
                                         <li class="selector-item-container" data-bind="click: $parent.select, css: { selected: isSelected }">
                                             <div class="selector-item-btn"></div>
                                             <div class="selector-item-text" data-bind="text: name">Cartoon light</div>
@@ -112,8 +112,8 @@
                                 </div>
                                 <div class="selector-preview-container">
                                     <div class="preview-template-container">
-                                        <div class="preview-template-wrapper" data-bind="css: themes.selected">
-                                            <div class="preview-template-open-btn" data-bind="click: themes.openDemo"></div>
+                                        <div class="preview-template-wrapper" data-bind="css: selectedThemeName">
+                                            <div class="preview-template-open-btn" data-bind="click: openDemo"></div>
                                         </div>
                                     </div>
                                 </div>

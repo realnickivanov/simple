@@ -26,7 +26,7 @@
             logo: viewModel.logo.getData(),
             xApi: viewModel.trackingData.getData(),
             masteryScore: { score: viewModel.masteryScore() },
-            theme: viewModel.themes.selected(),
+            theme: viewModel.themes.selectedThemeName(),
             selectedLanguage: viewModel.languages.selected(),
             customTranslations: viewModel.languages.setCustomTranslations()
         };
@@ -46,29 +46,19 @@
 
     viewModel.saveChanges = function () {
         var settings = viewModel.getSettingsData(),
-            extraData = viewModel.getExtraData();
+            extraData = viewModel.getExtraData(),
+            newSettings = JSON.stringify(settings),
+            newExtraData =JSON.stringify(extraData);
 
-        if (JSON.stringify(currentSettings) === JSON.stringify(settings) && JSON.stringify(currentExtraData) === JSON.stringify(extraData)) {
+        if (JSON.stringify(currentSettings) === newSettings && JSON.stringify(currentExtraData) === newExtraData) {
             return;
         }
 
-        sendPostMessage({ type: 'startSave' });
-
-        $.post(settingsURL, { settings: JSON.stringify(settings), extraData: JSON.stringify(extraData) })
+        window.egApi.saveSettings(newSettings, newExtraData, app.localize('changes are saved'), app.localize('changes are not saved'))
             .done(function () {
                 currentSettings = settings;
                 currentExtraData = extraData;
-                sendPostMessage({ type: 'finishSave', data: { success: true, message: 'All changes are saved' } });
-            })
-            .fail(function () {
-                sendPostMessage({ type: 'finishSave', data: { success: false, message: 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.' } });
             });
-
-
-        function sendPostMessage(message) {
-            var editorWindow = window.parent;
-            editorWindow.postMessage(message, window.location.href);
-        }
     };
 
     $(window).on('blur', viewModel.saveChanges);
