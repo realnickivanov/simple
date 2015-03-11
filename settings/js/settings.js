@@ -250,8 +250,10 @@
     viewModel.init().done(function () {
         $(document).ready(function () {
             ko.applyBindings(viewModel, $('.settings-container')[0]);
-            var imageUploader = new imageUploaderViewModel();
-            imageUploader.init();
+            if (window.egApi.getUser().accessType > 0) {
+                var imageUploader = new imageUploaderViewModel();
+                imageUploader.init();
+            }
         });
     });
 
