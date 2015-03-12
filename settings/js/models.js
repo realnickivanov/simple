@@ -1,4 +1,4 @@
-﻿(function (app) {
+(function (app) {
     app.LogoModel = LogoModel;
     app.ThemesModel = ThemesModel;
     app.ThemeModel = ThemeModel;
@@ -197,7 +197,7 @@
                 value(statements.indexOf(key) > -1);
             });
         }
-        s
+        
         function setCustomLrsSettings(customLrsSettings) {
             that.lrsUrl(customLrsSettings.uri || '');
             that.authenticationRequired(customLrsSettings.authenticationRequired || false);
@@ -246,6 +246,7 @@
 
         that.name = name;
         that.isSelected = ko.observable(isSelected === true);
+        that.displayName = app.localize(name);
 
         return that;
     }
