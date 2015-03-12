@@ -246,7 +246,6 @@
 
         that.name = name;
         that.isSelected = ko.observable(isSelected === true);
-        that.displayName = app.localize(name);
 
         return that;
     }

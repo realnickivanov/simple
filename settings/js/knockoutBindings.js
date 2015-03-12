@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     ko.bindingHandlers.fadeVisible = {
         init: function (element, valueAccessor) {
             var value = valueAccessor();
@@ -268,4 +268,13 @@
 
         }
     };
+    
+    ko.bindingHandlers.localize = {
+        init: function(element, valueAccessor){
+            var $element = $(element),
+                key = ko.unwrap(valueAccessor());
+            
+            $element.html(app.localize(key));
+        }
+    }
 })();
