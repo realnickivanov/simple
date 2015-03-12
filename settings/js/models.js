@@ -143,7 +143,7 @@
         }, that);
 
         that.customLrsEnabled = ko.computed(function () {
-            return that.enableXAPI() && that.selectedLrs() != that.lrsOptions[0].key;
+            return that.enableXAPI() && that.selectedLrs() != that.lrsOptions[0].name;
         });
 
         that.lrsUrl = ko.observable('');
