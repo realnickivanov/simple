@@ -104,6 +104,10 @@
             {
                 key: "fr",
                 name: "French"
+            },
+            {
+                key: "pt",
+                name: "Portuguese"
             }
         ];
 
