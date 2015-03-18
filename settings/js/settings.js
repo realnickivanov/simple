@@ -107,7 +107,7 @@
             },
             {
                 key: "pt",
-                name: "Portuguese"
+                name: "Brazilian Portuguese"
             }
         ];
 
