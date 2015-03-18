@@ -106,8 +106,8 @@
                 name: "French"
             },
             {
-                key: "pt",
-                name: "Brazilian Portuguese"
+                key: "pt-br",
+                name: "Portuguese (Brazil)"
             }
         ];
 
