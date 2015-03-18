@@ -370,7 +370,7 @@
                 { key: '[tracking and tracing continue anyway]', value: 'Continuer malgré tout ' },
                 { key: '[tracking and tracing reporting progress]', value: 'Enregistrer les progrès…' }
             ],
-            pt: [
+            'pt-br': [
                { key: '[course]', value: 'Curso:' },
                { key: '[start course]', value: 'Iniciar curso' },
                { key: '[finish course]', value: 'Finalizar curso' },
