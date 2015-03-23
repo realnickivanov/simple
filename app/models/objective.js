@@ -1,4 +1,4 @@
-﻿define(['modules/templateSettings', 'constants'],
+﻿define(['templateSettings', 'constants'],
     function (templateSettings, constants) {
 
         var ctor = function (spec) {

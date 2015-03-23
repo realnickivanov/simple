@@ -8,35 +8,35 @@
     "settingsUrl": "settings/settings.html",
     "languages": [
         {
-            "name": "cn",
+            "code": "cn",
             "url": "lang/cn.json"
         },
         {
-            "name": "de",
+            "code": "de",
             "url": "lang/de.json"
         },
         {
-            "name": "en",
+            "code": "en",
             "url": "lang/en.json"
         },
         {
-            "name": "fr",
+            "code": "fr",
             "url": "lang/fr.json"
         },
         {
-            "name": "it",
+            "code": "it",
             "url": "lang/it.json"
         },        
         {
-            "name": "nl",
+            "code": "nl",
             "url": "lang/nl.json"
         },
         {
-            "name": "tr",
+            "code": "tr",
             "url": "lang/tr.json"
         },
         {
-            "name": "ua",
+            "code": "ua",
             "url": "lang/ua.json"
         }
     ]

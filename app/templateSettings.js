@@ -1,7 +1,36 @@
 ﻿define([], function () {
 
+    var defaultTranslationsCode = 'en';
+
+    var defaultTemplateSetting = {
+        "logo": {
+            "url": ""
+        },
+        "theme": {
+            "key": ""
+        },
+        "xApi": {
+            "enabled": true,
+            "selectedLrs": "default",
+            "lrs": {
+                "uri": "",
+                "credentials": {
+                    "username": "",
+                    "password": ""
+                },
+                "authenticationRequired": false
+            },
+            "allowedVerbs": []
+        },
+        "languages": {
+            "selected": "",
+            "customTranslations": {}
+        }
+    };
+
+
     return {
-        initialize: initialize,
+        init: init,
 
         masteryScore: {
             score: 100
@@ -11,27 +40,28 @@
 
         theme: {
             key: ''
-        }
+        },
+        xApi: {}
     };
 
-    function initialize(settings) {
+    function init(settings) {
         var that = this;
+        var fullSettings = _.defaults(settings, defaultTemplateSetting);
+
         return Q.fcall(function () {
             //Mastery score initialization
-            var score = Number(settings.masteryScore.score);
+            var score = Number(fullSettings.masteryScore.score);
             that.masteryScore.score = (_.isNumber(score) && score >= 0 && score <= 100) ? score : 100;
 
             //Course logo initialization
-            if (!_.isEmptyOrWhitespace(settings.logo.url)) {
-                that.logoUrl = settings.logo.url;
+            if (!_.isEmptyOrWhitespace(fullSettings.logo.url)) {
+                that.logoUrl = fullSettings.logo.url;
             }
             //Theme initialization
-            if (!_.isEmptyOrWhitespace(settings.theme.key)) {
-                that.theme.key = settings.theme.key;
+            if (!_.isEmptyOrWhitespace(fullSettings.theme.key)) {
+                that.theme.key = fullSettings.theme.key;
             }
-            if (_.isArray(settings.translations)) {
-                that.translations = settings.translations;
-            }
+            that.xApi = fullSettings.xApi;
         });
     }
 

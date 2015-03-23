@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'modules/templateSettings', 'modules/questionsNavigation'],
+﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'templateSettings', 'modules/questionsNavigation'],
     function (router, constants, questionRepository, objectiveRepository, templateSettings, navigationModule) {
         "use strict";
 
