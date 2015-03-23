@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'modules/templateSettings', 'themesInjector', 'progressContext', 'constants'],
+﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'progressContext', 'constants'],
     function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, progressContext, constants) {
 
 

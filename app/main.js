@@ -10,8 +10,8 @@
 define('jquery', function () { return jQuery; });
 define('knockout', function () { return ko; });
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader', 'bootstrapper'],
-    function (app, viewLocator, system, modulesInitializer, browserSupport, settingsReader, bootstrapper) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'bootstrapper', 'browserSupport', 'templateSettings', 'settingsReader', 'translation'],
+    function(app, viewLocator, system, modulesInitializer, bootstrapper, browserSupport, templateSettings, settingsReader, translation) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -23,42 +23,52 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             widget: true
         });
 
-        app.start().then(function () {
+        app.start().then(function() {
             bootstrapper.run();
 
-            var modules = [];
+            var modules = {};
 
             //modules['modules/localStorage_progressProvider'] = true;
 
-            return readPublishSettings().then(function () {
-                return readTemplateSettings().then(function() {
-                    modulesInitializer.register(modules);
-                    if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
-                        app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
-                        return;
-                    }
-
-                    app.setRoot('viewmodels/shell');
+            return readPublishSettings().then(function() {
+                return readTemplateSettings().then(function(settings) {
+                    return initTemplateSettings(settings).then(function() {
+                        return initTranslations(settings).then(function() {
+                            modulesInitializer.register(modules);
+                            if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
+                                app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
+                                return;
+                            }
+                            app.setRoot('viewmodels/shell');
+                        });
+                    });
                 });
             }).catch(function(e) {
                 console.error(e);
             });
 
-            function readTemplateSettings() {
-                return settingsReader.readTemplateSettings().then(function (settings) {
-                    modules['modules/templateSettings'] = settings;
-                    modules['xApi/xApiInitializer'] = settings.xApi;
-                });
-            }
 
             function readPublishSettings() {
-                return settingsReader.readPublishSettings().then(function (settings) {
-                    _.each(settings.modules, function (module) {
+                return settingsReader.readPublishSettings().then(function(settings) {
+                    _.each(settings.modules, function(module) {
                         modules[module.name] = true;
                     });
                 });
             }
 
+            function readTemplateSettings() {
+                return settingsReader.readTemplateSettings();
+            }
+
+            function initTemplateSettings(settings) {
+                return templateSettings.init(settings).then(function() {
+                    modules['xApi/xApiInitializer'] = templateSettings.xApi;
+                });
+            }
+
+            function initTranslations(settings) {
+                return translation.init(settings.languages.selected, settings.languages.customTranslations);
+            }
         });
     }
 );
