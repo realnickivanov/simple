@@ -33,23 +33,24 @@
         });
 
         var settingsPromise = $.ajax({
-            cache: false,
             url: settingsUrl,
-            dataType: 'json',
-            contentType: 'application/json'
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json'
         });
 
         var manifestPromise = $.ajax({
-            cache: false,
             url: manifestUrl,
-            dataType: 'json',
+            cache: false,
             contentType: 'application/json',
+            dataType: 'json'
         });
 
         return $.when(manifestPromise, userDataPromise, settingsPromise).done(function (manifestResponse, userDataResponse, settingsResponse) {
-            apiData.manifest = manifestResponse[0];
-            apiData.settings = settingsResponse[0];
+            debugger;
+            apiData.manifest = manifestResponse;
             apiData.user = getUserModel(userDataResponse);
+            apiData.settings = getSettingsModel(settingsResponse);
             apiData.isInited = true;
         });
     }
@@ -99,6 +100,27 @@
         }
         return user;
     }
+
+    function getSettingsModel(settingsData) {
+        var settings;
+        if (settingsData.settings && settingsData.settings.length > 0) {
+            settings = JSON.parse(settingsData.settings);
+        } else {
+            settings = {
+                logo: {},
+                xApi: {
+                    enabled: true,
+                    selectedLrs: 'default',
+                    lrs: {
+                        credentials: {}
+                    }
+                },
+                masteryScore: {}
+            };
+        }
+        return settings;
+    }
+
 
     function getURLParameter(name) {
         return decodeURI(
