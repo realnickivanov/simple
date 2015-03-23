@@ -1,4 +1,4 @@
-{
+﻿{
     "[course]": "Corso",
     "[start course]": "Inizio del corso",
     "[finish course]": "Fine del corso",
@@ -24,12 +24,12 @@
     "[fill in the blank choose answer]": "Scegli una risposta",
     "[thank you message]": "Grazie. Ora puoi chiudere la pagina.",
     "[there are no questions]": "Non ci sono domande",
-    "[browser not supported]": "Questo browser non � al momento supportato.",
+    "[browser not supported]": "Questo browser non è al momento supportato.",
     "[browser not supported hint]": "Clicca le icone in basso e segui le istruzioni.",
     "[page not found title]": "Pagina non trovata [404]",
-    "[page not found message]": "Siamo spiacenti. La pagina cercata non � stata trovata. Controlla se ci sono errori nell'URL, utilizza la barra di navigazione sopra o clicca il link \"Home\" sotto.",
+    "[page not found message]": "Siamo spiacenti. La pagina cercata non è stata trovata. Controlla se ci sono errori nell'URL, utilizza la barra di navigazione sopra o clicca il link 'Home' sotto.",
     "[tracking and tracing header]": "Le tue credenziali per tenere traccia dei progressi",
-    "[tracking and tracing hint]": "Inserisci le tue credenziali e clicca \"Comincia e tieni traccia dei miei risultati\" abilita la tracciatura. Oppure clicca \"Inizia senza verificare\".",
+    "[tracking and tracing hint]": "Inserisci le tue credenziali e clicca “Comincia e tieni traccia dei miei risultati” abilita la tracciatura. Oppure clicca “Inizia senza verificare”.",
     "[tracking and tracing name field]": "Nome",
     "[tracking and tracing email field]": "Indirizzo e-mail",
     "[tracking and tracing name is not valid]": "Completa con il tuo nome",

@@ -1,56 +1,55 @@
-﻿(function (app) {
+﻿(function () {
     var apiData = {
         isInited: false
     };
 
     var
-        courseId = getURLParameter('courseId'),
-        templateId = getURLParameter('templateId'),
-
-        baseURL = location.protocol + '//' + location.host,
-        settingsURL = baseURL + '/api/course/' + courseId + '/template/' + templateId;
+        baseUrl = location.protocol + '//' + location.host,
+        identifyUrl = baseUrl + '/api/identify',
+        settingsUrl = baseUrl + '/api/course/' + getURLParameter('courseId') + '/template/' + getURLParameter('templateId'),
+        manifestUrl = baseUrl + location.pathname.replace('settings/settings.html', 'manifest.json');
 
     window.egApi = {
         init: init,
         getManifest: getManifest,
         getUser: getUser,
         getSettings: getSettings,
-        saveSettings: saveSettings
-    }
+        saveSettings: saveSettings,
+        sendNotificationToEditor: sendNotificationToEditor
+    };
 
     function init() {
-        var manifestPromise = $.Deferred().resolve({});
-        var userDataPromise = $.Deferred().resolve({ subscription: { accessType: 1, expirationDate: new Date(2016, 1, 1) } });
-        var settingsPromise = $.Deferred().resolve({});
+        //Mock for debugging
+        //var userDataPromise = $.Deferred().resolve({ subscription: { accessType: 1, expirationDate: new Date(2016, 1, 1) } });
+        //var settingsPromise = $.Deferred().resolve({});
+        //var manifestPromise = $.Deferred().resolve({});
 
-        //var userDataPromise = $.ajax({
-        //    url: baseURL + '/api/identify',
-        //    cache: false,
-        //    type: 'POST',
-        //    contentType: 'application/json',
-        //    dataType: 'json'    
-        //    }
-        //});
+        var userDataPromise = $.ajax({
+            url: identifyUrl,
+            cache: false,
+            type: 'POST',
+            contentType: 'application/json',
+            dataType: 'json'
+        });
 
-        //var settingsPromise = $.ajax({
-        //    cache: false,
-        //    url: settingsURL,
-        //    dataType: 'json'
-        //    contentType: 'application/json',
-        //});
+        var settingsPromise = $.ajax({
+            cache: false,
+            url: settingsUrl,
+            dataType: 'json',
+            contentType: 'application/json'
+        });
 
-
-        //var manifestPromise = $.ajax({
-        //    cache: false,
-        //    url: baseURL + '/manifest.json',
-        //    dataType: 'json',
-        //    contentType: 'application/json',
-        //});
+        var manifestPromise = $.ajax({
+            cache: false,
+            url: manifestUrl,
+            dataType: 'json',
+            contentType: 'application/json',
+        });
 
         return $.when(manifestPromise, userDataPromise, settingsPromise).done(function (manifestResponse, userDataResponse, settingsResponse) {
-            apiData.manifest = manifestResponse;
+            apiData.manifest = manifestResponse[0];
+            apiData.settings = settingsResponse[0];
             apiData.user = getUserModel(userDataResponse);
-            apiData.settings = getSettingsModel(settingsResponse);
             apiData.isInited = true;
         });
     }
@@ -101,49 +100,42 @@
         return user;
     }
 
-    function getSettingsModel(settingsData) {
-        var settings;
-        if (settingsData.settings && settingsData.settings.length > 0) {
-            settings = JSON.parse(settingsData.settings);
-        } else {
-            settings = {
-                logo: {},
-                xApi: {
-                    enabled: true,
-                    selectedLrs: 'default',
-                    lrs: {
-                        credentials: {}
-                    }
-                },
-                masteryScore: {}
-            };
-        }
-        return settings;
-    }
-
     function getURLParameter(name) {
         return decodeURI(
             (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]
         );
     }
 
-    function saveSettings(settings, extraSettings, finishSaveMessage, failSaveMessage){
-        sendPostMessage({ type: 'startSave' });
+    function saveSettings(settings, extraSettings, successSaveMessage, failSaveMessage) {
+        freezeEditor();
 
-        return $.post(settingsURL, { settings, extraSettings })
-                .done(function () {
-                    currentSettings = settings;
-                    currentExtraData = extraData;
-                    sendPostMessage({ type: 'finishSave', data: { success: true, message: finishSaveMessage } });
-                })
-                .fail(function () {
-                    sendPostMessage({ type: 'finishSave', data: { success: false, message: failSaveMessage } });
-                });
-
-        function sendPostMessage(message) {
-            var editorWindow = window.parent;
-            editorWindow.postMessage(message, window.location.href);
-        }
+        return $.post(settingsUrl, { settings: settings, extraSettings: extraSettings })
+            .done(function () {
+                sendNotificationToEditor(successSaveMessage, true);
+            })
+            .fail(function () {
+                sendNotificationToEditor(failSaveMessage, false);
+            })
+            .always(function () {
+                unfreezeEditor();
+            });
     }
 
-})(window.app = window.app || {});
+    function freezeEditor() {
+        postMessageToEditor({ type: 'freeze', data: { freezeEditor: true } });
+    }
+
+    function unfreezeEditor() {
+        postMessageToEditor({ type: 'freeze', data: { freezeEditor: false } });
+    }
+
+    function postMessageToEditor(data) {
+        var editorWindow = window.top;
+        editorWindow.postMessage(data, editorWindow.location.href);
+    }
+
+    function sendNotificationToEditor(message, isSuccess) {
+        postMessageToEditor({ type: 'notification', data: { success: isSuccess || true, message: message } });
+    }
+
+})();

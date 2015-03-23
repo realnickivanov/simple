@@ -1,24 +1,17 @@
 ﻿(function (app) {
 
-    function sortByName(a, b) {
-        var aName = a.name.toLowerCase();
-        var bName = b.name.toLowerCase();
-        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-    }
-
     var
         currentSettings = null,
         currentExtraData = null,
         baseURL = location.protocol + '//' + location.host;
 
     var viewModel = {
-        trackingData: new app.TrackingDataModel(),
-        languages: new app.LanguagesModel(),
-        logo: new app.LogoModel(),
-        themes: new app.ThemesModel(),
+        trackingData: null,
+        languages: null,
+        logo: null,
+        themes: null,
 
         masteryScore: ko.observable(100),
-
         userHasStarterPlan: ko.observable(false)
     };
 
@@ -26,24 +19,15 @@
         return {
             logo: viewModel.logo.getData(),
             xApi: viewModel.trackingData.getData(),
-            masteryScore: { score: viewModel.masteryScore() },
-            theme: viewModel.themes.selectedThemeName(),
-            selectedLanguage: viewModel.languages.selected(),
-            customTranslations: viewModel.languages.setCustomTranslations()
+            theme: viewModel.themes.getData(),
+            languages: viewModel.languages.getData(),
+            masteryScore: { score: viewModel.masteryScore() }
         };
-    }
+    };
 
     viewModel.getExtraData = function () {
         return {};
-    }
-
-    viewModel.escapeHtml = function (html) {
-        return $('<div/>').text(html).html();
-    }
-
-    viewModel.unescapeHtml = function (text) {
-        return $('<div/>').html(text).text();
-    }
+    };
 
     viewModel.saveChanges = function () {
         var settings = viewModel.getSettingsData(),
@@ -62,11 +46,9 @@
             });
     };
 
-    $(window).on('blur', viewModel.saveChanges);
-
     viewModel.init = function () {
         var api = window.egApi;
-        return api.init().done(function () {
+        return api.init().then(function () {
             var manifest = api.getManifest(),
                 user = api.getUser(),
                 settings = api.getSettings();
@@ -75,62 +57,22 @@
                 viewModel.userHasStarterPlan(true);
             }
 
-            if (settings.xApi) {
-                viewModel.trackingData.setxApiSettings(settings.xApi);
-            }
-
-            viewModel.logo.setUrl(settings.logo.url);
-
             if (settings.masteryScore && settings.masteryScore.score && settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
                 viewModel.masteryScore(settings.masteryScore.score);
             }
 
-            if (settings.theme && settings.theme.key) {
-                viewModel.themes.selectByName(settings.theme.key);
-            }
-
-            if (manifest.languages) {
-                viewModel.languages.addLanguages(manifest.languages);
-            }
-
-            if (settings.customTranslations && settings.customTranslations.length > 0) {
-                viewModel.languages.setCustomTranslations(settings.customTranslations);
-            }
-
-            if (settings.selectedLanguage) {
-                viewModel.languages.select(settings.selectedLanguage);
-            }
-
-
-            //var customTranslations = viewModel.getCustomTranslations();
-
-            //if (extraData.customTranslations.length == 0 && settings.translations != null) {
-            //    $.each(settings.translations, function (i) {
-            //        $.each(customTranslations, function (j) {
-            //            if (settings.translations[i].key === customTranslations[j].key) {
-            //                customTranslations[j].value(viewModel.unescapeHtml(settings.translations[i].value));
-            //            }
-            //        });
-            //    });
-
-            //    viewModel.selectedLanguage('xx');
-            //    return;
-            //}
-
-            //$.each(extraData.customTranslations, function (i) {
-            //    $.each(customTranslations, function (j) {
-            //        if (extraData.customTranslations[i].key === customTranslations[j].key) {
-            //            customTranslations[j].value(viewModel.unescapeHtml(extraData.customTranslations[i].value));
-            //        }
-            //    });
-            //});
+            viewModel.trackingData = new app.TrackingDataModel(settings.xApi);
+            viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
+            viewModel.logo = new app.LogoModel(settings.logo);
+            viewModel.themes = new app.ThemesModel(settings.theme);
 
             currentSettings = viewModel.getSettingsData();
             currentExtraData = viewModel.getExtraData();
+
         }).fail(function () {
-            //TODO: should show error
+            api.sendNotificationToEditor(app.localize('settings are not initialize'), false);
         });
-    }
+    };
 
     //#region Image uploader
 
@@ -254,6 +196,8 @@
                 var imageUploader = new imageUploaderViewModel();
                 imageUploader.init();
             }
+
+            $(window).on('blur', viewModel.saveChanges);
         });
     });
 

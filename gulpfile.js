@@ -59,6 +59,9 @@ gulp.task('build-app', ['clean'], function () {
     gulp.src(['js/require.js'])
        .pipe(gulp.dest(output + '/js'));
 
+    gulp.src('lang/*.json')
+       .pipe(gulp.dest(output + '/lang'));
+
     gulp.src('manifest.json')
         .pipe(gulp.dest(output));
 

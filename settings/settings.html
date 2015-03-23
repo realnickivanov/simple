@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Template settings</title>
@@ -11,8 +11,8 @@
     <script src="js/jquery.spinner.min.js"></script>
     <script src="js/knockout.min.js"></script>
     <!-- endbuild -->
-    <!-- build:js js/settings.min.js -->
     <script src="js/api.js"></script>
+    <!-- build:js js/settings.min.js -->
     <script src="js/localize.js"></script>
     <script src="js/knockoutBindings.js"></script>
     <script src="js/models.js"></script>
@@ -282,7 +282,7 @@
 
                 </div>
             </div>
-            <div class="settings-tab-container languages" data-tab="languages">
+            <div class="settings-tab-container languages" data-tab="languages" data-bind="with: languages">
                 <div class="settings-tab-wrapper">
                     <div class="tab-header-container">
                         <img src="img/language.png">
@@ -290,7 +290,7 @@
                             <h1 class="tab-header-title" data-bind="localize: 'choose language for your course'"></h1>
                             <div class="tab-header-content">
                                 <div class="select-language">
-                                    <div id="selectedLanguage" data-bind="dropdown: { options: languages, value: selectedLanguage, optionsValue: 'key', optionsText: 'name' }"></div>
+                                    <div id="selectedLanguage" data-bind="dropdown: { options: languages, value: selectedLanguageCode, optionsValue: 'code', optionsText: 'name' }"></div>
                                 </div>
                             </div>
                         </div>
@@ -303,19 +303,19 @@
                                     <th class="choose-language-table-header-text" data-bind="localize: 'translation'"></th>
                                 </tr>
                             </thead>
-                            <tbody class="choose-language-table-content">
-                                <!-- ko foreach: [] -->
+                            <tbody class="choose-language-table-content" data-bind="ifnot: isLanguageLoading">
+                                <!-- ko foreach: selectedLanguageTranslations -->
                                 <tr class="choose-language-table-row">
                                     <td class="choose-language-table-key" data-bind="text: key"></td>
                                     <td class="choose-language-table-text-wrapper">
                                         <div class="input-wrapper">
-                                            <!-- ko if: $parent.isCustom() -->
+                                            <!-- ko if: $parent.isLanguageEditable() -->
                                             <div class="choose-language-table-input-wrapper">
                                                 <input type="text" class="choose-language-table-input" data-bind="value: value, valueUpdate: ['afterkeydown', 'afterpaste']" />
                                                 <span class="edit-icon"></span>
                                             </div>
                                             <!-- /ko -->
-                                            <!-- ko ifnot: $parent.isCustom() -->
+                                            <!-- ko ifnot: $parent.isLanguageEditable() -->
                                             <span data-bind="text: value"></span>
                                             <!-- /ko -->
                                         </div>

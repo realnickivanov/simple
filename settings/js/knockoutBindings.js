@@ -268,13 +268,13 @@
 
         }
     };
-    
+
     ko.bindingHandlers.localize = {
-        init: function(element, valueAccessor){
+        init: function(element, valueAccessor) {
             var $element = $(element),
                 key = ko.unwrap(valueAccessor());
-            
+
             $element.html(app.localize(key));
         }
-    }
+    };
 })();

@@ -21,9 +21,11 @@
         'nl': 'Dutch',
         'tr': 'Turkish',
         'ua': 'Ukrainian',
+        'pt-br': 'Portuguese (Brazil)',
 
         'changes are saved': 'All changes are saved',
-        'changes are not saved':'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
+        'changes are not saved': 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
+        'settings are not initialize': 'Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
         
         //graphical customization tab
         'graphical customization': 'Graphical customization',
