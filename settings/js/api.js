@@ -47,8 +47,7 @@
         });
 
         return $.when(manifestPromise, userDataPromise, settingsPromise).done(function (manifestResponse, userDataResponse, settingsResponse) {
-            debugger;
-            apiData.manifest = manifestResponse;
+            apiData.manifest = manifestResponse[0];
             apiData.user = getUserModel(userDataResponse);
             apiData.settings = getSettingsModel(settingsResponse);
             apiData.isInited = true;
