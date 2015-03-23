@@ -7,7 +7,8 @@
         baseUrl = location.protocol + '//' + location.host,
         identifyUrl = baseUrl + '/api/identify',
         settingsUrl = baseUrl + '/api/course/' + getURLParameter('courseId') + '/template/' + getURLParameter('templateId'),
-        manifestUrl = baseUrl + location.pathname.replace('settings/settings.html', 'manifest.json');
+        html = 'html', //TODO: fix gulp add version. Change way of resolving manifest file path
+        manifestUrl = baseUrl + location.pathname.replace('settings/settings.' + html, 'manifest.json');
 
     window.egApi = {
         init: init,

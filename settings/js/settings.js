@@ -84,7 +84,7 @@
             somethingWentWrongMessage: { title: 'Something went wrong', description: 'Please, try again' },
 
             status: {
-                default: function () {
+                'default': function () {
                     viewModel.logo.setDefaultStatus();
                 },
                 fail: function (reason) {
@@ -152,7 +152,7 @@
                     cache: false,
                     dataType: 'json',
                     processData: false, // Don't process the files
-                    contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+                    contentType: false // Set content type to false as jQuery will tell the server its a query string request
                 }).done(function (response) {
                     imageUploader.handleResponse(response);
                 }).fail(function () {
@@ -176,7 +176,7 @@
                     }
 
                     viewModel.logo.setUrl(response.data.url);
-                    imageUploader.status.default();
+                    imageUploader.status['default']();
                 } catch (e) {
                     imageUploader.status.fail(imageUploader.somethingWentWrongMessage);
                 } finally {
