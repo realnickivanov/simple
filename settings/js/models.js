@@ -254,6 +254,14 @@
         }
 
         function getData() {
+            var allowedVerbs = [];
+
+            ko.utils.objectForEach(that.statements, function (key, value) {
+                if (value()) {
+                    allowedVerbs.push(key);
+                }
+            });
+
             return {
                 enabled: that.enableXAPI(),
                 selectedLrs: that.selectedLrs(),
@@ -265,10 +273,8 @@
                         password: that.lapPassword()
                     }
                 },
-                allowedVerbs: ko.utils.objectForEach(that.statements, function (key, value) {
-                    return value() ? key : undefined;
-                })
-            }
+                allowedVerbs: allowedVerbs
+            };
         }
     }
 
