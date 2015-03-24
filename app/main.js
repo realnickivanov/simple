@@ -51,7 +51,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             function readPublishSettings() {
                 return settingsReader.readPublishSettings().then(function(settings) {
                     _.each(settings.modules, function(module) {
-                        modules[module.name] = true;
+                        modules['../includedModules/' + module.name] = true;
                     });
                 });
             }
