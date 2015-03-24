@@ -7,8 +7,9 @@
         baseUrl = location.protocol + '//' + location.host,
         identifyUrl = baseUrl + '/api/identify',
         settingsUrl = baseUrl + '/api/course/' + getURLParameter('courseId') + '/template/' + getURLParameter('templateId'),
-        html = 'html', //TODO: fix gulp add version. Change way of resolving manifest file path
-        manifestUrl = baseUrl + location.pathname.replace('settings/settings.' + html, 'manifest.json');
+
+        templateUrl = location.toString().substring(0, location.toString().indexOf('/settings/settings')) + '/',
+        manifestUrl = templateUrl + 'manifest.json';//TODO: Change way of resolving manifest file path
 
     window.egApi = {
         init: init,
@@ -48,9 +49,9 @@
         });
 
         return $.when(manifestPromise, userDataPromise, settingsPromise).done(function (manifestResponse, userDataResponse, settingsResponse) {
-            apiData.manifest = manifestResponse[0];
-            apiData.user = getUserModel(userDataResponse);
-            apiData.settings = getSettingsModel(settingsResponse);
+            apiData.manifest = getManifestModel(manifestResponse[0]);
+            apiData.user = getUserModel(userDataResponse[0]);
+            apiData.settings = getSettingsModel(settingsResponse[0]);
             apiData.isInited = true;
         });
     }
@@ -73,19 +74,17 @@
 
     function getSettings() {
         isInitedGuard();
-        var defaultSettings = {
-            logo: {},
-            xApi: {
-                enabled: true,
-                selectedLrs: "default",
-                lrs: {
-                    credentials: {}
-                }
-            },
-            masteryScore: {}
-        };
+        return apiData.settings;
+    }
 
-        return apiData.settings || defaultSettings;
+    function getManifestModel(manifestData) {
+        if (manifestData && manifestData.languages && manifestData.languages.length > 0) {
+            for (var i = 0; i < manifestData.languages.length; i++) {
+                manifestData.languages[i].url = templateUrl + manifestData.languages[i].url;
+            }
+        }
+
+        return manifestData;
     }
 
     function getUserModel(userData) {

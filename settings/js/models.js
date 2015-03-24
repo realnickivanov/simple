@@ -424,15 +424,10 @@
 
         function loadLanguageResources(url) {
             return $.ajax({
-                url: getAbsoluteUrl(url),
+                url: url,
                 dataType: 'json',
                 contentType: 'application/json'
             });
-        }
-
-        function getAbsoluteUrl(relativeUrl) {
-            var baseUrl = location.protocol + '//' + location.host;
-            return baseUrl + location.pathname.replace('settings/settings.html', relativeUrl);
         }
 
         function map(translationsObject) {
