@@ -1,4 +1,4 @@
-﻿define(['modules/templateSettings'], function (templateSettings) {
+﻿define(['templateSettings'], function (templateSettings) {
     "use strict";
 
     var themesInjector = {

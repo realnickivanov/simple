@@ -1,4 +1,4 @@
-﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'modules/templateSettings'],
+﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings'],
     function (context, repository, router, windowOperations, templateSettings) {
 
         var
