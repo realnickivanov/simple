@@ -70,7 +70,7 @@
 
     function ThemesModel(themesSettings) {
         var that = this;
-        
+
         that.list = [
             new app.ThemeModel('cartoon', true),
             new app.ThemeModel('grey'),
@@ -218,7 +218,7 @@
                 that.setCustomLrsSettings(xApiSettings.lrs);
             }
 
-            if (xApiSettings.allowedVerbs && xApiSettings.allowedVerbs.length > 0) {
+            if (xApiSettings.allowedVerbs) {
                 that.setStatements(xApiSettings.allowedVerbs);
             }
         }
