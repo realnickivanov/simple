@@ -22,9 +22,9 @@
 
     function init() {
         //Mock for debugging
-        //var userDataPromise = $.Deferred().resolve({ subscription: { accessType: 1, expirationDate: new Date(2016, 1, 1) } });
-        //var settingsPromise = $.Deferred().resolve({});
-        //var manifestPromise = $.Deferred().resolve({});
+        //var userDataPromise = $.Deferred().resolve([{ subscription: { accessType: 1, expirationDate: new Date(2016, 1, 1) } }]);
+        //var settingsPromise = $.Deferred().resolve([{}]);
+        //var manifestPromise = $.Deferred().resolve([{}]);
 
         var userDataPromise = $.ajax({
             url: identifyUrl,
