@@ -3,16 +3,25 @@
     var defaultTranslationsCode = 'en';
 
     function init(languageCode, customTranslations) {
+        return readDefaultTranslations().then(function (defaultTranslations) {
+            return resolveTranslations(languageCode, customTranslations).then(function (resolvedTranslations) {
+                translations = _.defaults(resolvedTranslations, defaultTranslations);
+            });
+        });
+    }
+
+    function readDefaultTranslations() {
+        return translationsReader.readTranslations(defaultTranslationsCode);
+    }
+
+    function resolveTranslations(languageCode, customTranslations) {
+        if (!languageCode || languageCode === defaultTranslationsCode) {
+            return $.Deferred().resolve([]).promise();
+        }
         if (languageCode === 'xx') {
-            return translationsReader.readTranslations(defaultTranslationsCode).then(function (defaultTranslations) {
-                translations = _.defaults(customTranslations, defaultTranslations);
-            });
+            return $.Deferred().resolve(customTranslations).promise();
         }
-        else {
-            return translationsReader.readTranslations(languageCode || defaultTranslationsCode).then(function (selectedTranslations) {
-                translations = selectedTranslations;
-            });
-        }
+        return translationsReader.readTranslations(languageCode);
     }
 
     function getTextByKey(key) {
