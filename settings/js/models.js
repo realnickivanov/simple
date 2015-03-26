@@ -295,7 +295,7 @@
 
         that.languages = [];
 
-        var _selectedLanguageCode = ko.observable(languagesSettings.selected || null);
+        var _selectedLanguageCode = ko.observable((languagesSettings && languagesSettings.selected) ? languagesSettings.selected : null);
         that.selectedLanguageCode = ko.pureComputed({
             read: function () {
                 return _selectedLanguageCode();

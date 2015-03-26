@@ -105,6 +105,7 @@
         if (settingsData.settings && settingsData.settings.length > 0) {
             settings = JSON.parse(settingsData.settings);
         } else {
+            //TODO: need to be removed in next implementation
             settings = {
                 logo: {},
                 xApi: {
