@@ -70,7 +70,7 @@
 
     function ThemesModel(themesSettings) {
         var that = this;
-        
+
         that.list = [
             new app.ThemeModel('cartoon', true),
             new app.ThemeModel('grey'),
@@ -218,7 +218,7 @@
                 that.setCustomLrsSettings(xApiSettings.lrs);
             }
 
-            if (xApiSettings.allowedVerbs && xApiSettings.allowedVerbs.length > 0) {
+            if (xApiSettings.allowedVerbs) {
                 that.setStatements(xApiSettings.allowedVerbs);
             }
         }
@@ -254,6 +254,14 @@
         }
 
         function getData() {
+            var allowedVerbs = [];
+
+            ko.utils.objectForEach(that.statements, function (key, value) {
+                if (value()) {
+                    allowedVerbs.push(key);
+                }
+            });
+
             return {
                 enabled: that.enableXAPI(),
                 selectedLrs: that.selectedLrs(),
@@ -265,10 +273,8 @@
                         password: that.lapPassword()
                     }
                 },
-                allowedVerbs: ko.utils.objectForEach(that.statements, function (key, value) {
-                    return value() ? key : undefined;
-                })
-            }
+                allowedVerbs: allowedVerbs
+            };
         }
     }
 
