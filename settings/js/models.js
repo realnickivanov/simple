@@ -295,7 +295,7 @@
 
         that.languages = [];
 
-        var _selectedLanguageCode = ko.observable(null);
+        var _selectedLanguageCode = ko.observable((languagesSettings && languagesSettings.selected) ? languagesSettings.selected : null);
         that.selectedLanguageCode = ko.pureComputed({
             read: function () {
                 return _selectedLanguageCode();
@@ -336,7 +336,7 @@
         return that;
 
         function init(languages, languagesSettings) {
-            ko.utils.arrayForEach(languages, function (language) {
+            ko.utils.arrayForEach(languages || [], function (language) {
                 addLanguage(new app.LanguageModel(language.code, app.localize(language.code), language.url));
             });
 
