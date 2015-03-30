@@ -50,8 +50,10 @@
 
         return Q.fcall(function () {
             //Mastery score initialization
-            var score = Number(fullSettings.masteryScore.score);
-            that.masteryScore.score = (_.isNumber(score) && score >= 0 && score <= 100) ? score : 100;
+            if (fullSettings.masteryScore) {
+                var score = Number(fullSettings.masteryScore.score);
+                that.masteryScore.score = (_.isNumber(score) && score >= 0 && score <= 100) ? score : 100;
+            }
 
             //Course logo initialization
             if (!_.isEmptyOrWhitespace(fullSettings.logo.url)) {
