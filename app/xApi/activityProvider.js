@@ -1,5 +1,5 @@
-﻿define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository'],
-    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, objectiveRepository) {
+﻿define(['durandal/system', './models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository'],
+    function (system, actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, objectiveRepository) {
 
         "use strict";
 
@@ -14,7 +14,8 @@
                 rootCourseUrl: null,
                 turnOffSubscriptions: turnOffSubscriptions,
                 courseId: null
-            };
+            },
+            sessionId = system.guid();
 
         return activityProvider;
 
@@ -401,6 +402,7 @@
             var contextExtensions = contextSpec.extensions || {};
             contextExtensions[constants.extenstionKeys.courseId] = activityProvider.courseId;
             contextSpec.extensions = contextExtensions;
+            contextSpec.registration = sessionId;
 
             return new contextModel(contextSpec);
         }
