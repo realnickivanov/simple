@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'progressContext', 'constants'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, progressContext, constants) {
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants) {
 
 
         var viewModel = {
@@ -54,6 +54,9 @@
                         that.logoUrl(templateSettings.logoUrl);
 
                         return themesInjector.init().then(function () {
+
+                            background.apply(templateSettings.background)
+
                             app.title = dataContext.course.title;
 
                             if (progressContext.ready()) {

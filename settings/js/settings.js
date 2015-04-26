@@ -1,4 +1,4 @@
-﻿(function (app) {
+(function (app) {
 
     var
         currentSettings = null,
@@ -18,10 +18,13 @@
     viewModel.getSettingsData = function () {
         return {
             logo: viewModel.logo.getData(),
+            background: viewModel.background.getData(),
             xApi: viewModel.trackingData.getData(),
             theme: viewModel.themes.getData(),
             languages: viewModel.languages.getData(),
-            masteryScore: { score: viewModel.masteryScore() }
+            masteryScore: {
+                score: viewModel.masteryScore()
+            }
         };
     };
 
@@ -65,6 +68,7 @@
             viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
             viewModel.logo = new app.LogoModel(settings.logo);
             viewModel.themes = new app.ThemesModel(settings.theme);
+            viewModel.background = new app.BackgroundModel(settings.background);
 
             currentSettings = viewModel.getSettingsData();
             currentExtraData = viewModel.getExtraData();
@@ -81,7 +85,10 @@
             apiUrl: baseURL + '/storage/image/upload',
             maxFileSize: 10, //MB
             supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp', 'gif'],
-            somethingWentWrongMessage: { title: 'Something went wrong', description: 'Please, try again' },
+            somethingWentWrongMessage: {
+                title: 'Something went wrong',
+                description: 'Please, try again'
+            },
 
             status: {
                 'default': function () {
@@ -128,11 +135,17 @@
                     fileExtension = file.name.split('.').pop().toLowerCase();
 
                 if ($.inArray(fileExtension, imageUploader.supportedExtensions) === -1) {
-                    imageUploader.status.fail({ title: 'Unsupported image format', description: '(Allowed formats: ' + imageUploader.supportedExtensions.join(', ') + ')' });
+                    imageUploader.status.fail({
+                        title: 'Unsupported image format',
+                        description: '(Allowed formats: ' + imageUploader.supportedExtensions.join(', ') + ')'
+                    });
                     return;
                 }
                 if (file.size > imageUploader.maxFileSize * 1024 * 1024) {
-                    imageUploader.status.fail({ title: 'File is too large', description: '(Max file size: ' + imageUploader.maxFileSize + 'MB)' });
+                    imageUploader.status.fail({
+                        title: 'File is too large',
+                        description: '(Max file size: ' + imageUploader.maxFileSize + 'MB)'
+                    });
                     return;
                 }
                 imageUploader.uploadFile(file);

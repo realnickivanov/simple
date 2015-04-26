@@ -1,4 +1,4 @@
-﻿/*#region FONTS CONNECTIONS*/
+/*#region FONTS CONNECTIONS*/
 
 @font-face {
     font-family: 'OpenSans';
@@ -108,11 +108,8 @@ html {
 }
 
 html, body, .application-wrapper {
+    min-height:100%;
     width: 100%;
-}
-
-body, .application-wrapper {
-    height: 100%;
 }
 
 body {

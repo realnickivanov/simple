@@ -1,4 +1,4 @@
-﻿define([], function () {
+define([], function () {
 
     var defaultTranslationsCode = 'en';
 
@@ -9,6 +9,7 @@
         "theme": {
             "key": ""
         },
+        "background": null,
         "xApi": {
             "enabled": true,
             "selectedLrs": "default",
@@ -63,6 +64,9 @@
             if (!_.isEmptyOrWhitespace(fullSettings.theme.key)) {
                 that.theme.key = fullSettings.theme.key;
             }
+
+            that.background = fullSettings.background;
+
             that.xApi = fullSettings.xApi;
         });
     }
