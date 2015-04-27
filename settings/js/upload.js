@@ -55,10 +55,7 @@
                     try {
                         var obj = JSON.parse(response)
                         if (obj && obj.success && obj.data && obj.data.url) {
-                            setTimeout(function(){
-                                deffered.resolve(obj.data.url);
-                            }, 5000);
-
+                            deffered.resolve(obj.data.url);
                         } else {
                             deffered.reject(somethingWentWrongMessage);
                         }
