@@ -23,11 +23,10 @@
         that.errorDescription = ko.observable('');
         that.isLoading = ko.observable(false);
 
-        that.setDefaultStatus = setDefaultStatus;
-        that.setFailedStatus = setFailedStatus;
-        that.setLoadingStatus = setLoadingStatus;
         that.setUrl = setUrl;
         that.getData = getData;
+
+        that.upload = upload;
 
         init(logoSettings);
 
@@ -39,6 +38,23 @@
             }
 
             that.setUrl(logoSettings.url);
+        }
+
+        function upload() {
+            if (that.isLoading()) {
+                return;
+            }
+
+            app.upload(function () {
+                    setLoadingStatus();
+                })
+                .done(function (url) {
+                    setUrl(url);
+                    setDefaultStatus();
+                })
+                .fail(function (reason) {
+                    setFailedStatus(reason.title, reason.description)
+                });
         }
 
         function setDefaultStatus() {
@@ -497,20 +513,33 @@
             that.type('fullscreen');
         };
 
+        that.errorTitle = ko.observable();
+        that.errorDescription = ko.observable();
+        that.hasError = ko.observable(false)
+
         that.changeImage = function () {
+            if (that.image.isUploading()) {
+                return;
+            }
+
             app.upload(function () {
                     that.image.isUploading(true);
+
+                that.hasError(false);
+                    that.errorTitle(undefined);
+                    that.errorDescription(undefined);
                 })
                 .done(function (url) {
                     that.image(url);
                 })
-                .fail(function () {
-
+                .fail(function (reason) {
+                    that.image(undefined);
+                    that.hasError(true);
+                    that.errorTitle(reason.title);
+                    that.errorDescription(reason.description);
                 })
                 .always(function () {
-                    setTimeout(function () {
-                        that.image.isUploading(false);
-                    }, 2599);
+                    that.image.isUploading(false);
                 });
         }
 

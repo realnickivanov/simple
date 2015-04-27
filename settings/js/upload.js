@@ -2,6 +2,17 @@
 
     var url = location.protocol + '//' + location.host + '/storage/image/upload';
 
+    var somethingWentWrongMessage = {
+        title: 'Something went wrong',
+        description: 'Please, try again'
+    };
+
+    var settings = {
+        maxFileSize: 10, //MB
+        supportedExtensions: ['jpeg', 'jpg', 'png', 'bmp', 'gif']
+    };
+
+
     app.upload = function (callback) {
 
         var deffered = $.Deferred();
@@ -13,17 +24,27 @@
             .insertAfter("body");
 
         var input = $("<input>")
-            //.attr('accept', settings.acceptedTypes)
+            .attr('accept', settings.supportedExtensions.map(function (e) {
+                return '.' + e
+            }).join(', '))
             .attr('type', 'file')
             .attr('name', 'file')
             .on('change', function () {
-
                 if (callback) {
                     callback();
                 }
 
+                var file = this.files[0];
+
+                var validationResult = validate(file);
+
+                if (validationResult !== true) {
+                    deffered.reject(validationResult);
+                    return;
+                }
+
                 var formData = new FormData();
-                formData.append('file', this.files[0]);
+                formData.append('file', file);
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -33,20 +54,21 @@
                 }).done(function (response) {
                     try {
                         var obj = JSON.parse(response)
-
                         if (obj && obj.success && obj.data && obj.data.url) {
+                            setTimeout(function(){
+                                deffered.resolve(obj.data.url);
+                            }, 5000);
 
-                            deffered.resolve(obj.data.url);
                         } else {
-                            deffered.reject();
+                            deffered.reject(somethingWentWrongMessage);
                         }
 
-                    } catch (f) {
-                        deffered.reject();
+                    } catch (e) {
+                        deffered.reject(somethingWentWrongMessage);
                     }
 
-                }).fail(function (a, b, c) {
-                    deffered.reject();
+                }).fail(function () {
+                    deffered.reject(somethingWentWrongMessage);
                 });
 
             })
@@ -55,6 +77,25 @@
         input.click();
 
         return deffered.promise();
+    }
+
+    function validate(file) {
+        var extension = file.name.split('.').pop().toLowerCase();
+
+        if ($.inArray(extension, settings.supportedExtensions) === -1) {
+            return {
+                title: 'Unsupported image format',
+                description: '(Allowed formats: ' + settings.supportedExtensions.join(', ') + ')'
+            };
+        }
+        if (file.size > settings.maxFileSize * 1024 * 1024) {
+            return {
+                title: 'File is too large',
+                description: '(Max file size: ' + settings.maxFileSize + 'MB)'
+            };
+        }
+
+        return true;
     }
 
 })(window.app = window.app || {});
