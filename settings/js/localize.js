@@ -26,7 +26,7 @@
         'changes are saved': 'All changes are saved',
         'changes are not saved': 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
         'settings are not initialize': 'Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
-        
+
         //graphical customization tab
         'graphical customization': 'Graphical customization',
         'results tracking': 'Results Tracking',
@@ -40,7 +40,7 @@
         'clear logo': 'Clear logo',
         'choose color scheme': 'Choose color scheme:',
         'upgrade account hint': 'You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course logo',
-        
+
         //results tracking tab
         'track and trace settings': 'Track and trace settings',
         'disabled': 'Disabled',
@@ -60,14 +60,22 @@
         'mastered': 'Mastered',
         'expirenced': 'Expirenced',
         'failed': 'Failed',
-        
+
         'mastery score settings': 'Mastery score settings',
         'mastery score hint': 'Mastery score (for each learning objective):',
-        
+
         //template language
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
-        'translation': 'Translation'
+        'translation': 'Translation',
+
+        //background
+        'background change': 'Change background',
+        'background update': 'Change background',
+        'background remove': 'Clear background',
+        'background default': 'Default',
+        'background repeat': 'Repeat',
+        'background fullscreen': 'Fullscreen'
     };
 
 })(window.app = window.app || {});
