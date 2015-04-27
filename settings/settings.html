@@ -111,7 +111,7 @@
                         </div>
                         <div class="tab-content-row">
                             <h2 class="selector-title" data-bind="localize: 'background change'">Change background</h2>
-                            <div class="background" data-bind="css: { 'empty': background.image.isEmpty, 'uploading': background.image.isUploading }">
+                            <div class="background" data-bind="css: { 'empty': background.image.isEmpty, 'uploading': background.image.isUploading, 'error': background. hasError }">
                                 <div class="background-image-upload-progress loader-container">
                                     <div class="circular-loader x32 align-center grey">
                                         <div class="circular-loader-item"></div>
@@ -156,12 +156,10 @@
                                     </a>
                                 </li>
                             </ul>
-                            <!-- ko if: background. hasError -->
                             <div class="background-error-message">
                                 <div class="background-error-message-title" data-bind="text: background.errorTitle"></div>
                                 <div class="background-error-message-description" data-bind="text: background.errorDescription"></div>
                             </div>
-                            <!-- /ko -->
                             <div class="clearfix"></div>
                         </div>
                     </div>

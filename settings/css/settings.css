@@ -912,6 +912,7 @@ input[type="text"] {
     margin-left: 140px;
     padding: 40px 50px;
     position: relative;
+    display: none;
 }
 
 .background-error-message:before {
@@ -933,6 +934,10 @@ input[type="text"] {
 
 .background-error-message-description {
     font: 12px 'OpenSans';
+}
+
+.background.error ~ .background-error-message {
+    display: block;
 }
 /*#region statements*/
 
