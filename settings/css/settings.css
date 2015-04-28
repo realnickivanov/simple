@@ -510,6 +510,7 @@ input[type="text"] {
     border-right: 1px solid #e9e7e7;
     background-color: #fafbfc;
     content: '';
+    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
@@ -740,11 +741,13 @@ input[type="text"] {
     background: #000;
     content: '';
     transition: transform .25s;
+    -webkit-transform: translateY(-26px);
     transform: translateY(-26px);
 }
 
 .background:hover .background-change,
 .background:hover .background-remove {
+    -webkit-transform: translateY(0);
     transform: translateY(0);
 }
 
@@ -1037,6 +1040,7 @@ input[type="text"] {
     border: 1px solid #4b545f;
     background-color: #4d5a68;
     content: '';
+    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
