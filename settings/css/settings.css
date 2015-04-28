@@ -914,9 +914,11 @@ input[type="text"] {
 
 .background-error-message {
     position: relative;
-    display: none;
-    margin-left: 140px;
+    visibility: hidden;
+    margin-left: 120px;
     padding: 40px 50px;
+    opacity: 0;
+    transition: opacity .3s, margin .3s;
 }
 
 .background-error-message:before {
@@ -941,7 +943,9 @@ input[type="text"] {
 }
 
 .background.error ~ .background-error-message {
-    display: block;
+    visibility: visible;
+    margin-left: 140px;
+    opacity: 1;
 }
 /*#endregion*/
 /*#region statements*/
