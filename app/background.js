@@ -1,8 +1,5 @@
 define([], function () {
 
-    var element = $('<div />')
-
-
     return {
         apply: apply
     }
@@ -12,6 +9,7 @@ define([], function () {
             return;
         }
 
+        var element = $('<div />')
         element.prependTo('body');
 
         var image = new Image(),
