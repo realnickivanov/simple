@@ -6,6 +6,7 @@
     app.LrsOption = LrsOption;
     app.LanguagesModel = LanguagesModel;
     app.LanguageModel = LanguageModel;
+    app.BackgroundModel = BackgroundModel
 
     function LogoModel(logoSettings) {
         var that = this;
@@ -22,11 +23,10 @@
         that.errorDescription = ko.observable('');
         that.isLoading = ko.observable(false);
 
-        that.setDefaultStatus = setDefaultStatus;
-        that.setFailedStatus = setFailedStatus;
-        that.setLoadingStatus = setLoadingStatus;
         that.setUrl = setUrl;
         that.getData = getData;
+
+        that.upload = upload;
 
         init(logoSettings);
 
@@ -38,6 +38,23 @@
             }
 
             that.setUrl(logoSettings.url);
+        }
+
+        function upload() {
+            if (that.isLoading()) {
+                return;
+            }
+
+            app.upload(function () {
+                    setLoadingStatus();
+                })
+                .done(function (url) {
+                    setUrl(url);
+                    setDefaultStatus();
+                })
+                .fail(function (reason) {
+                    setFailedStatus(reason.title, reason.description)
+                });
         }
 
         function setDefaultStatus() {
@@ -447,7 +464,10 @@
 
             if (translationsObject) {
                 Object.keys(translationsObject).forEach(function (key) {
-                    arr.push({ key: key, value: translationsObject[key] });
+                    arr.push({
+                        key: key,
+                        value: translationsObject[key]
+                    });
                 });
             }
 
@@ -465,6 +485,77 @@
 
             return translationsObj;
         }
+    }
+
+    function BackgroundModel(settings) {
+        settings = settings || {
+            image: {
+                src: null,
+                type: 'default'
+            }
+        };
+
+        var that = this;
+        that.image = ko.observable(settings.image.src);
+        that.image.isUploading = ko.observable(false);
+        that.image.isEmpty = ko.computed(function () {
+            return !(that.image() && that.image().length > 0);
+        });
+
+        that.type = ko.observable(settings.image.type);
+        that.type.default = function () {
+            that.type('default');
+        };
+        that.type.repeat = function () {
+            that.type('repeat');
+        };
+        that.type.fullscreen = function () {
+            that.type('fullscreen');
+        };
+
+        that.errorTitle = ko.observable();
+        that.errorDescription = ko.observable();
+        that.hasError = ko.observable(false)
+
+        that.changeImage = function () {
+            if (that.image.isUploading()) {
+                return;
+            }
+
+            app.upload(function () {
+                    that.image.isUploading(true);
+
+                that.hasError(false);
+                    that.errorTitle(undefined);
+                    that.errorDescription(undefined);
+                })
+                .done(function (url) {
+                    that.image(url);
+                })
+                .fail(function (reason) {
+                    that.image(undefined);
+                    that.hasError(true);
+                    that.errorTitle(reason.title);
+                    that.errorDescription(reason.description);
+                })
+                .always(function () {
+                    that.image.isUploading(false);
+                });
+        }
+
+        that.clearImage = function () {
+            that.image(null);
+        }
+
+        that.getData = function () {
+            return {
+                image: {
+                    src: that.image(),
+                    type: that.type()
+                }
+            };
+        }
+
     }
 
 })(window.app = window.app || {});

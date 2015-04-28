@@ -21,7 +21,7 @@
             $element.on('keydown', function (e) {
                 var key = e.charCode || e.keyCode || 0;
                 return (key == 8 || key == 9 || key == 46 || (key >= 37 && key <= 40) ||
-                        (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+                    (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
             });
             $element.on('keyup', function () {
                 if ($(this).val() > maxValue) {
@@ -270,11 +270,33 @@
     };
 
     ko.bindingHandlers.localize = {
-        init: function(element, valueAccessor) {
+        init: function (element, valueAccessor) {
             var $element = $(element),
                 key = ko.unwrap(valueAccessor());
 
             $element.html(app.localize(key));
+        }
+    };
+
+    ko.bindingHandlers.background = {
+        init: function (element) {
+            $(element)
+                .css('background-size', 'cover')
+                .css('background-position', 'center')
+                .css('background-repeat', 'no-repeat');
+        },
+        update: function (element, valueAccessor) {
+            var src = ko.unwrap(valueAccessor());
+
+            $(element).css('background-image', 'none');
+
+            if (src) {
+                var image = new Image();
+                image.onload = function () {
+                    $(element).css('background-image', 'url(' + src + ')')
+                };
+                image.src = src;
+            }
         }
     };
 })();
