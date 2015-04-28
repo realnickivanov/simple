@@ -17,8 +17,11 @@
 
         var deffered = $.Deferred();
 
+        $('[data-image-upload]').remove();
+
         var form = $("<form>")
             .hide()
+            .attr('data-image-upload', true)
             .attr('method', 'post')
             .attr('enctype', 'multipart/form-data')
             .insertAfter("body");
