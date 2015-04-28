@@ -31,7 +31,7 @@ define([], function () {
             $(element)
                 .css('background-image', 'url(' + src + ')')
                 .css('background-position', position)
-                .css('background-attachment', 'fixed')
+                .css('-webkit-background-size', size)
                 .css('background-size', size)
                 .css('background-repeat', repeat)
         }

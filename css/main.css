@@ -103,20 +103,24 @@ menu, nav, section, summary, mark, audio, video {
     box-sizing: border-box;
 }
 
-html {
-    overflow-y: scroll;
-}
-
-html, body, .application-wrapper {
-    min-height:100%;
+html, body {
+    height: 100%;
     width: 100%;
+}
+html {
+    overflow-y: hidden;
 }
 
 body {
-    min-width: 620px;
     line-height: 24px;
     font-size: 14px;
+    min-width: 620px;
+    overflow-y: scroll;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+
 }
+
 
 .header img {
     vertical-align: middle;
