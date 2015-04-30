@@ -800,7 +800,8 @@ input[type="text"] {
 }
 
 .background-position-options {
-    margin-left: 140px;
+    margin-left: 20px;
+    float: left;
 }
 
 .background-position-wrapper {
