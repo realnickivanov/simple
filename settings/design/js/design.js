@@ -1,40 +1,31 @@
-(function (app) {
+﻿(function (app) {
 
     var
         currentSettings = null,
-        currentExtraData = null,
-        baseURL = location.protocol + '//' + location.host;
+        currentExtraData = null;
 
     var viewModel = {
-        trackingData: null,
-        languages: null,
+        userAccess: null,
         logo: null,
         themes: null,
-
-        masteryScore: ko.observable(100),
-        userHasStarterPlan: ko.observable(false)
+        background: null
     };
 
-    viewModel.getSettingsData = function () {
-        return {
+    viewModel.getCurrentSettingsData = function (settings) {
+        return $.extend({}, settings || currentSettings, {
             logo: viewModel.logo.getData(),
-            background: viewModel.background.getData(),
-            xApi: viewModel.trackingData.getData(),
             theme: viewModel.themes.getData(),
-            languages: viewModel.languages.getData(),
-            masteryScore: {
-                score: viewModel.masteryScore()
-            }
-        };
+            background: viewModel.background.getData(),
+        });
     };
 
-    viewModel.getExtraData = function () {
+    viewModel.getCurrentExtraData = function () {
         return {};
     };
 
     viewModel.saveChanges = function () {
-        var settings = viewModel.getSettingsData(),
-            extraData = viewModel.getExtraData(),
+        var settings = viewModel.getCurrentSettingsData(),
+            extraData = viewModel.getCurrentExtraData(),
             newSettings = JSON.stringify(settings),
             newExtraData = JSON.stringify(extraData);
 
@@ -52,26 +43,16 @@
     viewModel.init = function () {
         var api = window.egApi;
         return api.init().then(function () {
-            var manifest = api.getManifest(),
-                user = api.getUser(),
+            var user = api.getUser(),
                 settings = api.getSettings();
 
-            if (user.accessType > 0) {
-                viewModel.userHasStarterPlan(true);
-            }
-
-            if (settings.masteryScore && settings.masteryScore.score && settings.masteryScore.score >= 0 && settings.masteryScore.score <= 100) {
-                viewModel.masteryScore(settings.masteryScore.score);
-            }
-
-            viewModel.trackingData = new app.TrackingDataModel(settings.xApi);
-            viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
+            viewModel.userAccess = new app.UserAccessModel(user);
             viewModel.logo = new app.LogoModel(settings.logo);
             viewModel.themes = new app.ThemesModel(settings.theme);
             viewModel.background = new app.BackgroundModel(settings.background);
 
-            currentSettings = viewModel.getSettingsData();
-            currentExtraData = viewModel.getExtraData();
+            currentSettings = viewModel.getCurrentSettingsData(settings);
+            currentExtraData = viewModel.getCurrentExtraData();
 
         }).fail(function () {
             api.sendNotificationToEditor(app.localize('settings are not initialize'), false);
