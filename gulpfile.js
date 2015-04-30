@@ -86,9 +86,10 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
       .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings/css'));
 
-    gulp.src('settings/js/**')
+    gulp.src('settings/api.js')
       .pipe(uglify())
-      .pipe(gulp.dest(output + '/settings/js'));
+	  .pipe(addBuildVersion())
+      .pipe(gulp.dest(output + '/settings'));
 
 });
 
