@@ -29,7 +29,7 @@
         'upgrade account hint': 'You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course logo',
 
         //background
-        'background change': 'Change background',
+        'background change': 'Change background:',
         'background update': 'Change background',
         'background remove': 'Clear background',
         'background default': 'Default',

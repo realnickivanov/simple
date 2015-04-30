@@ -52,7 +52,7 @@
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
-        'translation': 'Translation',
+        'translation': 'Translation'
     };
 
 })(window.app = window.app || {});
