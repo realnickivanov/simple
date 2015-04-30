@@ -70,7 +70,7 @@
         'translation': 'Translation',
 
         //background
-        'background change': 'Change background',
+        'background change': 'Change background:',
         'background update': 'Change background',
         'background remove': 'Clear background',
         'background default': 'Default',
