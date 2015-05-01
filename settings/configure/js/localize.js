@@ -11,9 +11,11 @@
 
         //results tracking tab
         'results tracking': 'Results Tracking',
-        'track and trace settings': 'Track and trace settings',
-        'default': 'easygenerator (recommended)',
+		
+		'default': 'easygenerator (recommended)',
         'custom': 'Custom LRS',
+		
+        'track and trace settings': 'Track and trace settings',
         'disabled': 'Disabled',
         'enabled': 'Enabled',
         'advanced settings': 'Advanced settings',

@@ -5,19 +5,18 @@
     };
 
     var translations = {
-        'cartoon': 'Cartoon light',
-        'grey': 'Grey scheme',
-        'black': 'Black scheme',
-        'flat': 'Flat scheme',
-
         'changes are saved': 'All changes are saved',
         'changes are not saved': 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
         'settings are not initialize': 'Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
 
         //graphical customization tab
         'graphical customization': 'Graphical customization',
-        'results tracking': 'Results Tracking',
-        'template language': 'Template language',
+		
+		'cartoon': 'Cartoon light',
+        'grey': 'Grey scheme',
+        'black': 'Black scheme',
+        'flat': 'Flat scheme',
+		
         'customize your course': 'Customize your course',
         'look and feel of the course': 'Change the look and feel of the course',
         'custom course logo': 'Custom course logo:',
