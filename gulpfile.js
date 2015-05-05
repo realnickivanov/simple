@@ -9,8 +9,8 @@
     output = ".output",
     buildVersion = +new Date();
 
-var addBuildVersion = function () {
-    var doReplace = function (file, callback) {
+function addBuildVersion() {
+    return eventStream.map(function (file, callback) {
         var fileContent = String(file.contents);
         fileContent = fileContent
             .replace(/(\?|\&)v=([0-9]+)/gi, '') // remove build version
@@ -19,8 +19,18 @@ var addBuildVersion = function () {
             .replace(/urlArgs: 'v=buildVersion'/gi, 'urlArgs: \'v=' + buildVersion + '\''); // replace build version for require config
         file.contents = new Buffer(fileContent);
         callback(null, file);
-    };
-    return eventStream.map(doReplace);
+    });
+};
+
+function removeDebugBlocks() {
+    return eventStream.map(function (file, callback) {
+        var fileContent = String(file.contents);
+        fileContent = fileContent
+            .replace(/(\/\* DEBUG \*\/)([\s\S])*(\/\* END_DEBUG \*\/)/gmi, '') // remove all code between '/* DEBUG */' and '/* END_DEBUG */' comment tags
+            .replace(/(\/\* RELEASE)|(END_RELEASE \*\/)/gmi, ''); // remove '/* RELEASE' and 'END_RELEASE */' tags to uncomment release code
+        file.contents = new Buffer(fileContent);
+        callback(null, file);
+    });
 };
 
 gulp.task('build', ['clean', 'build-app', 'build-settings'], function () {
@@ -83,12 +93,11 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
 
     gulp.src('settings/css/settings.css')
       .pipe(minifyCss())
-      .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings/css'));
 
     gulp.src('settings/api.js')
+      .pipe(removeDebugBlocks())
       .pipe(uglify())
-	  .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings'));
 
 });
