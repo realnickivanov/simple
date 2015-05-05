@@ -3,7 +3,6 @@
     app.UserAccessModel = UserAccessModel;
     app.LogoModel = LogoModel;
     app.ThemesModel = ThemesModel;
-    app.ThemeModel = ThemeModel;
     app.BackgroundModel = BackgroundModel;
 
     function UserAccessModel(userData) {
@@ -91,10 +90,10 @@
         var that = this;
 
         that.list = [
-            new app.ThemeModel('cartoon', true),
-            new app.ThemeModel('grey'),
-            new app.ThemeModel('black'),
-            new app.ThemeModel('flat')
+            new ThemeModel('cartoon', true),
+            new ThemeModel('grey'),
+            new ThemeModel('black'),
+            new ThemeModel('flat')
         ];
 
         that.selectedThemeName = ko.computed(function () {
@@ -117,7 +116,7 @@
         return that;
 
         function init(themesSettings) {
-            if (!themesSettings) {
+            if (!themesSettings || !themesSettings.key) {
                 return;
             }
 
@@ -140,7 +139,7 @@
         }
 
         function openDemo() {
-            var index = location.toString().indexOf('/settings/settings');
+            var index = location.toString().indexOf('/settings/');
             var templateUrl = location.toString().substring(0, index);
 
             var params = [
@@ -156,25 +155,25 @@
                 key: that.selectedThemeName()
             };
         }
+
+        function ThemeModel(name, isSelected) {
+            var that = this;
+
+            that.name = name;
+            that.isSelected = ko.observable(isSelected === true);
+
+            return that;
+        }
     }
 
-    function ThemeModel(name, isSelected) {
-        var that = this;
-
-        that.name = name;
-        that.isSelected = ko.observable(isSelected === true);
-
-        return that;
-    }
-
-    function BackgroundModel(settings) {
-        settings = settings || {
+    function BackgroundModel(backgroundSettings) {
+        var settings = $.extend(true, {
             image: {
                 src: null,
                 type: 'default'
             }
-        };
-
+        }, backgroundSettings);
+        
         var that = this;
         that.image = ko.observable(settings.image.src);
         that.image.isUploading = ko.observable(false);
@@ -232,7 +231,6 @@
                 }
             };
         };
-
     }
 
 })(window.app = window.app || {});
