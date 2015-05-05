@@ -330,14 +330,14 @@
     function MasteryScore(masteryScoreSettings) {
         var that = this;
 
-        that.score = masteryScoreSettings.score;
+        that.score = ko.observable(masteryScoreSettings.score);
         that.getData = getData;
 
         return that;
 
         function getData() {
             return {
-                score: that.score
+                score: that.score()
             };
         };
     }
