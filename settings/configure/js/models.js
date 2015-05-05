@@ -330,7 +330,7 @@
     function MasteryScore(masteryScoreSettings) {
         var that = this;
 
-        that.score = ko.observable(masteryScoreSettings.score);
+        that.score = ko.observable((masteryScoreSettings && masteryScoreSettings.score) ? masteryScoreSettings.score : 100);
         that.getData = getData;
 
         return that;
