@@ -1,4 +1,4 @@
-﻿define(['durandal/system', './models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository'],
+define(['durandal/system', './models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository'],
     function (system, actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, objectiveRepository) {
 
         "use strict";
@@ -62,7 +62,8 @@
             if (_.isArray(course.objectives)) {
                 _.each(course.objectives, function (objective) {
                     var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score() / 100) }), createActivity(objectiveUrl, objective.title));
+                    var score = objective.affectProgress ? new scoreModel(objective.score() / 100) : undefined;
+                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: score }), createActivity(objectiveUrl, objective.title));
                     pushStatementIfSupported(statement);
                 });
             }
