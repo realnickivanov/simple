@@ -61,7 +61,7 @@
 
             if (_.isArray(course.objectives)) {
                 _.each(course.objectives, function (objective) {
-                    if (_.isArray(objective.question)) {
+                    if (_.isArray(objective.questions)) {
                         _.each(objective.questions, function (question) {
                             if (!question.isAnswered) {
                                 enqueueQuestionAnsweredStatement(question);
