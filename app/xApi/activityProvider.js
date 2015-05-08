@@ -61,6 +61,14 @@ define(['durandal/system', './models/actor', './models/statement', './models/act
 
             if (_.isArray(course.objectives)) {
                 _.each(course.objectives, function (objective) {
+                    if (_.isArray(objective.questions)) {
+                        _.each(objective.questions, function (question) {
+                            if (!question.isAnswered) {
+                                enqueueQuestionAnsweredStatement(question);
+                            }
+                        });
+                    }
+
                     var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
                     var score = objective.affectProgress ? new scoreModel(objective.score() / 100) : undefined;
                     var statement = createStatement(constants.verbs.mastered, new resultModel({ score: score }), createActivity(objectiveUrl, objective.title));
