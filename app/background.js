@@ -5,11 +5,11 @@ define([], function () {
     }
 
     function apply(background) {
-        if (_.isNullOrUndefined(background) || _.isNullOrUndefined(background.image)) {
+        if (_.isNullOrUndefined(background) || _.isNullOrUndefined(background.image) || _.isNullOrUndefined(background.image.src)) {
             return;
         }
 
-        var element = $('<div />')
+        var element = $('<div />');
         element.prependTo('body');
 
         var image = new Image(),
@@ -25,7 +25,7 @@ define([], function () {
 
         if (background.image.type === 'fullscreen') {
             size = 'cover';
-            position = 'center'
+            position = 'center';
         }
 
         image.onload = function () {
