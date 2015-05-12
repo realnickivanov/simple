@@ -25,7 +25,7 @@
 
         var input = $("<input>")
             .attr('accept', settings.supportedExtensions.map(function (e) {
-                return '.' + e
+                return '.' + e;
             }).join(', '))
             .attr('type', 'file')
             .attr('name', 'file')
@@ -74,7 +74,7 @@
         input.click();
 
         return deffered.promise();
-    }
+    };
 
     function validate(file) {
         var extension = file.name.split('.').pop().toLowerCase();
