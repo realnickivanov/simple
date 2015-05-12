@@ -808,6 +808,7 @@ body {
         -o-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
+        top: 12px;
     }
 
     .styled-content a {
