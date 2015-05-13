@@ -19,7 +19,7 @@
                 [].forEach.call(
                     element.parentNode.querySelectorAll('[data-sync-height]'),
                     function (el) {
-                        var td = document.createElement('td');                        
+                        var td = document.createElement('td');
                         td.innerHTML = el.innerHTML;
                         tr.appendChild(td);
                     }
