@@ -10,7 +10,7 @@
             _.defer(function () {
                 var table = document.createElement('table');
                 table.style.position = 'absolute';
-                table.style.left = '-9999px';
+                table.style.marginLeft = '-9999px';
                 table.style.top = '-9999px';
                 table.className = 'common-height-scope-' + scope;
 
@@ -19,7 +19,7 @@
                 [].forEach.call(
                     element.parentNode.querySelectorAll('[data-sync-height]'),
                     function (el) {
-                        var td = document.createElement('td');
+                        var td = document.createElement('td');                        
                         td.innerHTML = el.innerHTML;
                         tr.appendChild(td);
                     }
