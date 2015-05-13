@@ -10,7 +10,7 @@
             _.defer(function () {
                 var table = document.createElement('table');
                 table.style.position = 'absolute';
-                table.style.left = '-9999px';
+                table.style.marginLeft = '-9999px';
                 table.style.top = '-9999px';
                 table.className = 'common-height-scope-' + scope;
 
