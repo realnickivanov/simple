@@ -1,3 +1,4 @@
-﻿
 /.output
 /content
+/node_modules/
+Web.config

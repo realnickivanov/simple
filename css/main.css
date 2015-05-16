@@ -1,4 +1,4 @@
-﻿/*#region FONTS CONNECTIONS*/
+/*#region FONTS CONNECTIONS*/
 
 @font-face {
     font-family: 'OpenSans';
@@ -103,23 +103,20 @@ menu, nav, section, summary, mark, audio, video {
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+}
 html {
     overflow-y: scroll;
 }
 
-html, body, .application-wrapper {
-    width: 100%;
-}
-
-body, .application-wrapper {
-    height: 100%;
-}
-
 body {
-    min-width: 620px;
     line-height: 24px;
     font-size: 14px;
+    min-width: 620px;
 }
+
 
 .header img {
     vertical-align: middle;
@@ -1345,7 +1342,7 @@ input[type="checkbox"] {
     color: #777777;
     font-size: 12px;
     line-height: 20px;
-    padding-top: 5px;
+    padding-top: 30px;
     text-align: center;
 }
 
