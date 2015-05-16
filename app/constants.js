@@ -11,7 +11,8 @@
             textMatching: "textMatching",            
             hotspot: "hotspot",            
             statement: "statement",
-            informationContent: "informationContent"
+            informationContent: "informationContent",
+            openQuestion: "openQuestion"
         },
         defaultImageUrl: 'img/singleSelectImageAnwer.png',
         events: {

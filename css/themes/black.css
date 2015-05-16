@@ -867,6 +867,16 @@ body:before {
 }
 /*#endregion statement question type*/
 
+/*#region open question*/
+
+.edit-field {
+    background-size: 16px 16px, 22px 30px;
+    font-family: "RobotoSlab-Regular";
+    line-height: 30px;    
+    color: #cdcdcd;
+}
+
+/*#endregion open question*/
 
 @-moz-document url-prefix() {
 

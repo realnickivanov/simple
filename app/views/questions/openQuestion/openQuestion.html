@@ -1,0 +1,12 @@
+﻿<!-- ko if: content -->
+<div class="question-content-wrapper">
+    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+</div>
+<!-- /ko -->
+<div class="edit-field-wrapper">
+    <textarea class="edit-field" data-bind="autosizeTextArea:{}, value: answeredText" data-translate-placeholder="[type your answer here]"></textarea>
+
+    <!-- ko if: isAnswered -->
+    <div class="answered-blank-overlay"></div>
+    <!-- /ko -->
+</div>

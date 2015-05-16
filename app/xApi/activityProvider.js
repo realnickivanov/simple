@@ -126,6 +126,9 @@
                     case globalConstants.questionTypes.hotspot:
                         parts = getHotSpotQuestionActivityAndResult(question);
                         break;
+                    case globalConstants.questionTypes.openQuestion:
+                        parts = getOpenQuestionActivityAndResult(question);
+                        break;
                 }
 
                 var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
@@ -332,6 +335,21 @@
                 })
             };
 
+        }
+
+        function getOpenQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    response: question.answeredText
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.other
+                    })
+                })
+            };
         }
 
         function getItemsIds(items, filter) {
