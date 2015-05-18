@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/textMatching/textMatching', 'viewmodels/questions/statement/statement', 'viewmodels/questions/hotspot/hotspot'],
-	function (router, constants, navigationModule, multipleSelectQuestionViewModel, singleSelectTextQuestionViewModel, fillInTheBlankQuestionViewModel, dragAndDropQuestionViewModel, singleSelectImageQuestionViewModel, textMatchingViewModel, statementViewModel, hotspotViewModel) {
+﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/textMatching/textMatching', 'viewmodels/questions/statement/statement', 'viewmodels/questions/hotspot/hotspot', 'viewmodels/questions/openQuestion/openQuestion'],
+	function (router, constants, navigationModule, multipleSelectQuestionViewModel, singleSelectTextQuestionViewModel, fillInTheBlankQuestionViewModel, dragAndDropQuestionViewModel, singleSelectImageQuestionViewModel, textMatchingViewModel, statementViewModel, hotspotViewModel, openQuestionViewModel) {
 	    "use strict";
 
 	    var viewModel = {
@@ -14,6 +14,7 @@
 	        learningContents: [],
 	        correctFeedback: ko.observable(null),
 	        incorrectFeedback: ko.observable(null),
+            feedbackView: 'questions/feedback.html',
 
 	        navigationContext: null,
 
@@ -78,6 +79,8 @@
 	                return statementViewModel;
 	            case constants.questionTypes.hotspot:
 	                return hotspotViewModel;
+	            case constants.questionTypes.openQuestion:
+	                return openQuestionViewModel;
 	            default:
 	                return multipleSelectQuestionViewModel;
 	        }
@@ -97,6 +100,11 @@
 	        viewModel.incorrectFeedback(viewModel.question.feedback.incorrect);
 
 	        viewModel.activeQuestionViewModel = setActiveViewModel(viewModel.question);
+
+	        if (viewModel.activeQuestionViewModel.feedbackView) {
+	            viewModel.feedbackView = viewModel.activeQuestionViewModel.feedbackView;
+	        }
+
 	        return viewModel.activeQuestionViewModel.initialize(viewModel.question);
 	    }
 	}

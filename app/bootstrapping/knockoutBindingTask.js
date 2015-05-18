@@ -13,6 +13,7 @@
     'viewmodels/questions/textMatching/bindingHandlers/overlayBindingHandler',
     'viewmodels/questions/textMatching/bindingHandlers/syncHeightBindingHandler',
     'viewmodels/questions/textMatching/bindingHandlers/syncHeightScopeBindingHandler',
+    'viewmodels/questions/openQuestion/bindingHandlers/textAreaBindingHandler',
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
     'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler'
 ], function () {
