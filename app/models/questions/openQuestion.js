@@ -1,7 +1,7 @@
 ﻿define(['models/questions/question', 'guard'], function (Question, guard) {
     "use strict";
 
-    function Open(spec) {
+    function OpenQuestion(spec) {
         Question.call(this, spec, {
             getProgress: getProgress,
             restoreProgress: restoreProgress,
@@ -12,7 +12,7 @@
         this.answeredText = '';
     }
 
-    return Open;
+    return OpenQuestion;
 
     function getProgress() {
         return this.isAnswered ? this.answeredText : 0;
