@@ -25,13 +25,14 @@
 
     function submit() {
         return Q.fcall(function () {
-            viewModel.question.submitAnswer(viewModel.answeredText());
+            viewModel.question.submitAnswer(viewModel.answeredText().trim());
             viewModel.isAnswered(true);
         });
     }
 
     function tryAnswerAgain() {
-        return Q.fcall(function() {
+        return Q.fcall(function () {
+            viewModel.answeredText('');
             viewModel.isAnswered(false);
         });
     }
