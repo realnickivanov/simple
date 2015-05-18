@@ -14,6 +14,7 @@
 	        learningContents: [],
 	        correctFeedback: ko.observable(null),
 	        incorrectFeedback: ko.observable(null),
+            feedbackView: 'questions/feedback.html',
 
 	        navigationContext: null,
 
@@ -99,6 +100,10 @@
 	        viewModel.incorrectFeedback(viewModel.question.feedback.incorrect);
 
 	        viewModel.activeQuestionViewModel = setActiveViewModel(viewModel.question);
+
+	        if (viewModel.activeQuestionViewModel.feedbackView) {
+	            viewModel.feedbackView = viewModel.activeQuestionViewModel.feedbackView;
+	        }
 
 	        return viewModel.activeQuestionViewModel.initialize(viewModel.question);
 	    }

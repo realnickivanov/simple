@@ -1,4 +1,4 @@
-﻿define(function() {
+﻿define([], function() {
     "use strict";
 
     var viewModel = {
@@ -6,6 +6,7 @@
         content: null,
         answeredText: ko.observable(''),
         isAnswered: ko.observable(false),
+        feedbackView: 'questions/openQuestion/feedback.html',
 
         initialize: initialize,
         submit: submit,
