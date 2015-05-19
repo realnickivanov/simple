@@ -1,5 +1,5 @@
 .tl-wrapper{
-    position: absolute;
+    position: fixed;
     z-index: 200;
     display: inline-block;
     width: 360px;
@@ -8,8 +8,13 @@
     border-radius: 5px;
     font-size: 16px;
     text-align: left;
-    line-height: 32px;
+    line-height: 32px !important;
     background-color: rgba(67, 81, 96, 0.95);
+}
+
+.tl-text-wrapper{
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .tl-arrow-wrapper{
@@ -37,13 +42,13 @@
 .top .tl-arrow{
     top: 0;
     border-width: 10px 10px 0 10px;
-    border-color: #49565e transparent transparent transparent;
+    border-color: rgba(67, 81, 96, 0.95) transparent transparent transparent;
 }
 
 .bottom .tl-arrow{
     bottom: 0;
     border-width: 0 10px 10px 10px;
-    border-color: transparent transparent #49565e transparent;
+    border-color: transparent transparent rgba(67, 81, 96, 0.95) transparent;
 }
 
 .info-container {

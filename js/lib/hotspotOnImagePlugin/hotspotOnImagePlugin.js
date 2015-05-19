@@ -5,6 +5,7 @@
         tooltipWrapper: 'tl-wrapper',
         tooltipArrowWrapper: 'tl-arrow-wrapper',
         tooltipArrow: 'tl-arrow',
+        tooltipTextWrapper: 'tl-text-wrapper',
         top: 'top',
         bottom: 'bottom',
         infoContainer: 'info-container',
@@ -49,6 +50,7 @@
             tooltipElement.classList.add(classList.tooltipWrapper);
             arrowWrapper.classList.add(classList.tooltipArrowWrapper);
             arrow.classList.add(classList.tooltipArrow);
+            textWrapper.classList.add(classList.tooltipTextWrapper);
 
             arrowWrapper.appendChild(arrow);
             tooltipElement.appendChild(arrowWrapper);
@@ -87,7 +89,6 @@
             };
             
             function show(element, text){
-                debugger;
                 if(text !== ''){
                     textWrapper.textContent = text;
                     arrow.style.display = 'block';
@@ -170,7 +171,6 @@
             infoElement.classList.add(classList.infoContainer);
             that.element.appendChild(infoElement);
             that.hide();
-            debugger;
             if (isTouchDevice()){
                 that.element.addEventListener('click', function(event){
                     tip.show(this, that.text);
