@@ -7,14 +7,16 @@ define(['durandal/composition'], function (composition) {
             var $output = $('<output>');
             $output.html(html);
             
+            var learningContent = $('[data-type]', $output);
+            var dataType = learningContent.attr('data-type');
             
-            var dataType = $('[data-type]', $output);
             
-            if (dataType.length !== 0){
-                var hotspotOnImage = new HotspotOnImage($(html)[0]);
-                $element.html(hotspotOnImage.element);
-            } else {
-                $element.html(html);
+            switch(dataType){
+                case 'hotspot': 
+                    var hotspotOnImage = new HotspotOnImage($(html)[0]);
+                    $element.html(hotspotOnImage.element);
+                default:
+                    $element.html(html);
             }
         }
     };

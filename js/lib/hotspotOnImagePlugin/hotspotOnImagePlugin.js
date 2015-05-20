@@ -70,7 +70,7 @@
 
                 tooltipElement.addEventListener('mouseout', function(event){
                     var e = event.toElement || event.relatedTarget;
-                    if (e.parentNode == this || e == this) {
+                    if (e && (e.parentNode == this || e == this)) {
                        return;
                     }
                     tooltipElement.classList.remove(classList.mouseover);
@@ -94,7 +94,7 @@
                     arrow.style.display = 'block';
                     tooltipElement.style.display = 'block';
                     var rect = element.getBoundingClientRect(),
-                        centerTop = rect.top + element.offsetHeight / 2,
+                        centerTop = window.scrollY + rect.top + element.offsetHeight / 2,
                         centerLeft = rect.left + element.offsetWidth / 2,
                         width = tooltipElement.offsetWidth,
                         height = tooltipElement.offsetHeight,
@@ -109,13 +109,8 @@
                     }else{
                         tooltipElement.classList.remove(classList.top);
                         tooltipElement.classList.add(classList.bottom);
-                        if (height > rect.bottom){
-                            topPostion = centerTop - 30 - height;
-                            tooltipElement.style.top = centerTop + 30 + 'px';
-                        } else {
-                            tooltipElement.style.top = centerTop - (rect.bottom - height) + 'px';
-                            arrow.style.display = 'none';
-                        }
+                        topPostion = centerTop - 30 - height;
+                        tooltipElement.style.top = centerTop + 30 + 'px';
                     }
                     leftPosition = centerLeft - (width * 0.5);
                     

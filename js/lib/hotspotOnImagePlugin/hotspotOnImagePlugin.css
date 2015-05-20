@@ -1,5 +1,5 @@
 .tl-wrapper{
-    position: fixed;
+    position: absolute;
     z-index: 200;
     display: inline-block;
     width: 360px;
