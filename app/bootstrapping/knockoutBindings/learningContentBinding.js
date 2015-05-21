@@ -14,6 +14,7 @@ define(['durandal/composition'], function (composition) {
                     break;
                 default:
                     $element.html(html);
+                    return elementsWrap.init(element, valueAccessor)
             }
         }
     };
