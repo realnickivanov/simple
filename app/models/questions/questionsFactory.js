@@ -1,5 +1,5 @@
-﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot'],
-    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion, Hotspot) {
+﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot', 'models/questions/openQuestion'],
+    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion, Hotspot, OpenQuestion) {
         "use strict";
 
         var index = 0;
@@ -56,6 +56,8 @@
                     questionData.isMultiple = question.isMultiple;
                     questionData.background = question.background;
                     return new Hotspot(questionData);
+                case constants.questionTypes.openQuestion:
+                    return new OpenQuestion(questionData);
                 default:
                     questionData.answers = question.answers;
                     return new MultipleSelectQuestion(questionData);
