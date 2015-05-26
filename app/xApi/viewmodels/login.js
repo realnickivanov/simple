@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'eventManager', '../configuration/viewConstants', 'xApi/xApiInitializer', 'context'],
-    function (app, router, eventManager, viewConstants, xApiInitializer, context) {
+﻿define(['durandal/app', 'plugins/router', 'eventManager', '../configuration/viewConstants', 'xApi/xApiInitializer', 'context', '../configuration/xApiSettings'],
+    function (app, router, eventManager, viewConstants, xApiInitializer, context, xApiSettings) {
 
         "use strict";
 
@@ -10,6 +10,8 @@
 
             usermail: usermail(),
             username: username(),
+
+            allowToSkipTracking: ko.observable(false),
 
             skip: skip,
             login: login
@@ -50,6 +52,10 @@
         };
 
         function skip() {
+            if (viewModel.skipForbidden) {
+                return;
+            }
+
             xApiInitializer.deactivate();
             app.trigger('user:authentication-skipped');
             startCourse();
@@ -77,5 +83,8 @@
             router.navigate('');
         };
 
-        function activate() { };
+        function activate() {
+            viewModel.allowToSkipTracking(!xApiSettings.xApi.required);
+            viewModel.allowToSkipTracking(false);
+        };
     });

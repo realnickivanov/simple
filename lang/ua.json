@@ -47,5 +47,6 @@
     "[tracking and tracing reporting progress]": "Надсилаемо прогресс...",
     "[type your answer here]":  "Вкажіть свою відповідь...",
     "[your answer was stored]": "Ваша відповідь прийнята",
-    "[your answer is empty and was not stored]": "Відповідь відсутня"
+    "[your answer is empty and was not stored]": "Відповідь відсутня",
+    "[tracking and tracing hint without skip]":  "Будь-ласка, вкажіть необхідні дані та натисніть \"Так, відстежувати мій прогрес\" для того, щоб розпочати курс"
 }
