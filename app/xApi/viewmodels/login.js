@@ -85,6 +85,5 @@
 
         function activate() {
             viewModel.allowToSkipTracking(!xApiSettings.xApi.required);
-            viewModel.allowToSkipTracking(false);
         };
     });
