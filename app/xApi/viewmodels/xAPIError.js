@@ -1,28 +1,35 @@
-﻿define(['plugins/router', '../xApiInitializer'],
-    function (router, xApiInitializer) {
+﻿define(['knockout', 'plugins/router', '../xApiInitializer', '../configuration/xApiSettings'],
+    function (ko, router, xApiInitializer, xApiSettings) {
+
+    var
+        navigateBackUrl = '',
+
+        allowToContinue = ko.observable(false);
+
+        restartCourse = function () {
+            var rootUrl = location.toString().replace(location.hash, '');
+            router.navigate(rootUrl, { replace: true, trigger: true });
+        },
         
-        var
-            navigateBackUrl = '',
+        continueLearning = function () {
+            if (!allowToContinue()) {
+                return;
+            }
 
-            restartCourse = function () {
-                var rootUrl = location.toString().replace(location.hash, '');
-                router.navigate(rootUrl, { replace: true, trigger: true });
-            },
-            
-            continueLearning = function () {
-                xApiInitializer.deactivate();
-                router.navigate(navigateBackUrl);
-            },
+            xApiInitializer.deactivate();
+            router.navigate(navigateBackUrl);
+        },
 
-            activate = function (backUrl) {
-                navigateBackUrl = backUrl;
-            };
+        activate = function (backUrl) {
+            navigateBackUrl = backUrl;
+            allowToContinue(!xApiSettings.xApi.required);
+        };
 
         return {
+            allowToContinue: allowToContinue,
             restartCourse: restartCourse,
             continueLearning: continueLearning,
-            
+        
             activate: activate
         };
-    }
-);
+});
