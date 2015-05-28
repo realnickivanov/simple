@@ -52,7 +52,7 @@
         };
 
         function skip() {
-            if (viewModel.allowToSkip()) {
+            if (!viewModel.allowToSkip()) {
                 return;
             }
 
