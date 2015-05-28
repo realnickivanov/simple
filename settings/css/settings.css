@@ -284,6 +284,7 @@ input[type="text"] {
 .settings-row {
     width: 560px;
     padding: 25px 10px;
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
