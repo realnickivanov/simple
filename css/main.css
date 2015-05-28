@@ -2276,21 +2276,36 @@ input[type="checkbox"] {
     .styled-content ul,
     .styled-content ol {
         padding-left: 50px;
-    }
-
-    .styled-content ul {
         list-style: none;
     }
 
-        .styled-content ul > li {
-            position: relative;
-        }
+    .styled-content ol h1,
+    .styled-content ol h2,
+    .styled-content ol h3,
+    .styled-content ol p,
+    .styled-content ul h1,
+    .styled-content ul h2,
+    .styled-content ul h3,
+    .styled-content ul p {
+        display: inline;
+    }
+    
+    .styled-content ul > li:before,
+    .styled-content ol > li:before {
+        display: inline-block;
+        margin-left: -50px;
+        padding-right: 10px;
+        text-align: right;
+        width: 40px;
+    }
 
-            .styled-content ul > li:before {
-                position: absolute;
-                width: 20px;
-                left: -20px;
-            }
+    .styled-content ol > li {
+        counter-increment: list-items;
+    }
+    
+    .styled-content ol > li:before {
+        content: counter(list-items) ".";
+    }
 
 .custom-select ul > li:before {
     display: none;
@@ -2376,10 +2391,6 @@ input[type="checkbox"] {
 
 .styled-content table p {
     margin: 0;
-}
-
-.styled-content ul p {
-    display: inline;
 }
 
 .styled-content em {
