@@ -40,9 +40,9 @@
 
         function init(templateSettings) {
             return Q.fcall(function () {
-                if (templateSettings.selectedLrs != 'default') {
-                    $.extend(settings.xApi, templateSettings);
-                } else {
+                $.extend(settings.xApi, templateSettings);
+
+                if (templateSettings.selectedLrs == 'default') {
                     $.extend(settings.xApi, defaultXapi);
                 }
             });

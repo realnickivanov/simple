@@ -519,6 +519,10 @@ body {
     padding: 15px 55px 5px 45px;
 }
 
+.xapi-nav-start.center {
+    padding-right: 45px;
+}
+
 .xapi-nav-link {
     border-bottom: 1px solid #41b7d8;
     color: #41b7d8;
