@@ -1,4 +1,4 @@
-﻿define([
+define([
     'bootstrapping/knockoutBindings/areaBinding',
     'bootstrapping/knockoutBindings/backgroundBinding',
     'bootstrapping/knockoutBindings/circleProgressBinding',
@@ -6,6 +6,7 @@
     'bootstrapping/knockoutBindings/elementsWrapBinding',
     'bootstrapping/knockoutBindings/focusHandlerBinding',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
+    'bootstrapping/knockoutBindings/learningContentBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
     'viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankAnswersBinding',
     'viewmodels/questions/textMatching/bindingHandlers/draggableBindingHandler',
