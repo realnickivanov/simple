@@ -1,7 +1,7 @@
 ﻿define(['durandal/composition'], function (composition) {
 
     ko.bindingHandlers.elementsWrap = {
-        init: function (element) {
+        update: function (element) {
             var $element = $(element),
                 imageWrapper = '<figure class="image-wrapper"></figure>',
                 tableWrapper = '<figure class="table-wrapper"></figure>';
