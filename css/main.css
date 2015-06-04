@@ -2280,7 +2280,14 @@ input[type="checkbox"] {
     .styled-content ul,
     .styled-content ol {
         padding-left: 30px;
+    }
+
+    .styled-content ul {
         list-style: none;
+    }
+
+    .styled-content ol {
+        list-style-position: inside;
     }
 
     .styled-content ol h1,
@@ -2294,15 +2301,6 @@ input[type="checkbox"] {
         display: inline;
     }
     
-    .styled-content ol > li {
-        counter-increment: list-items;
-    }
-    
-    .styled-content ol > li:before {
-        content: counter(list-items) ".";
-        margin-right: 10px;
-    }
-
     .styled-content ul > li:before {
         margin-right: 14px;
     }
