@@ -1,4 +1,4 @@
-﻿/*#region tag styles*/
+/*#region tag styles*/
 
 body {
     background-color: #ebeff2;
@@ -848,3 +848,10 @@ body {
 }
 
 /*#endregion styled content */
+
+/*#region hotspot on an image*/
+.tl-wrapper{
+    font: 16px 'Heuristica-Regular';
+    color: #fff;
+}
+/*#endregion hotspot on an image*/

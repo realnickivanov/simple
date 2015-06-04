@@ -1,4 +1,4 @@
-﻿<section id="questionContent">
+<section id="questionContent">
     <!-- ko if: learningContents.length > 0 -->
     <div class="learning-content-section">
         <div class="learning-content-title" data-bind="click: toggleExpand">
@@ -10,7 +10,7 @@
         <section id="learning-contents" class="learning-contents">
             <ul class="learning-content-items unstyled">
                 <!-- ko foreach: learningContents-->
-                <li class="learning-content-item styled-content" data-bind="html: content, elementsWrap: {}"></li>
+                <li class="learning-content-item styled-content" data-bind="learningContent: content"></li>
                 <!-- /ko -->
             </ul>
         </section>

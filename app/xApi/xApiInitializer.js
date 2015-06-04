@@ -31,7 +31,6 @@
             return Q.fcall(function () {
                 moduleSettings = settings;
 
-
                 var progress = progressContext.get();
                 if (_.isObject(progress)) {
                     if (_.isObject(progress.user)) {
@@ -44,9 +43,10 @@
                     }
                 }
 
-                routingManager.createGuard(xApiInitializer, 'login');
-                routingManager.mapRoutes();
-
+                return xApiSettings.init(moduleSettings).then(function () {
+                    routingManager.createGuard(xApiInitializer, 'login');
+                    routingManager.mapRoutes();
+                });
             });
         }
 
@@ -67,7 +67,6 @@
             url = url + '?course_id=' + context.course.id;
 
             return Q.all([
-                  xApiSettings.init(moduleSettings),
                   requestManager.init(moduleSettings),
                   activityProvider.init(id, actor, title, url)
             ]).spread(function () {

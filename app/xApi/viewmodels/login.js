@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'eventManager', '../configuration/viewConstants', 'xApi/xApiInitializer', 'context'],
-    function (app, router, eventManager, viewConstants, xApiInitializer, context) {
+﻿define(['knockout', 'durandal/app', 'plugins/router', 'eventManager', '../configuration/viewConstants', 'xApi/xApiInitializer', 'context', '../configuration/xApiSettings'],
+    function (ko, app, router, eventManager, viewConstants, xApiInitializer, context, xApiSettings) {
 
         "use strict";
 
@@ -10,6 +10,8 @@
 
             usermail: usermail(),
             username: username(),
+
+            allowToSkip: ko.observable(false),
 
             skip: skip,
             login: login
@@ -50,6 +52,10 @@
         };
 
         function skip() {
+            if (!viewModel.allowToSkip()) {
+                return;
+            }
+
             xApiInitializer.deactivate();
             app.trigger('user:authentication-skipped');
             startCourse();
@@ -77,5 +83,7 @@
             router.navigate('');
         };
 
-        function activate() { };
+        function activate() {
+            viewModel.allowToSkip(!xApiSettings.xApi.required);
+        };
     });
