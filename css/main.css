@@ -1003,6 +1003,10 @@ input[type="checkbox"] {
         text-align: center;
     }
 
+        .question-feedback-holder.styled-content ul, .question-feedback-holder.styled-content ol {
+            text-align: left;
+        }
+
 .btn-submit-wrapper {
     margin: 20px;
     text-align: center;
