@@ -198,7 +198,7 @@ define(['durandal/system', './models/actor', './models/statement', './models/act
                         return !_.isNullOrUndefined(statement.userAnswer);
                     }).map(function (statement) {
                         return statement.id + '[.]' + statement.userAnswer;
-                    }).value().toString()
+                    }).value().join("[,]")
                 }),
                 object: new activityModel({
                     id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
@@ -210,7 +210,7 @@ define(['durandal/system', './models/actor', './models/statement', './models/act
                                 return item.id + '[.]' + item.isCorrect;
                             }).join("[,]")
                         ],
-                        choices: _.map(question.answers, function (item) {
+                        choices: _.map(question.statements, function (item) {
                             return {
                                 id: item.id,
                                 description: new languageMapModel(item.text)
