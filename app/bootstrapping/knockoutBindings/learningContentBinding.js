@@ -9,7 +9,7 @@ define(['durandal/composition'], function (composition) {
             switch(dataType){
                 case 'hotspot': 
                     var hotspotOnImage = new HotspotOnImage($(html)[0]);
-                    $element.css('overflow', 'visible');
+                    $element.addClass('hotspot-on-image-container');
                     $element.html(hotspotOnImage.element);
                     break;
                 default:
