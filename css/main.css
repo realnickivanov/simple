@@ -1137,6 +1137,11 @@ input[type="checkbox"] {
             display: none;
         }
 
+        .learning-content-items .learning-content-item.hotspot-on-image-container {
+            overflow: visible;
+            text-align: center;
+        }
+
 /*#endregion of learning content view*/
 
 /*#region not supported browser view */
