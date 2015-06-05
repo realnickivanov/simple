@@ -796,7 +796,6 @@ body {
         display: inline-block;
         width: 6px;
         height: 6px;
-        margin-right: 14px;
         vertical-align: middle;
         background-color: #95a7ba;
         -moz-transform: rotate(45deg);
@@ -804,7 +803,6 @@ body {
         -o-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
-        top: 12px;
     }
 
     .styled-content a {

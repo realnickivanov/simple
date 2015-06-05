@@ -1003,6 +1003,10 @@ input[type="checkbox"] {
         text-align: center;
     }
 
+        .question-feedback-holder.styled-content ul, .question-feedback-holder.styled-content ol {
+            text-align: left;
+        }
+
 .btn-submit-wrapper {
     margin: 20px;
     text-align: center;
@@ -2279,22 +2283,32 @@ input[type="checkbox"] {
 
     .styled-content ul,
     .styled-content ol {
-        padding-left: 50px;
+        padding-left: 30px;
     }
 
     .styled-content ul {
         list-style: none;
     }
 
-        .styled-content ul > li {
-            position: relative;
-        }
+    .styled-content ol {
+        list-style-position: inside;
+    }
 
-            .styled-content ul > li:before {
-                position: absolute;
-                width: 20px;
-                left: -20px;
-            }
+    .styled-content ol h1,
+    .styled-content ol h2,
+    .styled-content ol h3,
+    .styled-content ol p,
+    .styled-content ul h1,
+    .styled-content ul h2,
+    .styled-content ul h3,
+    .styled-content ul p {
+        display: inline;
+    }
+    
+    .styled-content ul > li:before {
+        margin-right: 14px;
+    }
+    
 
 .custom-select ul > li:before {
     display: none;
@@ -2380,10 +2394,6 @@ input[type="checkbox"] {
 
 .styled-content table p {
     margin: 0;
-}
-
-.styled-content ul p {
-    display: inline;
 }
 
 .styled-content em {

@@ -779,7 +779,7 @@ body {
         }
 
     .styled-content ul > li:before {
-        content: "\2022 ";
+        content: "\2022";
         color: #00907d;
     }
 

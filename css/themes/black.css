@@ -938,7 +938,6 @@ body:before {
         display: inline-block;
         width: 6px;
         height: 6px;
-        margin-right: 14px;
         vertical-align: middle;
         background-color: #33b3e2;
         -moz-transform: rotate(45deg);
@@ -946,7 +945,6 @@ body:before {
         -o-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
-        top: 12px;
     }
 
     .styled-content a {
