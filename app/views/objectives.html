@@ -14,8 +14,7 @@
                 <a href="#" class="finish-btn small-page-action-btn" data-bind="click: finish" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</a>
             </div>
         </header>
-
-        <h2 class="page-caption" data-translate-text="[learning objectives]">Learning objectives:</h2>
+         <section>        <h2 class="page-caption" data-translate-text="[learning objectives]">Learning objectives:</h2>
 
         <ul class="objectives-list" data-bind="foreach: objectives">
             <li class="objectives-list-item-wrapper" data-bind="click: goToFirstQuestion">
@@ -58,6 +57,7 @@
                     </div>
             </li>
         </ul>
+
         <div class="objectives-page-layout" data-bind="visible: status() == statuses.sendingRequests">
             <div class="objectives-page-layout-block"></div>
             <div class="objectives-page-layout-loader">

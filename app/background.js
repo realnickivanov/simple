@@ -10,7 +10,7 @@ define([], function () {
         }
 
         var element = $('<div />');
-        element.prependTo('body');
+        //element.prependTo('body');
 
         var image = new Image(),
             src = background.image.src,

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>easygenerator</title>
@@ -21,6 +21,10 @@
     <link href="css/normalize.css" rel="stylesheet" />
     <link href="css/xapi.css" rel="stylesheet" />
     <link href="js/lib/hotspotOnImagePlugin/hotspotOnAnImagePlugin.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     <!-- endbuild -->
 
     <script type="text/javascript">
@@ -34,7 +38,12 @@
 </head>
 <body>
     <div id="applicationHost" class="application-wrapper">
-        <img class="loader" src="img/loader.gif" alt="" />
+        <div class="loader-container">
+            <div class="color-ball red"></div>
+            <div class="color-ball green"></div>
+            <div class="color-ball blue"></div>
+            <div class="color-ball yellow"></div>
+        </div>
     </div>
     <!-- build:js js/vendor.min.js -->
     <script src="js/jquery-1.9.1.js"></script>

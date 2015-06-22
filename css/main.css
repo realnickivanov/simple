@@ -1,87 +1,3 @@
-/*#region FONTS CONNECTIONS*/
-
-@font-face {
-    font-family: 'OpenSans';
-    src: url('./font/opensans-regular.eot');
-    src: url('./font/opensans-regular.eot?#iefix') format('embedded-opentype'), url('./font/opensans-regular.woff') format('woff'), url('./font/opensans-regular.ttf') format('truetype'), url('./font/opensans-regular.svg#OpenSansRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'OpenSans-Semibold';
-    src: url('./font/opensans-semibold.eot');
-    src: url('./font/opensans-semibold.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibold.woff') format('woff'), url('./font/opensans-semibold.ttf') format('truetype'), url('./font/opensans-semibold.svg#OpenSansSemibold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Segoe UI-Semibold';
-    src: url('./font/segoeui-semibold.eot');
-    src: url('./font/segoeui-semibold.eot?#iefix') format('embedded-opentype'), url('./font/segoeui-semibold.woff') format('woff'), url('./font/segoeui-semibold.ttf') format('truetype'), url('./font/segoeui-semibold.svg#segoe_uisemibold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Heuristica-Bold';
-    src: url('./font/heuristica-bold.eot');
-    src: url('./font/heuristica-bold.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-bold.woff') format('woff'), url('./font/heuristica-bold.ttf') format('truetype'), url('./font/heuristica-bold.svg#HeuristicaBold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Heuristica-Regular';
-    src: url('./font/heuristica-regular.eot');
-    src: url('./font/heuristica-regular.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-regular.woff') format('woff'), url('./font/heuristica-regular.ttf') format('truetype'), url('./font/heuristica-regular.svg#HeuristicaRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Heuristica-Italic';
-    src: url('./font/heuristica-italic.eot');
-    src: url('./font/heuristica-italic.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-italic.woff') format('woff'), url('./font/heuristica-italic.ttf') format('truetype'), url('./font/heuristica-italic.svg#HeuristicaItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Heuristica-BoldItalic';
-    src: url('./font/heuristica-bolditalic.eot');
-    src: url('./font/heuristica-bolditalic.eot?#iefix') format('embedded-opentype'), url('./font/heuristica-bolditalic.woff') format('woff'), url('./font/heuristica-bolditalic.ttf') format('truetype'), url('./font/heuristica-bolditalic.svg#HeuristicaBoldItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Intro-Regular';
-    src: url('./font/intro.eot');
-    src: url('./font/intro.eot?#iefix') format('embedded-opentype'), url('./font/intro.woff') format('woff'), url('./font/intro.ttf') format('truetype'), url('./font/intro.svg#IntroRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'RobotoSlab-Bold';
-    src: url('./font/robotoslab-bold.eot');
-    src: url('./font/robotoslab-bold.eot?#iefix') format('embedded-opentype'), url('./font/robotoslab-bold.woff') format('woff'), url('./font/robotoslab-bold.ttf') format('truetype'), url('./font/robotoslab-bold.svg#RobotoSlabBold') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'RobotoSlab-Regular';
-    src: url('./font/robotoslab-regular.eot');
-    src: url('./font/robotoslab-regular.eot?#iefix') format('embedded-opentype'), url('./font/robotoslab-regular.woff') format('woff'), url('./font/robotoslab-regular.ttf') format('truetype'), url('./font/robotoslab-regular.svg#RobotoSlabRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/*#endregion FONTS CONNECTIONS*/
-
 /*#region tag styles*/
 
 html, body, div, span, applet, object, iframe,
@@ -224,9 +140,19 @@ input[type="checkbox"] {
 /*#region header css-styles*/
 
 .header {
-    padding: 5px 0 5px 20px;
     position: relative;
+    height:300px;
 }
+    .header:after {
+        content:'';
+        display:block;
+        position:absolute;
+        top:0;
+        height:3px;
+        width:100%;
+          background: linear-gradient(to right, #7fcdee 0%,#7fcdee 10%,#fbc780 10%,#fbc780 20%,#f59091 20%,#f59091 30%,#7bc3be 30%,#7bc3be 40%,#91a1b0 40%,#91a1b0 50%,#7fcdee 50%,#7fcdee 60%,#fbc780 60%, #fbc780 70%, #f59091 70%, #f59091 80%,#7bc3be 80%, #7bc3be 90%, #91a1b0 90%, #91a1b0 100%);
+    
+    }
 
     .header.module-home .main-logo {
         cursor: default;
@@ -365,20 +291,8 @@ input[type="checkbox"] {
 .content-wrapper {
     max-width: 1182px;
     padding: 0 25px 20px;
-    margin: 0 auto;
+    margin: -200px auto;
 }
-
-.content {
-    position: relative;
-    padding-bottom: 25px;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-    .content.objectives {
-        margin-top: 11px;
-    }
 
 .page-header {
     display: table;
