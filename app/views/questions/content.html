@@ -4,31 +4,24 @@
             <div class="navigation-home-link-wrapper" data-bind="click: backToObjectives">
               <div class="navigation-home-link"></div>
             </div>
+            <div class="objective-progress-wrapper" >
+                <div class="objective-image-wrapper" data-bind="style: { 'background-image': 'url(' + objective.imageUrl + ')' }">
+                    <!-- ko if: objective.affectProgress -->
+                    <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: objective.score(),radius:44 }"></canvas>
+                    <span class="progress-text" data-bind="text: objective.score() + '%'"></span>
+                    <!-- /ko -->
+
+
+
+                </div>
+
+               
+
+            </div>
             <div class="objective-info">
                 <span data-bind="text: objective.title">objective title</span>
                 <div class="objective-progress">
-                    <!-- ko if: objective.affectProgress -->
-                    <div class="objective-progressbar-holder">
-                        <div class="objective-progressbar-inside">
-                            <div class="objective-progressbar-score" data-bind="style: { width: 100 - objective.score() + '%' }" style="width: 0;">&nbsp;</div>
-                            <div class="objective-progressbar-masteryscore-indicator" data-bind="style: { left: masteryScore + '%' }">
-                                <div class="objective-progressbar-masteryscore-indicator-value"></div>
-                                
-                            </div>
-                        </div>
-                        <div class="objective-progressbar-wrapper">
-                            <div class="objective-progressbar-border"></div>
-                        </div>
-                    </div>
-                    <span class="objective-progress-score" data-bind="text: objective.score() + '%'">0%</span>
-                    <!-- /ko -->
-                    <!-- ko ifnot: objective.affectProgress -->
-                    <div class="objective-progressbar-holder">
-                        <div class="objective-progressbar-wrapper not-affect-progress">
-                            <div class="objective-progressbar-border" data-translate-text="[there are no questions]">No questions</div>
-                        </div>
-                    </div>
-                    <!-- /ko -->
+                   
                 </div>
             </div>
             <div class="questions-navigation-container">

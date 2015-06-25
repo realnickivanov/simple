@@ -8,11 +8,10 @@
                 lineWidth = valueAccessor().lineWidth || 4,
                 basicColor = $element.css('color') || 'rgb(211,212,216)',
                 progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
-
-
+ 
                 centerX = element.width / 2,
                 centerY = element.height / 2,
-                radius = centerX < centerY ? centerX : centerY - lineWidth / 2 - 1,
+                radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1),
 
                 progress = score / 100,
 
