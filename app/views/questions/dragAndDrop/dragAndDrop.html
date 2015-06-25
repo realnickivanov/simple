@@ -4,8 +4,8 @@
 </div>
 <!-- /ko -->
 <div class="dnd-wrapper" data-bind="css:{ disabled: isAnswered}">
-    <div class="dnd-values-wrapper">
-        <div class="dnd-values-holder" data-bind="dropspot: { data: stockDropspot.items, containerClass:'dnd-wrapper', dropspotClass:'dnd-dropspot', connectClass : 'dnd-drop', afterMove: stockDropspot.afterMove}">
+    <div>
+        <div class="drag-and-drop-text-draggable-container" data-bind="dropspot: { data: stockDropspot.items, containerClass:'dnd-wrapper', dropspotClass:'dnd-dropspot', connectClass : 'dnd-drop', afterMove: stockDropspot.afterMove}">
             <div class="dnd-dragable-text-holder">
                 <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
             </div>
@@ -16,16 +16,16 @@
         </div>
         <!-- /ko -->
     </div>
-    <div class="dnd question-image-wrapper">
+    <div class="drag-and-drop-text-background-wrapper">
         <div class="dnd-image-holder">
             <!-- ko foreach: dropspots-->
             <div class="dnd-dropspot-holder" data-bind="style: { 'left': position.x + 'px', 'top': position.y + 'px'}">
-                <div class="dnd-dropspot" data-bind="dropspot: { data: items, containerClass: 'dnd-wrapper', dropspotClass: 'dnd-dropspot', connectClass : 'dnd-drop', allowDrop: allowDrop, afterMove: afterMove}">
+                <div class="drag-and-drop-text-dropspot" data-bind="dropspot: { data: items, containerClass: 'dnd-wrapper', dropspotClass: 'dnd-dropspot', connectClass : 'dnd-drop', allowDrop: allowDrop, afterMove: afterMove}">
                     <div class="dnd-dragable-text-holder">
                         <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
                     </div>
                 </div>
-                <div class="dnd-dropspot-tooltip show-on-drag">
+                <div class="drag-and-drop-text-dropspot-tooltip-text">
                     <span class="dnd-drop-text" data-translate-text="[drag and drop question drop here]" data-translate-title="[drag and drop question drop here]">Drop here</span>
                 </div>
             </div>

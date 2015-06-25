@@ -1,17 +1,8 @@
 ﻿<section id="content" class="question unselectable">
-    <div class="loader" data-bind="visible: isLoadingNewQuestion()">
-        <div class="loader-image"></div>
-    </div>
-    <div class="content">
+    <div>
         <header class="page-header">
-            <div class="navigation-home-link" data-bind="click: backToObjectives">
-                <div class="navigation-home-link-wrapper">
-                    <div class="navigation-home-link-arrow"></div>
-                    <div class="navigation-home-link-block" data-translate-text="[home]" data-translate-title="[home]">Home</div>
-                </div>
-            </div>
-            <div class="objective-image-holder">
-                <div class="objective-image" data-bind="style: { 'background-image': 'url(' + objective.imageUrl + ')' }"></div>
+            <div class="navigation-home-link-wrapper" data-bind="click: backToObjectives">
+              <div class="navigation-home-link"></div>
             </div>
             <div class="objective-info">
                 <span data-bind="text: objective.title">objective title</span>
@@ -22,9 +13,7 @@
                             <div class="objective-progressbar-score" data-bind="style: { width: 100 - objective.score() + '%' }" style="width: 0;">&nbsp;</div>
                             <div class="objective-progressbar-masteryscore-indicator" data-bind="style: { left: masteryScore + '%' }">
                                 <div class="objective-progressbar-masteryscore-indicator-value"></div>
-                                <div class="objective-progressbar-masteryscore-indicator-tooltip-wrapper">
-                                    <div class="objective-progressbar-masteryscore-indicator-tooltip"><span data-bind="text: masteryScore + '% '"></span><span data-translate-text="[to complete]">to complete</span></div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="objective-progressbar-wrapper">
@@ -43,20 +32,10 @@
                 </div>
             </div>
             <div class="questions-navigation-container">
-                <div class="questions-navigation">
-                    <!-- ko if: isPreviousQuestionAvailable() -->
-                    <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous' }" data-translate-title="[previous question]">&nbsp;</a>
-                    <!-- /ko -->
-                    <!-- ko ifnot: isPreviousQuestionAvailable() -->
-                    <span class="question-navigation-button previous disabled">&nbsp;</span>
-                    <!-- /ko -->
-                    <span class="questions-counter"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span data-translate-text="[of]">of</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
-                    <!-- ko if: isNextQuestionAvailable() -->
-                    <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
-                    <!-- /ko -->
-                    <!-- ko ifnot: isNextQuestionAvailable() -->
-                    <span class="question-navigation-button disabled">&nbsp;</span>
-                    <!-- /ko -->
+                <div class="question-navigation-bar">
+                    <a class="previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous'},css:{disabled : !isPreviousQuestionAvailable()}" data-translate-title="[previous question]">&nbsp;</a>
+                    <span class="navigation-progress"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span>/</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
+                    <a class="next" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }, css:{disabled: !isNextQuestionAvailable() }" data-translate-title="[next question]">&nbsp;</a>
                 </div>
             </div>
         </header>
@@ -65,24 +44,11 @@
         <!-- /ko -->
     </div>
     <!-- ko ifnot: isLoadingNewQuestion -->
-    <div class="navigation-link-container clearfix">
-        <div class="questions-navigation-container bottom">
-            <div class="questions-navigation">
-                <!-- ko if: isPreviousQuestionAvailable() -->
-                <a class="question-navigation-button previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous' }" data-translate-title="[previous question]">&nbsp;</a>
-                <!-- /ko -->
-                <!-- ko ifnot: isPreviousQuestionAvailable() -->
-                <span class="question-navigation-button previous disabled">&nbsp;</span>
-                <!-- /ko -->
-                <span class="questions-counter"><span data-bind ="text: navigationContext.currentQuestionIndex + ' '"></span><span data-translate-text="[of]">of</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
-                <!-- ko if: isNextQuestionAvailable() -->
-                <a class="question-navigation-button" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }" data-translate-title="[next question]">&nbsp;</a>
-                <!-- /ko -->
-                <!-- ko ifnot: isNextQuestionAvailable() -->
-                <span class="question-navigation-button disabled">&nbsp;</span>
-                <!-- /ko -->
+            <div class="question-navigation-bar" style="float:right">
+                <a class="previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous'},css:{disabled : !isPreviousQuestionAvailable()}" data-translate-title="[previous question]">&nbsp;</a>
+                <span class="navigation-progress"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span>/</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
+
+                <a class="next" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }, css:{disabled: !isNextQuestionAvailable() }" data-translate-title="[next question]">&nbsp;</a>
             </div>
-        </div>
-    </div>
     <!-- /ko -->
 </section>

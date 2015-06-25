@@ -7,10 +7,10 @@
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
             <!-- ko if: navigationContext.nextQuestionUrl -->
-            <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
+            <button class="button medium success" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
             <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <button class="button medium info" data-bind="click: navigateNext" data-translate-text="[home]" data-translate-title="[home]">Home</button>
             <!-- /ko -->
         </div>
     </div>
@@ -22,13 +22,13 @@
         </div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
-            <button class="small-page-action-btn try-again-btn" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
+            <button class="button medium danger" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
             <span class="feedback-btn-whitespace"></span>
             <!-- ko if: navigationContext.nextQuestionUrl -->
-            <button class="small-page-action-btn next-question-btn incorrect" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
+            <button class="button medium info" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
             <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="small-page-action-btn next-question-btn incorrect" data-bind="click: navigateNext" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <button class="button medium info" data-bind="click: navigateNext" data-translate-text="[home]" data-translate-title="[home]">Home</button>
             <!-- /ko -->
         </div>
     </div>

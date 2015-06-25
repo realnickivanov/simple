@@ -3,16 +3,21 @@
     <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
 </div>
 <!-- /ko -->
-<ul class="question-images-list " data-bind="foreach: answers, css:{canHover:canHover}">
-    <li class="question-images-item" data-bind="css: { checked: id == $parent.checkedAnswerId(), enabled: !$parent.isAnswered() }">
-        <a class="thumbnail-wrapper">
-            <span class="thumbnail-holder" data-bind="click: $parent.checkItem">
-                <img class="thumbnail-image" data-bind="attr:{'data-image': image, src: image + '?height=150&amp;width=150&amp;scaleBySmallerSide=true' }">
+<ul class="single-select-image" data-bind="foreach: answers, css:{canHover:canHover}">
+    <li class="select-image" data-bind="css: { checked: id == $parent.checkedAnswerId(), enabled: !$parent.isAnswered() }">
+        <div class="select-image-wrapper">
+            <span class="preview-thumbnail" data-bind="click: $parent.checkItem">
+                <img class="preview-thumbnail" data-bind="attr:{'data-image': image, src: image + '?height=150&amp;width=150&amp;scaleBySmallerSide=true' }">
             </span>
-            <span class="preview-button-wrapper" data-bind="click: $parent.previewItem"><span class="preview-button">&nbsp;</span></span>
-        </a>
+            <button class="preview-button-wrapper" data-bind="click: $parent.previewItem"></button>
+        </div>
         <div class="question-answer-radiobutton-wrapper">
             <a class="question-answer-radiobutton" data-bind="click: $parent.checkItem, css: { checked: id == $parent.checkedAnswerId() }">&nbsp;</a>
         </div>
     </li>
 </ul>
+
+
+
+
+

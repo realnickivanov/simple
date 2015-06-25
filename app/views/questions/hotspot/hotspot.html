@@ -3,10 +3,10 @@
     <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
 </div>
 <!-- /ko -->
-<div class="hotspot-wrapper">
+<div class="hotspot">
     <div class="question-image-wrapper">
-        <div class="hotspot-image-holder" data-bind="area: { click: addMark }, background: background">
-            <ul data-bind="foreach: marks" class="unstyled">
+        <div class="hotspot-background" data-bind="area: { click: addMark }, background: background">
+            <ul data-bind="foreach: marks">
                 <li class="pulsemark" data-bind="style: { left: x + 'px', top: y + 'px' }, click: $parent.removeMark, clickBubble: !$parent.isMultiple, css: { 'multiple': $parent.isMultiple }">
                     <div class="pin"></div>
                     <div class="mark">

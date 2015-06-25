@@ -1,5 +1,5 @@
 ﻿<section id="objectivesPage" class="objectives unselectable" data-view="views/objectives" data-active-view="true" style="">
-    <div class="content">
+    <div>
         <header class="page-header">
             <h1 class="course-title">
                 <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
@@ -11,50 +11,34 @@
                 </div>
             </div>
             <div class="course-action-block">
-                <a href="#" class="finish-btn small-page-action-btn" data-bind="click: finish" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</a>
+                <a href="#" class="button danger small " data-bind="click: finish" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</a>
             </div>
         </header>
-         <section>        <h2 class="page-caption" data-translate-text="[learning objectives]">Learning objectives:</h2>
-
         <ul class="objectives-list" data-bind="foreach: objectives">
-            <li class="objectives-list-item-wrapper" data-bind="click: goToFirstQuestion">
-                <div class="objectives-list-item">
-                        <div class="objective-image-holder">
-                            <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
-                        </div>
-                        <div class="objective-info">
-                            <span data-bind="text: title">objective title</span>
-                            <div class="objective-progress">
-                                <!-- ko if: affectProgress -->
-                                <div class="objective-progressbar-holder">
-                                    <div class="objective-progressbar-inside">
-                                        <div class="objective-progressbar-score" data-bind="style: { width: 100 - score + '%' }" style="width: 0%;">&nbsp;</div>
-                                        <div class="objective-progressbar-masteryscore-indicator" data-bind="style: { left: $parent.masteryScore + '%' }">
-                                            <div class="objective-progressbar-masteryscore-indicator-value"></div>
-                                            <div class="objective-progressbar-masteryscore-indicator-tooltip-wrapper">
-                                                <div class="objective-progressbar-masteryscore-indicator-tooltip"><span data-bind="text: $parent.masteryScore + '% '"></span><span data-translate-text="[to complete]">to complete</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="objective-progressbar-wrapper">
-                                        <div class="objective-progressbar-border"></div>
-                                    </div>
+            
+            <li class="objectives-list-item" data-bind="click: goToFirstQuestion">
+                <section class="content">
+                    <div class="objective-image-holder">
+                        <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
+                    </div>
+                    <div class="objective-info">
+                        <span data-bind="text: title">objective title</span>
+                        <div >
+                            <!-- ko if: affectProgress -->
+                            <span data-bind="text: score + '%'">
+
+                            </span>
+                            <!-- /ko -->
+                            <!-- ko ifnot: affectProgress -->
+                            <div class="objective-progressbar-holder">
+                                <div class="objective-progressbar-wrapper not-affect-progress">
+                                    <div class="objective-progressbar-border" data-translate-text="[there are no questions]">No questions</div>
                                 </div>
-                                <span class="objective-progress-score" data-bind="text: score + '%'">0%</span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: affectProgress -->
-                                <div class="objective-progressbar-holder">
-                                    <div class="objective-progressbar-wrapper not-affect-progress">
-                                        <div class="objective-progressbar-border" data-translate-text="[there are no questions]">No questions</div>
-                                    </div>
-                                </div>
-                                <!-- /ko -->
                             </div>
-                        </div>
-                        <div class="objective-start course-action-block">
-                            <button class="small-page-action-btn start-btn" href="#" data-translate-text="[start]" data-translate-title="[start]">Start</button>
+                            <!-- /ko -->
                         </div>
                     </div>
+                </section>
             </li>
         </ul>
 

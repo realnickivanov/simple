@@ -1,6 +1,6 @@
 <section id="questionContent">
     <!-- ko if: learningContents.length > 0 -->
-    <div class="learning-content-section">
+    <section class="content">
         <div class="learning-content-title" data-bind="click: toggleExpand">
             <span data-translate-text="[learning content]">Learning content</span>
             <span class="learning-content-expander-indicator" data-bind="css: { 'expanded' : isExpanded }"></span>
@@ -16,20 +16,22 @@
         </section>
         <!-- /ko -->
 
-    </div>
+    </section>
     <!-- /ko -->
-    <div class="question-section">
+    <section class="content">
         <div class="question-title selectable" data-bind="text: title">
             question title
         </div>
         <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
-    </div>
+        <!-- ko compose: { view: feedbackView } --><!-- /ko -->
+        <!-- ko ifnot: isAnswered -->
+        <div class="btn-submit-wrapper">
+            <button href="#" class="button medium primary" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</button>
+        </div>
+        <!-- /ko -->
+    </section>
 
-    <!-- ko ifnot: isAnswered -->
-    <div class="btn-submit-wrapper">
-        <a href="#" class="small-page-action-btn submit-btn" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</a>
-    </div>
-    <!-- /ko -->
+   
 
-    <!-- ko compose: { view: feedbackView } --><!-- /ko -->
+    
 </section>

@@ -2,11 +2,10 @@
 
     ko.bindingHandlers.circleProgress = {
         update: function(element, valueAccessor) {
-       
             var
                 $element = $(element),
                 score = valueAccessor().progress || 0,
-                lineWidth = valueAccessor().lineWidth || 10,
+                lineWidth = valueAccessor().lineWidth || 4,
                 basicColor = $element.css('color') || 'rgb(211,212,216)',
                 progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
 

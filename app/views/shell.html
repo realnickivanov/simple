@@ -1,5 +1,5 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
-    <div class="main-logo">
+    <section class="main-logo content-holder ">
         <span class="main-logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
             <a href="#objectives">
@@ -10,7 +10,7 @@
             <img alt="" src="" data-bind="attr: { src: logoUrl }">
             <!-- /ko -->
         </span>
-    </div>
+    </section>
     <!-- ko if: $root.saveProgress -->
     <div class="save-progress">
         <div class="content-wrapper">
@@ -29,7 +29,12 @@
     <!-- /ko -->
 </div>
 <div class="loader" data-bind="visible: isNavigatingToAnotherView()">
-
+    <div class="loader-container">
+        <div class="color-ball red"></div>
+        <div class="color-ball green"></div>
+        <div class="color-ball blue"></div>
+        <div class="color-ball yellow"></div>
+    </div>
 </div>
 <section id="content" class="content-wrapper" data-bind="visible: !isNavigatingToAnotherView()">
     <!--ko router: { cacheViews: false, transition: 'defaultRouterTransition' }-->

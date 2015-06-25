@@ -9,9 +9,8 @@ define([], function () {
             return;
         }
 
-        var element = $('<div />');
-        //element.prependTo('body');
-
+        var element = $('.header');
+ 
         var image = new Image(),
             src = background.image.src,
             position = '0 0',
@@ -31,12 +30,8 @@ define([], function () {
         image.onload = function () {
             $(element)
                 .css({
-                    'position': 'fixed',
                     'top': '0',
                     'bottom': '0',
-                    'width': '100%',
-                    'height': '100%',
-
                     'background-image': 'url(' + src + ')',
                     'background-position': position,
                     '-webkit-background-size': size,

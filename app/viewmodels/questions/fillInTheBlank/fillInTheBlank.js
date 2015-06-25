@@ -35,6 +35,7 @@
 
 	function submit() {
 	    return Q.fcall(function () {
+ 
 	        viewModel.question.submitAnswer(viewModel.inputValues());
 
 	        viewModel.isAnswered(true);
