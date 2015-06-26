@@ -18,25 +18,21 @@
             
             <li class="objectives-list-item" data-bind="click: goToFirstQuestion">
                 <section class="content">
+                    
+                    <!-- ko if: affectProgress -->
+                    <div class="objective-progress">
+                        <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22 }"></canvas>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: affectProgress -->
+                            <div class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
+                  
+                    <!-- /ko -->
                     <div class="objective-image-holder">
                         <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
                     </div>
                     <div class="objective-info">
                         <span data-bind="text: title">objective title</span>
-                        <div >
-                            <!-- ko if: affectProgress -->
-                            <span data-bind="text: score + '%'">
-
-                            </span>
-                            <!-- /ko -->
-                            <!-- ko ifnot: affectProgress -->
-                            <div class="objective-progressbar-holder">
-                                <div class="objective-progressbar-wrapper not-affect-progress">
-                                    <div class="objective-progressbar-border" data-translate-text="[there are no questions]">No questions</div>
-                                </div>
-                            </div>
-                            <!-- /ko -->
-                        </div>
                     </div>
                 </section>
             </li>

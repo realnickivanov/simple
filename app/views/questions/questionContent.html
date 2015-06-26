@@ -1,9 +1,8 @@
 <section id="questionContent">
     <!-- ko if: learningContents.length > 0 -->
-    <section class="content">
+    <section class="content" data-bind="css:{collapsed:!isExpanded()}">
         <div class="learning-content-title" data-bind="click: toggleExpand">
             <span data-translate-text="[learning content]">Learning content</span>
-            <span class="learning-content-expander-indicator" data-bind="css: { 'expanded' : isExpanded }"></span>
         </div>
 
         <!-- ko if: isExpanded -->

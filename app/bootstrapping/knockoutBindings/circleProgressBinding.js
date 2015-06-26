@@ -1,7 +1,8 @@
 ﻿define(['durandal/composition'], function (composition) {
 
     ko.bindingHandlers.circleProgress = {
-        update: function(element, valueAccessor) {
+        update: function (element, valueAccessor) {
+
             var
                 $element = $(element),
                 score = valueAccessor().progress || 0,
