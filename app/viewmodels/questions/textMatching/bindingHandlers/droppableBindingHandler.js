@@ -27,7 +27,7 @@
                     ui.draggable.trigger('dragstop');
 
                     var draggable = ko.dataFor(ui.draggable.get(0));
-                    var droppable = ko.dataFor(ui.draggable.closest('.ui-droppable').get(0));                    
+                    var droppable = ko.dataFor(ui.draggable.closest('.ui-droppable').get(0));                   
 
                     if (droppable != value) {
                         if (_.isFunction(value.acceptValue)) {

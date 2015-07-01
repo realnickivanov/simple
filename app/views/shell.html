@@ -1,6 +1,6 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
-    <section class="main-logo content-holder ">
-        <span class="main-logo-img">
+    <section class="logo-holder">
+        <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
             <a href="#objectives">
                 <img alt="" src="" data-bind="attr: { src: logoUrl }">
@@ -10,6 +10,7 @@
             <img alt="" src="" data-bind="attr: { src: logoUrl }">
             <!-- /ko -->
         </span>
+        <span class="empty"></span>
     </section>
     <!-- ko if: $root.saveProgress -->
     <div class="save-progress">

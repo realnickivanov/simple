@@ -65,7 +65,7 @@
     function submit() {
         return Q.fcall(function () {
             viewModel.question.submitAnswer(_.map(viewModel.sources(), function (source) {
-                var value = source.value() ? source.value().value : null;
+                var value = source.value() ? source.value() : null;
                 return { id: source.id, value: value };
             }));
             viewModel.isAnswered(true);

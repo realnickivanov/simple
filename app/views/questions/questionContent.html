@@ -5,6 +5,8 @@
             <span data-translate-text="[learning content]">Learning content</span>
         </div>
 
+        <button class="expand-button" data-bind="click: toggleExpand, css:{expand:!isExpanded()}"></button>
+
         <!-- ko if: isExpanded -->
         <section id="learning-contents" class="learning-contents">
             <ul class="learning-content-items unstyled">

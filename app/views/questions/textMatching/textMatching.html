@@ -1,62 +1,62 @@
-﻿<!-- ko if: content -->
-<div class="question-content-wrapper">
-    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
-</div>
-<!-- /ko -->
+﻿<section class="textmatching">
 
-<div>
-    <div data-bind="syncHeightScope: { scope: question.id }"></div>
-
-    <div class="text-matching-caption-wrapper">
-        <div class="text-matching-caption" data-translate-text="[text matching question hint]" data-translate-title="[text matching question hint]">Drag items from right column to the left to match the pairs</div>
+    <!-- ko if: content -->
+    <div class="question-content">
+        <div class='styled-content' data-bind="html: content,wrapElements:content"></div>
     </div>
-    <div class="text-matching" data-bind="overlay: isAnswered">
-
-        <div class="text-matching-sources">
-            <!-- ko foreach: sources-->
-            <div class="text-matching-source-wrapper">
-                <div class="text-matching-source">
-                    <div class="text-matching-source-text-wrapper" data-bind="syncHeight: $root.question.id">
-                        <div class="text-matching-source-text" data-bind="text: key"></div>
+    <!-- /ko -->
+      <div data-bind="syncHeightScope: { scope: question.id }"></div>
+    <div data-bind="overlay: isAnswered">
+        <div class="text-matching-caption" data-translate-text="[text matching question hint]">
+            Drag items from right column to the left to match the pairs
+        </div>
+        <!-- ko foreach: sources-->
+        <div class="text-matching-row">
+            <div class="text-matching-column">
+                <div class="text-matching-source-wrapper">
+                    <div class="text-matching-source" data-bind="syncHeight:$root.question.id">
+                        <div class="text-matching-source-text-wrapper">
+                            <div class="text-matchig-source-text" data-bind="text: key"></div>
+                        </div>
                     </div>
-                    <div class="puzzle-item"></div>
                 </div>
-                <div class="text-matching-target-placeholder-wrapper" style="" data-bind="droppable: $data, accept: 1">
+            </div>
+            <div class="text-matching-column">
+                <div class="text-matching-target-placeholder-wrapper" data-bind="droppable: $data, syncHeight:$root.question.id">
                     <div class="text-matching-target-placeholder">
-                        <div class="text-matching-target-placeholder-text-wrapper">
-                            <div class="text-matching-target-placeholder-text" data-bind="syncHeight: $root.question.id">
-                                <div data-translate-text="[text matching question drop here]" data-translate-title="[text matching question drop here]">Drop here</div>
-                            </div>
+                        <div class="text-matching-target-placeholder-text-wrapper" data-bind="syncHeight:$root.question.id ">
+                            <div class="text-matching-target-placeholder-text" data-translate-text="[text matching question drop here]">Drop here</div>
                         </div>
                     </div>
                     <!-- ko if: value -->
                     <!-- ko with: value -->
-                    <div data-bind="draggable: {}" class="text-matching-target">
-                        <div class="puzzle-item"></div>
-                        <div class="text-matching-target-text-wrapper" data-bind="syncHeight: $root.question.id">
-                            <div class="text-matching-target-text" data-bind="text: value">
-                            </div>
+                    <div class="text-matching-target" data-bind="draggable: {}">
+                        <div class="text-matching-target-text-wrapper" >
+                            <div class="text-matching-target-text" data-bind="text: $data"></div>
                         </div>
                     </div>
                     <!-- /ko -->
                     <!-- /ko -->
                 </div>
             </div>
-            <!-- /ko -->
-        </div>
-        <div class="text-matching-gap"></div>
-        <div class="text-matching-targets" data-bind="droppable: $data">
-            <!-- ko foreach: targets -->
-            <div data-bind="draggable: {}" class="text-matching-target">
-                <div class="puzzle-item"></div>
-                <div class="text-matching-target-text-wrapper" data-bind="syncHeight: $root.question.id">
-                    <div class="text-matching-target-text" data-bind="text: value">
+            <div class="text-matching-column empty">&nbsp;</div>
+            <!-- ko with: $parent.targets()[$index()] -->
+            <div class="text-matching-column" data-bind="droppable: $data">
+                <!-- ko if: value -->
+                <!-- ko with: value -->
+                <div class="text-matching-target-wrapper">
+                    <div class="text-matching-target" data-bind="draggable: {},syncHeight: $root.question.id">
+                        <div class="text-matching-target-text-wrapper">
+                            <div class="text-matching-target-text" data-bind="text: $data"></div>
+                        </div>
                     </div>
                 </div>
+                <!-- /ko -->
+                <!-- /ko -->
             </div>
             <!-- /ko -->
-
         </div>
+        <!-- /ko -->
     </div>
 
-</div>
+</section>
