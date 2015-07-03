@@ -17,7 +17,7 @@
         <ul class="objectives-list" data-bind="foreach: objectives">
             
             <li class="objectives-list-item" data-bind="click: goToFirstQuestion">
-                <section class="content">
+              
                     
                     <!-- ko if: affectProgress -->
                     <div class="objective-progress">
@@ -31,11 +31,11 @@
                     <!-- /ko -->
                     <div class="objective-image-holder">
                         <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
+                        <button class="button small success" data-translate-text="[start course]" data-bind="click: goToFirstQuestion"></button>
                     </div>
                     <div class="objective-info">
                         <span data-bind="text: title">objective title</span>
                     </div>
-                </section>
             </li>
         </ul>
 

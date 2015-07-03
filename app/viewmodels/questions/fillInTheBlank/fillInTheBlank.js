@@ -24,7 +24,7 @@
 	        viewModel.inputValues(_.map(question.answerGroups, function (answerGroup) {
 	            return {
 	                id: answerGroup.id,
-	                value: answerGroup.answeredText,
+	                value: answerGroup.value,
 	                answers: answerGroup.answers
 	            };
 	        }));

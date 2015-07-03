@@ -1,6 +1,6 @@
 ﻿<!-- ko if: content -->
 <div class="question-content-wrapper blank-content fill-in-the-blank">
-    <div class="question-content blank-answers styled-content" data-bind="elementsWrap: {}, fillInTheBlankAnswers: { content: content, inputValues: inputValues, disabled: isAnswered }, css:{ disabled: isAnswered() }"></div>
+    <div class="question-content blank-answers styled-content" data-bind="elementsWrap: {},fillInTheBlankAnswers:{inputValues:inputValues,content:content}"></div>
 
     <!-- ko if: isAnswered -->
     <div class="answered-blank-overlay"></div>

@@ -4,49 +4,64 @@
 
     ko.bindingHandlers.fillInTheBlankAnswers = {
         init: function (element, valueAccessor) {
-            var
-                $element = $(element),
-                htmlContent = valueAccessor().content,
-                blankValues = valueAccessor().inputValues(),
-                disabled = valueAccessor().disabled();
-            $element.html(htmlContent);
-            $(blankInputSelector, $element).each(function (index, blankItem) {
-                var
-                    $blankItem = $(blankItem),
-                    blankId = $blankItem.data('group-id'),
-                    blankValue = _.find(blankValues, function (blank) {
-                        return blank.id == blankId;
-                    });
-
-                if ($blankItem.is('input')) {
-                    $(this).on('change', function () {
-                        blankValue.value=$(this).val()
-                    })
-                } else if ($blankItem.is('select')) {
-                    var self = this,
+            debugger
+            var $element = $(element),
+                
+                    value = valueAccessor().inputValues(),
+                    content = valueAccessor().content;
+                    $element.html(content);
+           debugger
+            _.each(value, function (blank) {
+                
+                var source = $('[data-group-id=' + blank.id + ']', $element),
+                    handler = function () {
                         
-                options = []; 
-                var option = $('<option selected />').text(translation.getTextByKey('[fill in the blank choose answer]')).prependTo(self);
+                        blank.value = source.val().trim();
 
-                    _.each(_.rest(self.options, 1), function (option) {
-                        options.push(option);
-                    });
-                    $(self).wrap('<div class="select-wrapper"></div>');
-                    var $selectWrapper = $(self).parent('.select-wrapper');
-                  
-                    var valueWrapper = $('<div class="value"></div>').text($(self).val()).appendTo($selectWrapper);
-                    $selectWrapper.on('click', function () {
-                        show($selectWrapper, options, function (newValue) {
-                            $(self).val(newValue);
-                            $(valueWrapper).text(newValue);
-                            blankValue.value = newValue;
-                        });
-                    });
-                }
+                    };
+                source.val(undefined)
+                    .on('blur change', handler);
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    source.off('blur change', handler);
+                });
+
+                handler();
             });
+            var selects = $('.blankSelect');
+            //selects.each(function () {
+            ////    var option = $('<option />').text(translation.getTextByKey('[fill in the blank choose answer]')).val('').prependTo(this);
+            //    $(this).val(option).trigger('change');
+            //});
+            //selects.each(function () {
+            //    var self = this,
+            //    options = [];
+
+            //    _.each(_.rest(self.options, 1), function (option) {
+            //        options.push(option);
+            //    });
+            //    $(self).wrap('<div class="select-wrapper"></div>');
+            //    var $selectWrapper = $(self).parent('.select-wrapper');
+            ////    var valueWrapper = $('<div class="value"></div>').text(translation.getTextByKey("[fill in the blank choose answer]")).appendTo($selectWrapper);
+
+            //    $selectWrapper.on('click', function () {
+            //        show($selectWrapper, options, function (newValue) {
+            //            $(self).val(newValue).trigger('change');
+            //            $(valueWrapper).text(newValue);
+            //        });
+            //    });
+            //})
+
+
+        },
+        update: function (element, valueAccessor) {
+            var $element = $(element),
+                value = valueAccessor().inputValues;
+            
+                
         }
     }
-    
+
     var show = function ($element, options, callback) {
         var $html = $('html');
 

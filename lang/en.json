@@ -1,6 +1,6 @@
 {
     "[course]": "Course:",
-    "[start course]": "Start course",
+    "[start course]": "Start",
     "[finish course]": "Finish course",
     "[learning objectives]": "Learning objectives:",
     "[start]": "Start",
@@ -49,5 +49,6 @@
     "[your answer was stored]": "Your answer was stored",
     "[your answer is empty and was not stored]": "Your answer is empty and was not stored",
     "[tracking and tracing hint without skip]": "Please enter your credentials and click \"Start and report my results\" to start the course.",
-    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists."
+    "[tracking and tracing error hint without continue]": "Restart the course. Contact your course provider if the problem persists.",
+    "[question]": "question"
 }
