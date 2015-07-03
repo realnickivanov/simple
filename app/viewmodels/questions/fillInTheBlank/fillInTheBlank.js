@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(['customSelect'], function (customSelect) {
 	"use strict";
 
 	var viewModel = {
@@ -35,9 +35,9 @@
 
 	function submit() {
 	    return Q.fcall(function () {
- 
-	        viewModel.question.submitAnswer(viewModel.inputValues());
 
+	        viewModel.question.submitAnswer(viewModel.inputValues());
+	        
 	        viewModel.isAnswered(true);
 	    });
 	}
@@ -47,7 +47,7 @@
 	        _.each(viewModel.inputValues(), function (blankValue) {
 	            blankValue.value = '';
 	        });
-
+            customSelect.refreshValues();
 	        viewModel.isAnswered(false);
 	    });
 	}
