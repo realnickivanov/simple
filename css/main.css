@@ -533,40 +533,6 @@
     }
 
 /*#endregion objectives page layout*/
-
-@media (max-width: 900px) {
-
-    .objective-progress {
-        width: 300px;
-    }
-
-    .objective-progressbar-inside {
-        width: 296px;
-    }
-}
-
-@media (max-width: 840px) {
-
-    .objective-progress {
-        width: 230px;
-    }
-
-    .objective-progressbar-inside {
-        width: 226px;
-    }
-}
-
-@media (max-width: 740px) {
-
-    .objective-progress {
-        width: 210px;
-    }
-
-    .objective-progressbar-inside {
-        width: 206px;
-    }
-}
-
 /*#endregion objectives view*/
 
 /*#region questions navigation styles */
