@@ -26,6 +26,7 @@
         'logo remove': 'Clear',
 
         'choose color scheme': 'Choose color scheme:',
+        'scheme': 'Scheme:',
 
         //background
         'background change': 'Change background:',
