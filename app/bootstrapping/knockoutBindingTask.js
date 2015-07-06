@@ -5,6 +5,7 @@ define([
     'bootstrapping/knockoutBindings/contextBinding',
     'bootstrapping/knockoutBindings/elementsWrapBinding',
     'bootstrapping/knockoutBindings/focusHandlerBinding',
+    'bootstrapping/knockoutBindings/toggleVisibleBindingHandler',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
     'bootstrapping/knockoutBindings/learningContentBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',

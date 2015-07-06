@@ -1,5 +1,5 @@
 .objectives .course-action-block {
-    width: 150px;
+    width: 180px;
 }
 .header.module-404,.header.module-xAPIError {
     height:500px;
@@ -568,10 +568,6 @@
     background-color: #fff;
 }
 
-.objective-start {
-    padding-right: 10px;
-}
-
 /*#region objectives page layout*/
 
 .objectives-page-layout {
@@ -667,9 +663,9 @@
     margin-bottom: 20px;
 }
 
-.content.collapsed {
-    padding:0;
-    height:43px;
+#questionContent .content.collapsed {
+    padding:40px 0 0 30px;
+    
 }
 
 #questionContent .content {
