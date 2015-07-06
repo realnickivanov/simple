@@ -1,6 +1,7 @@
 ﻿define(['durandal/composition', 'translation', 'customSelect'], function (composition, translation, customSelect) {
     ko.bindingHandlers.fillInTheBlankAnswers = {
         init: function (element, valueAccessor) {
+            
             var $element = $(element),
                     value = valueAccessor().inputValues(),
                     content = valueAccessor().content;

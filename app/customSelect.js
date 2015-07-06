@@ -6,6 +6,10 @@
     };
 
     function apply(view) {
+        if($('.select-wrapper').length){
+            return
+        }
+
         $(".blankSelect", view).each(
             function () {
                 var self = this,
