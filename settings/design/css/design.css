@@ -70,7 +70,7 @@ q:before, q:after {
 }
 
 /* Don't kill focus outline for keyboard users: http://24ways.org/2009/dont-lose-your-focus */
-a:hover, a:active {
+a:hover, a:active, button {
     outline: none;
 }
 
@@ -165,7 +165,6 @@ main {
     background-color: #44515f;
     background-position: center;
     background-repeat: no-repeat;
-    outline: 0;
     opacity: 0.9;
     cursor: pointer;
     transition: opacity 0.3s linear 0s;
@@ -420,11 +419,10 @@ main {
     flex: 1 0 45%;
     -webkit-flex: 1 0 45%;
     height: 110px;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     border: 1px solid #abbbc6;
     border-radius: 3px;
     text-align: center;
-    overflow: hidden;
     transition: all 0.3s linear 0s;
 }
 
@@ -469,6 +467,7 @@ main {
     -webkit-justify-content: center;
     align-items: center;
     height: 100%;
+    overflow: hidden;
 }
 
     .choose-scheme-wrapper.cartoon,
@@ -639,7 +638,6 @@ main {
     background: linear-gradient(-29deg,rgba(224,242,255,1) 50%,rgba(224,242,255,.7) 50%);
     cursor: pointer;
     transition: box-shadow .3s;
-    outline: 0;
     border: 0;
 }
 
@@ -691,7 +689,6 @@ main {
     border-bottom-width: 2px;
     border-radius: 5px;
     background-color: #fff;
-    outline: 0;
     cursor: pointer;
     transition: all 0.3s linear 0s;
 }
