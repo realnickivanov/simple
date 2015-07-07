@@ -21,6 +21,7 @@
         'or': 'or',
         'upload logo image': 'Upload logo image',
         'upgrade account hint': 'You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course logo',
+        'recomend size': '- recommended size 300x50 px, allowed formats: jpeg, jpg, png, bmp, gif',
 
         'logo update': 'Change',
         'logo remove': 'Clear',

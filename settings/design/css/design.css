@@ -254,6 +254,7 @@ main {
 }
 
 .no-access-text {
+    width: 100%;
     font-weight: 600;
     line-height: 26px;
     color: #42515f;
@@ -619,6 +620,11 @@ main {
         display: block;
         -webkit-animation: bounce 0.3s linear 0s;
         animation: bounce 0.3s linear 0s;
+    }
+
+    .background-container.empty:hover  .btn-image-action-container,
+    .background-container.uploading:hover .btn-image-action-container{
+        display: none;
     }
 
 .background-upload {
