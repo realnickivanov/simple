@@ -15,9 +15,8 @@
     </div>
     <!-- /ko -->
     <!-- ko if: isWrongAnswered -->
-    <div class="result-block incorrect" data-bind="scrollIntoView: isAnswered">
-        <div class="result-text-wrapper">
-            <div class="result-text" data-translate-text="[incorrect answer]" data-translate-title="[incorrect answer]">Incorrect answer</div>
+    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
+        <div class="question-result-block incorrect" data-translate-text="[incorrect answer]" data-translate-title="[incorrect answer]">
         </div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">

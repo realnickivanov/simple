@@ -44,12 +44,12 @@
             _.each(question.answers, function (pair) {
                 var source = new Source(pair.id, pair.key);
                 var target = _.find(targets, function (target) {
-                    return target.value == pair.attemptedValue;
+                    return target.value() == pair.attemptedValue;
                 });
 
                 if (target) {
-                    source.value(target);
-                    targets = _.without(targets, target);
+                    source.acceptValue(target.value());
+                    target.rejectValue();
                 } else {
                     source.value(null);
                 }

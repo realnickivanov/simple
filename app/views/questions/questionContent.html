@@ -1,11 +1,12 @@
 <section id="questionContent">
     <!-- ko if: learningContents.length > 0 -->
     <section class="content learning-content" data-bind="css:{collapsed:!isExpanded()},toggleVisible:{isExpanded:isExpanded()}">
-        <div class="learning-content-title" data-bind="click: toggleExpand">
-            <span data-translate-text="[learning content]">Learning content</span>
+        <div class="toggle-expand-container" data-bind="click: toggleExpand">
+            <div class="learning-content-title" >
+                <span data-translate-text="[learning content]">Learning content</span>
+            </div>
+            <button class="expand-button" data-bind="css:{expand:!isExpanded()}"></button>
         </div>
-
-        <button class="expand-button" data-bind="click: toggleExpand, css:{expand:!isExpanded()}"></button>
             <section id="learning-contents" class="learning-contents" data-animate="">
                 <ul class="learning-content-items unstyled">
                     <!-- ko foreach: learningContents-->
