@@ -16,12 +16,12 @@
 
     viewModel.acceptValue = function (value) {
         viewModel.targets.push(value);
-    }
+    };
 
 
     viewModel.rejectValue = function (value) {
         viewModel.targets.remove(value);
-    }
+    };
 
     return viewModel;
 
@@ -75,9 +75,10 @@
     function tryAnswerAgain() {
         return Q.fcall(function () {
 
-            _.each(viewModel.sources(), function (pair) {
+            _.each(viewModel.sources(), function (pair, index) {
+                debugger;
                 if (pair.value()) {
-                    viewModel.targets.push(pair.value());
+                    viewModel.targets()[index].acceptValue(pair.value());
                     pair.rejectValue();
                 }
             });

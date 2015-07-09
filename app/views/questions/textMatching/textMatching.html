@@ -5,8 +5,7 @@
         <div class='styled-content' data-bind="html: content,wrapElements:content"></div>
     </div>
     <!-- /ko -->
-      <div data-bind="syncHeightScope: { scope: question.id }"></div>
-    <div data-bind="overlay: isAnswered">
+    <div data-bind="overlay: isAnswered, syncHeight: {}">
         <div class="text-matching-caption" data-translate-text="[text matching question hint]">
             Drag items from right column to the left to match the pairs
         </div>
@@ -14,7 +13,7 @@
         <div class="text-matching-row">
             <div class="text-matching-column">
                 <div class="text-matching-source-wrapper">
-                    <div class="text-matching-source" data-bind="syncHeight:$root.question.id">
+                    <div class="text-matching-source">
                         <div class="text-matching-source-text-wrapper">
                             <div class="text-matchig-source-text" data-bind="text: key"></div>
                         </div>
@@ -22,16 +21,16 @@
                 </div>
             </div>
             <div class="text-matching-column">
-                <div class="text-matching-target-placeholder-wrapper" data-bind="droppable: $data, syncHeight:$root.question.id">
+                <div class="text-matching-target-placeholder-wrapper" data-bind="droppable: $data, accept: 1, scope: $parent.id">
                     <div class="text-matching-target-placeholder">
-                        <div class="text-matching-target-placeholder-text-wrapper" data-bind="syncHeight:$root.question.id ">
+                        <div class="text-matching-target-placeholder-text-wrapper">
                             <div class="text-matching-target-placeholder-text" data-translate-text="[text matching question drop here]">Drop here</div>
                         </div>
                     </div>
                     <!-- ko if: value -->
                     <!-- ko with: value -->
-                    <div class="text-matching-target" data-bind="draggable: {}">
-                        <div class="text-matching-target-text-wrapper" >
+                    <div class="text-matching-target" data-bind="draggable: {}, scope: $parents[1].id">
+                        <div class="text-matching-target-text-wrapper">
                             <div class="text-matching-target-text" data-bind="text: $data"></div>
                         </div>
                     </div>
@@ -41,11 +40,11 @@
             </div>
             <div class="text-matching-column empty">&nbsp;</div>
             <!-- ko with: $parent.targets()[$index()] -->
-            <div class="text-matching-column" data-bind="droppable: $data">
+            <div class="text-matching-column" data-bind="droppable: $data, accept: 1, scope: $parents[1].id">
                 <!-- ko if: value -->
                 <!-- ko with: value -->
                 <div class="text-matching-target-wrapper">
-                    <div class="text-matching-target" data-bind="draggable: {},syncHeight: $root.question.id">
+                    <div class="text-matching-target" data-bind="draggable: {}, scope: $parents[2].id">
                         <div class="text-matching-target-text-wrapper">
                             <div class="text-matching-target-text" data-bind="text: $data"></div>
                         </div>
@@ -58,5 +57,4 @@
         </div>
         <!-- /ko -->
     </div>
-
 </section>
