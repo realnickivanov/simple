@@ -12,8 +12,6 @@ define([], function () {
             element.addClass('default-background')
             return;
         }
-
-        var element = $('.header');
  
         var image = new Image(),
             src = background.image.src,
