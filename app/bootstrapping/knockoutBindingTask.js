@@ -8,6 +8,8 @@ define([
     'bootstrapping/knockoutBindings/toggleVisibleBindingHandler',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
     'bootstrapping/knockoutBindings/learningContentBinding',
+    'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
+    'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
     'viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankAnswersBinding',
     'viewmodels/questions/textMatching/bindingHandlers/draggableBindingHandler',

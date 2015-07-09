@@ -1,39 +1,36 @@
 ﻿<!-- ko if: content-->
 <div class="question-content-wrapper">
-    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    <div class="question-content styled-content" data-bind="html: question.content, elementsWrap: {}"></div>
 </div>
 <!-- /ko -->
-<div class="dnd-wrapper" data-bind="css:{ disabled: isAnswered}">
+<section class="drag-and-drop-text">
     <div>
-        <div class="drag-and-drop-text-draggable-container" data-bind="dropspot: { data: stockDropspot.items, containerClass:'dnd-wrapper', dropspotClass:'dnd-dropspot', connectClass : 'dnd-drop', afterMove: stockDropspot.afterMove}">
-            <div class="dnd-dragable-text-holder">
-                <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
+        <div class="drag-and-drop-text-draggable-container" data-bind="draggableTextContainer: {}, scope: question.id">
+            <div class="drag-and-drop-text-draggable-container-message" data-translate-text="[drag and drop question all texts are placed]">
+                All texts are placed
             </div>
-        </div>
-        <!-- ko if: stockDropspot.items().length == 0 -->
-        <div class="dnd-no-values-caption" data-translate-text="[drag and drop question all texts are placed]" data-translate-title="[drag and drop question all texts are placed]">
-            All texts are placed
-        </div>
-        <!-- /ko -->
-    </div>
-    <div class="drag-and-drop-text-background-wrapper">
-        <div class="dnd-image-holder">
-            <!-- ko foreach: dropspots-->
-            <div class="dnd-dropspot-holder" data-bind="style: { 'left': position.x + 'px', 'top': position.y + 'px'}">
-                <div class="drag-and-drop-text-dropspot" data-bind="dropspot: { data: items, containerClass: 'dnd-wrapper', dropspotClass: 'dnd-dropspot', connectClass : 'dnd-drop', allowDrop: allowDrop, afterMove: afterMove}">
-                    <div class="dnd-dragable-text-holder">
-                        <span class="dnd-dragable-text" data-bind="text: text, attr:{title: text}"></span>
-                    </div>
-                </div>
-                <div class="drag-and-drop-text-dropspot-tooltip-text">
-                    <span class="dnd-drop-text" data-translate-text="[drag and drop question drop here]" data-translate-title="[drag and drop question drop here]">Drop here</span>
+            <!-- ko foreach: texts -->
+            <div class="drag-and-drop-text-draggable" data-bind="draggableText: {}, scope: $parent.question.id">
+                <div data-bind="text: text">
                 </div>
             </div>
             <!-- /ko -->
-            <img class="dnd-image" src="" data-bind="attr:{src: question.background}" />
         </div>
+        <div class="drag-and-drop-text-background-wrapper">
+            <div data-bind="background: question.background" class="drag-and-drop-text-background">
+                <!-- ko foreach: dropspots -->
+                <div class="drag-and-drop-text-dropspot" data-bind="dropspot: $data, scope: $parent.question.id">
+                    <div class="drag-and-drop-text-dropspot-tooltip-image">
+                    </div>
+                    <div class="drag-and-drop-text-dropspot-tooltip-text" data-translate-text="[drag and drop question drop here]">
+                        Drop here
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- ko if: isAnswered -->
+        <div class="question-overlay"></div>
+        <!-- /ko -->
     </div>
-    <!-- ko if: isAnswered -->
-    <div class="question-overlay"></div>
-    <!-- /ko -->
-</div>
+</section>

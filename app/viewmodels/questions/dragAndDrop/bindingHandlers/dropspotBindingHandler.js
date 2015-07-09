@@ -1,83 +1,69 @@
-﻿define(['knockout'], function(ko) {
+﻿define(['knockout'], function (ko) {
+    'use strict';
+
     ko.bindingHandlers.dropspot = {
-        init: function(element, valueAccessor, allBindingsAccessor, data, context) {
-            var $currentDropspot = $(element),
-                value = valueAccessor() || {},
-                containerClass = value.containerClass || '',
-                containerSelector = '.' + containerClass,
-                connectClass = value.connectClass || 'ko_container',
-                connectSelector = '.' + connectClass,
-                dropspotClass = value.dropspotClass || '',
-                dropspotSelector = '.' + dropspotClass,
-                options = value.options || {},
-                startActual = options.activate,
-                stopActual = options.start;
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var value = valueAccessor();
+            var allBindings = allBindingsAccessor();
 
-            var refreshDropspotsSizesFix = function (target) {
-                $(target).sortable('refreshPositions');
-            };
+            var left = ko.utils.unwrapObservable(value.x);
+            var top = ko.utils.unwrapObservable(value.y);
+            var scope = ko.utils.unwrapObservable(allBindings.scope) || 'question';
 
-            var start = function(event, ui) {
-                var $textElement = ui.helper;
+            $('.ui-draggable')
+                .on('dragstart', function (event, ui) {
 
-                var width = $textElement.outerWidth();
-                var height = $textElement.outerHeight();
-                var $placeholder = ui.placeholder;
+                    $(element).addClass('active');
 
-                $(containerSelector).addClass('drag');
+                    if ($(element).children('.drag-and-drop-text-draggable').length) {
+                        return;
+                    }
 
-                $placeholder.outerWidth(width).outerHeight(height);
+                    $(element).width(ui.helper.outerWidth());
+                    $(element).height(ui.helper.outerHeight());
 
-                $(dropspotSelector + connectSelector).innerWidth(width + 8).innerHeight(height + 4);
+                })
+                .on('dragstop', function (event, ui) {
+                    $(element).removeClass('active');
+                    $(element).css('width', '');
+                    $(element).css('height', '');
+                });
 
-                if ($currentDropspot.hasClass(dropspotClass)) {
-                    $currentDropspot.innerWidth(width + 8).innerHeight(height + 4);
-                    $currentDropspot.addClass('current');
+            $(element).droppable({
+                accept: function (arg) {
+                    if ($(element).find(arg).length) {
+                        return true;
+                    }
+
+                    return $(element).find('.drag-and-drop-text-draggable').length == 0;
+                },
+                tolerance: 'pointer',
+                scope: scope,
+                drop: function (e, ui) {
+                    var text = ko.dataFor(ui.draggable.get(0));
+
+                    ui.draggable.css('left', '').css('top', '').appendTo(this);
+
+                    if (ko.isWriteableObservable(value.text)) {
+                        value.text(text);
+                        text.dropSpot = value;
+                    }
                 }
-
-                if (startActual) {
-                    startActual.apply(this, arguments);
-                }
-
-                refreshDropspotsSizesFix(event.target);
-            };
-
-            var beforeStop = function() {
-                if ($currentDropspot.hasClass(dropspotClass)) {
-                    $currentDropspot.removeClass('current');
-                }
-            };
-
-            var stop = function() {
-                $(containerSelector).removeClass('drag');
-
-                $(dropspotSelector).width('auto').height('auto');
-
-                if (stopActual) {
-                    stopActual.apply(this, arguments);
-                }
-            };
-
-            ko.utils.extend(options, {
-                cursorAt: { left: 5, top: 10 },
-                tolerance: 'intersect',
-                helper: 'clone',
-                scroll: false,
-                appendTo: containerSelector,
-                start: start,
-                beforeStop: beforeStop,
-                stop: stop
             });
 
-            value.options = options;
-
-            var newValueAccessor = function() {
-                return value;
-            };
-            return ko.bindingHandlers.sortable.init.call(this, element, newValueAccessor, allBindingsAccessor, data, context);
+            $(element).css('left', left + 'px').css('top', top + 'px');
         },
-        update: function(element, valueAccessor, allBindingsAccessor, data, context) {
-            return ko.bindingHandlers.sortable.update.call(this, element, valueAccessor, allBindingsAccessor, data, context);
+        update: function (element, valueAccessor) {
+            var value = valueAccessor();
+            var text = ko.utils.unwrapObservable(value.text);
+
+            if (text) {
+                // I believe it will be used when we have to restore previously saved answer
+            } else {
+                $(element).children('.drag-and-drop-text-draggable').css('left', '').css('top', '')
+                    .appendTo($('.drag-and-drop-text-draggable-container'));
+                $(element).children('.drag-and-drop-text-draggable-container-message').hide();
+            }
         }
     };
 });
