@@ -1,4 +1,4 @@
-﻿(function (app) {
+(function (app) {
 
     var
         currentSettings = null,
@@ -49,9 +49,9 @@
                 settings = api.getSettings();
 
             viewModel.userAccess = new app.UserAccessModel(user);
-            viewModel.logo = new app.LogoModel(settings.logo);
-            viewModel.themes = new app.ThemesModel(settings.theme);
-            viewModel.background = new app.BackgroundModel(settings.background);
+            viewModel.logo = new app.LogoModel(settings.logo, viewModel.saveChanges);
+            viewModel.themes = new app.ThemesModel(settings.theme, viewModel.saveChanges);
+            viewModel.background = new app.BackgroundModel(settings.background, viewModel.saveChanges);
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();
