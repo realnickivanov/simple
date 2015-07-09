@@ -1,4 +1,4 @@
-﻿var gulp = require('gulp'),
+var gulp = require('gulp'),
     del = require('del'),
     durandal = require('gulp-durandal'),
     minifyCss = require('gulp-minify-css'),
@@ -113,9 +113,13 @@ gulp.task('build-design-settings', ['clean'], function () {
       .pipe(useref())
       .pipe(addBuildVersion())
       .pipe(gulp.dest(output + '/settings/design'));
-
-    gulp.src('settings/design/img/**')
-      .pipe(gulp.dest(output + '/settings/design/img'));
+    
+    gulp.src('settings/design/css/fonts/**')
+      .pipe(gulp.dest(output + '/settings/design/css/fonts'));
+    
+    gulp.src('settings/design/css/design.css')
+      .pipe(minifyCss())
+      .pipe(gulp.dest(output + '/settings/design/css'));
 
 });
 
@@ -132,6 +136,16 @@ gulp.task('build-configure-settings', ['clean'], function () {
 
     gulp.src('settings/configure/img/**')
       .pipe(gulp.dest(output + '/settings/configure/img'));
+    
+    gulp.src('settings/configure/css/img/**')
+      .pipe(gulp.dest(output + '/settings/configure/css/img'));
+    
+    gulp.src('settings/configure/css/fonts/**')
+      .pipe(gulp.dest(output + '/settings/configure/css/fonts'));
+    
+    gulp.src('settings/configure/css/configure.css')
+      .pipe(minifyCss())
+      .pipe(gulp.dest(output + '/settings/configure/css'));
 
 });
 
