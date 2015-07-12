@@ -15,27 +15,30 @@
             </div>
         </header>
         <ul class="objectives-list" data-bind="foreach: objectives">
-            
+
             <li class="objectives-list-item" data-bind="click: goToFirstQuestion">
-              
-                    
-                    <!-- ko if: affectProgress -->
-                    <div class="objective-progress">
-                        <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22 }"></canvas>
-                        <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
+                <div class="objective-image-holder">
+                    <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
+                    <button class="button small success" data-translate-text="[start course]" data-bind="click: goToFirstQuestion"></button>
+                </div>
+                <!-- ko if: affectProgress -->
+                <div class="objective-progress">
+                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22 }"></canvas>
+                    <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
+                    <div class="mastered-score-tooltip" data-bind="css:{mastered:score >=$root.masteryScore}">
+                        <span data-bind="text:$root.masteryScore+'%'"></span>
+                        <span data-translate-text="[to complete]"></span>
                     </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: affectProgress -->
-                            <div class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
-                  
-                    <!-- /ko -->
-                    <div class="objective-image-holder">
-                        <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
-                        <button class="button small success" data-translate-text="[start course]" data-bind="click: goToFirstQuestion"></button>
-                    </div>
-                    <div class="objective-info">
-                        <span data-bind="text: title">objective title</span>
-                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: affectProgress -->
+                <div class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
+
+                <!-- /ko -->
+
+                <div class="objective-info">
+                    <span data-bind="text: title">objective title</span>
+                </div>
             </li>
         </ul>
 
