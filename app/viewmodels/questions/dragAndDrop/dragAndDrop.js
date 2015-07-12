@@ -1,4 +1,4 @@
-﻿define(function () {
+define(function () {
     "use strict";
 
     var viewModel = {
@@ -31,8 +31,20 @@
                     text: answer.text
                 };
             });
+            
+            _.each(question.answers, function (answer) {
+                var selectedDropspot = _.find(viewModel.dropspots, function (dropspot) {
+                    return dropspot.x == answer.currentPosition.x
+                        && dropspot.y == answer.currentPosition.y;
+                });
 
-
+                if (selectedDropspot) {
+                    var selectedText = _.find(viewModel.texts, function (item) {
+                        return item.id == answer.id;
+                    });
+                    selectedDropspot.text(selectedText);
+                }
+            });
         });
     }
 
