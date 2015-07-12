@@ -1,5 +1,4 @@
-﻿<section class="textmatching">
-
+﻿<section class="textmatching overlay-wrapper">
     <!-- ko if: content -->
     <div class="question-content">
         <div class='styled-content' data-bind="html: content,wrapElements:content"></div>
@@ -57,4 +56,7 @@
         </div>
         <!-- /ko -->
     </div>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
 </section>

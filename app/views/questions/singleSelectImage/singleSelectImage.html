@@ -1,23 +1,23 @@
-﻿<!-- ko if: content -->
-<div class="question-content-wrapper">
-    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
-</div>
-<!-- /ko -->
-<ul class="single-select-image" data-bind="foreach: answers, css:{canHover:canHover}">
-    <li class="select-image" data-bind="css: { checked: id == $parent.checkedAnswerId(), enabled: !$parent.isAnswered() }">
-        <div class="select-image-wrapper">
-            <span class="preview-thumbnail" data-bind="click: $parent.checkItem">
-                <img class="preview-thumbnail" data-bind="attr:{'data-image': image, src: image + '?height=150&amp;width=150&amp;scaleBySmallerSide=true' }">
-            </span>
-            <button class="preview-button-wrapper" data-bind="click: $parent.previewItem"></button>
-        </div>
-        <div class="question-answer-radiobutton-wrapper">
-            <a class="question-answer-radiobutton" data-bind="click: $parent.checkItem, css: { checked: id == $parent.checkedAnswerId() }">&nbsp;</a>
-        </div>
-    </li>
-</ul>
-
-
-
-
-
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper">
+        <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    </div>
+    <!-- /ko -->
+    <ul class="single-select-image" data-bind="foreach: answers, css:{canHover:canHover}">
+        <li class="select-image" data-bind="css: { checked: id == $parent.checkedAnswerId(), enabled: !$parent.isAnswered() }">
+            <div class="select-image-wrapper">
+                <span class="preview-thumbnail" data-bind="click: $parent.checkItem">
+                    <img class="preview-thumbnail" data-bind="attr:{'data-image': image, src: image + '?height=150&amp;width=150&amp;scaleBySmallerSide=true' }">
+                </span>
+                <button class="preview-button-wrapper" data-bind="click: $parent.previewItem"></button>
+            </div>
+            <div class="question-answer-radiobutton-wrapper">
+                <a class="question-answer-radiobutton" data-bind="click: $parent.checkItem, css: { checked: id == $parent.checkedAnswerId() }">&nbsp;</a>
+            </div>
+        </li>
+    </ul>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>

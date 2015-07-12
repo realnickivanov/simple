@@ -1,13 +1,18 @@
-﻿<!-- ko if: content -->
-<div class="question-content-wrapper">
-    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
-</div>
-<!-- /ko -->
-<ul class="question-answers-list" data-bind="foreach: answers">
-    <li class="radio" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
-        <span class="radio-icon-wrapper">
-            <button class="radio-icon"></button>
-        </span>
-        <label class="radio-text" data-bind="text: text"></label>
-    </li>
-</ul>
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper">
+        <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    </div>
+    <!-- /ko -->
+    <ul class="question-answers-list" data-bind="foreach: answers">
+        <li class="radio" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
+            <span class="radio-icon-wrapper">
+                <button class="radio-icon"></button>
+            </span>
+            <label class="radio-text" data-bind="text: text"></label>
+        </li>
+    </ul>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>

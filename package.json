@@ -29,5 +29,8 @@
     "gulp-useref": "^1.0.2",
     "gulp-util": "^3.0.1",
     "gulp-webserver": "^0.9.1"
+  },
+  "devDependencies": {
+    "gulp-webserver": "^0.9.1"
   }
 }

@@ -123,6 +123,10 @@
 
 /*#endregion 404 and xApi error*/
 /*#region tag styles*/
+.overlay-wrapper {
+    position: relative;
+}
+
 .overall-progress-wrapper canvas {
     border-color: #579dc1;
     color: #d3d4d8;
@@ -346,6 +350,7 @@
 
 .objectives-list {
     list-style-type: none;
+    text-align: center;
 }
 
 .objectives-list-item {
@@ -355,8 +360,7 @@
     position: relative;
     cursor: pointer;
     border-radius: 13px;
-    margin-right: 40px;
-    margin-bottom: 20px;
+    margin: 20px 20px;
     border: 3px solid transparent;
     border-bottom-color: #50b2ac;
     z-index: 10;
@@ -365,6 +369,9 @@
 
     .objectives-list-item:nth-child(3n) {
         margin-right: 0;
+    }
+    .objectives-list-item:nth-child(3n+1) {
+        margin-left: 0;
     }
 
     .objectives-list-item:hover {
@@ -535,7 +542,18 @@
     display: block;
     height: 100%;
     background-color: #fff;
+    text-align: left;
 }
+@media (max-width: 960px) {
+    .objectives-list-item:nth-child(3n) {
+        margin-right: 0px;
+    }
+    .objectives-list-item:nth-child(3n+1) {
+        margin-left: 0px;
+    }
+}
+
+
 
 /*#region objectives page layout*/
 
@@ -640,12 +658,15 @@
     width: 100%;
     padding: 20px 0;
     white-space: nowrap;
+    text-align: center;
 }
 
-@media (max-width: 1575px) {
-    .navigation-container {
-        display: table-cell;
-    }
+@media (max-width: 760px) {
+   .result-btn-holder .button {
+       display: block;
+       margin: 20px auto;
+
+   }
 }
 
 /*#endregion question view*/
