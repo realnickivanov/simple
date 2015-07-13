@@ -1,4 +1,4 @@
-﻿define(['customSelect'], function (customSelect) {
+﻿define(['knockout'], function (ko) {
 	"use strict";
 
 	var viewModel = {
@@ -24,7 +24,7 @@
 	        viewModel.inputValues(_.map(question.answerGroups, function (answerGroup) {
 	            return {
 	                id: answerGroup.id,
-	                value: answerGroup.value,
+	                value: answerGroup.answeredText,
 	                answers: answerGroup.answers
 	            };
 	        }));
@@ -35,7 +35,6 @@
 
 	function submit() {
 	    return Q.fcall(function () {
-
 	        viewModel.question.submitAnswer(viewModel.inputValues());
 	        
 	        viewModel.isAnswered(true);
@@ -47,7 +46,6 @@
 	        _.each(viewModel.inputValues(), function (blankValue) {
 	            blankValue.value = '';
 	        });
-            customSelect.refreshValues();
 	        viewModel.isAnswered(false);
 	    });
 	}
