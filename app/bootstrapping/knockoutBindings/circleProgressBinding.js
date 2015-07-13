@@ -1,14 +1,15 @@
-﻿define(['durandal/composition'], function (composition) {
+﻿define(['durandal/composition', 'translation'], function (composition, translation) {
 
     ko.bindingHandlers.circleProgress = {
         update: function (element, valueAccessor) {
-
             var
                 $element = $(element),
                 score = valueAccessor().progress || 0,
                 lineWidth = valueAccessor().lineWidth || 4,
+                masteryScore = valueAccessor().masteryScore,
                 basicColor = $element.css('color') || 'rgb(211,212,216)',
                 progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
+                
  
                 centerX = element.width / 2,
                 centerY = element.height / 2,
@@ -17,6 +18,42 @@
                 progress = score / 100,
 
                 cnxt = element.getContext('2d');
+
+            if (masteryScore) {
+
+                var masteryScoreAngle = 2 * Math.PI * (masteryScore / 100) - 0.5 * Math.PI,
+                    masteryScoreX = centerX + (Math.cos(masteryScoreAngle) * (radius)),
+                    masteryScoreY = centerY + (Math.sin(masteryScoreAngle) * (radius)),
+                    elementPositionX = $element.offset().left,
+                    elementPositionY = $element.offset().top,
+
+                    tooltipPosX = $element.offset().left + masteryScoreX-56,
+                    toolTipPosY = $('body').height()- (elementPositionY+masteryScoreY)+14;
+                
+                
+
+                    var $toolTip = $('<div class="mastered-score-tooltip">');
+                    $toolTip.css({
+                        'left': tooltipPosX,
+                        'bottom': toolTipPosY,
+                        'position': 'absolute',
+                        'width': '104px',
+                        'z-index': '20',
+                        'opacity':0
+
+                    }).appendTo('body').text(masteryScore + '% ' + translation.getTextByKey('[to complete]'));
+                var $parent = $element.parent();
+                $parent.hover(function () {
+                    $toolTip.animate({
+                        'opacity': 1
+                    }, 200);
+                }, function() {
+                    $toolTip.animate({
+                        'opacity': 0
+                    }, 200);
+                });
+
+            }
 
             cnxt.beginPath();
             cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);

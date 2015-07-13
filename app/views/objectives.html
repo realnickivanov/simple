@@ -23,12 +23,9 @@
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="objective-progress">
-                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22 }"></canvas>
+                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore }"></canvas>
                     <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
-                    <div class="mastered-score-tooltip" data-bind="css:{mastered:score >=$root.masteryScore}">
-                        <span data-bind="text:$root.masteryScore+'%'"></span>
-                        <span data-translate-text="[to complete]"></span>
-                    </div>
+                    
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: affectProgress -->

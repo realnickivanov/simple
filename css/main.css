@@ -127,10 +127,15 @@
     position: relative;
 }
 
-.overall-progress-wrapper canvas {
-    border-color: #579dc1;
-    color: #d3d4d8;
+
+.canvas-styles {
+    margin: auto;
+    display: block;
 }
+    .objective-image-wrapper .canvas-styles {
+        position: absolute;
+        left: 10px;
+    }
 
 .objective-progress-text-wrapper {
     position: absolute;
@@ -146,20 +151,15 @@
  .objective-progress:hover  .mastered-score-tooltip{
     opacity: 1;
  }
-
-
+ 
 .mastered-score-tooltip {
     position: absolute;
-    bottom: 100%;
-    margin-bottom: -10px;
-    width: 103px;
+    width: 102px;
     font-size: 12px;
     color: #ffffff;
     line-height: 15px;
-    left: -51px;
     border-radius: 3px;
     padding: 5px;
-    opacity: 0;
     transition: opacity 0.3s ease;
     word-wrap: break-word;
 }
@@ -492,13 +492,13 @@
 
 .objective-progress {
     position: absolute;
-    width: 53px;
-    height: 53px;
+    width: 54px;
+    height: 54px;
     border: 3px solid #c6c2c7;
     z-index: 1;
     border-radius: 50%;
     right: 5px;
-    top: 115px;
+    top: 112px;
     background-color: rgba(255,255,255,0.5);
     z-index: 11;
 }
@@ -508,13 +508,6 @@
     width: 160px;
     vertical-align: middle;
     padding: 0 20px;
-}
-
-.canvas-styles {
-    color: #fff;
-    border-top-color: #7dc9cd;
-    margin: auto;
-    display: block;
 }
 
 .progress-text {
@@ -559,10 +552,6 @@
         background-color: rgba(0,0,0,0.5);
     }
 
-    .objective-image-wrapper .canvas-styles {
-        position: absolute;
-        left: 10px;
-    }
 
 .objective-info {
     display: table-cell;
@@ -654,7 +643,7 @@
     vertical-align: middle;
     width: 160px;
     text-align: center;
-    border-left: 1px solid #cccccc;
+
 }
 
 .question-navigation-bar {

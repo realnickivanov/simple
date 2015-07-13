@@ -7,10 +7,11 @@
             <div class="objective-progress-wrapper" >
                 <div class="objective-image-wrapper" data-bind="style: { 'background-image': 'url(' + objective.imageUrl + ')' }">
                     <!-- ko if: objective.affectProgress -->
-                    <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: objective.score(),radius:44 }"></canvas>
+                    <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: objective.score(),radius:44, masteryScore:masteryScore }"></canvas>
                     <span class="progress-text" data-bind="text: objective.score() + '%'"></span>
+
                     <!-- /ko -->
-</div>
+                </div>
             </div>
             <div class="objective-info">
                 <span data-bind="text: objective.title">objective title</span>                  
