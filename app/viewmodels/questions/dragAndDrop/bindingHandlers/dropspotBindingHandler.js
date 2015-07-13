@@ -12,8 +12,8 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
 
             $('.ui-draggable')
                 .on('dragstart', function (event, ui) {
-
                     $(element).addClass('active');
+                    $(this).closest('.drag-and-drop-text-dropspot').removeClass('dropped');
 
                     if ($(element).children('.drag-and-drop-text-draggable').length) {
                         return;
@@ -47,6 +47,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                     if (ko.isWriteableObservable(value.text)) {
                         value.text(text);
                         text.dropSpot = value;
+                        $(element).addClass('dropped');
                     }
                 }
             });
