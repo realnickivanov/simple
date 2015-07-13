@@ -1,4 +1,4 @@
-﻿define(['knockout'], function (ko) {
+define(['knockout', 'durandal/composition'], function (ko, composition) {
     'use strict';
 
     ko.bindingHandlers.dropspot = {
@@ -54,16 +54,32 @@
             $(element).css('left', left + 'px').css('top', top + 'px');
         },
         update: function (element, valueAccessor) {
-            var value = valueAccessor();
-            var text = ko.utils.unwrapObservable(value.text);
+            var value = valueAccessor(),
+                text = ko.utils.unwrapObservable(value.text),
+                $draggableTextContainer = $('.drag-and-drop-text-draggable-container'),
+                draggableTextClass = '.drag-and-drop-text-draggable',
+                draggableContainerMessageClass = '.drag-and-drop-text-draggable-container-message';
 
             if (text) {
-                // I believe it will be used when we have to restore previously saved answer
+                var $textChildren = $draggableTextContainer.children(draggableTextClass);
+                $.each($textChildren, function (index, item) {
+                    var data = ko.dataFor(item);
+                    if (data.text == text.text) {
+                        data.dropSpot = value;
+                        $(item).css('left', '').css('top', '').appendTo($(element));
+                    }
+                });
+                if ($draggableTextContainer.children(draggableTextClass).length) {
+                    $draggableTextContainer.children(draggableContainerMessageClass).hide();
+                } else {
+                    $draggableTextContainer.children(draggableContainerMessageClass).show();
+                }
             } else {
-                $(element).children('.drag-and-drop-text-draggable').css('left', '').css('top', '')
-                    .appendTo($('.drag-and-drop-text-draggable-container'));
-                $(element).children('.drag-and-drop-text-draggable-container-message').hide();
+                $(element).children(draggableTextClass).css('left', '').css('top', '')
+                    .appendTo($draggableTextContainer);
+                $draggableTextContainer.children(draggableContainerMessageClass).hide();
             }
         }
     };
+    composition.addBindingHandler('dropspot');
 });

@@ -1,4 +1,4 @@
-﻿<section class="overlay-wrapper">
+<section class="overlay-wrapper">
     <!-- ko if: content-->
     <div class="question-content-wrapper">
         <div class="question-content styled-content" data-bind="html: question.content, elementsWrap: {}"></div>
@@ -12,7 +12,7 @@
                 </div>
                 <!-- ko foreach: texts -->
                 <div class="drag-and-drop-text-draggable" data-bind="draggableText: {}, scope: $parent.question.id">
-                    <div data-bind="text: text">
+                    <div data-bind="text: _.isObject(text) ? text.text : text">
                     </div>
                 </div>
                 <!-- /ko -->
