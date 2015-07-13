@@ -76,7 +76,6 @@
         return Q.fcall(function () {
 
             _.each(viewModel.sources(), function (pair, index) {
-                debugger;
                 if (pair.value()) {
                     viewModel.targets()[index].acceptValue(pair.value());
                     pair.rejectValue();
