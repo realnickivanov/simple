@@ -9,8 +9,8 @@
                 masteryScore = valueAccessor().masteryScore,
                 basicColor = $element.css('color') || 'rgb(211,212,216)',
                 progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
-                
- 
+
+
                 centerX = element.width / 2,
                 centerY = element.height / 2,
                 radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1),
@@ -26,31 +26,38 @@
                     masteryScoreY = centerY + (Math.sin(masteryScoreAngle) * (radius)),
                     elementPositionX = $element.offset().left,
                     elementPositionY = $element.offset().top,
+                    tooltipPosX = elementPositionX + masteryScoreX - 6,
+                    toolTipPosY = $('body').height() - (elementPositionY + masteryScoreY) - 6;
 
-                    tooltipPosX = $element.offset().left + masteryScoreX-56,
-                    toolTipPosY = $('body').height()- (elementPositionY+masteryScoreY)+14;
-                
-                
-
-                    var $toolTip = $('<div class="mastered-score-tooltip">');
-                    $toolTip.css({
+                var $toolTip = $('<div />')
+                    .addClass('mastered-score-tooltip')
+                    .css({
                         'left': tooltipPosX,
-                        'bottom': toolTipPosY,
-                        'position': 'absolute',
-                        'width': '104px',
-                        'z-index': '20',
-                        'opacity':0
+                        'bottom': toolTipPosY
+                    }).appendTo('body');;
+                var $tootlTipText = $('<span />')
+                    .addClass('mastered-score-tooltip-text')
+                    .text(masteryScore + '% ' + translation.getTextByKey('[to complete]'))
+                    .appendTo($toolTip);
 
-                    }).appendTo('body').text(masteryScore + '% ' + translation.getTextByKey('[to complete]'));
-                var $parent = $element.parent();
-                $parent.hover(function () {
-                    $toolTip.animate({
-                        'opacity': 1
+                var $canvasParent = $element.parent();
+                $canvasParent.hover(showToolTip, hideTooltip);
+
+                function showToolTip() {
+                    $tootlTipText.animate({
+                        'opacity': 1,
+                        'margin-bottom': '10px'
                     }, 200);
-                }, function() {
-                    $toolTip.animate({
-                        'opacity': 0
+                }
+
+                function hideTooltip() {
+                    $tootlTipText.animate({
+                        'opacity': 0,
+                        'margin-bottom': '15px'
                     }, 200);
+                }
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $parent.remove($toolTip);
                 });
 
             }
