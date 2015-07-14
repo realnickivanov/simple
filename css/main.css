@@ -435,7 +435,7 @@
     overflow: hidden;
 }
 
-    .objective-image-holder button {
+    .objective-image-holder .button {
         position: absolute;
         top: 62px;
         left: 62px;
@@ -443,8 +443,9 @@
         display: none;
     }
 
-.objectives-list-item:hover .objective-image-holder button {
+.objectives-list-item:hover .objective-image-holder .button {
     display: block;
+    padding: 0;
 }
 
 .objectives-list-item .objective-image-holder .objective-image {
