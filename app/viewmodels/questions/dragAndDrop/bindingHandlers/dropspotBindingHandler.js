@@ -27,6 +27,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                     $(element).removeClass('active');
                     $(element).css('width', '');
                     $(element).css('height', '');
+                    $(this).closest('.drag-and-drop-text-dropspot').addClass('dropped');
                 });
 
             $(element).droppable({
