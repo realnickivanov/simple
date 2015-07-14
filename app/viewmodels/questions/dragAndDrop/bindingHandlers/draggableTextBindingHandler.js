@@ -8,12 +8,12 @@
             var $element = $(element);
 
             $element.draggable({
+                appendTo: 'body',
+                containment: 'html',
                 scope: scope,
                 revert: 'invalid',
-                appendTo: 'body',
                 helper: 'clone',
                 cursorAt: { left: 10, top: 15 },
-                scroll: false,
                 start: function () {
                     $element.css({ visibility: 'hidden' });
                 },
