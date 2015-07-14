@@ -32,7 +32,7 @@
                     .css({
                         'left': tooltipPosX,
                         'bottom': toolTipPosY
-                    }).appendTo($body);;
+                    }).appendTo('body');;
                 var $tootlTipText = $('<span />')
                     .addClass('mastered-score-tooltip-text')
                     .text(masteryScore + '% ' + translation.getTextByKey('[to complete]'))
