@@ -19,7 +19,17 @@
                     .appendTo($toolTip);
 
                 var $canvasParent = $element.parent();
-                $canvasParent.hover(showToolTip, hideTooltip);
+                $canvasParent.hover(function() {
+                    $tootlTipText.animate({
+                        'opacity': 1,
+                        'margin-bottom': '10px'
+                    }, 200);
+                }, function() {
+                    $tootlTipText.animate({
+                        'opacity': 0,
+                        'margin-bottom': '15px'
+                    }, 200);
+                });
 
                 updateTooltipPosition();
 
@@ -29,36 +39,22 @@
 
                 ko.utils.domData.set(element, 'ko_tooltip', $toolTip);
 
-                function showToolTip() {
-                    $tootlTipText.animate({
-                        'opacity': 1,
-                        'margin-bottom': '10px'
-                    }, 200);
-                }
-
-                function hideTooltip() {
-                    $tootlTipText.animate({
-                        'opacity': 0,
-                        'margin-bottom': '15px'
-                    }, 200);
-                }
-
-                function updateTooltipPosition() {
-                    var masteryScoreAngle = 2 * Math.PI * (masteryScore / 100) - 0.5 * Math.PI,
-                        masteryScoreX = centerX + (Math.cos(masteryScoreAngle) * (radius)),
-                        masteryScoreY = centerY + (Math.sin(masteryScoreAngle) * (radius)),
-                        elementPositionX = $element.offset().left,
-                        elementPositionY = $element.offset().top,
-                        tooltipPosX = elementPositionX + masteryScoreX - 6,
-                        toolTipPosY = $('body').height() - (elementPositionY + masteryScoreY) - 6;
-
-                    $toolTip.css({
-                        'left': tooltipPosX,
-                        'bottom': toolTipPosY
-                    });
-                }
-
                 $(window).on('resize', updateTooltipPosition);
+            }
+
+            function updateTooltipPosition() {
+                var masteryScoreAngle = 2 * Math.PI * (masteryScore / 100) - 0.5 * Math.PI,
+                    masteryScoreX = centerX + (Math.cos(masteryScoreAngle) * (radius)),
+                    masteryScoreY = centerY + (Math.sin(masteryScoreAngle) * (radius)),
+                    elementPositionX = $element.offset().left,
+                    elementPositionY = $element.offset().top,
+                    tooltipPosX = elementPositionX + masteryScoreX - 6,
+                    toolTipPosY = $('body').height() - (elementPositionY + masteryScoreY) - 6;
+
+                $toolTip.css({
+                    'left': tooltipPosX,
+                    'bottom': toolTipPosY
+                });
             }
         },
         update: function (element, valueAccessor) {

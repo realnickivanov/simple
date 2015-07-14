@@ -5,8 +5,8 @@
             var allBindings = allBindingsAccessor();
 
             $(element).draggable({
-                appendTo: 'body',
-                containment: 'html',
+                appendTo: '.application-wrapper',
+                containment: '.application-wrapper',
                 helper: function () {
                     return $(element)
                         .clone()

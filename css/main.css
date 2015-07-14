@@ -575,7 +575,7 @@
     height: 100%;
     text-align: left;
 }
-@media (max-width: 970px) {
+@media (max-width: 975px) {
     .objectives-list-item:nth-child(3n) {
         margin-right: 20px;
     }
@@ -829,3 +829,10 @@
 }
 
 /*#endregion bindings styles*/
+
+@media (max-width: 975px) {
+    #content,
+    .header .logo-holder {
+        padding: 0 20px;
+    }
+}
