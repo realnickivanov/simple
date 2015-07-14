@@ -575,16 +575,14 @@
     height: 100%;
     text-align: left;
 }
-@media (max-width: 960px) {
+@media (max-width: 970px) {
     .objectives-list-item:nth-child(3n) {
-        margin-right: 0px;
+        margin-right: 20px;
     }
     .objectives-list-item:nth-child(3n+1) {
-        margin-left: 0px;
+        margin-left: 20px;
     }
 }
-
-
 
 /*#region objectives page layout*/
 
