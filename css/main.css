@@ -127,6 +127,9 @@
     position: relative;
 }
 
+.question-content-wrapper {
+    margin-bottom: 30px;
+}
 
 .canvas-styles {
     margin: auto;
