@@ -1,13 +1,12 @@
-﻿define(['knockout'], function(ko) {
-    
+﻿define(['knockout'], function (ko) {
+
     ko.bindingHandlers.draggable = {
         init: function (element, valueAccessor, allBindingsAccessor) {
-            var
-                    allBindings = allBindingsAccessor()
-            ;
+            var allBindings = allBindingsAccessor();
+
             $(element).draggable({
-                appendTo: '.application-wrapper',
-                containment: 'body',
+                appendTo: 'body',
+                containment: 'html',
                 helper: function () {
                     return $(element)
                         .clone()
