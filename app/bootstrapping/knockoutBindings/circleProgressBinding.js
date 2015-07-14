@@ -9,8 +9,6 @@
                 masteryScore = valueAccessor().masteryScore,
                 basicColor = $element.css('color') || 'rgb(211,212,216)',
                 progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
-
-
                 centerX = element.width / 2,
                 centerY = element.height / 2,
                 radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1),
@@ -34,7 +32,7 @@
                     .css({
                         'left': tooltipPosX,
                         'bottom': toolTipPosY
-                    }).appendTo('body');;
+                    }).appendTo($body);;
                 var $tootlTipText = $('<span />')
                     .addClass('mastered-score-tooltip-text')
                     .text(masteryScore + '% ' + translation.getTextByKey('[to complete]'))
@@ -56,8 +54,9 @@
                         'margin-bottom': '15px'
                     }, 200);
                 }
+
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    $parent.remove($toolTip);
+                    $toolTip.remove();
                 });
 
             }
