@@ -1,38 +1,18 @@
 ﻿define(['durandal/composition', 'translation'], function (composition, translation) {
 
     ko.bindingHandlers.circleProgress = {
-        update: function (element, valueAccessor) {
-            var
-                $element = $(element),
-                score = valueAccessor().progress || 0,
+        init: function (element, valueAccessor) {
+            var $element = $(element),
                 lineWidth = valueAccessor().lineWidth || 4,
                 masteryScore = valueAccessor().masteryScore,
-                basicColor = $element.css('color') || 'rgb(211,212,216)',
-                progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
                 centerX = element.width / 2,
                 centerY = element.height / 2,
-                radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1),
-
-                progress = score / 100,
-
-                cnxt = element.getContext('2d');
+                radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1);
 
             if (masteryScore) {
-
-                var masteryScoreAngle = 2 * Math.PI * (masteryScore / 100) - 0.5 * Math.PI,
-                    masteryScoreX = centerX + (Math.cos(masteryScoreAngle) * (radius)),
-                    masteryScoreY = centerY + (Math.sin(masteryScoreAngle) * (radius)),
-                    elementPositionX = $element.offset().left,
-                    elementPositionY = $element.offset().top,
-                    tooltipPosX = elementPositionX + masteryScoreX - 6,
-                    toolTipPosY = $('body').height() - (elementPositionY + masteryScoreY) - 6;
-
                 var $toolTip = $('<div />')
-                    .addClass('mastered-score-tooltip')
-                    .css({
-                        'left': tooltipPosX,
-                        'bottom': toolTipPosY
-                    }).appendTo('body');;
+                    .addClass('mastered-score-tooltip').appendTo('body');
+
                 var $tootlTipText = $('<span />')
                     .addClass('mastered-score-tooltip-text')
                     .text(masteryScore + '% ' + translation.getTextByKey('[to complete]'))
@@ -40,6 +20,14 @@
 
                 var $canvasParent = $element.parent();
                 $canvasParent.hover(showToolTip, hideTooltip);
+
+                updateTooltipPosition();
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $toolTip.remove();
+                });
+
+                ko.utils.domData.set(element, 'ko_tooltip', $toolTip);
 
                 function showToolTip() {
                     $tootlTipText.animate({
@@ -55,11 +43,37 @@
                     }, 200);
                 }
 
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    $toolTip.remove();
-                });
+                function updateTooltipPosition() {
+                    var masteryScoreAngle = 2 * Math.PI * (masteryScore / 100) - 0.5 * Math.PI,
+                        masteryScoreX = centerX + (Math.cos(masteryScoreAngle) * (radius)),
+                        masteryScoreY = centerY + (Math.sin(masteryScoreAngle) * (radius)),
+                        elementPositionX = $element.offset().left,
+                        elementPositionY = $element.offset().top,
+                        tooltipPosX = elementPositionX + masteryScoreX - 6,
+                        toolTipPosY = $('body').height() - (elementPositionY + masteryScoreY) - 6;
 
+                    $toolTip.css({
+                        'left': tooltipPosX,
+                        'bottom': toolTipPosY
+                    });
+                }
+
+                $(window).on('resize', updateTooltipPosition);
             }
+        },
+        update: function (element, valueAccessor) {
+            var $element = $(element),
+                score = valueAccessor().progress || 0,
+                lineWidth = valueAccessor().lineWidth || 4,
+                basicColor = $element.css('color') || 'rgb(211,212,216)',
+                progressColor = $element.css('border-top-color') || 'rgb(87,157,193)',
+                centerX = element.width / 2,
+                centerY = element.height / 2,
+                radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1),
+                progress = score / 100,
+                cnxt = element.getContext('2d'),
+                masteryScore = valueAccessor().masteryScore,
+                $toolTip = ko.utils.domData.get(element, 'ko_tooltip');
 
             cnxt.beginPath();
             cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -67,7 +81,6 @@
             cnxt.lineWidth = lineWidth;
             cnxt.closePath();
             cnxt.stroke();
-
 
             if (progress > 0) {
                 cnxt.beginPath();
@@ -81,6 +94,10 @@
                 }
 
                 cnxt.stroke();
+            }
+
+            if (score >= masteryScore) {
+                $toolTip.addClass('mastered');
             }
         }
     };
