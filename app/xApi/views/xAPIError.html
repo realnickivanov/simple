@@ -1,8 +1,7 @@
 ﻿<section id="xapiError" class="container xapi-error-section">
-    <div class="text-wrapper-404">
+    <div class="text-wrapper-xApi-error">
         <div class="xapi-error-container">
-            <div class="xapi-error-container-img"></div>
-            <h1 class="xapi-error-container-header" data-translate-text="[tracking and tracing error]">Something is wrong</h1>
+            <h1 data-translate-text="[tracking and tracing error]">Something is wrong</h1>
             <!-- ko if: allowToContinue() -->
             <div class="xapi-error-container-description" data-translate-text="[tracking and tracing error hint]">If you continue without restarting, your learning progress will not be reported.</div>
             <!-- /ko -->
@@ -11,8 +10,9 @@
             <!-- /ko -->
             <div class="xapi-error-container-buttons clearfix">
                 <!-- ko if: allowToContinue() -->
+                <button class="button danger large" data-bind="click: continueLearning" data-translate-text="[tracking and tracing continue anyway]" data-translate-title="[tracking and tracing continue anyway]">Continue anyway</button>
                 <button class="button primary large" data-bind="click: restartCourse" data-translate-text="[tracking and tracing restart course]" data-translate-title="[tracking and tracing restart course]">Restart course</button>
-                <button class="button success large" data-bind="click: continueLearning" data-translate-text="[tracking and tracing continue anyway]" data-translate-title="[tracking and tracing continue anyway]">Continue anyway</button>
+
                 <!-- /ko -->
                 <!-- ko ifnot: allowToContinue() -->
                 <button class="button primary large" data-bind="click: restartCourse" data-translate-text="[tracking and tracing restart course]" data-translate-title="[tracking and tracing restart course]">Restart course</button>

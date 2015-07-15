@@ -12,9 +12,9 @@
 		}
 	},
     "xApi": {
-        "enabled": false,
+        "enabled": true,
         "lrs": {
-            "uri": "http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/statements/",
+            "uri": "1",
             "credentials": {
                 "username": "",
                 "password": ""
