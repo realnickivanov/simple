@@ -26,7 +26,7 @@
     "[there are no questions]": "Soru yok",
     "[browser not supported]": "Web tarayıcınız desteklenmiyor.",
     "[browser not supported hint]": "Merak etmeyin, kolay bir çözüm var. Yapmanız gereken aşağıdaki ikonları tıklayıp, yönergeleri izlemek.",
-    "[page not found title]": "Sayfa bulunamadı (404)",
+    "[page not found title]": "Sayfa bulunamadı",
     "[page not found message]": "Üzgünüz, tıkladığınız sayfa bulunamadı. URL kontrol edin, menüyü kullanın veya 'Anasayfa' linkini tıklayın.",
     "[tracking and tracing header]": "İlerlemenizi takip için bilgilerinizi girin.",
     "[tracking and tracing hint]": "Lütfen bilgilerinizi girin ve \"Derse başla ve sonuçları bildir \"tıklayın.  İsterseniz \"Sonuçları bildirmeden derse başla\" tıklayın.",

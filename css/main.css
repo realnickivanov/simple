@@ -24,33 +24,10 @@
     text-align: center;
 }
 
-
-@media (max-width: 768px) {
-    .text-wrapper-404 {
-        display: block;
-    }
-
-    .title-wrapper-404 {
-        display: block;
-        text-align: center;
-    }
-
-    .title-text-wrapper-404 {
-        display: block;
-        margin: auto;
-    }
-
-        .title-text-wrapper-404 .button {
-            margin: auto;
-        }
-
-        .title-text-wrapper-404 p {
-            text-align: center;
-        }
-
-    .module-404 ~ .content-wrapper {
-        margin: -400px auto;
-    }
+.text-404 .button.medium {
+    display: inline-block;
+    line-height: 30px;
+    width: 340px;
 }
 
 .xapi-error-container {
