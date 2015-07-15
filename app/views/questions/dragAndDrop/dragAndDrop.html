@@ -12,7 +12,7 @@
                 </div>
                 <!-- ko foreach: texts -->
                 <div class="drag-and-drop-text-draggable" data-bind="draggableText: {}, scope: $parent.question.id">
-                    <div data-bind="text: _.isObject(text) ? text.text : text">
+                    <div data-bind="text: _.isObject(text) ? text.text : text, attr: {title: _.isObject(text) ? text.text : text}">
                     </div>
                 </div>
                 <!-- /ko -->

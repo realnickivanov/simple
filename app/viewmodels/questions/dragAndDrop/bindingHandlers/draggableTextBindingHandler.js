@@ -8,8 +8,8 @@
             var $element = $(element);
 
             $element.draggable({
-                appendTo: 'body',
-                containment: 'html',
+                appendTo: '.application-wrapper',
+                containment: '.application-wrapper',
                 scope: scope,
                 revert: 'invalid',
                 helper: 'clone',

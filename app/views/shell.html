@@ -2,12 +2,24 @@
     <section class="logo-holder">
         <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
+            <!-- ko if: logoUrl -->
             <a href="#objectives">
                 <img alt="" src="" data-bind="attr: { src: logoUrl }">
             </a>
             <!-- /ko -->
+            <!-- ko ifnot: logoUrl -->
+            <a href="#objectives">
+                <span class="default-logo"></span>
+            </a>
+            <!-- /ko -->
+            <!-- /ko -->
             <!-- ko ifnot: viewSettings().rootLinkEnabled -->
+            <!-- ko if: logoUrl -->
             <img alt="" src="" data-bind="attr: { src: logoUrl }">
+            <!-- /ko -->
+            <!-- ko ifnot: logoUrl -->
+            <span class="default-logo"></span>
+            <!-- /ko -->
             <!-- /ko -->
         </span>
         <span class="empty"></span>

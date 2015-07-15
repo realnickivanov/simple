@@ -19,17 +19,8 @@
                     .appendTo($toolTip);
 
                 var $canvasParent = $element.parent();
-                $canvasParent.hover(function() {
-                    $tootlTipText.animate({
-                        'opacity': 1,
-                        'margin-bottom': '10px'
-                    }, 200);
-                }, function() {
-                    $tootlTipText.animate({
-                        'opacity': 0,
-                        'margin-bottom': '15px'
-                    }, 200);
-                });
+                $canvasParent.hover(showTooltip, hideTooltip);
+                $toolTip.hover(showTooltip, hideTooltip);
 
                 updateTooltipPosition();
 
@@ -40,6 +31,24 @@
                 ko.utils.domData.set(element, 'ko_tooltip', $toolTip);
 
                 $(window).on('resize', updateTooltipPosition);
+            }
+
+            function showTooltip() {
+                $tootlTipText.animate({
+                    'opacity': 1,
+                    'margin-bottom': '10px'
+                }, 200);
+            }
+
+            function hideTooltip(event) {
+                var e = event.toElement || event.relatedTarget;
+                if (e && (e == $canvasParent[0] || e.parentNode == $canvasParent[0] || e == $toolTip[0] || e.parentNode == $toolTip[0])) {
+                    return;
+                }
+                $tootlTipText.animate({
+                    'opacity': 0,
+                    'margin-bottom': '15px'
+                }, 200);
             }
 
             function updateTooltipPosition() {
