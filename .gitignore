@@ -1,4 +1,5 @@
 /.output
 /content
+/css/themes/**
 /node_modules/
 Web.config
