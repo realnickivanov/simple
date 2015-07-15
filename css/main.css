@@ -547,11 +547,12 @@
 /*#region objectives page layout*/
 
 .objectives-page-layout {
-    position: absolute;
+    position: fixed;
     top: -1px;
     bottom: -1px;
     right: -1px;
     left: -1px;
+    z-index: 10;
 }
 
 .objectives-page-layout-block {
