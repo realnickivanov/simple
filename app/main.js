@@ -14,7 +14,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
     function(app, viewLocator, system, modulesInitializer, bootstrapper, browserSupport, templateSettings, settingsReader, translation) {
         app.title = 'easygenerator';
 
-        system.debug(true);
+        system.debug(false);
 
         app.configurePlugins({
             router: true,
