@@ -65,7 +65,11 @@
 .xapi-error-container-description {
     color: #4d606c;
     font-family: Roboto Slab;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+}
+
+.xapi-error-container-buttons .button:first-child{
+    margin-right: 35px;
 }
 
 .toggle-expand-container {
