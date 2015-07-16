@@ -1,6 +1,6 @@
-﻿define(['context'], function (context) {
+﻿define(['context', 'constants'], function (context, constants) {
 
-    var key = "course_progress" + context.course.id + context.course.createdOn;
+    var key = constants.localStorageProgressKey + context.course.id + context.course.createdOn;
 
     var module = {
         initialize: initialize,

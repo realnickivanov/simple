@@ -8,8 +8,8 @@
             dragAndDrop: "dragAndDropText",
             singleSelectText: "singleSelectText",
             singleSelectImage: "singleSelectImage",
-            textMatching: "textMatching",            
-            hotspot: "hotspot",            
+            textMatching: "textMatching",
+            hotspot: "hotspot",
             statement: "statement",
             informationContent: "informationContent",
             openQuestion: "openQuestion"
@@ -17,7 +17,8 @@
         defaultImageUrl: 'img/singleSelectImageAnwer.png',
         events: {
             appClosed: 'appClosed'
-        }
+        },
+        localStorageProgressKey: 'course_progress'
     };
 
 });
