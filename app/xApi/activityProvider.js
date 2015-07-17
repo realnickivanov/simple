@@ -19,10 +19,14 @@ define(['durandal/system', './models/actor', './models/statement', './models/act
 
         return activityProvider;
 
-        function init(courseId, actorData, activityName, activityUrl) {
+        function init(courseId, actorData, activityName, activityUrl, attemptId) {
             return Q.fcall(function () {
                 if (_.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
+                }
+
+                if (_.isString(attemptId)) {
+                    sessionId = attemptId;
                 }
 
                 activityProvider.actor = actorData;

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'translation', 'eventManager', 'context'], function (app, router, translation, eventManager, dataContext) {
+﻿define(['durandal/system', 'durandal/app', 'plugins/router', 'translation', 'eventManager', 'context'], function (system, app, router, translation, eventManager, dataContext) {
 
     var
         self = {
@@ -7,7 +7,8 @@
                 _v: 1,
                 url: '',
                 answers: {},
-                user: null
+                user: null,
+                attemptId: system.guid()
             }
         },
         context = {
