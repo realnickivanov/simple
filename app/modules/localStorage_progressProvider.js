@@ -1,6 +1,6 @@
-﻿define([], function () {
+﻿define(['context', 'constants'], function (context, constants) {
 
-    var KEY = "LOCALSTORAGE_PROGRESS";
+    var key = constants.localStorageProgressKey + context.course.id + context.course.createdOn;
 
     var module = {
         initialize: initialize,
@@ -20,7 +20,7 @@
     function getProgress() {
         var progress = {};
         try {
-            progress = JSON.parse(localStorage.getItem(KEY));
+            progress = JSON.parse(localStorage.getItem(key));
         } catch (e) {
             console.log('Unable to restore progress from localStorage');
         }
@@ -30,7 +30,7 @@
     function saveProgress(progress) {
         var string = JSON.stringify(progress);
 
-        localStorage.setItem(KEY, string);
+        localStorage.setItem(key, string);
         console.log('Progress was saved (' + string.length + ' length):');
         console.dir(progress);
         return true;

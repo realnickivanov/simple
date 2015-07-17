@@ -34,8 +34,9 @@
                 var progress = progressContext.get();
                 if (_.isObject(progress)) {
                     if (_.isObject(progress.user)) {
-                        activate(progress.user.username, progress.user.email);
-                        return;
+                        return xApiSettings.init(moduleSettings).then(function () {
+                            activate(progress.user.username, progress.user.email);
+                        });
                     }
                     if (progress.user === 0) {
                         deactivate();
