@@ -33,9 +33,9 @@
 
                 var progress = progressContext.get();
                 if (_.isObject(progress)) {
-                    if (_.isObject(progress.user) && _.isString(progress.attemptId)) {
+                    if (_.isObject(progress.user)) {
                         return xApiSettings.init(moduleSettings).then(function () {
-                            activate(progress.user.username, progress.user.email, progress.attemptId);
+                            activate(progress.user.username, progress.user.email);
                         });
                     }
                     if (progress.user === 0) {
@@ -52,7 +52,7 @@
         }
 
 
-        function activate(username, email, attemptId) {
+        function activate(username, email) {
             var actor = activityProvider.createActor(username, email);
 
             var id = context.course.id;
@@ -69,7 +69,7 @@
 
             return Q.all([
                   requestManager.init(moduleSettings),
-                  activityProvider.init(id, actor, title, url, _.isString(attemptId) ? attemptId : progressContext.get().attemptId)
+                  activityProvider.init(id, actor, title, url)
             ]).spread(function () {
                 isInitialized = true;
                 statementQueueHandler.handle();
