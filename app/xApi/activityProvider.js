@@ -1,5 +1,5 @@
-define(['durandal/system', './models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository'],
-    function (system, actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, objectiveRepository) {
+define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository', 'progressContext'],
+    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, objectiveRepository, progressContext) {
 
         "use strict";
 
@@ -15,7 +15,7 @@ define(['durandal/system', './models/actor', './models/statement', './models/act
                 turnOffSubscriptions: turnOffSubscriptions,
                 courseId: null
             },
-            sessionId = system.guid();
+            sessionId = null;
 
         return activityProvider;
 
@@ -24,6 +24,8 @@ define(['durandal/system', './models/actor', './models/statement', './models/act
                 if (_.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
+
+                sessionId = progressContext.get().attemptId;
 
                 activityProvider.actor = actorData;
                 activityProvider.activityName = activityName;
