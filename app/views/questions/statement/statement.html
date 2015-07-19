@@ -14,7 +14,7 @@
     </li>
 
     <!-- ko foreach: statements -->
-    <li class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
+    <li class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered(), checked: isTrueChecked() || isFalseChecked() }">
         <span class="statement-option ">
             <span class="radio-icon-wrapper">
                 <button class="radio-icon" data-bind="click:$parent.markStatementAsTrue, css: { checked: isTrueChecked() }"></button>

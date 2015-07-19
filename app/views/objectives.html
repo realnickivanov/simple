@@ -23,7 +23,7 @@
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="objective-progress">
-                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore }"></canvas>
+                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 }"></canvas>
                     <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
                     
                 </div>

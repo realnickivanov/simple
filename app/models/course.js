@@ -1,5 +1,5 @@
-﻿define(['eventManager'],
-    function (eventManager) {
+﻿define(['eventManager', 'constants'],
+    function (eventManager, constants) {
 
         var ctor = function (spec) {
 
@@ -27,7 +27,7 @@
                 return objectivesLength == 0 ? 0 : Math.floor(result / objectivesLength);
             };
 
-            course.result = function() {
+            course.result = function () {
                 return course.score() / 100;
             }
 
@@ -39,6 +39,7 @@
 
             course.finish = function (callback) {
                 eventManager.courseFinished(course, function () {
+                    localStorage.removeItem(constants.localStorageProgressKey + course.id + course.createdOn);
                     eventManager.turnAllEventsOff();
                     callback();
                 });
