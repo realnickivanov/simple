@@ -10,8 +10,8 @@
 define('jquery', function () { return jQuery; });
 define('knockout', function () { return ko; });
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'bootstrapper', 'browserSupport', 'templateSettings', 'settingsReader', 'translation'],
-    function(app, viewLocator, system, modulesInitializer, bootstrapper, browserSupport, templateSettings, settingsReader, translation) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation'],
+    function(app, viewLocator, system, modulesInitializer, bootstrapper, templateSettings, settingsReader, translation) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -35,10 +35,6 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
                     return initTemplateSettings(settings).then(function() {
                         return initTranslations(settings).then(function() {
                             modulesInitializer.register(modules);
-                            if (!browserSupport.isSupportedMobile && !browserSupport.isSupportedBrowser) {
-                                app.setRoot(browserSupport.isMobileDevice ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/notsupportedbrowser');
-                                return;
-                            }
                             app.setRoot('viewmodels/shell');
                         });
                     });
