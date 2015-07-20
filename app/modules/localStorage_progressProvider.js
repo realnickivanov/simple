@@ -1,13 +1,15 @@
 ﻿define(['context', 'constants'], function (context, constants) {
 
-    var key = constants.localStorageProgressKey + context.course.id + context.course.createdOn;
+    var pregressKey = constants.localStorageProgressKey + context.course.id + context.course.createdOn,
+        resultKey = constants.localStorageResultKey + context.course.id + context.course.createdOn;
 
     var module = {
         initialize: initialize,
 
         progressProvider: {
             getProgress: getProgress,
-            saveProgress: saveProgress
+            saveProgress: saveProgress,
+            saveResult: saveResult
         }
     }
 
@@ -20,7 +22,7 @@
     function getProgress() {
         var progress = {};
         try {
-            progress = JSON.parse(localStorage.getItem(key));
+            progress = JSON.parse(localStorage.getItem(pregressKey));
         } catch (e) {
             console.log('Unable to restore progress from localStorage');
         }
@@ -30,9 +32,20 @@
     function saveProgress(progress) {
         var string = JSON.stringify(progress);
 
-        localStorage.setItem(key, string);
+        localStorage.setItem(pregressKey, string);
         console.log('Progress was saved (' + string.length + ' length):');
         console.dir(progress);
+        return true;
+    }
+
+    function saveResult() {
+        var result = {
+            score: context.course.score(),
+            isCompleted: context.course.isCompleted()
+        };
+
+        var string = JSON.stringify(result);
+        localStorage.setItem(resultKey, string);
         return true;
     }
 

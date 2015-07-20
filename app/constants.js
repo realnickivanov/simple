@@ -18,7 +18,8 @@
         events: {
             appClosed: 'appClosed'
         },
-        localStorageProgressKey: 'course_progress'
+        localStorageProgressKey: 'course_progress',
+        localStorageResultKey: 'course_result'
     };
 
 });
