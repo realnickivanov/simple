@@ -668,13 +668,6 @@
         margin-right: 15px;
     }
 
-@media (max-width: 760px) {
-    .result-btn-holder .button {
-        display: block;
-        margin: 20px auto;
-    }
-}
-
 /*#endregion question view*/
 
 /*#region not supported browser view */
@@ -843,5 +836,14 @@
     .course-action-block.intro {
         display: table-row;
         text-align: center;
+    }
+    
+    .result-btn-holder .button {
+        display: block;
+        margin: 20px auto;
+    }
+
+    .result-btn-holder .button:first-child {
+        margin-right: auto;
     }
 }

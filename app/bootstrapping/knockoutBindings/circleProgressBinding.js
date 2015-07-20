@@ -34,7 +34,7 @@
             }
 
             function showTooltip() {
-                $tootlTipText.animate({
+                $tootlTipText.stop().animate({
                     'opacity': 1,
                     'margin-bottom': '10px'
                 }, 200);
@@ -45,7 +45,7 @@
                 if (e && (e == $canvasParent[0] || e.parentNode == $canvasParent[0] || e == $toolTip[0] || e.parentNode == $toolTip[0])) {
                     return;
                 }
-                $tootlTipText.animate({
+                $tootlTipText.stop().animate({
                     'opacity': 0,
                     'margin-bottom': '15px'
                 }, 200);
