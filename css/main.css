@@ -1,7 +1,4 @@
 /*#region 404 and xApi error*/
-.objectives .course-action-block {
-    width: 180px;
-}
 
 .error-404, .text-wrapper-xApi-error {
     position: fixed;
@@ -186,10 +183,11 @@
     vertical-align: middle;
     height: 100px;
     width: 100%;
-    padding: 15px 0;
+    padding: 15px 20px 15px 0;
     margin: 0;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: normal;
+    line-height: 32px;
     word-wrap: break-word;
 }
 
@@ -216,15 +214,19 @@
 
 /*#region objectives view*/
 
+.objectives .course-action-block {
+    width: 180px;
+}
+
 .overall-progress-block {
     display: table-cell;
-    width: 100px;
+    width: 270px;
     vertical-align: middle;
     text-align: center;
 }
 
 .overall-progress-wrapper {
-    display: inline-block;
+    display: table-cell;
     height: 100px;
     vertical-align: top;
     position: relative;
@@ -555,13 +557,6 @@
         margin-right: 15px;
     }
 
-@media (max-width: 760px) {
-    .result-btn-holder .button {
-        display: block;
-        margin: 20px auto;
-    }
-}
-
 /*#endregion question view*/
 
 /*#region not supported browser view */
@@ -694,5 +689,50 @@
     #content,
     .header .logo-holder {
         padding: 0 20px;
+    }
+}
+
+@media (max-width: 920px) {
+    .objective-info {
+        padding-right: 0;
+    }
+    .questions-navigation-container {
+        position: relative;
+        display: table-row;
+        height: 40px;
+        border-left: none;
+    }
+
+    .questions-navigation-container .question-navigation-bar {
+        position: absolute;
+        float: none;
+        right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .overall-progress-block {
+        width: 180px;
+    }
+
+    .overall-progress-block .overall-progress-wrapper,
+    .overall-progress-block .course-action-block {
+        display: inline-block;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .course-action-block.intro {
+        display: table-row;
+        text-align: center;
+    }
+    
+    .result-btn-holder .button {
+        display: block;
+        margin: 20px auto;
+    }
+
+    .result-btn-holder .button:first-child {
+        margin-right: auto;
     }
 }

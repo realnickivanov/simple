@@ -6,7 +6,7 @@
         content: null,
         answeredText: ko.observable(''),
         isAnswered: ko.observable(false),
-        feedbackView: 'questions/openQuestion/feedback.html',
+        feedbackView: ko.observable(''),
 
         initialize: initialize,
         submit: submit,
@@ -20,6 +20,7 @@
             viewModel.content = question.content;
             viewModel.answeredText(question.answeredText);
             viewModel.isAnswered(question.isAnswered);
+            viewModel.feedbackView('questions/openQuestion/feedback.html');
         });
     }
 
