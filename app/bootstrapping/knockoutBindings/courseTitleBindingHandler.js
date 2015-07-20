@@ -1,9 +1,10 @@
 ﻿define(['knockout', 'jquery', 'durandal/composition'], function (ko, $, composition) {
     'use strict';
     ko.bindingHandlers.courseTitle = {
-        init: function (element) {
+        init: function (element, valueAccessor) {
             var $element = $(element),
-                lenght = element.innerHTML.length;
+                value = ko.utils.unwrapObservable(valueAccessor()),
+                lenght = value.length;
 
             if (lenght > 100) {
                 $element.css('font-size', '22px');
