@@ -807,3 +807,21 @@
         padding: 0 20px;
     }
 }
+
+@media (max-width: 920px) {
+    .objective-info {
+        padding-right: 0;
+    }
+    .questions-navigation-container {
+        position: relative;
+        display: table-row;
+        height: 40px;
+        border-left: none;
+    }
+
+    .questions-navigation-container .question-navigation-bar {
+        position: absolute;
+        float: none;
+        right: 0;
+    }
+}
