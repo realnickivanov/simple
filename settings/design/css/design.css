@@ -131,6 +131,7 @@ main {
 
 .settings-item-content {
     position: relative;
+    justify-content: space-between;
 }
 
 .settings-item-title {
@@ -417,8 +418,8 @@ main {
 /*#region choose scheme*/
 .choose-scheme-container {
     position: relative;
-    flex: 1 0 45%;
-    -webkit-flex: 1 0 45%;
+    flex: 0 0 45%;
+    -webkit-flex: 0 0 45%;
     height: 110px;
     margin-bottom: 14px;
     border: 1px solid #abbbc6;
