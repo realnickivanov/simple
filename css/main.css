@@ -17,6 +17,13 @@
     width: 100%;
 }
 
+    .header.module-login .logo-holder .save-progress-section,
+    .header.module-404 .logo-holder .save-progress-section,
+    .header.module-xAPIError .logo-holder .save-progress-section,
+    .header.module-introduction .logo-holder .save-progress-section {
+        display: none;
+    }
+
     .header.module-404 .logo-holder, .header.module-xAPIError .logo-holder {
         max-width: 100%;
         padding-left: 20px;
@@ -65,7 +72,7 @@
     margin-bottom: 60px;
 }
 
-.xapi-error-container-buttons .button:first-child{
+.xapi-error-container-buttons .button:first-child {
     margin-right: 35px;
 }
 
@@ -223,6 +230,10 @@
     width: 270px;
     vertical-align: middle;
     text-align: center;
+}
+
+.overall-progress-block-container {
+    display: table;
 }
 
 .overall-progress-wrapper {
@@ -455,7 +466,7 @@
     bottom: -1px;
     right: -1px;
     left: -1px;
-    z-index: 10;
+    z-index: 25;
 }
 
 .objectives-page-layout-block {
@@ -553,8 +564,11 @@
     text-align: center;
 }
 
-    .result-btn-holder .button:first-child {
+    .result-btn-holder .button {
         margin-right: 15px;
+    }
+    .result-btn-holder .button:last-child {
+        margin-right: 0;
     }
 
 /*#endregion question view*/
@@ -659,7 +673,7 @@
     -ms-transition: opacity 250ms ease-in;
     -webkit-transition: opacity 250ms ease-in;
     transition: opacity 250ms ease-in;
-    z-index: 100;
+    z-index: 2000;
 }
 
     .blockout.active {
@@ -696,6 +710,7 @@
     .objective-info {
         padding-right: 0;
     }
+
     .questions-navigation-container {
         position: relative;
         display: table-row;
@@ -703,11 +718,11 @@
         border-left: none;
     }
 
-    .questions-navigation-container .question-navigation-bar {
-        position: absolute;
-        float: none;
-        right: 0;
-    }
+        .questions-navigation-container .question-navigation-bar {
+            position: absolute;
+            float: none;
+            right: 0;
+        }
 }
 
 @media (max-width: 768px) {
@@ -715,24 +730,25 @@
         width: 180px;
     }
 
-    .overall-progress-block .overall-progress-wrapper,
-    .overall-progress-block .course-action-block {
-        display: inline-block;
-        margin-bottom: 25px;
-        text-align: center;
-    }
+        .overall-progress-block .overall-progress-wrapper,
+        .overall-progress-block .course-action-block {
+            display: inline-block;
+            margin-bottom: 25px;
+            text-align: center;
+        }
 
     .course-action-block.intro {
         display: table-row;
         text-align: center;
     }
-    
+
     .result-btn-holder .button {
         display: block;
         margin: 20px auto;
     }
 
-    .result-btn-holder .button:first-child {
-        margin-right: auto;
-    }
+        .result-btn-holder .button:first-child,
+        .result-btn-holder .button:last-child {
+            margin-right: auto;
+        }
 }

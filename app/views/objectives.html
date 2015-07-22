@@ -5,12 +5,14 @@
                 <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
             </h1>
             <div class="overall-progress-block">
-                <div class="overall-progress-wrapper">
-                    <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: score,lineWidth:2 }"></canvas>
-                    <div class="overall-progress-score selectable" data-bind="text: score + '%'">0%</div>
-                </div>
-                <div class="course-action-block">
-                    <a href="#" class="button danger small " data-bind="click: finish" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</a>
+                <div class="overall-progress-block-container">
+                    <div class="overall-progress-wrapper">
+                        <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: score,lineWidth:2 }"></canvas>
+                        <div class="overall-progress-score selectable" data-bind="text: score + '%'">0%</div>
+                    </div>
+                    <div class="course-action-block">
+                        <a href="#" class="button danger small " data-bind="click: openFinishPopup" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -46,4 +48,8 @@
             </div>
         </div>
     </div>
+    <!-- ko if: finishPopupVisibility -->
+    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: { finish: finish, close: closeFinishPopup } } -->
+    <!-- /ko -->
+    <!-- /ko -->
 </section>
