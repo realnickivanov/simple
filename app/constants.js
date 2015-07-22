@@ -14,7 +14,7 @@
             informationContent: "informationContent",
             openQuestion: "openQuestion"
         },
-        defaultImageUrl: 'img/singleSelectImageAnwer.png',
+        defaultImageUrl: 'css/img/singleSelectImageAnwer.png',
         events: {
             appClosed: 'appClosed'
         },

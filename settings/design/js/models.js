@@ -93,7 +93,8 @@
         var that = this;
 
         that.list = [
-            new ThemeModel('cartoon', true),
+            new ThemeModel('default', true),
+            new ThemeModel('cartoon'),
             new ThemeModel('grey'),
             new ThemeModel('black'),
             new ThemeModel('flat')
