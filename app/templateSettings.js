@@ -62,7 +62,7 @@ define([], function () {
             if (!_.isEmptyOrWhitespace(fullSettings.theme.key)) {
                 that.theme.key = fullSettings.theme.key;
             }
-            if (fullSettings.background.image.src) {
+            if (fullSettings.background && fullSettings.background.image && fullSettings.background.image.src) {
                 that.background = fullSettings.background;
             }
             that.xApi = fullSettings.xApi;
