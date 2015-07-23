@@ -1,5 +1,5 @@
-﻿define(['eventManager'],
-    function (eventManager) {
+﻿define(['eventManager', 'constants'],
+    function (eventManager, constants) {
 
         var ctor = function (spec) {
 
