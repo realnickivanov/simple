@@ -9,7 +9,6 @@
         "design": "settings/design/design.html",
         "configure": "settings/configure/configure.html"
     },
-    "progressTrackingEnabled":  true,
     "languages": [
         {
             "code": "cn",
