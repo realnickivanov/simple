@@ -267,6 +267,10 @@
     text-align: right;
 }
 
+.finish-course-btn {
+    padding: 0 10px;
+}
+
 .objectives-list {
     list-style-type: none;
     text-align: center;
