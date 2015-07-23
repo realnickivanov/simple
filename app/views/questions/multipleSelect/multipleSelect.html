@@ -1,13 +1,18 @@
-﻿<!-- ko if: content -->
-<div class="question-content-wrapper">
-    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
-</div>
-<!-- /ko -->
-<ul class="question-answers-list" data-bind="foreach: answers">
-    <li class="question-answer-item" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
-        <div class="question-answer-wrapper">
-            <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">&nbsp;</a>
-        </div>
-        <div class="question-answer-text selectable" data-bind="text: text">answer</div>
-    </li>
-</ul>
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper">
+        <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    </div>
+    <!-- /ko -->
+    <ul class="question-answers-list" data-bind="foreach: answers">
+        <li class="checkbox" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
+            <span class="checkbox-icon-wrapper">
+                <button class="checkbox-icon" data-bind="css: { checked: isChecked() }"></button>
+            </span>
+            <label class="checkbox-text" data-bind="text: text"></label>
+        </li>
+    </ul>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>

@@ -28,7 +28,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
 
             var modules = {};
 
-           modules['modules/localStorage_progressProvider'] = true;
+            modules['modules/localStorage_progressProvider'] = true;
 
             return readPublishSettings().then(function() {
                 return readTemplateSettings().then(function(settings) {

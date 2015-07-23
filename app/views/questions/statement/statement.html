@@ -4,25 +4,29 @@
 </div>
 <!-- /ko -->
 <!-- ko if: statements().length -->
-<div class="statement">
-    <div class="statement-headers-group">
-        <div class="statement-header"></div>
-        <div class="statement-header statement-option" data-translate-text="[statement question true text]" data-translate-title="[statement question true text]">True</div>
-        <div class="statement-header statement-option" data-translate-text="[statement question false text]" data-translate-title="[statement question false text]">False</div>
-    </div>
+<ul class="statement">
+    <li class="statement-headers-group">
+        <div class="statement-option" data-translate-text="[statement question true text]" data-translate-title="[statement question true text]">
+        </div>
+        <div class="statement-option" data-translate-text="[statement question false text]" data-translate-title="[statement question false text]">
+            false
+        </div>
+    </li>
 
     <!-- ko foreach: statements -->
-    <div class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered() }">
-        <div class="statement-label">
-            <span class="statement-text" data-bind="text: text"></span>
-        </div>
-        <div class="statement-option">
-            <a class="question-answer-radiobutton" data-bind="click:$parent.markStatementAsTrue, css: { checked: isTrueChecked() }">&nbsp;</a>
-        </div>
-        <div class="statement-option">
-            <a class="question-answer-radiobutton" data-bind="click:$parent.markStatementAsFalse, css: { checked: isFalseChecked() }">&nbsp;</a>
-        </div>
-    </div>
+    <li class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered(), checked: isTrueChecked() || isFalseChecked() }">
+        <span class="statement-option ">
+            <span class="radio-icon-wrapper">
+                <button class="radio-icon" data-bind="click:$parent.markStatementAsTrue, css: { checked: isTrueChecked() }"></button>
+            </span>
+        </span>
+        <span class="statement-option">
+            <span class="radio-icon-wrapper">
+                <button class="radio-icon checked" data-bind="click:$parent.markStatementAsFalse, css: { checked: isFalseChecked() }"></button>
+            </span>
+        </span>
+        <span class="statement-label" data-bind="text: text"></span>
+    </li>
     <!-- /ko -->
-</div>
+</ul>
 <!-- /ko -->

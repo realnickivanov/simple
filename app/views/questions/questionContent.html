@@ -1,35 +1,40 @@
 <section id="questionContent">
     <!-- ko if: learningContents.length > 0 -->
-    <div class="learning-content-section">
-        <div class="learning-content-title" data-bind="click: toggleExpand">
-            <span data-translate-text="[learning content]">Learning content</span>
-            <span class="learning-content-expander-indicator" data-bind="css: { 'expanded' : isExpanded }"></span>
+    <section class="content learning-content" data-bind="css:{collapsed:!isExpanded()},toggleVisible:{isExpanded:isExpanded()}">
+        <div class="toggle-expand-container" data-bind="click: toggleExpand">
+            <div class="learning-content-title" >
+                <span data-translate-text="[learning content]">Learning content</span>
+            </div>
+            <a class="expand-button" data-bind="css:{expand:!isExpanded()}"></a>
+        </div>
+            <section id="learning-contents" class="learning-contents" data-animate="">
+                <ul class="learning-content-items unstyled">
+                    <!-- ko foreach: learningContents-->
+                    <li class="learning-content-item styled-content" data-bind="learningContent: content"></li>
+                    <!-- /ko -->
+                </ul>
+            </section>
+
+    </section>
+    <!-- /ko -->
+    <section class="content learning-content">
+        <div class="learning-content-title question-content-title">
+            <span data-translate-text="[question]">question</span>
         </div>
 
-        <!-- ko if: isExpanded -->
-        <section id="learning-contents" class="learning-contents">
-            <ul class="learning-content-items unstyled">
-                <!-- ko foreach: learningContents-->
-                <li class="learning-content-item styled-content" data-bind="learningContent: content"></li>
-                <!-- /ko -->
-            </ul>
-        </section>
-        <!-- /ko -->
-
-    </div>
-    <!-- /ko -->
-    <div class="question-section">
         <div class="question-title selectable" data-bind="text: title">
             question title
         </div>
         <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
-    </div>
+        <!-- ko compose: { view: feedbackView } --><!-- /ko -->
+        <!-- ko ifnot: isAnswered -->
+        <div class="btn-submit-wrapper">
+            <button href="#" class="button medium primary" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</button>
+        </div>
+        <!-- /ko -->
+    </section>
 
-    <!-- ko ifnot: isAnswered -->
-    <div class="btn-submit-wrapper">
-        <a href="#" class="small-page-action-btn submit-btn" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</a>
-    </div>
-    <!-- /ko -->
 
-    <!-- ko compose: { view: feedbackView } --><!-- /ko -->
+
+
 </section>

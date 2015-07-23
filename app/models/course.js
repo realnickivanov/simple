@@ -1,5 +1,5 @@
-﻿define(['eventManager', 'constants'],
-    function (eventManager, constants) {
+﻿define(['eventManager'],
+    function (eventManager) {
 
         var ctor = function (spec) {
 
@@ -49,7 +49,6 @@
             course.finish = function (callback) {
                 course.isFinished = true;
                 eventManager.courseFinished(course, function () {
-                    localStorage.removeItem(constants.localStorageProgressKey + course.id + course.createdOn);
                     eventManager.turnAllEventsOff();
                     callback();
                 });

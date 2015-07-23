@@ -9,6 +9,10 @@ var gulp = require('gulp'),
     output = ".output",
     buildVersion = +new Date();
 
+var $ = require('gulp-load-plugins')({
+    lazy: true
+});
+
 function addBuildVersion() {
     return eventStream.map(function (file, callback) {
         var fileContent = String(file.contents);
@@ -54,9 +58,6 @@ gulp.task('build-app', ['clean'], function () {
 
     gulp.src(['settings.js', 'publishSettings.js'])
         .pipe(gulp.dest(output));
-
-    gulp.src('css/font/**')
-        .pipe(gulp.dest(output + '/css/font'));
 
     gulp.src('css/themes/*.css')
         .pipe(addBuildVersion())
@@ -156,4 +157,18 @@ gulp.task('build-configure-settings', ['clean'], function () {
         .pipe(minifyCss())
         .pipe(gulp.dest(output + '/settings/configure/css'));
 
+});
+
+gulp.task('webserver', function () {
+    gulp.src('.')
+        .pipe($.webserver({
+            livereload: {
+                enable: true,
+                filter: function (fileName) {
+                    return !fileName.match(/.css/);
+                }
+            },
+            directoryListing: true,
+            open: "index.html"
+        }));
 });

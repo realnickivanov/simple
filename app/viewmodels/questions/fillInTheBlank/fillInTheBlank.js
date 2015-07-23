@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(['knockout'], function (ko) {
 	"use strict";
 
 	var viewModel = {
@@ -36,7 +36,7 @@
 	function submit() {
 	    return Q.fcall(function () {
 	        viewModel.question.submitAnswer(viewModel.inputValues());
-
+	        
 	        viewModel.isAnswered(true);
 	    });
 	}
@@ -46,7 +46,6 @@
 	        _.each(viewModel.inputValues(), function (blankValue) {
 	            blankValue.value = '';
 	        });
-
 	        viewModel.isAnswered(false);
 	    });
 	}

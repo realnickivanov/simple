@@ -1,6 +1,7 @@
-<section id="informationContent">
+<section id="informationContent" class="content">
+
     <div class="learning-content-section">
-        <div class="information-content-title" data-bind="text: title"></div>
+        <div class="question-title" data-bind="text: title"></div>
         <!-- ko if: learningContents.length > 0 -->
         <section id="learning-contents" class="learning-contents">
             <ul class="learning-content-items unstyled">
@@ -14,10 +15,10 @@
     <div class="result-block">
         <div class="result-btn-holder">
             <!-- ko if: navigationContext.nextQuestionUrl -->
-            <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
+            <button class="button medium primary" data-bind="click: navigateNext" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
             <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="small-page-action-btn next-question-btn correct" data-bind="click: navigateNext" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <button class="button medium primary" data-bind="click: navigateNext" data-translate-text="[home]" data-translate-title="[home]">Home</button>
             <!-- /ko -->
         </div>
     </div>

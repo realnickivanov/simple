@@ -51,7 +51,10 @@
                 var answer = _.find(answers, function (answer) {
                     return answer.id === dragableText.id;
                 });
-                answer.currentPosition = dragableText.position;
+                answer.currentPosition = {
+                    x: dragableText.x,
+                    y: dragableText.y
+                };
             });
         }
 

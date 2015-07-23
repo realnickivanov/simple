@@ -16,12 +16,12 @@
 
     viewModel.acceptValue = function (value) {
         viewModel.targets.push(value);
-    }
+    };
 
 
     viewModel.rejectValue = function (value) {
         viewModel.targets.remove(value);
-    }
+    };
 
     return viewModel;
 
@@ -44,12 +44,12 @@
             _.each(question.answers, function (pair) {
                 var source = new Source(pair.id, pair.key);
                 var target = _.find(targets, function (target) {
-                    return target.value == pair.attemptedValue;
+                    return target.value() == pair.attemptedValue;
                 });
 
                 if (target) {
-                    source.value(target);
-                    targets = _.without(targets, target);
+                    source.acceptValue(target.value());
+                    target.rejectValue();
                 } else {
                     source.value(null);
                 }
@@ -65,7 +65,7 @@
     function submit() {
         return Q.fcall(function () {
             viewModel.question.submitAnswer(_.map(viewModel.sources(), function (source) {
-                var value = source.value() ? source.value().value : null;
+                var value = source.value() ? source.value() : null;
                 return { id: source.id, value: value };
             }));
             viewModel.isAnswered(true);
@@ -75,9 +75,9 @@
     function tryAnswerAgain() {
         return Q.fcall(function () {
 
-            _.each(viewModel.sources(), function (pair) {
+            _.each(viewModel.sources(), function (pair, index) {
                 if (pair.value()) {
-                    viewModel.targets.push(pair.value());
+                    viewModel.targets()[index].acceptValue(pair.value());
                     pair.rejectValue();
                 }
             });

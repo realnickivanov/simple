@@ -31,6 +31,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
             logoUrl: ko.observable(''),
             isNavigatingToAnotherView: ko.observable(false),
             isClosed: ko.observable(false),
+            compositionComplete: compositionComplete,
 
 
             activate: function () {
@@ -54,9 +55,6 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
                         that.logoUrl(templateSettings.logoUrl);
 
                         return themesInjector.init().then(function () {
-
-                            background.apply(templateSettings.background)
-
                             app.title = dataContext.course.title;
 
                             if (progressContext.ready()) {
@@ -102,7 +100,10 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
 
         };
 
+        function compositionComplete() {
+            background.apply(templateSettings.background)
 
+        }
 
         return viewModel;
 

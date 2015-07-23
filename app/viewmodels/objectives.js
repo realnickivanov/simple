@@ -1,5 +1,5 @@
-﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings'],
-    function (context, repository, router, windowOperations, templateSettings) {
+﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings', 'progressContext'],
+    function (context, repository, router, windowOperations, templateSettings, progressContext) {
 
         var
             objectives = [],
@@ -13,6 +13,8 @@
                 finished: 'finished'
             },
             status = ko.observable(statuses.readyToFinish),
+
+            finishPopupVisibility = ko.observable(false),
 
             activate = function () {
                 var course = repository.get();
@@ -46,6 +48,16 @@
                 status(statuses.sendingRequests);
                 var course = repository.get();
                 course.finish(onCourseFinishedCallback);
+
+                progressContext.remove();
+            },
+
+            closeFinishPopup = function() {
+                finishPopupVisibility(false);
+            },
+
+            openFinishPopup = function () {
+                finishPopupVisibility(true);
             },
 
             onCourseFinishedCallback = function () {
@@ -57,7 +69,10 @@
             activate: activate,
             caption: 'Objectives and questions',
             courseTitle: courseTitle,
+            finishPopupVisibility: finishPopupVisibility,
             finish: finish,
+            closeFinishPopup: closeFinishPopup,
+            openFinishPopup: openFinishPopup,
 
             score: score,
             masteryScore: masteryScore,

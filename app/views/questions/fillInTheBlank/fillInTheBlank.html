@@ -1,9 +1,10 @@
-﻿<!-- ko if: content -->
-<div class="question-content-wrapper blank-content">
-    <div class="question-content blank-answers styled-content" data-bind="elementsWrap: {}, fillInTheBlankAnswers: { content: content, inputValues: inputValues, disabled: isAnswered }, css:{ disabled: isAnswered() }"></div>
-
-    <!-- ko if: isAnswered -->
-    <div class="answered-blank-overlay"></div>
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper blank-content fill-in-the-blank">
+        <div class="question-content blank-answers styled-content" data-bind="elementsWrap: {}, fillInTheBlankAnswers: { inputValues:inputValues, content:content, isAnswered: isAnswered }"></div>
+    </div>
     <!-- /ko -->
-</div>
-<!-- /ko -->
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>
