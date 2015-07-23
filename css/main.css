@@ -270,6 +270,10 @@
     text-align: right;
 }
 
+.finish-course-btn.button.small {
+    padding: 0 10px;
+}
+
 .objectives-list {
     list-style-type: none;
     text-align: center;

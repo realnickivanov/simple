@@ -2,14 +2,14 @@ define([], function () {
 
     return {
         apply: apply
-    }
+    };
 
     function apply(background) {
 
         var element = $('.header');
 
-        if (_.isNullOrUndefined(background) || _.isNullOrUndefined(background.image) || _.isNullOrUndefined(background.image.src)) {
-            element.addClass('default-background')
+        if (!background || !background.image || !background.image.src) {
+            element.addClass('default-background');
             return;
         }
  
