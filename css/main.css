@@ -267,7 +267,7 @@
     text-align: right;
 }
 
-.finish-course-btn {
+.finish-course-btn.button.small {
     padding: 0 10px;
 }
 
