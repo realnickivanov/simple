@@ -16,7 +16,6 @@
     return module;
 
     function initialize() {
-        console.log('LocalStorage progress provider initialized');
     }
 
     function getProgress() {
@@ -30,23 +29,13 @@
     }
 
     function saveProgress(progress) {
-        var string = JSON.stringify(progress);
-
-        localStorage.setItem(pregressKey, string);
-        console.log('Progress was saved (' + string.length + ' length):');
-        console.dir(progress);
-        return true;
-    }
-
-    function saveResult() {
         var result = {
             score: context.course.score(),
-            isCompleted: context.course.isCompleted()
+            status: context.course.getStatus()
         };
 
-        var string = JSON.stringify(result);
-        localStorage.setItem(resultKey, string);
+        localStorage.setItem(resultKey, JSON.stringify(result));
+        localStorage.setItem(pregressKey, JSON.stringify(progress));
         return true;
     }
-
 });

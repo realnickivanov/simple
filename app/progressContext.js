@@ -67,6 +67,7 @@
     }
 
     function save() {
+
         if (!self.storage) {
             return;
         }
@@ -74,11 +75,7 @@
         if (self.storage.saveProgress(self.progress)) {
             setProgressDirty(false);
         } else {
-            showSaveProgressError();
-        }
-
-        if (_.isFunction(self.storage.saveResult) && !self.storage.saveResult()) {
-            showSaveProgressError();
+            alert(translation.getTextByKey('[course progress cannot be saved]'));
         }
     }
 
@@ -122,7 +119,5 @@
         return !!self.storage;
     }
 
-    function showSaveProgressError() {
-        alert(translation.getTextByKey('[course progress cannot be saved]'));
-    }
+
 });
