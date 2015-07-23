@@ -1,5 +1,4 @@
 ﻿define(['context', 'constants'], function (context, constants) {
-
     var pregressKey = constants.localStorageProgressKey + context.course.id + context.course.createdOn,
         resultKey = constants.localStorageResultKey + context.course.id + context.course.createdOn;
 
@@ -8,8 +7,7 @@
 
         progressProvider: {
             getProgress: getProgress,
-            saveProgress: saveProgress,
-            saveResult: saveResult
+            saveProgress: saveProgress
         }
     }
 
