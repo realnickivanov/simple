@@ -8,8 +8,8 @@ define([], function () {
 
         var element = $('.header');
 
-        if (_.isNullOrUndefined(background) || _.isNullOrUndefined(background.image) || _.isNullOrUndefined(background.image.src)) {
-            element.addClass('default-background')
+        if (_.isNullOrUndefined(background) && _.isNullOrUndefined(background.image) && _.isNullOrUndefined(background.image.src)) {
+            element.addClass('default-background');
             return;
         }
  
