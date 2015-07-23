@@ -1,83 +1,87 @@
-﻿define(['knockout'], function(ko) {
+define(['knockout', 'durandal/composition'], function (ko, composition) {
+    'use strict';
+
     ko.bindingHandlers.dropspot = {
-        init: function(element, valueAccessor, allBindingsAccessor, data, context) {
-            var $currentDropspot = $(element),
-                value = valueAccessor() || {},
-                containerClass = value.containerClass || '',
-                containerSelector = '.' + containerClass,
-                connectClass = value.connectClass || 'ko_container',
-                connectSelector = '.' + connectClass,
-                dropspotClass = value.dropspotClass || '',
-                dropspotSelector = '.' + dropspotClass,
-                options = value.options || {},
-                startActual = options.activate,
-                stopActual = options.start;
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var value = valueAccessor();
+            var allBindings = allBindingsAccessor();
 
-            var refreshDropspotsSizesFix = function (target) {
-                $(target).sortable('refreshPositions');
-            };
+            var left = ko.utils.unwrapObservable(value.x);
+            var top = ko.utils.unwrapObservable(value.y);
+            var scope = ko.utils.unwrapObservable(allBindings.scope) || 'question';
 
-            var start = function(event, ui) {
-                var $textElement = ui.helper;
+            $('.ui-draggable')
+                .on('dragstart', function (event, ui) {
+                    $(element).addClass('active');
+                    $(this).closest('.drag-and-drop-text-dropspot').removeClass('dropped');
 
-                var width = $textElement.outerWidth();
-                var height = $textElement.outerHeight();
-                var $placeholder = ui.placeholder;
+                    if ($(element).children('.drag-and-drop-text-draggable').length) {
+                        return;
+                    }
 
-                $(containerSelector).addClass('drag');
+                    $(element).width(ui.helper.outerWidth());
+                    $(element).height(ui.helper.outerHeight());
 
-                $placeholder.outerWidth(width).outerHeight(height);
+                })
+                .on('dragstop', function (event, ui) {
+                    $(element).removeClass('active');
+                    $(element).css('width', '');
+                    $(element).css('height', '');
+                    $(this).closest('.drag-and-drop-text-dropspot').addClass('dropped');
+                });
 
-                $(dropspotSelector + connectSelector).innerWidth(width + 8).innerHeight(height + 4);
+            $(element).droppable({
+                accept: function (arg) {
+                    if ($(element).find(arg).length) {
+                        return true;
+                    }
 
-                if ($currentDropspot.hasClass(dropspotClass)) {
-                    $currentDropspot.innerWidth(width + 8).innerHeight(height + 4);
-                    $currentDropspot.addClass('current');
+                    return $(element).find('.drag-and-drop-text-draggable').length == 0;
+                },
+                tolerance: 'pointer',
+                scope: scope,
+                drop: function (e, ui) {
+                    var text = ko.dataFor(ui.draggable.get(0));
+
+                    ui.draggable.css('left', '').css('top', '').appendTo(this);
+
+                    if (ko.isWriteableObservable(value.text)) {
+                        value.text(text);
+                        text.dropSpot = value;
+                        $(element).addClass('dropped');
+                    }
                 }
-
-                if (startActual) {
-                    startActual.apply(this, arguments);
-                }
-
-                refreshDropspotsSizesFix(event.target);
-            };
-
-            var beforeStop = function() {
-                if ($currentDropspot.hasClass(dropspotClass)) {
-                    $currentDropspot.removeClass('current');
-                }
-            };
-
-            var stop = function() {
-                $(containerSelector).removeClass('drag');
-
-                $(dropspotSelector).width('auto').height('auto');
-
-                if (stopActual) {
-                    stopActual.apply(this, arguments);
-                }
-            };
-
-            ko.utils.extend(options, {
-                cursorAt: { left: 5, top: 10 },
-                tolerance: 'intersect',
-                helper: 'clone',
-                scroll: false,
-                appendTo: containerSelector,
-                start: start,
-                beforeStop: beforeStop,
-                stop: stop
             });
 
-            value.options = options;
-
-            var newValueAccessor = function() {
-                return value;
-            };
-            return ko.bindingHandlers.sortable.init.call(this, element, newValueAccessor, allBindingsAccessor, data, context);
+            $(element).css('left', left + 'px').css('top', top + 'px');
         },
-        update: function(element, valueAccessor, allBindingsAccessor, data, context) {
-            return ko.bindingHandlers.sortable.update.call(this, element, valueAccessor, allBindingsAccessor, data, context);
+        update: function (element, valueAccessor) {
+            var value = valueAccessor(),
+                text = ko.utils.unwrapObservable(value.text),
+                $draggableTextContainer = $('.drag-and-drop-text-draggable-container'),
+                draggableTextClass = '.drag-and-drop-text-draggable',
+                draggableContainerMessageClass = '.drag-and-drop-text-draggable-container-message';
+
+            if (text) {
+                var $textChildren = $draggableTextContainer.children(draggableTextClass);
+                $.each($textChildren, function (index, item) {
+                    var data = ko.dataFor(item);
+                    if (data.text == text.text) {
+                        data.dropSpot = value;
+                        $(item).css('left', '').css('top', '').appendTo($(element));
+                    }
+                });
+                if ($draggableTextContainer.children(draggableTextClass).length) {
+                    $draggableTextContainer.children(draggableContainerMessageClass).hide();
+                } else {
+                    $draggableTextContainer.children(draggableContainerMessageClass).show();
+                }
+            } else {
+                $(element).children(draggableTextClass).css('left', '').css('top', '')
+                    .appendTo($draggableTextContainer);
+                $draggableTextContainer.children(draggableContainerMessageClass).hide();
+            }
         }
     };
+    composition.addBindingHandler('dropspot');
 });

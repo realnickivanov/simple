@@ -14,6 +14,7 @@
         context = {
             save: save,
             get: get,
+            remove: remove,
 
 
             use: use,
@@ -81,6 +82,16 @@
 
     function get() {
         return self.progress;
+    }
+
+    function remove() {
+        if (!self.storage) {
+            return;
+        }
+
+        if (_.isFunction(self.storage.removeProgress)) {
+            self.storage.removeProgress();
+        }
     }
 
     function use(storage) {

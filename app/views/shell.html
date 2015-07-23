@@ -1,35 +1,55 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
-    <div class="main-logo">
-        <span class="main-logo-img">
+    <section class="logo-holder">
+        <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
+            <!-- ko if: logoUrl -->
             <a href="#objectives">
                 <img alt="" src="" data-bind="attr: { src: logoUrl }">
             </a>
             <!-- /ko -->
+            <!-- ko ifnot: logoUrl -->
+            <a href="#objectives">
+                <span class="default-logo"></span>
+            </a>
+            <!-- /ko -->
+            <!-- /ko -->
             <!-- ko ifnot: viewSettings().rootLinkEnabled -->
+            <!-- ko if: logoUrl -->
             <img alt="" src="" data-bind="attr: { src: logoUrl }">
             <!-- /ko -->
+            <!-- ko ifnot: logoUrl -->
+            <span class="default-logo"></span>
+            <!-- /ko -->
+            <!-- /ko -->
         </span>
-    </div>
-    <!-- ko if: $root.saveProgress -->
-    <div class="save-progress">
-        <div class="content-wrapper">
-            <button class="save-progress-btn" data-bind="click: saveProgress, css: {'saved' : !$root.isProgressDirty()}">
-                <span class="save-progress-wrapper">
-                    <span class="save-progress text-wrapper">
-                        <span data-translate-title="[save my current progress]" data-translate-text="[save my current progress]" class="text">Save my current progress</span>
+        <span class="empty"></span>
+        <!-- ko if: $root.saveProgress -->
+        <span class="save-progress-section">
+            <span class="save-progress-btn-container">
+                <button class="save-progress-btn" data-bind="click: saveProgress, css: {'saved': !$root.isProgressDirty()}">
+                    <span class="btn-text-wrapper save-progress">
+                        <span class="btn-text">
+                            <span class="text" data-translate-title="[save my current progress]" data-translate-text="[save my current progress]">Save my current progress</span>
+                        </span>
                     </span>
-                    <span class="progress-saved text-wrapper">
-                        <span data-translate-title="[progress has been saved]" data-translate-text="[progress has been saved]" class="text">Progress has been saved</span>
+                    <span class="btn-text-wrapper progress-saved">
+                        <span class="btn-text">
+                            <span class="text" data-translate-title="[progress has been saved]" data-translate-text="[progress has been saved]">Progress has been saved</span>
+                        </span>
                     </span>
-                </span>
-            </button>
-        </div>
-    </div>
-    <!-- /ko -->
+                </button>
+            </span>
+        </span>
+        <!-- /ko -->
+    </section>
 </div>
 <div class="loader" data-bind="visible: isNavigatingToAnotherView()">
-    <div class="loader-image"></div>
+    <div class="loader-container">
+        <div class="color-ball red"></div>
+        <div class="color-ball green"></div>
+        <div class="color-ball blue"></div>
+        <div class="color-ball yellow"></div>
+    </div>
 </div>
 <section id="content" class="content-wrapper" data-bind="visible: !isNavigatingToAnotherView()">
     <!--ko router: { cacheViews: false, transition: 'defaultRouterTransition' }-->

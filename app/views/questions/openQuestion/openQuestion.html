@@ -1,12 +1,13 @@
-﻿<!-- ko if: content -->
-<div class="question-content-wrapper">
-    <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
-</div>
-<!-- /ko -->
-<div class="edit-field-wrapper">
-    <textarea class="edit-field selectable" data-bind="textArea: answeredText" data-translate-placeholder="[type your answer here]"></textarea>
-
-    <!-- ko if: isAnswered -->
-    <div class="answered-blank-overlay"></div>
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper">
+        <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    </div>
     <!-- /ko -->
-</div>
+    <div class="edit-field-wrapper">
+        <textarea class="edit-field selectable" data-bind="textArea: answeredText" data-translate-placeholder="[type your answer here]"></textarea>
+    </div>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>

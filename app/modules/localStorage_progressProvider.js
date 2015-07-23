@@ -1,4 +1,4 @@
-﻿define(['context', 'constants'], function (context, constants) {
+﻿define(['context', 'constants', 'translation'], function (context, constants) {
 
     var key = constants.localStorageProgressKey + context.course.id + context.course.createdOn;
 
@@ -7,14 +7,15 @@
 
         progressProvider: {
             getProgress: getProgress,
-            saveProgress: saveProgress
+            saveProgress: saveProgress,
+            removeProgress: removeProgress
         }
     }
 
     return module;
 
     function initialize() {
-        console.log('LocalStorage progress provider initialized');
+
     }
 
     function getProgress() {
@@ -29,10 +30,20 @@
 
     function saveProgress(progress) {
         var string = JSON.stringify(progress);
+        try {
+            localStorage.setItem(key, string);
+        } catch (e) {
+            alert(translation.getTextByKey('[not enough memory to save progress]'));
+        }
+        return true;
+    }
 
-        localStorage.setItem(key, string);
-        console.log('Progress was saved (' + string.length + ' length):');
-        console.dir(progress);
+    function removeProgress() {
+        try {
+            localStorage.removeItem(key);
+        } catch (e) {
+            console.log('Unable to remove progress from localStorage');
+        }
         return true;
     }
 
