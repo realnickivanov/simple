@@ -1,5 +1,5 @@
-﻿define(['context', 'plugins/router', 'plugins/http'],
-    function (context, router, http) {
+﻿define(['durandal/app', 'context', 'plugins/router', 'plugins/http'],
+    function (app, context, router, http) {
 
         var courseTitle = null,
             content = null,
@@ -20,6 +20,8 @@
                         that.content = response;
                     }).fail(function () {
                         that.content = '';
+                    }).always(function () {
+                        app.trigger('user:set-progress-clear');
                     });
                 });
 

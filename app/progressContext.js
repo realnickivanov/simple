@@ -36,6 +36,9 @@
     }
 
     function navigated(obj, instruction) {
+        if (instruction.config.moduleId == 'viewmodels/introduction') {
+            return;
+        }
         if (_.isEmpty(self.progress.url)) {
             self.progress.url = instruction.fragment;
         }
@@ -110,6 +113,13 @@
 
             app.on('user:authenticated').then(authenticated).then(markAsDirty);
             app.on('user:authentication-skipped').then(authenticationSkipped).then(markAsDirty);
+            app.on('user:set-progress-clear').then(function (callback) {
+                setProgressDirty(false);
+                if (!_.isFunction(callback)) {
+                    return;
+                }
+                callback();
+            });
 
             router.on('router:navigation:composition-complete', navigated);
 
