@@ -43,16 +43,8 @@
         <!-- /ko -->
     </section>
 </div>
-<div class="loader" data-bind="visible: isNavigatingToAnotherView()">
-    <div class="loader-container">
-        <div class="color-ball red"></div>
-        <div class="color-ball green"></div>
-        <div class="color-ball blue"></div>
-        <div class="color-ball yellow"></div>
-    </div>
-</div>
-<section id="content" class="content-wrapper" data-bind="visible: !isNavigatingToAnotherView()">
-    <!--ko router: { cacheViews: false, transition: 'defaultRouterTransition' }-->
+<section id="content" class="content-wrapper">
+    <!--ko router: { cacheViews: false, transition: 'entrance' }-->
     <!--/ko-->
 </section>
 <div class="blockout" data-bind="css: { active: isClosed }"></div>

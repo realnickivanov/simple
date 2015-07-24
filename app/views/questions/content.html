@@ -30,11 +30,11 @@
         <!-- /ko -->
     </div>
     <!-- ko ifnot: isLoadingNewQuestion -->
-            <div class="question-navigation-bar" style="float:right">
-                <a class="previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous'},css:{disabled : !isPreviousQuestionAvailable()}" data-translate-title="[previous question]">&nbsp;</a>
-                <span class="navigation-progress"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span>/</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
+        <div class="question-navigation-bar" style="float:right">
+            <a class="previous" data-bind="attr: { href: navigationContext.previousQuestionUrl, title: 'previous'},css:{disabled : !isPreviousQuestionAvailable()}" data-translate-title="[previous question]">&nbsp;</a>
+            <span class="navigation-progress"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span>/</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
 
-                <a class="next" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }, css:{disabled: !isNextQuestionAvailable() }" data-translate-title="[next question]">&nbsp;</a>
-            </div>
+            <a class="next" data-bind="attr: { href: navigationContext.nextQuestionUrl, title: 'next' }, css:{disabled: !isNextQuestionAvailable() }" data-translate-title="[next question]">&nbsp;</a>
+        </div>
     <!-- /ko -->
 </section>

@@ -11,7 +11,7 @@
  * @requires jquery
  */
 define(['durandal/system', 'durandal/composition', 'jquery'], function(system, composition, $) {
-    var fadeOutDuration = 100;
+    var fadeOutDuration = 50;
     var endValues = {
         marginRight: 0,
         marginLeft: 0,
@@ -29,8 +29,11 @@ define(['durandal/system', 'durandal/composition', 'jquery'], function(system, c
      * @constructor
      */
     var entrance = function(context) {
-        return system.defer(function(dfd) {
+        return system.defer(function (dfd) {
             function endTransition() {
+                if (context.bindingContext.$data && context.bindingContext.$data.isNavigatingToAnotherView && ko.isObservable(context.bindingContext.$data.isNavigatingToAnotherView)) {
+                    context.bindingContext.$data.isNavigatingToAnotherView(false);
+                }
                 dfd.resolve();
             }
 
@@ -43,7 +46,7 @@ define(['durandal/system', 'durandal/composition', 'jquery'], function(system, c
             if (!context.child) {
                 $(context.activeView).fadeOut(fadeOutDuration, endTransition);
             } else {
-                var duration = context.duration || 500;
+                var duration = context.duration || 300;
                 var fadeOnly = !!context.fadeOnly;
 
                 function startTransition() {
@@ -69,12 +72,13 @@ define(['durandal/system', 'durandal/composition', 'jquery'], function(system, c
                         }
                     });
                 }
-
+                
                 if (context.activeView) {
                     $(context.activeView).fadeOut({ duration: fadeOutDuration, always: startTransition });
                 } else {
                     startTransition();
                 }
+                
             }
         }).promise();
     };
