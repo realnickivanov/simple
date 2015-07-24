@@ -512,10 +512,10 @@ main {
     }
 
     .choose-scheme-wrapper.flat:before {
-        background: linear-gradient(to right,#7fcdee 0,#7fcdee 10%,#fbc780 10%,#fbc780 20%,#f59091 20%,#f59091 30%,#7bc3be 30%,#7bc3be 40%,#91a1b0 40%,#91a1b0 50%,#7fcdee 50%,#7fcdee 60%,#fbc780 60%,#fbc780 70%,#f59091 70%,#f59091 80%,#7bc3be 80%,#7bc3be 90%,#91a1b0 90%,#91a1b0 100%);
+        background: linear-gradient(to right, #7fcdee 0, #7fcdee 20%, #fbc780 20%, #fbc780 40%, #f59091 40%, #f59091 60%, #7bc3be 60%, #7bc3be 80%, #91a1b0 80%, #91a1b0 100%);
     }
     .choose-scheme-wrapper.default:before {
-        background: linear-gradient(to right, #7fcdee 0%,#7fcdee 10%,#fbc780 10%,#fbc780 20%,#f59091 20%,#f59091 30%,#7bc3be 30%,#7bc3be 40%,#91a1b0 40%,#91a1b0 50%,#7fcdee 50%,#7fcdee 60%,#fbc780 60%, #fbc780 70%, #f59091 70%, #f59091 80%,#7bc3be 80%, #7bc3be 90%, #91a1b0 90%, #91a1b0 100%);
+        background: linear-gradient(to right, #7fcdee 0, #7fcdee 20%, #fbc780 20%, #fbc780 40%, #f59091 40%, #f59091 60%, #7bc3be 60%, #7bc3be 80%, #91a1b0 80%, #91a1b0 100%);
     }
 
 .choose-scheme-title {
