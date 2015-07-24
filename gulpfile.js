@@ -82,7 +82,7 @@ gulp.task('build-app', ['clean'], function () {
     return durandal(
         {
             minify: true,
-            extraModules: ['transitions/defaultRouterTransition']
+            extraModules: ['transitions/entrance']
         })
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/app'));
