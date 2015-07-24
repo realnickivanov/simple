@@ -110,6 +110,13 @@
 
             app.on('user:authenticated').then(authenticated).then(markAsDirty);
             app.on('user:authentication-skipped').then(authenticationSkipped).then(markAsDirty);
+            app.on('user:restart-course').then(function (callback) {
+                setProgressDirty(false);
+                if (!_.isFunction(callback)) {
+                    return;
+                }
+                callback();
+            });
 
             router.on('router:navigation:composition-complete', navigated);
 

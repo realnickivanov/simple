@@ -1,5 +1,5 @@
-﻿define(['knockout', 'plugins/router', '../xApiInitializer', '../configuration/xApiSettings'],
-    function (ko, router, xApiInitializer, xApiSettings) {
+﻿define(['knockout', 'durandal/app', 'plugins/router', '../xApiInitializer', '../configuration/xApiSettings'],
+    function (ko, app, router, xApiInitializer, xApiSettings) {
 
     var
         navigateBackUrl = '',
@@ -7,8 +7,10 @@
         allowToContinue = ko.observable(false);
 
         restartCourse = function () {
-            var rootUrl = location.toString().replace(location.hash, '');
-            router.navigate(rootUrl, { replace: true, trigger: true });
+            app.trigger('user:restart-course', function () {
+                var rootUrl = location.toString().replace(location.hash, '');
+                router.navigate(rootUrl, { replace: true, trigger: true });
+            });
         },
         
         continueLearning = function () {
@@ -18,6 +20,7 @@
 
             xApiInitializer.deactivate();
             router.navigate(navigateBackUrl);
+            app.trigger('user:authentication-skipped');
         },
 
         activate = function (backUrl) {
