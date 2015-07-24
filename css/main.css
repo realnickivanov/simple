@@ -199,6 +199,9 @@
     line-height: 32px;
     word-wrap: break-word;
 }
+.course-title.small {
+    font-size: 22px;
+}
 
 .course-action-block {
     display: table-cell;
@@ -265,6 +268,10 @@
     width: 160px;
     padding: 0 8px;
     text-align: right;
+}
+
+.finish-course-btn.button.small {
+    padding: 0 10px;
 }
 
 .objectives-list {
