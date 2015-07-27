@@ -471,10 +471,6 @@
     text-align: left;
 }
 
-    .objectives-list-item .objective-info.large {
-        font-size: 15px;
-    }
-
 @media (max-width: 975px) {
     .objectives-list-item:nth-child(3n) {
         margin-right: 20px;
