@@ -18,7 +18,15 @@
         events: {
             appClosed: 'appClosed'
         },
-        localStorageProgressKey: 'course_progress'
+        localStorageProgressKey: 'course_progress',
+        localStorageResultKey: 'course_result',
+        course: {
+            statuses: {
+                completed: 'completed',
+                failed: 'failed',
+                inProgress: 'inProgress'
+            }
+        }
     };
 
 });

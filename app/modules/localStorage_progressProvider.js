@@ -1,5 +1,6 @@
 ﻿define(['context', 'constants', 'translation'], function (context, constants, translation) {
-    var key = constants.localStorageProgressKey + context.course.id + context.course.createdOn;
+    var pregressKey = constants.localStorageProgressKey + context.course.id + context.course.createdOn,
+        resultKey = constants.localStorageResultKey + context.course.id + context.course.createdOn;
 
     var module = {
         initialize: initialize,
@@ -14,13 +15,12 @@
     return module;
 
     function initialize() {
-
     }
 
     function getProgress() {
         var progress = {};
         try {
-            progress = JSON.parse(localStorage.getItem(key));
+            progress = JSON.parse(localStorage.getItem(pregressKey));
         } catch (e) {
             console.log('Unable to restore progress from localStorage');
         }
@@ -28,12 +28,17 @@
     }
 
     function saveProgress(progress) {
-        var string = JSON.stringify(progress);
+        var result = {
+            score: context.course.score(),
+            status: context.course.getStatus()
+        };
         try {
-            localStorage.setItem(key, string);
+            localStorage.setItem(resultKey, JSON.stringify(result));
+            localStorage.setItem(pregressKey, JSON.stringify(progress));
         } catch (e) {
             alert(translation.getTextByKey('[not enough memory to save progress]'));
         }
+
         return true;
     }
 
@@ -45,5 +50,4 @@
         }
         return true;
     }
-
 });

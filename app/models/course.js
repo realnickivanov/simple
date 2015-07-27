@@ -1,5 +1,5 @@
-﻿define(['eventManager'],
-    function (eventManager) {
+﻿define(['eventManager', 'constants'],
+    function (eventManager, constants) {
 
         var ctor = function (spec) {
 
@@ -11,7 +11,8 @@
                 createdOn: spec.createdOn,
 
                 hasIntroductionContent: spec.hasIntroductionContent,
-                objectives: spec.objectives
+                objectives: spec.objectives,
+                isFinished: false
             }
 
             var affectProgressObjectives = _.filter(course.objectives, function (objective) {
@@ -37,7 +38,16 @@
                 });
             };
 
+            course.getStatus = function () {
+                if (!course.isFinished) {
+                    return constants.course.statuses.inProgress;
+                }
+
+                return course.isCompleted() ? constants.course.statuses.completed : constants.course.statuses.failed;
+            };
+
             course.finish = function (callback) {
+                course.isFinished = true;
                 eventManager.courseFinished(course, function () {
                     eventManager.turnAllEventsOff();
                     callback();
