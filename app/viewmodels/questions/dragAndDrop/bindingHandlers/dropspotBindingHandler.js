@@ -74,6 +74,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                 if ($draggableTextContainer.children(draggableTextClass).length) {
                     $draggableTextContainer.children(draggableContainerMessageClass).hide();
                 } else {
+                    $draggableTextContainer.addClass('empty');
                     $draggableTextContainer.children(draggableContainerMessageClass).show();
                 }
             } else {
