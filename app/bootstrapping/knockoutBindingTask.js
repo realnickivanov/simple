@@ -8,7 +8,6 @@ define([
     'bootstrapping/knockoutBindings/toggleVisibleBindingHandler',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
     'bootstrapping/knockoutBindings/learningContentBinding',
-    'bootstrapping/knockoutBindings/courseTitleBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',

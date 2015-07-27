@@ -1,7 +1,7 @@
 ﻿<section id="objectivesPage" class="objectives unselectable" data-view="views/objectives" data-active-view="true" style="">
     <div>
         <header class="page-header">
-            <h1 class="course-title" data-bind="courseTitle: courseTitle">
+            <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
                 <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
             </h1>
             <div class="overall-progress-block">

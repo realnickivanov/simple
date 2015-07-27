@@ -199,6 +199,9 @@
     line-height: 32px;
     word-wrap: break-word;
 }
+.course-title.small {
+    font-size: 22px;
+}
 
 .course-action-block {
     display: table-cell;
