@@ -80,6 +80,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
             } else {
                 $(element).children(draggableTextClass).css('left', '').css('top', '')
                     .appendTo($draggableTextContainer);
+                $draggableTextContainer.removeClass('empty');
                 $draggableTextContainer.children(draggableContainerMessageClass).hide();
             }
         }
