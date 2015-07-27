@@ -53,28 +53,27 @@
             }).done(function (url) {
                 setUrl(url);
                 setDefaultStatus();
-                saveChanges();
             }).fail(function (reason) {
                 setFailedStatus(reason.title, reason.description);
+            }).always(function () {
+                that.isLoading(false);
                 saveChanges();
             });
         }
 
         function setDefaultStatus() {
-            that.isLoading(false);
             that.isError(false);
         }
 
         function setFailedStatus(reasonTitle, reasonDescription) {
-            that.clear();
-            that.isLoading(false);
+            that.url('');
             that.isError(true);
             that.errorText(reasonTitle);
             that.errorDescription(reasonDescription);
         }
 
         function setLoadingStatus() {
-            that.clear();
+            that.url('');
             that.isLoading(true);
         }
 
