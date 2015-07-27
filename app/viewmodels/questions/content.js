@@ -8,8 +8,6 @@
 
             startTime: null,
 
-            isLoadingNewQuestion: router.isNavigating,
-
             masteryScore: 0,
 
             navigationContext: null,

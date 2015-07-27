@@ -1,4 +1,4 @@
-﻿<section id="objectivesPage" class="objectives unselectable" data-view="views/objectives" data-active-view="true" style="">
+﻿<section id="objectivesPage" class="objectives " data-view="views/objectives" data-active-view="true" style="">
     <div>
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
@@ -7,8 +7,8 @@
             <div class="overall-progress-block">
                 <div class="overall-progress-block-container">
                     <div class="overall-progress-wrapper">
-                        <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: score,lineWidth:2 }"></canvas>
-                        <div class="overall-progress-score selectable" data-bind="text: score + '%'">0%</div>
+                        <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: score,lineWidth:2,radius:43}"></canvas>
+                        <div class="overall-progress-score " data-bind="text: score + '%'">0%</div>
                     </div>
                     <div class="course-action-block">
                         <button class="button danger small finish-course-btn " data-bind="click: openFinishPopup" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</button>
@@ -25,16 +25,15 @@
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="objective-progress">
-                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 }"></canvas>
+                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 },toolTip:{progress: score, masteryScore:$parent.masteryScore}"></canvas>
                     <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
-                    
+
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: affectProgress -->
                 <div class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
 
                 <!-- /ko -->
-
                 <div class="objective-info">
                     <span data-bind="text: title">objective title</span>
                 </div>

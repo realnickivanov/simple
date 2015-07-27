@@ -74,11 +74,13 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                 if ($draggableTextContainer.children(draggableTextClass).length) {
                     $draggableTextContainer.children(draggableContainerMessageClass).hide();
                 } else {
+                    $draggableTextContainer.addClass('empty');
                     $draggableTextContainer.children(draggableContainerMessageClass).show();
                 }
             } else {
                 $(element).children(draggableTextClass).css('left', '').css('top', '')
                     .appendTo($draggableTextContainer);
+                $draggableTextContainer.removeClass('empty');
                 $draggableTextContainer.children(draggableContainerMessageClass).hide();
             }
         }
