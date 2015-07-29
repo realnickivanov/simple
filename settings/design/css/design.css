@@ -155,7 +155,6 @@ main {
     display: none;
     top: 3px;
     right: 3px;
-    transition: top 0.3s linear 0s;
 }
 
 .btn-image-action {
@@ -364,8 +363,11 @@ main {
 
     .logo-image-container.has-logo:hover .btn-image-action-container {
         display: block;
-        -webkit-animation: bounce 0.3s linear 0s;
-        animation: bounce 0.3s linear 0s;
+    }
+
+    .logo-image-container.has-logo:hover .btn-image-action {
+        -webkit-animation: show-image-action 0.3s linear 0s;
+        animation: show-image-action 0.3s linear 0s;
     }
 
 .logo-image-wrapper {
@@ -443,7 +445,7 @@ main {
     .choose-scheme-container:after {
         content: '';
         position: absolute;
-        top: 1px;
+        top: 3px;
         left: 3px;
         display: none;
         width: 20px;
@@ -453,13 +455,12 @@ main {
 	    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAJCAYAAAAGuM1UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjA3MENDNDM1MUZGMTExRTU5NkY2QTczMDgwNTAwMENGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjA3MENDNDM2MUZGMTExRTU5NkY2QTczMDgwNTAwMENGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDcwQ0M0MzMxRkYxMTFFNTk2RjZBNzMwODA1MDAwQ0YiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDcwQ0M0MzQxRkYxMTFFNTk2RjZBNzMwODA1MDAwQ0YiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4J3IJ2AAAAgElEQVR42mL4//8/AxFYCYiPArEBMYqVgfjRfwhYT4riTUDMgU+xKhA/hipeAcSsIHGQBCMQu0NpmGI1IH4CVTwPiJlhciBiDlRiOchKIFYH4qdQsSloBoE1WALxc6iCE0D8DMpux+ZUGEMGiM/+R4BqXH5D5nBBPVeAL+QAAgwA2n1dvDwHMm0AAAAASUVORK5CYII=');
         background-position: center;
         background-repeat: no-repeat;
-        transition: top 0.3s linear 0s;
     }
 
     .choose-scheme-container.selected:after {
         display: block;
-        -webkit-animation: bounce 0.3s linear 0s;
-        animation: bounce 0.3s linear 0s;
+        -webkit-animation: choose-color-scheme 0.3s linear 0s;
+        animation: choose-color-scheme 0.3s linear 0s;
     }
 
 .choose-scheme-wrapper {
@@ -631,8 +632,11 @@ main {
 
     .background-container:hover .btn-image-action-container {
         display: block;
-        -webkit-animation: bounce 0.3s linear 0s;
-        animation: bounce 0.3s linear 0s;
+    }
+
+    .background-container:hover .btn-image-action {
+        -webkit-animation: show-image-action 0.3s linear 0s;
+        animation: show-image-action 0.3s linear 0s;
     }
 
     .background-container.empty:hover  .btn-image-action-container,
@@ -776,26 +780,27 @@ main {
 
 /*#region animations*/
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-	    transform: translateY(0);
-    }
-	40% {
-	    transform: translateY(-10px);
-    }
-	60% {
-	    transform: translateY(-5px);
+@-webkit-keyframes show-image-action {
+    50% {
+        -webkit-box-shadow: 0px 0px 0px 2px #424b56;
     }
 }
-@-webkit-keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-	    -webkit-transform: translateY(0);
+
+@keyframes show-image-action {
+    50% {
+        box-shadow: 0px 0px 0px 2px #424b56;
     }
-	40% {
-	    -webkit-transform: translateY(-10px);
+}
+
+@-webkit-keyframes choose-color-scheme {
+    50% {
+        -webkit-box-shadow: 0px 0px 0px 2px #74c384;
     }
-	60% {
-	    -webkit-transform: translateY(-5px);
+}
+
+@keyframes choose-color-scheme {
+    50% {
+        box-shadow: 0px 0px 0px 2px #74c384;
     }
 }
 
