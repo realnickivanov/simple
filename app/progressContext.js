@@ -66,8 +66,13 @@
     }
 
     function finish() {
-        save();
-        context.isDirty = false;
+        if (!self.storage) {
+            return;
+        }
+
+        if (_.isFunction(self.storage.saveResults)) {
+            self.storage.saveResults();
+        }
     }
 
     function save() {
