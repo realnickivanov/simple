@@ -11,7 +11,7 @@
                         <div class="overall-progress-score " data-bind="text: score + '%'">0%</div>
                     </div>
                     <div class="course-action-block">
-                        <button class="button danger small finish-course-btn " data-bind="click: openFinishPopup" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</button>
+                        <button class="button danger small finish-course-btn " data-bind="click: openFinishPopup, css: { disabled: isNavigationLocked }" data-translate-text="[finish course]" data-translate-title="[finish course]">Finish course</button>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             <li class="objectives-list-item" data-bind="click: goToFirstQuestion">
                 <div class="objective-image-holder">
                     <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
-                    <button class="button small success" data-translate-text="[start course]"></button>
+                    <button class="button small success" data-translate-text="[start course]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="objective-progress">

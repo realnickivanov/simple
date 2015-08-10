@@ -2,6 +2,7 @@
     "use strict";
 
     var viewModel = {
+        isNavigationLocked: ko.observable(false),
         title: null,
         learningContents: null,
         navigateNext: navigateNext,
@@ -16,8 +17,9 @@
         router.navigate(nextUrl);
     }
     
-    function activate(objectiveId, question) {
+    function activate(objectiveId, question, isNavigationLocked) {
         return Q.fcall(function () {
+            viewModel.isNavigationLocked(isNavigationLocked);
             viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, question.id);
 
             viewModel.title = question.title;

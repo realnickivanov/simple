@@ -3,6 +3,7 @@
         "use strict";
 
         var viewModel = {
+            isNavigationLocked: ko.observable(false),
             objective: null,
             question: null,
 
@@ -13,7 +14,9 @@
             navigationContext: null,
             backToObjectives: backToObjectives,
             isNextQuestionAvailable: isNextQuestionAvailable,
+            nextQuestionUrl: nextQuestionUrl,
             isPreviousQuestionAvailable: isPreviousQuestionAvailable,
+            previousQuestionUrl: previousQuestionUrl,
 
             activeViewModel: null,
 
@@ -24,15 +27,26 @@
         return viewModel;
 
         function backToObjectives() {
+            if (viewModel.isNavigationLocked()) {
+                return;
+            }
             router.navigate('objectives');
         }
 
         function isNextQuestionAvailable() {
-            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl);
+            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) && !viewModel.isNavigationLocked();
+        }
+
+        function nextQuestionUrl() {
+            return viewModel.isNavigationLocked() ? undefined : viewModel.navigationContext.nextQuestionUrl;
         }
 
         function isPreviousQuestionAvailable() {
-            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl);
+            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl) && !viewModel.isNavigationLocked();
+        }
+
+        function previousQuestionUrl() {
+            return viewModel.isNavigationLocked() ? undefined : viewModel.navigationContext.previousQuestionUrl;
         }
 
         function getActiveContentViewModel(question) {
@@ -44,8 +58,12 @@
             }
         }
 
-        function activate(objectiveId, questionId) {
+        function activate(objectiveId, questionId, queryString) {
             return Q.fcall(function () {
+                if (queryString && queryString.lock) {
+                    viewModel.isNavigationLocked(queryString.lock.toLowerCase() == "true");
+                }
+
                 viewModel.objective = objectiveRepository.get(objectiveId);
                 if (viewModel.objective === null) {
                     router.navigate('404');
@@ -67,7 +85,7 @@
                 });
             });
         }
-        
+
         function deactivate() {
             if (viewModel.question.learningContents.length > 0) {
                 viewModel.question.learningContentExperienced(new Date() - viewModel.startTime);

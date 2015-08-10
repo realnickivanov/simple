@@ -5,6 +5,7 @@
 	    var viewModel = {
 	        objectiveId: null,
 	        question: null,
+	        isNavigationLocked: ko.observable(false),
 
 	        title: '',
 	        isAnswered: ko.observable(false),
@@ -40,6 +41,10 @@
 	    return viewModel;
 
 	    function navigateNext() {
+	        if (viewModel.isNavigationLocked()) {
+	            return;
+	        }
+
 	        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
 	        router.navigate(nextUrl);
 	    }
@@ -86,7 +91,8 @@
 	        }
 	    }
 
-	    function activate(objectiveId, question) {
+	    function activate(objectiveId, question, isNavigationLocked) {
+	        viewModel.isNavigationLocked(isNavigationLocked);
 	        viewModel.objectiveId = objectiveId;
 	        viewModel.question = question;
 

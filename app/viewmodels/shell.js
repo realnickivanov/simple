@@ -16,14 +16,17 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
 
             viewSettings: function () {
                 var settings = {
-                    rootLinkEnabled: true,
-                    navigationEnabled: true
+                    rootLinkEnabled: true
                 };
 
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
-                    settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled;
-                    settings.navigationEnabled = !activeInstruction.config.hideNav;
+                    var lock = activeInstruction.queryParams
+                        && activeInstruction.queryParams.lock
+                        && activeInstruction.queryParams.lock.toLowerCase() == "true";
+
+
+                    settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !lock;
                 }
                 return settings;
             },
@@ -101,8 +104,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
         };
 
         function compositionComplete() {
-            background.apply(templateSettings.background)
-
+            background.apply(templateSettings.background);
         }
 
         return viewModel;
