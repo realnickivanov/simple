@@ -17,12 +17,11 @@
             createGuard = function (moduleInitializer, guardView) {
                 existingGuard = router.guardRoute;
                 router.guardRoute = function (model, route) {
-                    
                     if (route.config.route == guardView) {
                         return moduleInitializer.isActivated() ? '' : true;
                     }
                     if (!moduleInitializer.isActivated()) {
-                        return guardView;
+                        return route.queryString ? guardView + '?' + route.queryString : guardView;
                     }
                     if (_.isFunction(existingGuard)) {
                         return existingGuard(model, route);

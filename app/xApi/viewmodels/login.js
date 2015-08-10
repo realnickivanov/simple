@@ -83,7 +83,14 @@
             router.navigate('');
         };
 
-        function activate() {
-            viewModel.allowToSkip(!xApiSettings.xApi.required);
+        function activate(params) {
+            return Q.fcall(function() {
+                if (params) {
+                    viewModel.username(params.name);
+                    viewModel.usermail(params.email);
+                    return viewModel.login();
+                }
+                viewModel.allowToSkip(!xApiSettings.xApi.required);
+            });
         };
     });
