@@ -1,4 +1,4 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants'],
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants'],
     function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants) {
 
 
@@ -21,12 +21,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
 
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
-                    var lock = activeInstruction.queryParams
-                        && activeInstruction.queryParams.lock
-                        && activeInstruction.queryParams.lock.toLowerCase() == "true";
-
-
-                    settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !lock;
+                    settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
                 }
                 return settings;
             },

@@ -2,7 +2,6 @@
     function (context, repository, router, windowOperations, templateSettings, progressContext) {
 
         var
-            isNavigationLocked = ko.observable(false),
             objectives = [],
             score = 0,
             masteryScore = 0,
@@ -17,11 +16,7 @@
 
             finishPopupVisibility = ko.observable(false),
 
-            activate = function (queryString) {
-                if (queryString && queryString.lock) {
-                    this.isNavigationLocked(queryString.lock.toLowerCase() == "true");
-                }
-
+            activate = function () {
                 var course = repository.get();
                 if (course == null) {
                     router.navigate('404');
@@ -30,8 +25,6 @@
 
                 this.score = course.score();
                 this.masteryScore = templateSettings.masteryScore.score;
-
-                var that = this;
                 this.objectives = _.map(course.objectives, function (item) {
 
                     return {
@@ -42,7 +35,7 @@
                         questions: item.questions,
                         affectProgress: item.affectProgress,
                         goToFirstQuestion: function () {
-                            if (that.isNavigationLocked()) {
+                            if (router.isNavigationLocked()) {
                                 return;
                             }
                             router.navigate('#/objective/' + item.id + '/question/' + item.questions[0].id);
@@ -67,7 +60,7 @@
             },
 
             openFinishPopup = function () {
-                if (this.isNavigationLocked()) {
+                if (router.isNavigationLocked()) {
                     return;
                 }
 
@@ -81,7 +74,7 @@
 
         return {
             activate: activate,
-            isNavigationLocked: isNavigationLocked,
+            router: router,
             caption: 'Objectives and questions',
             courseTitle: courseTitle,
             finishPopupVisibility: finishPopupVisibility,

@@ -3,7 +3,6 @@
 
         var courseTitle = null,
             content = null,
-            isNavigationLocked = ko.observable(false),
 
             canActivate = function () {
                 if (context.course.hasIntroductionContent == false) {
@@ -14,7 +13,7 @@
 
             activate = function (queryString) {
                 if (queryString && queryString.lock) {
-                    this.isNavigationLocked(queryString.lock.toLowerCase() == "true");
+                    router.isNavigationLocked(queryString.lock.toLowerCase() == "true");
                 }
 
                 this.courseTitle = "\"" + context.course.title + "\"";
@@ -33,7 +32,7 @@
             },
 
             startCourse = function () {
-                if (this.isNavigationLocked()) {
+                if (router.isNavigationLocked()) {
                     return;
                 }
                 router.navigate('objectives');
@@ -43,7 +42,7 @@
         return {
             courseTitle: courseTitle,
             content: content,
-            isNavigationLocked: isNavigationLocked,
+            router: router,
 
             startCourse: startCourse,
             canActivate: canActivate,

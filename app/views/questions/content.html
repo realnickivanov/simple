@@ -1,8 +1,8 @@
 ﻿<section id="content" class="question unselectable">
     <div>
         <header class="page-header">
-            <div class="navigation-home-link-wrapper" data-bind="click: backToObjectives, css: { disabled: isNavigationLocked }">
-                <div class="navigation-home-link" data-bind="css: { disabled: isNavigationLocked }"></div>
+            <div class="navigation-home-link-wrapper" data-bind="click: backToObjectives">
+                <div class="navigation-home-link" data-bind="css: { disabled: router.isNavigationLocked }"></div>
             </div>
             <div class="objective-progress-wrapper">
                 <div class="objective-image-wrapper" data-bind="style: { 'background-image': 'url(' + objective.imageUrl + ')' }">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </header>
-        <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question, isNavigationLocked() ] } --><!-- /ko -->
+        <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
     </div>
     <div class="question-navigation-bar" style="float:right">
         <a class="previous" data-bind="attr: { href: previousQuestionUrl(), title: 'previous'},css:{disabled : !isPreviousQuestionAvailable()}" data-translate-title="[previous question]">&nbsp;</a>

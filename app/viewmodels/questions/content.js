@@ -3,7 +3,6 @@
         "use strict";
 
         var viewModel = {
-            isNavigationLocked: ko.observable(false),
             objective: null,
             question: null,
 
@@ -21,32 +20,33 @@
             activeViewModel: null,
 
             activate: activate,
+            router: router,
             deactivate: deactivate
         };
 
         return viewModel;
 
         function backToObjectives() {
-            if (viewModel.isNavigationLocked()) {
+            if (router.isNavigationLocked()) {
                 return;
             }
             router.navigate('objectives');
         }
 
         function isNextQuestionAvailable() {
-            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) && !viewModel.isNavigationLocked();
+            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) && !router.isNavigationLocked();
         }
 
         function nextQuestionUrl() {
-            return viewModel.isNavigationLocked() ? undefined : viewModel.navigationContext.nextQuestionUrl;
+            return router.isNavigationLocked() ? undefined: viewModel.navigationContext.nextQuestionUrl;
         }
 
         function isPreviousQuestionAvailable() {
-            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl) && !viewModel.isNavigationLocked();
+            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl) && !router.isNavigationLocked();
         }
 
         function previousQuestionUrl() {
-            return viewModel.isNavigationLocked() ? undefined : viewModel.navigationContext.previousQuestionUrl;
+            return router.isNavigationLocked() ? undefined: viewModel.navigationContext.previousQuestionUrl;
         }
 
         function getActiveContentViewModel(question) {
@@ -61,7 +61,7 @@
         function activate(objectiveId, questionId, queryString) {
             return Q.fcall(function () {
                 if (queryString && queryString.lock) {
-                    viewModel.isNavigationLocked(queryString.lock.toLowerCase() == "true");
+                    router.isNavigationLocked(queryString.lock.toLowerCase() == "true");
                 }
 
                 viewModel.objective = objectiveRepository.get(objectiveId);

@@ -5,8 +5,7 @@
 	    var viewModel = {
 	        objectiveId: null,
 	        question: null,
-	        isNavigationLocked: ko.observable(false),
-
+	        
 	        title: '',
 	        isAnswered: ko.observable(false),
 	        isCorrect: ko.observable(false),
@@ -27,7 +26,8 @@
 
 	        navigateNext: navigateNext,
 
-	        activate: activate
+	        activate: activate,
+	        router: router
 	    };
 
 	    viewModel.isCorrectAnswered = ko.computed(function () {
@@ -41,7 +41,7 @@
 	    return viewModel;
 
 	    function navigateNext() {
-	        if (viewModel.isNavigationLocked()) {
+	        if (router.isNavigationLocked()) {
 	            return;
 	        }
 
@@ -91,8 +91,7 @@
 	        }
 	    }
 
-	    function activate(objectiveId, question, isNavigationLocked) {
-	        viewModel.isNavigationLocked(isNavigationLocked);
+	    function activate(objectiveId, question) {
 	        viewModel.objectiveId = objectiveId;
 	        viewModel.question = question;
 
