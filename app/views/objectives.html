@@ -18,7 +18,7 @@
         </header>
         <ul class="objectives-list" data-bind="foreach: objectives">
 
-            <li class="objectives-list-item" data-bind="click: goToFirstQuestion">
+            <li class="objectives-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }">
                 <div class="objective-image-holder">
                     <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
                     <button class="button small success" data-translate-text="[start course]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
