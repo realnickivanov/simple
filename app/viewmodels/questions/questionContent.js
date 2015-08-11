@@ -27,7 +27,7 @@
 	        navigateNext: navigateNext,
 
 	        activate: activate,
-	        router: router
+	        isNavigationLocked: router.isNavigationLocked
 	    };
 
 	    viewModel.isCorrectAnswered = ko.computed(function () {

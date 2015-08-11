@@ -6,13 +6,16 @@
         learningContents: null,
         navigateNext: navigateNext,
 
-        activate: activate,
-        router: router
+        activate: activate
     };
 
     return viewModel;
 
     function navigateNext() {
+        if (router.isNavigationLocked()) {
+            return;
+        }
+
         var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
         router.navigate(nextUrl);
     }

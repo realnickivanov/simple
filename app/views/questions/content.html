@@ -2,7 +2,7 @@
     <div>
         <header class="page-header">
             <div class="navigation-home-link-wrapper" data-bind="click: backToObjectives">
-                <div class="navigation-home-link" data-bind="css: { disabled: router.isNavigationLocked }"></div>
+                <div class="navigation-home-link" data-bind="css: { disabled: isNavigationLocked }"></div>
             </div>
             <div class="objective-progress-wrapper">
                 <div class="objective-image-wrapper" data-bind="style: { 'background-image': 'url(' + objective.imageUrl + ')' }">

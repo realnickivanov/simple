@@ -20,7 +20,7 @@
             activeViewModel: null,
 
             activate: activate,
-            router: router,
+            isNavigationLocked: router.isNavigationLocked,
             deactivate: deactivate
         };
 

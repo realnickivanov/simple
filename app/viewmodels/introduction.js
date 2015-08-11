@@ -11,11 +11,7 @@
                 return true;
             },
 
-            activate = function (queryString) {
-                if (queryString && queryString.lock) {
-                    router.isNavigationLocked(queryString.lock.toLowerCase() == "true");
-                }
-
+            activate = function () {
                 this.courseTitle = "\"" + context.course.title + "\"";
 
                 var that = this;
@@ -42,7 +38,7 @@
         return {
             courseTitle: courseTitle,
             content: content,
-            router: router,
+            isNavigationLocked: router.isNavigationLocked,
 
             startCourse: startCourse,
             canActivate: canActivate,

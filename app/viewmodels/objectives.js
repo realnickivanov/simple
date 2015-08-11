@@ -74,7 +74,7 @@
 
         return {
             activate: activate,
-            router: router,
+            isNavigationLocked: router.isNavigationLocked,
             caption: 'Objectives and questions',
             courseTitle: courseTitle,
             finishPopupVisibility: finishPopupVisibility,
