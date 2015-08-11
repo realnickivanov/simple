@@ -58,12 +58,8 @@
             }
         }
 
-        function activate(objectiveId, questionId, queryString) {
+        function activate(objectiveId, questionId) {
             return Q.fcall(function () {
-                if (queryString && queryString.lock) {
-                    router.isNavigationLocked(queryString.lock.toLowerCase() == "true");
-                }
-
                 viewModel.objective = objectiveRepository.get(objectiveId);
                 if (viewModel.objective === null) {
                     router.navigate('404');
