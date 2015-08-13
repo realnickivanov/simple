@@ -12,6 +12,10 @@
     return viewModel;
 
     function navigateNext() {
+        if (router.isNavigationLocked()) {
+            return;
+        }
+
         var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
         router.navigate(nextUrl);
     }

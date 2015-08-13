@@ -5,7 +5,7 @@
 	    var viewModel = {
 	        objectiveId: null,
 	        question: null,
-
+	        
 	        title: '',
 	        isAnswered: ko.observable(false),
 	        isCorrect: ko.observable(false),
@@ -26,7 +26,8 @@
 
 	        navigateNext: navigateNext,
 
-	        activate: activate
+	        activate: activate,
+	        isNavigationLocked: router.isNavigationLocked
 	    };
 
 	    viewModel.isCorrectAnswered = ko.computed(function () {
@@ -40,6 +41,10 @@
 	    return viewModel;
 
 	    function navigateNext() {
+	        if (router.isNavigationLocked()) {
+	            return;
+	        }
+
 	        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
 	        router.navigate(nextUrl);
 	    }

@@ -5,7 +5,6 @@
             route: ['', 'introduction'],
             moduleId: 'viewmodels/introduction',
             title: 'Introduction',
-            hideNav: true,
             rootLinkDisabled: true
         },
         {

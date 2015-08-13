@@ -13,26 +13,40 @@
             navigationContext: null,
             backToObjectives: backToObjectives,
             isNextQuestionAvailable: isNextQuestionAvailable,
+            nextQuestionUrl: nextQuestionUrl,
             isPreviousQuestionAvailable: isPreviousQuestionAvailable,
+            previousQuestionUrl: previousQuestionUrl,
 
             activeViewModel: null,
 
             activate: activate,
+            isNavigationLocked: router.isNavigationLocked,
             deactivate: deactivate
         };
 
         return viewModel;
 
         function backToObjectives() {
+            if (router.isNavigationLocked()) {
+                return;
+            }
             router.navigate('objectives');
         }
 
         function isNextQuestionAvailable() {
-            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl);
+            return !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) && !router.isNavigationLocked();
+        }
+
+        function nextQuestionUrl() {
+            return router.isNavigationLocked() ? undefined: viewModel.navigationContext.nextQuestionUrl;
         }
 
         function isPreviousQuestionAvailable() {
-            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl);
+            return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl) && !router.isNavigationLocked();
+        }
+
+        function previousQuestionUrl() {
+            return router.isNavigationLocked() ? undefined: viewModel.navigationContext.previousQuestionUrl;
         }
 
         function getActiveContentViewModel(question) {
@@ -67,7 +81,7 @@
                 });
             });
         }
-        
+
         function deactivate() {
             if (viewModel.question.learningContents.length > 0) {
                 viewModel.question.learningContentExperienced(new Date() - viewModel.startTime);

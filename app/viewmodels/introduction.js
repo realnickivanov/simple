@@ -28,12 +28,17 @@
             },
 
             startCourse = function () {
+                if (router.isNavigationLocked()) {
+                    return;
+                }
                 router.navigate('objectives');
+
             };
 
         return {
             courseTitle: courseTitle,
             content: content,
+            isNavigationLocked: router.isNavigationLocked,
 
             startCourse: startCourse,
             canActivate: canActivate,
