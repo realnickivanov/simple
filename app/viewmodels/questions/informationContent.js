@@ -6,7 +6,8 @@
         learningContents: null,
         navigateNext: navigateNext,
 
-        activate: activate
+        activate: activate,
+        isNavigationLocked: router.isNavigationLocked
     };
 
     return viewModel;
