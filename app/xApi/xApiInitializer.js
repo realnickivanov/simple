@@ -1,5 +1,5 @@
-﻿define(['plugins/router', './routingManager', './requestManager', './activityProvider', 'xApi/configuration/xApiSettings', './statementQueueHandler', './errorsHandler', 'context', 'progressContext'],
-    function (router, routingManager, requestManager, activityProvider, xApiSettings, statementQueueHandler, errorsHandler, context, progressContext) {
+﻿define(['durandal/app', 'plugins/router', './routingManager', './requestManager', './activityProvider', './configuration/xApiSettings', './configuration/viewConstants', './statementQueueHandler', './errorsHandler', 'context', 'progressContext', 'userContext'],
+    function (app, router, routingManager, requestManager, activityProvider, xApiSettings, viewConstants, statementQueueHandler, errorsHandler, context, progressContext, userContext) {
         "use strict";
 
         var
@@ -24,6 +24,7 @@
             activityProvider.turnOffSubscriptions();
             routingManager.removeRoutes();
             isInitialized = false;
+            app.trigger('user:authentication-skipped');
         }
 
         //Initialization function for moduleManager
@@ -31,20 +32,25 @@
             return Q.fcall(function () {
                 moduleSettings = settings;
 
-                var progress = progressContext.get();
-                if (_.isObject(progress)) {
-                    if (_.isObject(progress.user)) {
-                        return xApiSettings.init(moduleSettings).then(function () {
-                            activate(progress.user.username, progress.user.email);
-                        });
-                    }
-                    if (progress.user === 0) {
-                        deactivate();
+                return xApiSettings.init(moduleSettings).then(function () {
+                    var user = userContext.getCurrentUser();
+                    if (user && user.username && viewConstants.patterns.email.test(user.email)) {
+                        activate(user.username, user.email);
                         return;
                     }
-                }
 
-                return xApiSettings.init(moduleSettings).then(function () {
+                    var progress = progressContext.get();
+                    if (_.isObject(progress)) {
+                        if (_.isObject(progress.user)) {
+                            activate(progress.user.username, progress.user.email);
+                            return;
+                        }
+                        if (progress.user === 0) {
+                            deactivate();
+                            return;
+                        }
+                    }
+
                     routingManager.createGuard(xApiInitializer, 'login');
                     routingManager.mapRoutes();
                 });
@@ -73,6 +79,10 @@
             ]).spread(function () {
                 isInitialized = true;
                 statementQueueHandler.handle();
+                app.trigger('user:authenticated', {
+                    username: username,
+                    email: email
+                });
             }).fail(function (reason) {
                 xApiInitializer.deactivate();
                 errorsHandler.handleError(reason);

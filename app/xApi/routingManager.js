@@ -16,6 +16,7 @@
 
             createGuard = function (moduleInitializer, guardView) {
                 existingGuard = router.guardRoute;
+
                 router.guardRoute = function (model, route) {
                     if (route.config.route == guardView) {
                         return moduleInitializer.isActivated() ? '' : true;

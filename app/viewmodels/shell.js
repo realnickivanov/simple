@@ -1,5 +1,5 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants) {
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants', 'userContext'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants, userContext) {
 
 
         var viewModel = {
@@ -51,48 +51,50 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
 
 
                 return context.initialize().then(function (dataContext) {
-                    return modulesInitializer.init().then(function () {
-                        that.logoUrl(templateSettings.logoUrl);
+                    return userContext.initialize().then(function () {
+                        return modulesInitializer.init().then(function () {
+                            that.logoUrl(templateSettings.logoUrl);
 
-                        return themesInjector.init().then(function () {
-                            app.title = dataContext.course.title;
+                            return themesInjector.init().then(function () {
+                                app.title = dataContext.course.title;
 
-                            if (progressContext.ready()) {
-                                viewModel.isProgressDirty = ko.observable(true);
+                                if (progressContext.ready()) {
+                                    viewModel.isProgressDirty = ko.observable(true);
 
-                                viewModel.saveProgress = function () {
-                                    if (viewModel.isProgressDirty()) {
-                                        progressContext.save();
-                                    }
-                                }
-
-                                app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
-                                    viewModel.isProgressDirty(isProgressDirty);
-                                });
-
-
-                                var progress = progressContext.get();
-                                if (_.isObject(progress)) {
-                                    if (_.isString(progress.url)) {
-                                        window.location.hash = progress.url;
+                                    viewModel.saveProgress = function () {
+                                        if (viewModel.isProgressDirty()) {
+                                            progressContext.save();
+                                        }
                                     }
 
-                                    if (_.isObject(progress.answers)) {
-                                        _.each(dataContext.course.objectives, function (objective) {
-                                            _.each(objective.questions, function (question) {
-                                                if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
-                                                    question.progress(progress.answers[question.shortId]);
-                                                }
+                                    app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
+                                        viewModel.isProgressDirty(isProgressDirty);
+                                    });
+
+
+                                    var progress = progressContext.get();
+                                    if (_.isObject(progress)) {
+                                        if (_.isString(progress.url)) {
+                                            window.location.hash = progress.url;
+                                        }
+
+                                        if (_.isObject(progress.answers)) {
+                                            _.each(dataContext.course.objectives, function (objective) {
+                                                _.each(objective.questions, function (question) {
+                                                    if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
+                                                        question.progress(progress.answers[question.shortId]);
+                                                    }
+                                                });
                                             });
-                                        });
+                                        }
                                     }
                                 }
-                            }
 
-                            return router.map(routes)
-                                .buildNavigationModel()
-                                .mapUnknownRoutes('viewmodels/404', '404')
-                                .activate();
+                                return router.map(routes)
+                                    .buildNavigationModel()
+                                    .mapUnknownRoutes('viewmodels/404', '404')
+                                    .activate();
+                            });
                         });
                     });
                 });
@@ -101,8 +103,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'configuration
         };
 
         function compositionComplete() {
-            background.apply(templateSettings.background)
-
+            background.apply(templateSettings.background);
         }
 
         return viewModel;
