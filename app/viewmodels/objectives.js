@@ -34,7 +34,10 @@
                         score: item.score(),
                         questions: item.questions,
                         affectProgress: item.affectProgress,
-                        goToFirstQuestion: function() {
+                        goToFirstQuestion: function () {
+                            if (router.isNavigationLocked()) {
+                                return;
+                            }
                             router.navigate('#/objective/' + item.id + '/question/' + item.questions[0].id);
                         }
                     };
@@ -57,6 +60,10 @@
             },
 
             openFinishPopup = function () {
+                if (router.isNavigationLocked()) {
+                    return;
+                }
+
                 finishPopupVisibility(true);
             },
 
@@ -67,6 +74,7 @@
 
         return {
             activate: activate,
+            isNavigationLocked: router.isNavigationLocked,
             caption: 'Objectives and questions',
             courseTitle: courseTitle,
             finishPopupVisibility: finishPopupVisibility,
