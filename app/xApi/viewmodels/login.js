@@ -67,10 +67,14 @@
                 });
             }
             else {
-                viewModel.usermail.markAsModified();
-                viewModel.username.markAsModified();
+                showValidationMessages();
             }
         };
+
+        function showValidationMessages() {
+            viewModel.usermail.markAsModified();
+            viewModel.username.markAsModified();
+        }
 
         function startCourse() {
             eventManager.courseStarted();
@@ -83,6 +87,7 @@
             if (user) {
                 viewModel.username(user.username);
                 viewModel.usermail(user.email);
+                showValidationMessages();
            }
 
             viewModel.allowToSkip(!xApiSettings.xApi.required);
