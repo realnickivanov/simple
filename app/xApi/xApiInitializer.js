@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', './routingManager', './requestManager', './activityProvider', './configuration/xApiSettings', './configuration/viewConstants', './statementQueueHandler', './errorsHandler', 'context', 'progressContext', 'userContext'],
-    function (app, router, routingManager, requestManager, activityProvider, xApiSettings, viewConstants, statementQueueHandler, errorsHandler, context, progressContext, userContext) {
+﻿define(['durandal/app', 'plugins/router', './routingManager', './requestManager', './activityProvider', './configuration/xApiSettings', './configuration/viewConstants', './statementQueueHandler', './errorsHandler', 'context', 'progressContext', 'userContext', 'eventManager'],
+    function (app, router, routingManager, requestManager, activityProvider, xApiSettings, viewConstants, statementQueueHandler, errorsHandler, context, progressContext, userContext, eventManager) {
         "use strict";
 
         var
@@ -33,17 +33,22 @@
                 moduleSettings = settings;
 
                 return xApiSettings.init(moduleSettings).then(function () {
-                    var user = userContext.getCurrentUser();
+
+                    var user = userContext.getCurrentUser(),
+                        progress = progressContext.get(),
+                        isCourseStarted = _.isObject(progress) && _.isObject(progress.user);
+
                     if (user && user.username && viewConstants.patterns.email.test(user.email)) {
-                        activate(user.username, user.email);
-                        return;
+                        return activate(user.username, user.email).then(function () {
+                            if (!isCourseStarted) {
+                                return eventManager.courseStarted();
+                            }
+                        });
                     }
 
-                    var progress = progressContext.get();
                     if (_.isObject(progress)) {
                         if (_.isObject(progress.user)) {
-                            activate(progress.user.username, progress.user.email);
-                            return;
+                            return activate(progress.user.username, progress.user.email);
                         }
                         if (progress.user === 0) {
                             deactivate();
