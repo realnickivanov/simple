@@ -1,4 +1,4 @@
-﻿define(['durandal/system', 'durandal/app', 'plugins/router', 'translation', 'eventManager', 'context'], function (system, app, router, translation, eventManager, dataContext) {
+﻿define(['durandal/system', 'durandal/app', 'plugins/router', 'translation', 'eventManager', 'context', 'userContext'], function (system, app, router, translation, eventManager, dataContext, userContext) {
 
     var
         self = {
@@ -15,7 +15,6 @@
             save: save,
             get: get,
             remove: remove,
-
 
             use: use,
             ready: ready,
@@ -66,12 +65,16 @@
     }
 
     function finish() {
-        save();
-        context.isDirty = false;
+        if (!self.storage) {
+            return;
+        }
+
+        if (_.isFunction(self.storage.saveResults)) {
+            self.storage.saveResults();
+        }
     }
 
     function save() {
-
         if (!self.storage) {
             return;
         }
@@ -103,10 +106,7 @@
             self.storage = storage;
             self.progress._v = dataContext.course.createdOn.getTime();
 
-            var progress = self.storage.getProgress();
-            if (!_.isEmpty(progress) && _.isString(progress.attemptId) && progress._v === self.progress._v) {
-                self.progress = progress;
-            }
+            restore(userContext.getCurrentUser());
 
             eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(questionAnswered).then(markAsDirty);
             eventManager.subscribeForEvent(eventManager.events.courseFinished).then(finish);
@@ -140,5 +140,13 @@
         return !!self.storage;
     }
 
+    function restore(user) {
+        var progress = self.storage.getProgress();
 
+        if (!_.isEmpty(progress) &&
+            _.isString(progress.attemptId) && progress._v === self.progress._v &&
+            ((!user) || (user.username == progress.user.username && user.email == progress.user.email))) {
+            self.progress = progress;
+        }
+    }
 });

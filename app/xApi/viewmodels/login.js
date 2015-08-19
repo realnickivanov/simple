@@ -1,5 +1,5 @@
-﻿define(['knockout', 'durandal/app', 'plugins/router', 'eventManager', '../configuration/viewConstants', 'xApi/xApiInitializer', 'context', '../configuration/xApiSettings'],
-    function (ko, app, router, eventManager, viewConstants, xApiInitializer, context, xApiSettings) {
+﻿define(['knockout', 'plugins/router', 'eventManager', '../configuration/viewConstants', '../xApiInitializer', 'context', '../configuration/xApiSettings', 'userContext'],
+    function (ko, router, eventManager, viewConstants, xApiInitializer, context, xApiSettings, userContext) {
 
         "use strict";
 
@@ -57,26 +57,24 @@
             }
 
             xApiInitializer.deactivate();
-            app.trigger('user:authentication-skipped');
             startCourse();
         };
 
         function login() {
             if (viewModel.usermail.isValid() && viewModel.username.isValid()) {
                 xApiInitializer.activate(viewModel.username(), viewModel.usermail()).then(function () {
-
-                    app.trigger('user:authenticated', {
-                        username: viewModel.username(),
-                        email: viewModel.usermail()
-                    });
                     startCourse();
                 });
             }
             else {
-                viewModel.usermail.markAsModified();
-                viewModel.username.markAsModified();
+                showValidationMessages();
             }
         };
+
+        function showValidationMessages() {
+            viewModel.usermail.markAsModified();
+            viewModel.username.markAsModified();
+        }
 
         function startCourse() {
             eventManager.courseStarted();
@@ -84,6 +82,14 @@
         };
 
         function activate() {
+            var user = userContext.getCurrentUser();
+
+            if (user) {
+                viewModel.username(user.username);
+                viewModel.usermail(user.email);
+                showValidationMessages();
+           }
+
             viewModel.allowToSkip(!xApiSettings.xApi.required);
         };
     });
