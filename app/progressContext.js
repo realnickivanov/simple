@@ -12,7 +12,6 @@
             }
         },
         context = {
-            save: save,
             get: get,
             remove: remove,
 
@@ -27,11 +26,14 @@
 
     function setProgressDirty(isDirty) {
         context.isDirty = isDirty;
-        app.trigger('progressContext:dirty:changed', isDirty);
     }
 
-    function markAsDirty() {
-        setProgressDirty(true);
+    function save() {
+        if (!self.storage) {
+            return;
+        }
+
+        setProgressDirty(!self.storage.saveProgress(self.progress));
     }
 
     function navigated(obj, instruction) {
@@ -43,7 +45,7 @@
         }
         else if (self.progress.url != instruction.fragment) {
             self.progress.url = instruction.fragment;
-            setProgressDirty(true);
+            save();;
         }
     }
 
@@ -58,7 +60,7 @@
     function questionAnswered(question) {
         try {
             self.progress.answers[question.shortId] = question.progress();
-            setProgressDirty(true);
+            save();
         } catch (e) {
             console.error(e);
         }
@@ -71,18 +73,6 @@
 
         if (_.isFunction(self.storage.saveResults)) {
             self.storage.saveResults();
-        }
-    }
-
-    function save() {
-        if (!self.storage) {
-            return;
-        }
-
-        if (self.storage.saveProgress(self.progress)) {
-            setProgressDirty(false);
-        } else {
-            alert(translation.getTextByKey('[course progress cannot be saved]'));
         }
     }
 
@@ -108,11 +98,11 @@
 
             restore(userContext.getCurrentUser());
 
-            eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(questionAnswered).then(markAsDirty);
+            eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(questionAnswered);
             eventManager.subscribeForEvent(eventManager.events.courseFinished).then(finish);
 
-            app.on('user:authenticated').then(authenticated).then(markAsDirty);
-            app.on('user:authentication-skipped').then(authenticationSkipped).then(markAsDirty);
+            app.on('user:authenticated').then(authenticated).then(save);
+            app.on('user:authentication-skipped').then(authenticationSkipped).then(save);
             app.on('user:set-progress-clear').then(function (callback) {
                 setProgressDirty(false);
                 if (!_.isFunction(callback)) {
