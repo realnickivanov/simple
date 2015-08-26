@@ -21,14 +21,14 @@
     display: none;
 }
 
-.header.module-login .logo-holder .save-progress-section,
-.header.module-404 .logo-holder .save-progress-section,
-.header.module-xAPIError .logo-holder .save-progress-section,
-.header.module-introduction .logo-holder .save-progress-section {
+.header.module-login .header-items-holder .save-progress-section,
+.header.module-404 .header-items-holder .save-progress-section,
+.header.module-xAPIError .header-items-holder .save-progress-section,
+.header.module-introduction .header-items-holder .save-progress-section {
     display: none;
 }
 
-.header.module-404 .logo-holder, .header.module-xAPIError .logo-holder {
+.header.module-404 .header-items-holder, .header.module-xAPIError .header-items-holder {
     max-width: 100%;
     padding-left: 20px;
 }
@@ -726,7 +726,7 @@
 
 @media (max-width: 975px) {
     #content,
-    .header .logo-holder {
+    .header .header-items-holder {
         padding: 0 20px;
     }
 }

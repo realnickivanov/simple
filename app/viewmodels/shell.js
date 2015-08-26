@@ -57,6 +57,11 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                 app.title = dataContext.course.title;
 
                                 if (progressContext.ready()) {
+                                    viewModel.isProgressDirty = ko.observable(true);
+
+                                    app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
+                                        viewModel.isProgressDirty(isProgressDirty);
+                                    });
                                     var progress = progressContext.get();
                                     if (_.isObject(progress)) {
                                         if (_.isString(progress.url)) {

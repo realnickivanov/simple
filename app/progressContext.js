@@ -26,6 +26,7 @@
 
     function setProgressDirty(isDirty) {
         context.isDirty = isDirty;
+        app.trigger('progressContext:dirty:changed', isDirty);
     }
 
     function save() {

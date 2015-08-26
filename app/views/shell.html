@@ -1,5 +1,5 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
-    <section class="logo-holder">
+    <section class="header-items-holder">
         <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
             <!-- ko if: logoUrl -->
@@ -22,8 +22,8 @@
             <!-- /ko -->
             <!-- /ko -->
         </span>
-        <span class="empty"></span>
-     </section>
+        <div class="exit-course-container" data-bind="widget: {kind:'exitCourse'}"></div>
+    </section>
 </div>
 <section id="content" class="content-wrapper">
     <!--ko router: { cacheViews: false, transition: 'entrance' }-->
