@@ -1,7 +1,6 @@
 define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants', 'userContext'],
     function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants, userContext) {
 
-
         var viewModel = {
             router: router,
             cssName: ko.computed(function () {
@@ -14,14 +13,17 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                 return '';
             }),
 
+
             viewSettings: function () {
                 var settings = {
-                    rootLinkEnabled: true
+                    rootLinkEnabled: true,
+                    exitButtonEnabled: true
                 };
 
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
                     settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
+                    settings.exitButtonEnabled = !activeInstruction.config.exitButtonDisabled && !router.isNavigationLocked();;
                 }
                 return settings;
             },
@@ -58,6 +60,8 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
 
                                 if (progressContext.ready()) {
                                     viewModel.isProgressDirty = ko.observable(true);
+
+                                    viewModel.isProgressContextEnabled = true;
 
                                     app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
                                         viewModel.isProgressDirty(isProgressDirty);

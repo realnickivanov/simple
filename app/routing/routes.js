@@ -5,7 +5,8 @@
             route: ['', 'introduction'],
             moduleId: 'viewmodels/introduction',
             title: 'Introduction',
-            rootLinkDisabled: true
+            rootLinkDisabled: true,
+            exitButtonDisabled: true
         },
         {
             route: 'objectives',

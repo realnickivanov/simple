@@ -16,8 +16,7 @@
     }
 
     function close() {
-        console.log("close course");
-        //windowOperations.close();
+        windowOperations.close();
     }
 
     function finish() {
