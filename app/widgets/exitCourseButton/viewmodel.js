@@ -6,7 +6,10 @@
         activate: activate,
 
         close: close,
-        finish: finish
+        finish: finish,
+
+        finishPopupVisibility: ko.observable(false),
+        closeFinishPopup: closeFinishPopup
     };
 
     return exitCourseModel;
@@ -20,8 +23,11 @@
     }
 
     function finish() {
-        console.log("finish course");
-        //windowOperations.close();
+        exitCourseModel.finishPopupVisibility(true);
+    }
+
+    function closeFinishPopup() {
+        exitCourseModel.finishPopupVisibility(false);
     }
 
 });

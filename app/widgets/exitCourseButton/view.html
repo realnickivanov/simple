@@ -1,9 +1,13 @@
-﻿<section class="exit-course-wrapper" data-bind="dropDown: {} ">
-    <div class="exit-course-button-container">
+﻿<section class="exit-course-wrapper">
+    <div class="exit-course-button-container" data-bind="dropDown: {}">
         <div class="exit-course-button"></div>
+        <ul class="exit-course-menu">
+            <li class="exit-course-menu-item" data-bind="click: close">Save and continue later</li>
+            <li class="exit-course-menu-item" data-bind="click: finish" data-translate-text="[finish course]">Finish course</li>
+        </ul>
     </div>
-    <ul class="exit-course-menu">
-        <li class="exit-course-menu-item" data-bind="click: close">Save and continue later</li>
-        <li class="exit-course-menu-item" data-bind="click: finish">Finish course</li>
-    </ul>
+    <!-- ko if: finishPopupVisibility -->
+    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: { finish: closeFinishPopup, close: closeFinishPopup } } -->
+    <!-- /ko -->
+    <!-- /ko -->
 </section>
