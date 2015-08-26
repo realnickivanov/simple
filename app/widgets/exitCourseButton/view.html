@@ -3,11 +3,17 @@
         <div class="exit-course-button"></div>
         <ul class="exit-course-menu">
             <li class="exit-course-menu-item" data-bind="click: close">Save and continue later</li>
-            <li class="exit-course-menu-item" data-bind="click: finish" data-translate-text="[finish course]">Finish course</li>
+            <li class="exit-course-menu-item" data-bind="click: openFinishPopup" data-translate-text="[finish course]">Finish course</li>
         </ul>
     </div>
+    <div class="objectives-page-layout" data-bind="visible: status() == statuses.sendingRequests">
+        <div class="objectives-page-layout-block"></div>
+        <div class="objectives-page-layout-loader">
+            <span class="objectives-page-layout-loader-text" data-translate-text="[tracking and tracing reporting progress]">reporting progress...</span>
+        </div>
+    </div>
     <!-- ko if: finishPopupVisibility -->
-    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: { finish: closeFinishPopup, close: closeFinishPopup } } -->
+    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: { finish: finish, close: closeFinishPopup } } -->
     <!-- /ko -->
     <!-- /ko -->
 </section>

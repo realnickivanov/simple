@@ -7,15 +7,7 @@
             masteryScore = 0,
             courseTitle = "\"" + context.course.title + "\"",
 
-            statuses = {
-                readyToFinish: 'readyToFinish',
-                sendingRequests: 'sendingRequests',
-                finished: 'finished'
-            },
-            status = ko.observable(statuses.readyToFinish),
-
-            finishPopupVisibility = ko.observable(false),
-
+            
             activate = function () {
                 var course = repository.get();
                 if (course == null) {
@@ -42,51 +34,18 @@
                         }
                     };
                 });
-            },
+            }
 
-            finish = function () {
-                if (status() != statuses.readyToFinish) {
-                    return;
-                }
-                status(statuses.sendingRequests);
-                var course = repository.get();
-                course.finish(onCourseFinishedCallback);
-
-                progressContext.remove();
-            },
-
-            closeFinishPopup = function() {
-                finishPopupVisibility(false);
-            },
-
-            openFinishPopup = function () {
-                if (router.isNavigationLocked()) {
-                    return;
-                }
-
-                finishPopupVisibility(true);
-            },
-
-            onCourseFinishedCallback = function () {
-                status(statuses.finished);
-                windowOperations.close();
-            };
 
         return {
             activate: activate,
             isNavigationLocked: router.isNavigationLocked,
             caption: 'Objectives and questions',
             courseTitle: courseTitle,
-            finishPopupVisibility: finishPopupVisibility,
-            finish: finish,
-            closeFinishPopup: closeFinishPopup,
-            openFinishPopup: openFinishPopup,
 
             score: score,
             masteryScore: masteryScore,
-            objectives: objectives,
-            status: status,
-            statuses: statuses
+            objectives: objectives
         };
     }
 );
