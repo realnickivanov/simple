@@ -26,7 +26,9 @@
         <span class="empty"></span>
         <!-- /ko -->
         <!-- ko ifnot: viewSettings().exitButtonHidden -->
-        <div class="exit-course-container" data-bind="widget: {kind:'exitCourse'}"></div>
+        <div class="exit-course-container">
+            <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->
+        </div>
         <!-- /ko -->
     </section>
 </div>
