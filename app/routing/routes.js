@@ -6,7 +6,7 @@
             moduleId: 'viewmodels/introduction',
             title: 'Introduction',
             rootLinkDisabled: true,
-            exitButtonDisabled: true
+            exitButtonHidden: true
         },
         {
             route: 'objectives',

@@ -21,13 +21,6 @@
     display: none;
 }
 
-.header.module-login .header-items-holder,
-.header.module-404 .header-items-holder,
-.header.module-xAPIError .header-items-holder,
-.header.module-introduction .header-items-holder {
-    display: none;
-}
-
 .header.module-404 .header-items-holder, .header.module-xAPIError .header-items-holder {
     max-width: 100%;
     padding-left: 20px;

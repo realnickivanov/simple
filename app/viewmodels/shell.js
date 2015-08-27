@@ -17,13 +17,13 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
             viewSettings: function () {
                 var settings = {
                     rootLinkEnabled: true,
-                    exitButtonEnabled: true
+                    exitButtonHidden: false
                 };
 
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
                     settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
-                    settings.exitButtonEnabled = !activeInstruction.config.exitButtonDisabled;
+                    settings.exitButtonHidden = activeInstruction.config.exitButtonHidden;
                 }
                 return settings;
             },

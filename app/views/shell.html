@@ -22,11 +22,11 @@
             <!-- /ko -->
             <!-- /ko -->
         </span>
-        <!-- ko if: viewSettings().exitButtonEnabled -->
-        <div class="exit-course-container" data-bind="widget: {kind:'exitCourse'}"></div>
-        <!-- /ko -->
-        <!-- ko ifnot: viewSettings().exitButtonEnabled -->
+        <!-- ko if: viewSettings().exitButtonHidden -->
         <span class="empty"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: viewSettings().exitButtonHidden -->
+        <div class="exit-course-container" data-bind="widget: {kind:'exitCourse'}"></div>
         <!-- /ko -->
     </section>
 </div>

@@ -3,7 +3,7 @@
 
     var themesInjector = {
         themesPath: 'css/themes',
-        defaultThemeKey: 'cartoon',
+        defaultThemeKey: 'default',
 
         init: init
     };
