@@ -23,7 +23,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
                     settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
-                    settings.exitButtonEnabled = !activeInstruction.config.exitButtonDisabled && !router.isNavigationLocked();;
+                    settings.exitButtonEnabled = !activeInstruction.config.exitButtonDisabled;
                 }
                 return settings;
             },
@@ -59,13 +59,6 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                 app.title = dataContext.course.title;
 
                                 if (progressContext.ready()) {
-                                    viewModel.isProgressDirty = ko.observable(true);
-
-                                    viewModel.isProgressContextEnabled = true;
-
-                                    app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
-                                        viewModel.isProgressDirty(isProgressDirty);
-                                    });
                                     var progress = progressContext.get();
                                     if (_.isObject(progress)) {
                                         if (_.isString(progress.url)) {

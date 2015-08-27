@@ -18,23 +18,20 @@
             use: use,
             ready: ready,
 
-            isDirty: null
+            isSaved: null
         }
     ;
 
     return context;
-
-    function setProgressDirty(isDirty) {
-        context.isDirty = isDirty;
-        app.trigger('progressContext:dirty:changed', isDirty);
-    }
 
     function save() {
         if (!self.storage) {
             return;
         }
 
-        setProgressDirty(!self.storage.saveProgress(self.progress));
+        var result = self.storage.saveProgress(self.progress);
+        context.isSaved = result;
+        app.trigger('progressContext:saved', result);
     }
 
     function navigated(obj, instruction) {
@@ -105,7 +102,6 @@
             app.on('user:authenticated').then(authenticated).then(save);
             app.on('user:authentication-skipped').then(authenticationSkipped).then(save);
             app.on('user:set-progress-clear').then(function (callback) {
-                setProgressDirty(false);
                 if (!_.isFunction(callback)) {
                     return;
                 }
@@ -115,13 +111,10 @@
             router.on('router:navigation:composition-complete', navigated);
 
             window.onbeforeunload = function () {
-                if (context.isDirty === true) {
-                    return translation.getTextByKey('[progress not saved]');
+                if (context.isSaved === false) {
+                    return translation.getTextByKey('[progress cannot be saved]');
                 }
             }
-
-            setProgressDirty(false);
-
         } else {
             throw 'Cannot use this storage';
         }

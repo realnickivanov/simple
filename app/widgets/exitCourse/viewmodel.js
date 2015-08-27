@@ -1,4 +1,5 @@
-﻿define(['windowOperations', 'repositories/courseRepository', 'progressContext'], function (windowOperations, courseRepository, progressContext) {
+﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router'],
+    function (app, windowOperations, courseRepository, progressContext, router) {
     "use strict";
 
     var statuses = {
@@ -6,9 +7,10 @@
         sendingRequests: 'sendingRequests',
         finished: 'finished'
     };
-    
+
     var viewModel = {
-        activate: activate,
+        isProgressSaved: ko.observable(null),
+        isNavigationLocked: router.isNavigationLocked,
 
         status: ko.observable(statuses.readyToFinish),
         statuses: statuses,
@@ -20,12 +22,12 @@
         closeFinishPopup: closeFinishPopup
     };
 
+    app.on('progressContext:saved').then(function (isSaved) {
+        viewModel.isProgressSaved(isSaved);
+    });
+
     return viewModel;
 
-    function activate() {
-
-    }
-    
     function onCourseFinishedCallback() {
         viewModel.status(statuses.finished);
         windowOperations.close();
@@ -36,7 +38,7 @@
     }
 
     function finish() {
-        if (viewModel.status() != statuses.readyToFinish) {
+        if (viewModel.isNavigationLocked() || viewModel.status() != statuses.readyToFinish) {
             return;
         }
         viewModel.status(statuses.sendingRequests);
