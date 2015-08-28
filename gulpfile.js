@@ -6,6 +6,8 @@ var gulp = require('gulp'),
     eventStream = require('event-stream'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
+
+    bower = require('gulp-bower'),
     output = ".output",
     buildVersion = +new Date();
 
@@ -37,14 +39,28 @@ function removeDebugBlocks() {
     });
 };
 
-gulp.task('build', ['clean', 'build-app', 'build-settings', 'assets'], function () {
+gulp.task('build', ['pre-build', 'build-app', 'build-settings'], function () { 
 });
 
 gulp.task('clean', function (cb) {
     del([output], cb);
 });
 
-gulp.task('build-app', ['clean'], function () {
+gulp.task('bower', ['clean'], function () {
+    return bower({ cmd: 'update' });
+});
+
+gulp.task('assets', ['clean', 'bower'], function () {
+    gulp.src('vendor/easy-supported-browser/css/img/**')
+        .pipe(gulp.dest(output + '/css/img'));
+    gulp.src('vendor/easy-supported-browser/css/font/**')
+        .pipe(gulp.dest(output + '/css/font'));
+});
+
+gulp.task('pre-build', ['clean', 'bower', 'assets'], function () {
+});
+
+gulp.task('build-app', ['pre-build'], function () {
     var assets = useref.assets();
 
     gulp.src('index.html')
@@ -88,13 +104,6 @@ gulp.task('build-app', ['clean'], function () {
         .pipe(gulp.dest(output + '/app'));
 });
 
-gulp.task('assets', ['clean'], function () {
-    gulp.src('vendor/easy-supported-browser/css/img/**')
-        .pipe(gulp.dest(output + '/css/img'));
-    gulp.src('vendor/easy-supported-browser/css/font/**')
-        .pipe(gulp.dest(output + '/css/font'));
-});
-
 gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'], function () {
     gulp.src('settings/css/fonts/**')
         .pipe(gulp.dest(output + '/settings/css/fonts'));
@@ -113,7 +122,7 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
 
 });
 
-gulp.task('build-design-settings', ['clean'], function () {
+gulp.task('build-design-settings', ['pre-build'], function () {
     var assets = useref.assets();
 
     gulp.src(['settings/design/design.html'])
@@ -133,7 +142,7 @@ gulp.task('build-design-settings', ['clean'], function () {
 
 });
 
-gulp.task('build-configure-settings', ['clean'], function () {
+gulp.task('build-configure-settings', ['pre-build'], function () {
     var assets = useref.assets();
 
     gulp.src(['settings/configure/configure.html'])
