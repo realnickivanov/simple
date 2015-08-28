@@ -22,7 +22,8 @@
         {
             route: '404(/:url)',
             moduleId: 'viewmodels/404',
-            title: 'Not found'
+            title: 'Not found',
+            exitButtonHidden: true
         }
     ];
 

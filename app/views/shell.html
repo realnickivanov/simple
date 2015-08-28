@@ -22,14 +22,11 @@
             <!-- /ko -->
             <!-- /ko -->
         </span>
-        <!-- ko if: viewSettings().exitButtonHidden -->
-        <span class="empty"></span>
-        <!-- /ko -->
-        <!-- ko ifnot: viewSettings().exitButtonHidden -->
         <div class="exit-course-container">
+            <!-- ko ifnot: viewSettings().exitButtonHidden -->
             <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
     </section>
 </div>
 <section id="content" class="content-wrapper">
