@@ -35,7 +35,9 @@
     }
 
     function navigated(obj, instruction) {
-        if (instruction.config.moduleId == 'viewmodels/introduction') {
+        if (instruction.config.moduleId == 'viewmodels/introduction'
+            || instruction.config.moduleId == 'xApi/viewmodels/xAPIError'
+            || instruction.config.moduleId == 'viewmodels/404') {
             return;
         }
         if (_.isEmpty(self.progress.url)) {
@@ -99,14 +101,8 @@
             eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(questionAnswered);
             eventManager.subscribeForEvent(eventManager.events.courseFinished).then(finish);
 
-            app.on('user:authenticated').then(authenticated).then(save);
-            app.on('user:authentication-skipped').then(authenticationSkipped).then(save);
-            app.on('user:set-progress-clear').then(function (callback) {
-                if (!_.isFunction(callback)) {
-                    return;
-                }
-                callback();
-            });
+            app.on('user:authenticated').then(authenticated);
+            app.on('user:authentication-skipped').then(authenticationSkipped);
 
             router.on('router:navigation:composition-complete', navigated);
 
