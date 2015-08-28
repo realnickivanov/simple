@@ -43,7 +43,7 @@
         }
         else if (self.progress.url != instruction.fragment) {
             self.progress.url = instruction.fragment;
-            save();;
+            save();
         }
     }
 
