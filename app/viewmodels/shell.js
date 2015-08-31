@@ -1,7 +1,6 @@
 define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants', 'userContext'],
     function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants, userContext) {
 
-
         var viewModel = {
             router: router,
             cssName: ko.computed(function () {
@@ -14,14 +13,17 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                 return '';
             }),
 
+
             viewSettings: function () {
                 var settings = {
-                    rootLinkEnabled: true
+                    rootLinkEnabled: true,
+                    exitButtonVisible: true
                 };
 
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
                     settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
+                    settings.exitButtonVisible = !activeInstruction.config.hideExitButton;
                 }
                 return settings;
             },
@@ -57,19 +59,6 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                 app.title = dataContext.course.title;
 
                                 if (progressContext.ready()) {
-                                    viewModel.isProgressDirty = ko.observable(true);
-
-                                    viewModel.saveProgress = function () {
-                                        if (viewModel.isProgressDirty()) {
-                                            progressContext.save();
-                                        }
-                                    }
-
-                                    app.on('progressContext:dirty:changed').then(function (isProgressDirty) {
-                                        viewModel.isProgressDirty(isProgressDirty);
-                                    });
-
-
                                     var progress = progressContext.get();
                                     if (_.isObject(progress)) {
                                         if (_.isString(progress.url)) {

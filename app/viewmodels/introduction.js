@@ -20,8 +20,6 @@
                         that.content = response;
                     }).fail(function () {
                         that.content = '';
-                    }).always(function () {
-                        app.trigger('user:set-progress-clear');
                     });
                 });
 
