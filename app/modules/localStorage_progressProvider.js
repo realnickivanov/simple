@@ -32,7 +32,7 @@
         try {
             localStorage.setItem(pregressKey, JSON.stringify(progress));
         } catch (e) {
-            alert(translation.getTextByKey('[not enough memory to save progress]'));
+            return false;
         }
 
         return true;
