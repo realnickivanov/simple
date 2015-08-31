@@ -1,6 +1,8 @@
-﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router', 'translation'],
-    function (app, windowOperations, courseRepository, progressContext, router, translation) {
+﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router', 'translation', 'constants'],
+    function (app, windowOperations, courseRepository, progressContext, router, translation, constants) {
         "use strict";
+
+        var progressStatuses = constants.progressContext.statuses;
 
         var statuses = {
             readyToFinish: 'readyToFinish',
@@ -9,7 +11,6 @@
         };
 
         var viewModel = {
-            isProgressSaved: progressContext.isSaved,
             isNavigationLocked: router.isNavigationLocked,
 
             status: ko.observable(statuses.readyToFinish),
@@ -22,20 +23,28 @@
             closeFinishPopup: closeFinishPopup
         };
 
+        viewModel.isProgressSaved = ko.computed(function () {
+            return progressContext.status() === progressStatuses.saved;
+        });
+
+        viewModel.isProgressNotSaved = ko.computed(function () {
+            return progressContext.status() === progressStatuses.error;
+        });
+
         return viewModel;
 
         function onCourseFinishedCallback() {
             viewModel.status(statuses.finished);
 
-            viewModel.isProgressSaved(null);
+            progressContext.status(progressStatuses.ignored);
             windowOperations.close();
         }
 
         function close() {
-            if (viewModel.isProgressSaved() === true) {
+            if (progressContext.status() === progressStatuses.saved) {
                 windowOperations.close();
-            } else if (viewModel.isProgressSaved() === false && confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
-                viewModel.isProgressSaved(null);
+            } else if (progressContext.status() === progressStatuses.error && confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
+                progressContext.status(progressStatuses.ignored);
                 windowOperations.close();
             }
         }

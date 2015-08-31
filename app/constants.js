@@ -26,6 +26,14 @@
                 failed: 'failed',
                 inProgress: 'inProgress'
             }
+        },
+        progressContext: {
+            statuses: {
+                undefined: 'undefined',
+                saved: 'saved',
+                error: 'error',
+                ignored: 'ignored'
+            }
         }
     };
 

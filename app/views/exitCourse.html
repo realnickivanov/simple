@@ -1,9 +1,9 @@
 ﻿<section class="exit-course-wrapper">
     <span class="save-progress-status-text">
-        <!-- ko if: isProgressSaved -->
+        <!-- ko if: isProgressSaved() -->
         <span class="saved" data-translate-text="[progress has been saved]">Progress is saved</span>
         <!-- /ko -->
-        <!-- ko if: isProgressSaved() === false -->
+        <!-- ko if: isProgressNotSaved() -->
         <span class="error" data-translate-text="[progress is not saved]">Progress is not saved</span>
         <!-- /ko -->
     </span>
