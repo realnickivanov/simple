@@ -9,7 +9,7 @@
         };
 
         var viewModel = {
-            isProgressSaved: ko.observable(null),
+            isProgressSaved: progressContext.isSaved,
             isNavigationLocked: router.isNavigationLocked,
 
             status: ko.observable(statuses.readyToFinish),
@@ -22,30 +22,22 @@
             closeFinishPopup: closeFinishPopup
         };
 
-        app.on('progressContext:saved').then(function (isSaved) {
-            viewModel.isProgressSaved(isSaved);
-        });
-
         return viewModel;
 
         function onCourseFinishedCallback() {
             viewModel.status(statuses.finished);
 
-            progressContext.isSaved = null;
+            viewModel.isProgressSaved(null);
             windowOperations.close();
         }
 
         function close() {
-            if (progressContext.isSaved === true) {
+            if (viewModel.isProgressSaved() === true) {
                 windowOperations.close();
-                return;
-            }
-
-            if (progressContext.isSaved === false && confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
-                progressContext.isSaved = null;
+            } else if (viewModel.isProgressSaved() === false && confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
+                viewModel.isProgressSaved(null);
                 windowOperations.close();
             }
-
         }
 
         function finish() {

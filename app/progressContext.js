@@ -18,7 +18,7 @@
             use: use,
             ready: ready,
 
-            isSaved: null
+            isSaved: ko.observable(null)
         }
     ;
 
@@ -29,9 +29,7 @@
             return;
         }
 
-        var result = self.storage.saveProgress(self.progress);
-        context.isSaved = result;
-        app.trigger('progressContext:saved', result);
+        context.isSaved(self.storage.saveProgress(self.progress));
     }
 
     function navigated(obj, instruction) {
@@ -107,7 +105,7 @@
             router.on('router:navigation:composition-complete', navigated);
 
             window.onbeforeunload = function () {
-                if (context.isSaved === false) {
+                if (context.isSaved() === false) {
                     return translation.getTextByKey('[progress cannot be saved]');
                 }
             }
