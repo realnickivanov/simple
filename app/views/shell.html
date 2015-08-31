@@ -23,7 +23,7 @@
             <!-- /ko -->
         </span>
         <div class="exit-course-container">
-            <!-- ko ifnot: viewSettings().exitButtonHidden -->
+            <!-- ko if: viewSettings().exitButtonVisible -->
             <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->
             <!-- /ko -->
         </div>

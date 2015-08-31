@@ -6,7 +6,7 @@
             moduleId: 'viewmodels/introduction',
             title: 'Introduction',
             rootLinkDisabled: true,
-            exitButtonHidden: true
+            hideExitButton: true
         },
         {
             route: 'objectives',
@@ -22,8 +22,7 @@
         {
             route: '404(/:url)',
             moduleId: 'viewmodels/404',
-            title: 'Not found',
-            exitButtonHidden: true
+            title: 'Not found'
         }
     ];
 
