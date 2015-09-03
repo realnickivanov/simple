@@ -41,7 +41,7 @@
         }
 
         function close() {
-            if (progressContext.status() === progressStatuses.saved) {
+            if (progressContext.status() !== progressStatuses.error) {
                 windowOperations.close();
             } else if (progressContext.status() === progressStatuses.error && confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
                 progressContext.status(progressStatuses.ignored);
