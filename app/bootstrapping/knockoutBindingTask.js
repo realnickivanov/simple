@@ -6,6 +6,7 @@ define([
     'bootstrapping/knockoutBindings/elementsWrapBinding',
     'bootstrapping/knockoutBindings/focusHandlerBinding',
     'bootstrapping/knockoutBindings/toggleVisibleBindingHandler',
+    'bootstrapping/knockoutBindings/dropDownBinding',
     'bootstrapping/knockoutBindings/scrollIntoViewBinding',
     'bootstrapping/knockoutBindings/learningContentBinding',
     'bootstrapping/knockoutBindings/toolTipBindingHandler',

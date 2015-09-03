@@ -1,5 +1,5 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
-    <section class="logo-holder">
+    <section class="header-items-holder">
         <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
             <!-- ko if: logoUrl -->
@@ -22,25 +22,11 @@
             <!-- /ko -->
             <!-- /ko -->
         </span>
-        <span class="empty"></span>
-        <!-- ko if: $root.saveProgress -->
-        <span class="save-progress-section">
-            <span class="save-progress-btn-container">
-                <button class="save-progress-btn" data-bind="click: saveProgress, css: {'saved': !$root.isProgressDirty()}">
-                    <span class="btn-text-wrapper save-progress">
-                        <span class="btn-text">
-                            <span class="text" data-translate-title="[save my current progress]" data-translate-text="[save my current progress]">Save my current progress</span>
-                        </span>
-                    </span>
-                    <span class="btn-text-wrapper progress-saved">
-                        <span class="btn-text">
-                            <span class="text" data-translate-title="[progress has been saved]" data-translate-text="[progress has been saved]">Progress has been saved</span>
-                        </span>
-                    </span>
-                </button>
-            </span>
-        </span>
-        <!-- /ko -->
+        <div class="exit-course-container">
+            <!-- ko if: viewSettings().exitButtonVisible -->
+            <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->
+            <!-- /ko -->
+        </div>
     </section>
 </div>
 <section id="content" class="content-wrapper">

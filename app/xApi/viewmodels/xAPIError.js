@@ -7,10 +7,8 @@
         allowToContinue = ko.observable(false);
 
         restartCourse = function () {
-            app.trigger('user:set-progress-clear', function () {
-                var rootUrl = location.toString().replace(location.hash, '');
-                router.navigate(rootUrl, { replace: true, trigger: true });
-            });
+            var rootUrl = location.toString().replace(location.hash, '');
+            router.navigate(rootUrl, { replace: true, trigger: true });
         },
         
         continueLearning = function () {
