@@ -42,11 +42,11 @@
 
         function close() {
             if (progressContext.status() === progressStatuses.error) {
-                if (confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
-                    progressContext.status(progressStatuses.ignored);
-                } else {
+                var isCourseClosingConfirmed = confirm(translation.getTextByKey('[progress is not saved confirmation]'));
+                if (!isCourseClosingConfirmed) {
                     return;
                 }
+                progressContext.status(progressStatuses.ignored);
             }
 
             windowOperations.close();
