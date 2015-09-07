@@ -41,12 +41,15 @@
         }
 
         function close() {
-            if (progressContext.status() === progressStatuses.saved) {
-                windowOperations.close();
-            } else if (progressContext.status() === progressStatuses.error && confirm(translation.getTextByKey('[progress is not saved confirmation]'))) {
+            if (progressContext.status() === progressStatuses.error) {
+                var isCourseClosingConfirmed = confirm(translation.getTextByKey('[progress is not saved confirmation]'));
+                if (!isCourseClosingConfirmed) {
+                    return;
+                }
                 progressContext.status(progressStatuses.ignored);
-                windowOperations.close();
             }
+
+            windowOperations.close();
         }
 
         function finish() {
