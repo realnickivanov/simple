@@ -1,21 +1,21 @@
 {
-  "name": "Simple",
+  "name": "simple-pdf",
   "version": "1.0.0",
-  "description": "This template is a basic course format",
+  "description": "Simple course template with conversion to .pdf document",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/easygenerator/simple.git"
+    "url": "https://github.com/jaw4ik/simple-pdf.git"
   },
   "author": "easygenerator",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/easygenerator/simple/issues"
+    "url": "https://github.com/jaw4ik/simple-pdf/issues"
   },
-  "homepage": "https://github.com/easygenerator/simple",
+  "homepage": "https://github.com/jaw4ik/simple-pdf",
   "devDependencies": {
     "del": "^1.0.0",
     "event-stream": "^3.1.7",
