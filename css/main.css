@@ -345,7 +345,7 @@
 }
 
 .objectives-list-item:hover .objective-image-holder .objective-image {
-    transform: scale(1.05,1.05);
+    transform: scale(1.06,1.06);
 }
 
 .objectives-list-item:hover .objective-image-holder:after {
