@@ -17,6 +17,7 @@ define(function () {
         return Q.fcall(function() {
             viewModel.question = question;
 
+            viewModel.isAnswered(question.isAnswered);
             viewModel.dropspots = _.map(question.answers, function (answer) {
                 return {
                     x: answer.correctPosition.x,
@@ -34,13 +35,13 @@ define(function () {
             
             _.each(question.answers, function (answer) {
                 var selectedDropspot = _.find(viewModel.dropspots, function (dropspot) {
-                    return dropspot.x == answer.currentPosition.x
-                        && dropspot.y == answer.currentPosition.y;
+                    return dropspot.x === answer.currentPosition.x
+                        && dropspot.y === answer.currentPosition.y;
                 });
 
                 if (selectedDropspot) {
                     var selectedText = _.find(viewModel.texts, function (item) {
-                        return item.id == answer.id;
+                        return item.id === answer.id;
                     });
                     selectedDropspot.text(selectedText);
                 }
