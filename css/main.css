@@ -468,6 +468,7 @@
     display: block;
     height: 174px;
     text-align: left;
+    overflow:hidden;
 }
 
 @media (max-width: 975px) {
@@ -722,7 +723,7 @@
 }
 
 /*#endregion bindings styles*/
-/*region loader*/
+/*#region loader*/
 .loader-container {
     position: absolute;
     width: 44px;
@@ -856,10 +857,6 @@
         opacity: 0.5;
     }
 }
-
-
-
-
 /*#endregion loader*/
 
 
