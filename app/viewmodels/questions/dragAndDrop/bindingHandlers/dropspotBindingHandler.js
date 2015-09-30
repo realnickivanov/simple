@@ -66,7 +66,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                 var $textChildren = $draggableTextContainer.children(draggableTextClass);
                 $.each($textChildren, function (index, item) {
                     var data = ko.dataFor(item);
-                    if (data.text == text.text) {
+                    if (data.text === text.text) {
                         data.dropSpot = value;
                         $(item).css('left', '').css('top', '').appendTo($(element));
                     }
@@ -78,8 +78,8 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                     $draggableTextContainer.children(draggableContainerMessageClass).show();
                 }
             } else {
-                $(element).children(draggableTextClass).css('left', '').css('top', '')
-                    .appendTo($draggableTextContainer);
+                $(element).closest('.drag-and-drop-text-dropspot').removeClass('dropped');
+                $(element).children(draggableTextClass).css('left', '').css('top', '').appendTo($draggableTextContainer);
                 $draggableTextContainer.removeClass('empty');
                 $draggableTextContainer.children(draggableContainerMessageClass).hide();
             }
