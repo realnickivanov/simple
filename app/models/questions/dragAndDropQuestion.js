@@ -33,7 +33,20 @@
         function submitAnswer(dragableTexts) {
             guard.throwIfNotArray(dragableTexts, 'Dragable texts is not array.');
 
-            saveAnswersState(dragableTexts, this.answers);
+            _.each(this.answers, function (answer) {
+                var matching = _.find(dragableTexts, function (draggableText) {
+                    return answer.id === draggableText.id;
+                });
+
+                if (matching) {
+                    answer.currentPosition = {
+                        x: matching.x,
+                        y: matching.y
+                    };
+                } else {
+                    answer.currentPosition = { x: -1, y: -1 };
+                }
+            });
 
             return calculateScore(this.answers);
         }
@@ -44,18 +57,6 @@
             });
 
             return hasIncorrectAnswer ? 0 : 100;
-        }
-
-        function saveAnswersState(dragableTexts, answers) {
-            _.each(dragableTexts, function (dragableText) {
-                var answer = _.find(answers, function (answer) {
-                    return answer.id === dragableText.id;
-                });
-                answer.currentPosition = {
-                    x: dragableText.x,
-                    y: dragableText.y
-                };
-            });
         }
 
         function getProgress() {
