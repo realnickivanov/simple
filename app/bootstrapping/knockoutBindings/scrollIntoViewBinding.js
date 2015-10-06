@@ -14,8 +14,10 @@
     };
 
     function scrollToElement($element) {
-        $('html:not(:animated),body:not(:animated)').animate({
-            scrollTop: $element.offset().top
+        _.defer(function () {
+            $('html:not(:animated),body:not(:animated)').animate({
+                scrollTop: $element.offset().top
+            }, function () { });
         });
     }
 
