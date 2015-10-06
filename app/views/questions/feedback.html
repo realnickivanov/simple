@@ -1,7 +1,7 @@
-﻿<section id="feedback">
+﻿<section id="feedback" data-bind="scrollIntoView: isAnswered">
     <!-- ko if: isCorrectAnswered -->
-    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
-        
+    <div class="result-block-wrapper">
+
         <div class="question-result-block" data-translate-text="[correct answer]" data-translate-title="[correct answer]">Correct answer</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
@@ -15,7 +15,7 @@
     </div>
     <!-- /ko -->
     <!-- ko if: isWrongAnswered -->
-    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
+    <div class="result-block-wrapper">
         <div class="question-result-block incorrect" data-translate-text="[incorrect answer]" data-translate-title="[incorrect answer]">
         </div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
