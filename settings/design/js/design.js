@@ -10,7 +10,8 @@
         userAccess: null,
         logo: null,
         themes: null,
-        background: null
+        background: null,
+        objectivesLayout:null
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -18,6 +19,7 @@
             logo: viewModel.logo.getData(),
             theme: viewModel.themes.getData(),
             background: viewModel.background.getData(),
+            objectivesLayout: viewModel.objectivesLayout.getData(),
         });
     };
 
@@ -26,11 +28,12 @@
     };
 
     viewModel.saveChanges = function () {
+       
         var settings = viewModel.getCurrentSettingsData(),
             extraData = viewModel.getCurrentExtraData(),
             newSettings = JSON.stringify(settings),
             newExtraData = JSON.stringify(extraData);
-
+        
         if (JSON.stringify(currentSettings) === newSettings && JSON.stringify(currentExtraData) === newExtraData) {
             return;
         }
@@ -47,11 +50,12 @@
         return api.init().then(function () {
             var user = api.getUser(),
                 settings = api.getSettings();
-
             viewModel.userAccess = new app.UserAccessModel(user);
             viewModel.logo = new app.LogoModel(settings.logo, viewModel.saveChanges);
             viewModel.themes = new app.ThemesModel(settings.theme, viewModel.saveChanges);
             viewModel.background = new app.BackgroundModel(settings.background, viewModel.saveChanges);
+
+            viewModel.objectivesLayout = new app.ObjectivesLayoutModel(settings.objectivesLayout, viewModel.saveChanges);
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();
