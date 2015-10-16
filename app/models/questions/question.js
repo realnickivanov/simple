@@ -31,6 +31,8 @@
         this.loadLearningContent = loadLearningContent;
         this.load = load;
 
+        this.voiceOver = spec.voiceOver;
+
         this.learningContentExperienced = learningContentExperienced;
 
         this.progress = function (data) {

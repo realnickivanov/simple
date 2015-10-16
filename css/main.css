@@ -468,7 +468,7 @@
     display: block;
     height: 174px;
     text-align: left;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 @media (max-width: 975px) {
@@ -774,6 +774,7 @@
     -webkit-animation: yellowBallAnimation 1.2s infinite ease;
     animation: yellowBallAnimation 1.2s infinite ease;
 }
+
 @-webkit-keyframes loaderAnimation {
     0% {
         -webkit-transform: rotate(0deg) scale(1);
@@ -859,6 +860,21 @@
 }
 /*#endregion loader*/
 
+/*#region voiceOver*/
+.voiceOver {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: none;
+}
+
+    .voiceOver iframe {
+        display: block;
+        width: 100%;
+    }
+/*#endregion voiceOver*/
 
 @media (max-width: 975px) {
     #content,

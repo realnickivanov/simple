@@ -17,6 +17,8 @@
             isPreviousQuestionAvailable: isPreviousQuestionAvailable,
             previousQuestionUrl: previousQuestionUrl,
 
+            voiceOver: null,
+
             activeViewModel: null,
 
             activate: activate,
@@ -38,7 +40,7 @@
         }
 
         function nextQuestionUrl() {
-            return router.isNavigationLocked() ? undefined: viewModel.navigationContext.nextQuestionUrl;
+            return router.isNavigationLocked() ? undefined : viewModel.navigationContext.nextQuestionUrl;
         }
 
         function isPreviousQuestionAvailable() {
@@ -46,7 +48,7 @@
         }
 
         function previousQuestionUrl() {
-            return router.isNavigationLocked() ? undefined: viewModel.navigationContext.previousQuestionUrl;
+            return router.isNavigationLocked() ? undefined : viewModel.navigationContext.previousQuestionUrl;
         }
 
         function getActiveContentViewModel(question) {
@@ -72,9 +74,13 @@
                     return;
                 }
 
+
+                viewModel.voiceOver = viewModel.question.voiceOver;
+
                 viewModel.startTime = new Date();
                 viewModel.masteryScore = templateSettings.masteryScore.score;
                 viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.objective.id, viewModel.question.id);
+
 
                 return viewModel.question.load().then(function () {
                     viewModel.activeViewModel = getActiveContentViewModel(viewModel.question);
@@ -87,6 +93,5 @@
                 viewModel.question.learningContentExperienced(new Date() - viewModel.startTime);
             }
         }
-
     }
 );
