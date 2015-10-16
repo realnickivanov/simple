@@ -1,5 +1,5 @@
-﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot', 'models/questions/openQuestion'],
-    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion, Hotspot, OpenQuestion) {
+﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot', 'models/questions/openQuestion', 'models/questions/scenarioQuestion'],
+    function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion, Hotspot, OpenQuestion, ScenarioQuestion) {
         "use strict";
 
         var index = 0;
@@ -58,6 +58,10 @@
                     return new Hotspot(questionData);
                 case constants.questionTypes.openQuestion:
                     return new OpenQuestion(questionData);
+                case constants.questionTypes.scenario:
+                    questionData.embedCode = question.embedCode;
+                    questionData.masteryScore = question.masteryScore;
+                    return new ScenarioQuestion(questionData);
                 default:
                     questionData.answers = question.answers;
                     return new MultipleSelectQuestion(questionData);

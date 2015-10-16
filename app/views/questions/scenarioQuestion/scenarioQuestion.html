@@ -1,0 +1,13 @@
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper">
+        <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    </div>
+    <!-- /ko -->
+    <div class="scenario-question-container" style="text-align: center;" data-bind="html: embedCode">
+        
+    </div>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>
