@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(['viewmodels/questions/scenarioQuestion/branchtrackProvider'], function (branchtrackProvider) {
     "use strict";
 
     var viewModel = {
@@ -23,7 +23,7 @@
 
     function submit() {
         return Q.fcall(function () {
-            viewModel.question.submitAnswer();
+            viewModel.question.submitAnswer(10);
             viewModel.isAnswered(true);
         });
     }

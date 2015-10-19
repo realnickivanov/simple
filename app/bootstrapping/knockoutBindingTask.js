@@ -20,7 +20,8 @@ define([
     'viewmodels/questions/textMatching/bindingHandlers/syncHeightBindingHandler',
     'viewmodels/questions/openQuestion/bindingHandlers/textAreaBindingHandler',
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
-    'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler'
+    'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',
+    'viewmodels/questions/scenarioQuestion/bindingHandlers/reloadFrameBindingHandler'
 ], function () {
 
     return {

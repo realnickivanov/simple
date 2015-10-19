@@ -12,6 +12,10 @@
 
             this.embedCode = spec.embedCode;
 
+            this.embedUrl = spec.embedUrl;
+
+            this.projectId = spec.projectId;
+
             this.masteryScore = spec.masteryScore;
         }
 
@@ -25,7 +29,11 @@
 
         }
 
-        function submitAnswer() {
+        function submitAnswer(score) {
+            guard.throwIfNotNumber(score, 'Score is not a number');
 
+            var correctScore = score >= this.masteryScore ? 100 : score;
+
+            return correctScore;
         }
     });

@@ -4,7 +4,7 @@
         <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
     </div>
     <!-- /ko -->
-    <div class="scenario-question-container" style="text-align: center;" data-bind="html: embedCode">
+    <div class="scenario-question-container" style="text-align: center;" data-bind="html: embedCode, reloadFrame: isAnswered">
         
     </div>
     <!-- ko if: isAnswered -->

@@ -141,6 +141,9 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     case globalConstants.questionTypes.openQuestion:
                         parts = getOpenQuestionActivityAndResult(question);
                         break;
+                    case globalConstants.questionTypes.scenario:
+                        parts = getScenarioQuestionActivityAndResult(question);
+                        break;
                 }
 
                 var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
@@ -364,6 +367,21 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             };
         }
 
+        function getScenarioQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score / 100)
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.other
+                    })
+                })
+            };
+        }
+
         function getItemsIds(items, filter) {
             return _.chain(items)
                .filter(function (item) {
@@ -373,7 +391,6 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                    return item.id;
                }).value();
         }
-
 
         function getLearningContentExperiencedStatement(question, spentTime) {
             guard.throwIfNotAnObject(question, 'Question is not an object');
@@ -400,7 +417,6 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
 
             return createStatement(constants.verbs.experienced, result, object, context);
         }
-
 
         function createActor(name, email) {
             var actor = {};
