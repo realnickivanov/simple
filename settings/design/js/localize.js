@@ -36,7 +36,11 @@
         'background original': 'Original',
         'background repeat': 'Repeat',
         'background fullscreen': 'Fullscreen',
-        'background upgrade account hint': 'You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course background'
+        'background upgrade account hint': 'You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course background',
+        //choose objective style
+        'Choose objective style:':'Choose objective style:',
+        'Choose objective style hint':'- blablabla'
+
     };
 
 })(window.app = window.app || {});
