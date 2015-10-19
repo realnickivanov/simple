@@ -6,15 +6,15 @@
             score = 0,
             masteryScore = 0,
             courseTitle = "\"" + context.course.title + "\"",
+            objectivesLayout = null,
 
-            
             activate = function () {
                 var course = repository.get();
                 if (course == null) {
                     router.navigate('404');
                     return;
                 }
-
+                this.objectivesLayout = templateSettings.objectivesLayout,
                 this.score = course.score();
                 this.masteryScore = templateSettings.masteryScore.score;
                 this.objectives = _.map(course.objectives, function (item) {
@@ -42,6 +42,7 @@
             isNavigationLocked: router.isNavigationLocked,
             caption: 'Objectives and questions',
             courseTitle: courseTitle,
+            objectivesLayout: objectivesLayout,
 
             score: score,
             masteryScore: masteryScore,
