@@ -495,6 +495,7 @@
     display: table-cell;
     vertical-align: middle;
     width: 100px;
+    background-color:transparent;
 }
 
     .List.objectives-list-item .objective-image-holder img {
@@ -571,7 +572,7 @@
 }
     .List .objective-progress .progress-value {
         display:table-cell;
-        padding:0px 10px;
+        padding:0px 20px;
         color:#63798e;
     }
 .List .mastered-score-tooltip {
