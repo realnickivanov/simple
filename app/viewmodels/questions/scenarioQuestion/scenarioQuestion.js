@@ -1,5 +1,7 @@
-﻿define(['viewmodels/questions/scenarioQuestion/branchtrackProvider'], function (branchtrackProvider) {
+﻿define([], function () {
     "use strict";
+
+    var branchtarackListener;
 
     var viewModel = {
         question: null,
@@ -10,6 +12,7 @@
         submit: submit,
         tryAnswerAgain: tryAnswerAgain
     };
+
     return viewModel;
 
     function initialize(question) {
@@ -18,12 +21,13 @@
             viewModel.content = question.content;
             viewModel.embedCode = question.embedCode;
             viewModel.isAnswered(question.isAnswered);
+            branchtarackListener = Branchtrack.create(question.projectId);
         });
     }
 
     function submit() {
         return Q.fcall(function () {
-            viewModel.question.submitAnswer(10);
+            viewModel.question.submitAnswer(branchtarackListener.score);
             viewModel.isAnswered(true);
         });
     }
@@ -31,6 +35,7 @@
     function tryAnswerAgain() {
         return Q.fcall(function () {
             viewModel.isAnswered(false);
+            branchtarackListener.reset();
         });
     }
 });

@@ -4,8 +4,15 @@
         <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
     </div>
     <!-- /ko -->
-    <div class="scenario-question-container" style="text-align: center;" data-bind="html: embedCode, reloadFrame: isAnswered">
-        
+    <div class="scenario-question-container">
+        <div class="scenario-question" data-bind="html: embedCode, reloadFrame: isAnswered"></div>
+        <!-- ko if: isAnswered -->
+        <div class="scenario-question-overlay">
+            <div class="scenario-question-overlay-container">
+                <span class="scenario-question-overlay-text">Scenario has been submited</span>    
+            </div>
+        </div>
+        <!-- /ko -->
     </div>
     <!-- ko if: isAnswered -->
     <div class="question-overlay"></div>

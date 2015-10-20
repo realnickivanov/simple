@@ -61,6 +61,8 @@
                 case constants.questionTypes.scenario:
                     questionData.embedCode = question.embedCode;
                     questionData.masteryScore = question.masteryScore;
+                    questionData.projectId = question.projectId;
+                    questionData.embedUrl = question.embedUrl;
                     return new ScenarioQuestion(questionData);
                 default:
                     questionData.answers = question.answers;
