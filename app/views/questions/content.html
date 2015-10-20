@@ -29,9 +29,13 @@
         </header>
         <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
     </div>
-    <div class="question-navigation-bar" style="float:right">
+    <div class="question-navigation-bar" style="float: right">
         <a class="previous" data-bind="attr: { href: previousQuestionUrl(), title: 'previous'},css:{disabled : !isPreviousQuestionAvailable()}" data-translate-title="[previous question]">&nbsp;</a>
         <span class="navigation-progress"><span data-bind="text: navigationContext.currentQuestionIndex + ' '"></span><span>/</span><span data-bind="text: ' ' + navigationContext.questionsCount"></span></span>
         <a class="next" data-bind="attr: { href: nextQuestionUrl(), title: 'next' }, css:{disabled: !isNextQuestionAvailable() }" data-translate-title="[next question]">&nbsp;</a>
     </div>
+
+    <!-- ko if: voiceOver -->
+    <div class="voiceOver" data-bind="html: voiceOver"></div>
+    <!-- /ko -->
 </section>
