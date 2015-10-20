@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(['knockout'], function (ko) {
     "use strict";
 
     var branchtarackListener;
@@ -9,6 +9,7 @@
         embedCode: null,
         isAnswered: ko.observable(false),
         initialize: initialize,
+        tryScenarioQuestionAgain: ko.observable(false),
         submit: submit,
         tryAnswerAgain: tryAnswerAgain
     };
@@ -29,12 +30,14 @@
         return Q.fcall(function () {
             viewModel.question.submitAnswer(branchtarackListener.score);
             viewModel.isAnswered(true);
+            viewModel.tryScenarioQuestionAgain(false);
         });
     }
 
     function tryAnswerAgain() {
         return Q.fcall(function () {
             viewModel.isAnswered(false);
+            viewModel.tryScenarioQuestionAgain(true);
             branchtarackListener.reset();
         });
     }

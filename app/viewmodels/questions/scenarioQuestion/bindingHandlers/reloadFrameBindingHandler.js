@@ -4,8 +4,8 @@
     ko.bindingHandlers.reloadFrame = {
         update: function(element, valueAccessor) {
             var iFrame = element.getElementsByTagName('iframe')[0],
-                isAnswered = ko.utils.unwrapObservable(valueAccessor());
-            if (!isAnswered) {
+                tryAgain = ko.utils.unwrapObservable(valueAccessor());
+            if (tryAgain) {
                 iFrame.src = iFrame.src;
             }
         }
