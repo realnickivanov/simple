@@ -1,4 +1,5 @@
-﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot', 'models/questions/openQuestion', 'models/questions/scenarioQuestion'],
+﻿
+define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion', 'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion', 'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion', 'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot', 'models/questions/openQuestion', 'models/questions/scenarioQuestion'],
     function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion, SingleSelectImageQuestion, TextMatchingQuestion, InformationContent, StatementQuestion, Hotspot, OpenQuestion, ScenarioQuestion) {
         "use strict";
 
@@ -22,6 +23,7 @@
                     return new LearningContent({ id: learningContent.id });
                 }),
                 score: 0,
+                voiceOver: question.voiceOver,
                 hasContent: question.hasContent,
                 hasCorrectFeedback: question.hasCorrectFeedback,
                 hasIncorrectFeedback: question.hasIncorrectFeedback
