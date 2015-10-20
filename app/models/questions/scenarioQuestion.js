@@ -22,11 +22,11 @@
         return ScenarioQuestion;
 
         function getProgress() {
-            
+            return this.score();
         }
 
-        function restoreProgress() {
-
+        function restoreProgress(progress) {
+            return progress;
         }
 
         function submitAnswer(score) {
