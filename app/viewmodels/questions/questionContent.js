@@ -14,7 +14,8 @@
 	        learningContents: [],
 	        correctFeedback: ko.observable(null),
 	        incorrectFeedback: ko.observable(null),
-            feedbackView: ko.observable(''),
+	        feedbackView: '',
+            submitViewModel: '',
 
 	        navigationContext: null,
 
@@ -27,6 +28,7 @@
 	        navigateNext: navigateNext,
 
 	        activate: activate,
+	        deactivate: deactivate,
 	        isNavigationLocked: router.isNavigationLocked
 	    };
 
@@ -80,13 +82,23 @@
 	        viewModel.incorrectFeedback(viewModel.question.feedback.incorrect);
 
 	        viewModel.activeQuestionViewModel = questionViewModelFactory.getViewModel(viewModel.question.type);
-	        viewModel.feedbackView('questions/feedback.html');
+	        viewModel.feedbackView = 'questions/feedback.html';
 
 	        if (viewModel.activeQuestionViewModel.feedbackView) {
 	            viewModel.feedbackView = viewModel.activeQuestionViewModel.feedbackView;
 	        }
 
+	        if (viewModel.activeQuestionViewModel.customSubmitViewModel) {
+	            viewModel.submitViewModel = viewModel.activeQuestionViewModel.customSubmitViewModel;
+	        }
+
 	        return viewModel.activeQuestionViewModel.initialize(viewModel.question);
+	    }
+
+	    function deactivate() {
+	        if (viewModel.activeQuestionViewModel.deactivate) {
+	            viewModel.activeQuestionViewModel.deactivate();
+	        }
 	    }
 	}
 );

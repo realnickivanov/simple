@@ -1,7 +1,7 @@
 ﻿define(['knockout'], function (ko) {
     "use strict";
 
-    var branchtarackListener;
+    var branchtarackInstance;
 
     var viewModel = {
         question: null,
@@ -11,7 +11,9 @@
         initialize: initialize,
         tryScenarioQuestionAgain: ko.observable(false),
         submit: submit,
-        tryAnswerAgain: tryAnswerAgain
+        tryAnswerAgain: tryAnswerAgain,
+        deactivate: deactivate,
+        customSubmitViewModel: 'viewmodels/scenarioQuestion/submitQuestion'
     };
 
     return viewModel;
@@ -22,13 +24,13 @@
             viewModel.content = question.content;
             viewModel.embedCode = question.embedCode;
             viewModel.isAnswered(question.isAnswered);
-            branchtarackListener = Branchtrack.create(question.projectId);
+            branchtarackInstance = Branchtrack.create(question.projectId);
         });
     }
 
     function submit() {
         return Q.fcall(function () {
-            viewModel.question.submitAnswer(branchtarackListener.score);
+            viewModel.question.submitAnswer(branchtarackInstance.score);
             viewModel.isAnswered(true);
             viewModel.tryScenarioQuestionAgain(false);
         });
@@ -38,7 +40,11 @@
         return Q.fcall(function () {
             viewModel.isAnswered(false);
             viewModel.tryScenarioQuestionAgain(true);
-            branchtarackListener.reset();
+            branchtarackInstance.reset();
         });
+    }
+
+    function deactivate() {
+        branchtarackInstance.destroy();
     }
 });
