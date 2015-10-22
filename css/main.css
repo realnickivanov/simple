@@ -495,7 +495,7 @@
     display: table-cell;
     vertical-align: middle;
     width: 100px;
-    background-color:transparent;
+    background-color: transparent;
 }
 
     .List.objectives-list-item .objective-image-holder img {
@@ -503,7 +503,7 @@
         height: 70px;
         background-repeat: no-repeat;
         border-radius: 4px;
-        vertical-align:middle;
+        vertical-align: middle;
     }
 
 .List .objective-info-holder {
@@ -511,11 +511,10 @@
     vertical-align: middle;
     padding: 0 20px;
     word-break: break-all;
-    font-size:14px;
-    font-family:Roboto;
-    line-height:24px;
-    text-align:left;
-
+    font-size: 14px;
+    font-family: Roboto;
+    line-height: 24px;
+    text-align: left;
 }
 
 .List .objective-start-button-holder {
@@ -541,44 +540,51 @@
     }
 
 .List .objective-progress-no-questions {
-    color:#91b1d0;
-    font-size:13px;
-    font-style:italic;
+    color: #91b1d0;
+    font-size: 13px;
+    font-style: italic;
 }
+
 .List .objective-progress-wrapper {
     width: 250px;
     height: 10px;
 }
+
 .List .objective-progress {
-    display:table;
+    display: table;
 }
-.List .objective-progress .progressbar-wrapper  {
-    display:table-cell;
-    width:250px;
-    vertical-align:middle;
-}
-.List .progressbar {
-    position:relative;
-    width:100%;
-    height:3px;
-    border-radius:3px;
-}
-.List .progressbar-value {
-    height:3px;
-    border-radius:3px;
-    position:absolute;
-    left:0;
-    top:0;
-}
-    .List .objective-progress .progress-value {
-        display:table-cell;
-        padding:0px 20px;
-        color:#63798e;
+
+    .List .objective-progress .progressbar-wrapper {
+        display: table-cell;
+        width: 250px;
+        vertical-align: middle;
     }
+
+.List .progressbar {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+}
+
+.List .progressbar-value {
+    height: 3px;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.List .objective-progress .progress-value {
+    display: table-cell;
+    padding: 0px 20px;
+    color: #63798e;
+}
+
 .List .mastered-score-tooltip {
-    position:absolute;
-    top:-5px;
-    margin-left:-3px;
+    position: absolute;
+    top: -5px;
+    margin-left: -3px;
 }
 /*#endregion List*/
 @media (max-width: 975px) {
@@ -970,6 +976,21 @@
 }
 /*#endregion loader*/
 
+/*#region voiceOver*/
+.voiceOver {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: none;
+}
+
+    .voiceOver iframe {
+        display: block;
+        width: 100%;
+    }
+/*#endregion voiceOver*/
 
 @media (max-width: 975px) {
     #content,

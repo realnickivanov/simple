@@ -22,6 +22,7 @@
                     return new LearningContent({ id: learningContent.id });
                 }),
                 score: 0,
+                voiceOver: question.voiceOver,
                 hasContent: question.hasContent,
                 hasCorrectFeedback: question.hasCorrectFeedback,
                 hasIncorrectFeedback: question.hasIncorrectFeedback
