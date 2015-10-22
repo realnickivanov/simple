@@ -96,7 +96,7 @@
 	    }
 
 	    function deactivate() {
-	        if (viewModel.activeQuestionViewModel.deactivate) {
+	        if (_.isFunction(viewModel.activeQuestionViewModel.deactivate)) {
 	            viewModel.activeQuestionViewModel.deactivate();
 	        }
 	    }

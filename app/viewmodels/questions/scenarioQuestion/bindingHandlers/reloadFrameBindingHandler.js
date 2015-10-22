@@ -5,6 +5,7 @@
         update: function(element, valueAccessor) {
             var iFrame = element.getElementsByTagName('iframe')[0],
                 tryAgain = ko.utils.unwrapObservable(valueAccessor());
+
             if (tryAgain) {
                 iFrame.src = iFrame.src;
             }
