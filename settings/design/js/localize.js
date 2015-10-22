@@ -38,9 +38,7 @@
         'background fullscreen': 'Fullscreen',
         'background upgrade account hint': 'You have to <a target="_blank" href="/account/upgrade">upgrade your account</a> in order to set custom course background',
         //choose objective style
-        'Choose objective style:':'Choose objective style:',
-        'Choose objective style hint':'- blablabla'
-
+        'Choose objective style:':'Choose objectives list style:',
     };
 
 })(window.app = window.app || {});

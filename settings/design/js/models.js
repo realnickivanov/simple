@@ -194,7 +194,6 @@
 
         that.select = select;
         that.selectByName = selectByName;
-        that.openDemo = openDemo;
         that.getData = getData;
 
         init(layoutSettings);
@@ -223,18 +222,6 @@
                 layout.isSelected(layout.name === name);
             });
 
-        }
-
-        function openDemo() {
-            var index = location.toString().indexOf('/settings/');
-            var templateUrl = location.toString().substring(0, index);
-
-            var params = [
-                'v=' + new Date().getTime(),
-                'theme=' + that.selectedLayoutName()
-            ].join('&');
-
-            window.open(templateUrl + '?' + params, '_blank');
         }
 
         function getData() {

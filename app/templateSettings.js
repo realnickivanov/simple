@@ -7,10 +7,10 @@ define([], function () {
             "url": ""
         },
         "theme": {
-            "key": "Tiles"
+            "key": ""
         },
         "objectivesLayout": {
-            "key": ""
+            "key": "Tiles"
         },
         "background": null,
         "xApi": {
