@@ -71,7 +71,7 @@
 	    function activate(objectiveId, question) {
 	        viewModel.objectiveId = objectiveId;
 	        viewModel.question = question;
-
+	        debugger;
 	        viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.objectiveId, viewModel.question.id);
 	        viewModel.title = viewModel.question.title;
 	        viewModel.isAnswered(viewModel.question.isAnswered);

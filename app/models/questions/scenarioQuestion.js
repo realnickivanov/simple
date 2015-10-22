@@ -26,7 +26,9 @@
         }
 
         function restoreProgress(progress) {
-            return progress;
+            if (!_.isNaN(progress)) {
+                this.score(progress);
+            }
         }
 
         function submitAnswer(score) {
