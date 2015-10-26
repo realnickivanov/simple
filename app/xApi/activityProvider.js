@@ -370,7 +370,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
         function getScenarioQuestionActivityAndResult(question) {
             return {
                 result: new resultModel({
-                    score: new scoreModel(question.score / 100)
+                    score: new scoreModel(question.score() / 100),
                 }),
                 object: new activityModel({
                     id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
