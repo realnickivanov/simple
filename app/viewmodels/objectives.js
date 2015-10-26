@@ -22,7 +22,7 @@
                     return {
                         id: item.id,
                         title: item.title,
-                        imageUrl: item.imageUrl,
+                        imageUrl: getResizedObjectiveThumbnailUrl(item.imageUrl),
                         score: item.score(),
                         questions: item.questions,
                         affectProgress: item.affectProgress,
@@ -48,5 +48,20 @@
             masteryScore: masteryScore,
             objectives: objectives
         };
-    }
-);
+
+        function getResizedObjectiveThumbnailUrl(imageUrl) {
+            var regex = /\?width=\d+\&height=\d+&scaleBySmallerSide=\w+/,
+                imageResizerOptions = '?width=284&height=170&scaleBySmallerSide=false',
+                coincidences = regex.exec(imageUrl),
+                originalImage = imageUrl;
+            if (templateSettings.objectivesLayout === "List") {
+                imageResizerOptions = '?width=100&height=70&scaleBySmallerSide=false';
+            }
+            if (coincidences && coincidences.length) {
+                originalImage = imageUrl.substring(0, coincidences.index);
+            }
+
+            return originalImage + imageResizerOptions;
+        }
+
+    });

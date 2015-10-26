@@ -25,7 +25,7 @@
                                 return new Objective({
                                     id: objective.id,
                                     title: objective.title,
-                                    imageUrl: getResizedObjectiveThumbnailUrl(objective.imageUrl),
+                                    imageUrl: objective.imageUrl,
                                     questions: _.map(objective.questions, function (question) {
                                         return questionsFactory.createQuestion(objective.id, question);
                                     })
@@ -50,18 +50,4 @@
             initialize: initialize,
             course: course
         };
-
-        function getResizedObjectiveThumbnailUrl(imageUrl) {
-            var regex = /\?width=\d+\&height=\d+&scaleBySmallerSide=\w+/,
-                imageResizerOptions = '?width=284&height=170&scaleBySmallerSide=false',
-                coincidences = regex.exec(imageUrl),
-                originalImage = imageUrl;
-            
-            if (coincidences && coincidences.length) {
-                originalImage = imageUrl.substring(0, coincidences.index);
-            }
-
-            return originalImage + imageResizerOptions;
-        }
-
     });

@@ -37,7 +37,7 @@
                 <!-- ko if: $root.objectivesLayout==="List" -->
                 <div class="objective-info">
                     <div class="objective-image-holder">
-                        <img data-bind="attr: { 'src':  imageUrl}" />
+                        <div data-bind="style: { 'background-image':  'url('+imageUrl+')'}"></div>
                     </div>
                     <div class="objective-info-holder">
                         <div data-bind="text: title"></div>
@@ -46,10 +46,14 @@
                         <!-- /ko -->
                         <!-- ko if: affectProgress -->
                         <div class="objective-progress">
-                            <div class="progressbar-wrapper canvas-styles" data-bind="progressBar:{score: score, masteryScore:$parent.masteryScore}">
+                            <div class="progressbar-wrapper canvas-styles" >
                                 <div class='progressbar'>
-                                    <div class="progressbar-value"></div>
+                                    <div class="progressbar-value" data-bind="style: {width: score+'%'}"></div>
                                     <div class="mastered-score-tooltip" data-bind="style: {left:$parent.masteryScore+'%'}, css:{mastered:score >= $parent.masteryScore}">
+                                        <span  class="mastered-score-tooltip-text">
+                                            <span data-bind="text:$parent.masteryScore+'%'"></span>
+                                            <span  data-translate-text="[to complete]"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

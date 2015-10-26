@@ -489,28 +489,31 @@
     display: table;
     width: 100%;
     padding: 14px;
+    font-weight:300;
 }
 
 .List.objectives-list-item .objective-image-holder {
     display: table-cell;
     vertical-align: middle;
     width: 100px;
-    background-color: transparent;
+    background-color:transparent;
 }
 
-    .List.objectives-list-item .objective-image-holder img {
+    .List.objectives-list-item .objective-image-holder div {
         width: 100px;
         height: 70px;
         background-repeat: no-repeat;
-        border-radius: 4px;
         vertical-align: middle;
+        background-position: center;
+        background-size: contain;
+        border-radius: 4px;
     }
 
 .List .objective-info-holder {
     display: table-cell;
     vertical-align: middle;
-    padding: 0 20px;
-    word-break: break-all;
+    padding: 0 70px 0px 10px;
+    word-break: break-word;
     font-size: 14px;
     font-family: Roboto;
     line-height: 24px;
@@ -519,14 +522,13 @@
 
 .List .objective-start-button-holder {
     display: table-cell;
-    width: 150px;
+    width: 130px;
     vertical-align: middle;
-    position: relative;
 }
 
     .List .objective-start-button-holder:before {
         position: absolute;
-        left: 0;
+        right: 165px;
         top: 50%;
         margin-top: -30px;
         width: 1px;
@@ -537,12 +539,14 @@
 
     .List .objective-start-button-holder button {
         width: 115px;
+        padding: 0 10px;
     }
 
 .List .objective-progress-no-questions {
     color: #91b1d0;
     font-size: 13px;
     font-style: italic;
+    font-weight:400;
 }
 
 .List .objective-progress-wrapper {
@@ -553,6 +557,18 @@
 .List .objective-progress {
     display: table;
 }
+
+    .List .objective-progress .mastered-score-tooltip-text {
+        margin-bottom: 15px;
+    }
+
+    .List .objective-progress:hover .mastered-score-tooltip-text {
+        -webkit-transition: all linear 0.2s;
+        transition: all linear 0.2s;
+        margin-bottom: 10px;
+        opacity: 1;
+    }
+
 
     .List .objective-progress .progressbar-wrapper {
         display: table-cell;
@@ -579,6 +595,7 @@
     display: table-cell;
     padding: 0px 20px;
     color: #63798e;
+    white-space: nowrap;
 }
 
 .List .mastered-score-tooltip {
