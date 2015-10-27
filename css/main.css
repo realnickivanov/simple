@@ -290,141 +290,6 @@
     text-align: center;
 }
 
-.objectives-list-item {
-    display: inline-block;
-    width: 290px;
-    height: 350px;
-    position: relative;
-    cursor: pointer;
-    margin: 20px 20px;
-    border: 3px solid transparent;
-    z-index: 10;
-    vertical-align: top;
-}
-
-    .objectives-list-item:nth-child(3n) {
-        margin-right: 0;
-    }
-
-    .objectives-list-item:nth-child(3n+1) {
-        margin-left: 0;
-    }
-
-    .objectives-list-item .content {
-        padding: 0;
-        height: 100%;
-        margin: 0;
-        border: 0;
-    }
-
-.objective-image-holder {
-    position: relative;
-    vertical-align: middle;
-    width: 100%;
-    height: 170px;
-    overflow: hidden;
-    transform: translate(0);
-}
-
-    .objective-image-holder .button {
-        position: absolute;
-        top: 62px;
-        left: 62px;
-        z-index: 11;
-        display: none;
-    }
-
-.objectives-list-item:hover .objective-image-holder .button {
-    display: block;
-    padding: 0;
-}
-
-.objectives-list-item .objective-image-holder .objective-image {
-    transform: none;
-    overflow: hidden;
-    transition: transform 0.6s ease;
-}
-
-.objectives-list-item:hover .objective-image-holder .objective-image {
-    transform: scale(1.06,1.06);
-}
-
-.objectives-list-item:hover .objective-image-holder:after {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNWWFMmUAAAADUExURQAAAKd6PdoAAAABdFJOU5pQPKI8AAAAC0lEQVQIHWNgwAcAAB4AAQEY2VoAAAAASUVORK5CYII=');
-    z-index: 10;
-}
-
-.objective-progress-no-questions {
-    position: absolute;
-    z-index: 1;
-    top: 148px;
-    width: 112px;
-    height: 22px;
-    right: 0px;
-    background-color: #fff;
-    font-size: 12px;
-    color: #63798e;
-    text-align: center;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    border-style: solid;
-    border-color: #e0ebf2;
-    border-width: 2px;
-    border-top-left-radius: 6px;
-    border-right-width: 0;
-    line-height: 18px;
-    z-index: 11;
-}
-
-.objective-progress {
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    z-index: 1;
-    border-radius: 50%;
-    right: 5px;
-    top: 112px;
-    background-color: rgba(255,255,255,0.5);
-    z-index: 11;
-    box-shadow: 0px 0px 1px 3px rgba(0,0,0,0.1);
-}
-
-.objective-progress-wrapper {
-    display: table-cell;
-    width: 160px;
-    vertical-align: middle;
-    padding: 0 20px;
-}
-
-.progress-text {
-    position: absolute;
-    color: #fff;
-    text-align: center;
-    width: 100%;
-    top: 50%;
-    font-size: 21px;
-    margin-top: -12px;
-    font-family: Lato;
-    font-weight: 100;
-}
-
-.objective-image {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    background-size: initial;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-}
-
 .objective-image-wrapper {
     position: relative;
     border-radius: 10px;
@@ -447,6 +312,142 @@
         background-color: rgba(0,0,0,0.5);
     }
 
+.objective-progress-wrapper {
+    display: table-cell;
+    width: 160px;
+    vertical-align: middle;
+    padding: 0 20px;
+}
+
+.progress-text {
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    top: 50%;
+    font-size: 21px;
+    margin-top: -12px;
+    font-family: Lato;
+    font-weight: 100;
+}
+/*#region Tiles*/
+.Tiles.objectives-list-item {
+    display: inline-block;
+    width: 290px;
+    height: 350px;
+    position: relative;
+    cursor: pointer;
+    margin: 20px 20px;
+    border: 3px solid transparent;
+    z-index: 10;
+    vertical-align: top;
+}
+
+    .Tiles.objectives-list-item:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .Tiles.objectives-list-item:nth-child(3n+1) {
+        margin-left: 0;
+    }
+
+    .Tiles.objectives-list-item .content {
+        padding: 0;
+        height: 100%;
+        margin: 0;
+        border: 0;
+    }
+
+.Tiles .objective-image-holder {
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+    height: 170px;
+    overflow: hidden;
+    transform: translate(0);
+}
+
+    .Tiles .objective-image-holder .button {
+        position: absolute;
+        top: 62px;
+        left: 62px;
+        z-index: 11;
+        display: none;
+    }
+
+.Tiles objectives-list-item:hover .objective-image-holder .button {
+    display: block;
+    padding: 0;
+}
+
+.Tiles.objectives-list-item .objective-image-holder .objective-image {
+    transform: none;
+    overflow: hidden;
+    transition: transform 0.6s ease;
+}
+
+.Tiles.objectives-list-item:hover .objective-image-holder .objective-image {
+    transform: scale(1.06,1.06);
+}
+
+.Tiles.objectives-list-item:hover .objective-image-holder:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNWWFMmUAAAADUExURQAAAKd6PdoAAAABdFJOU5pQPKI8AAAAC0lEQVQIHWNgwAcAAB4AAQEY2VoAAAAASUVORK5CYII=');
+    z-index: 10;
+}
+
+.Tiles .objective-progress-no-questions {
+    position: absolute;
+    z-index: 1;
+    top: 148px;
+    width: 112px;
+    height: 22px;
+    right: 0px;
+    background-color: #fff;
+    font-size: 12px;
+    color: #63798e;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-style: solid;
+    border-color: #e0ebf2;
+    border-width: 2px;
+    border-top-left-radius: 6px;
+    border-right-width: 0;
+    line-height: 18px;
+    z-index: 11;
+}
+
+.Tiles .objective-progress {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: 1;
+    border-radius: 50%;
+    right: 5px;
+    top: 112px;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 11;
+    box-shadow: 0px 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+
+
+.Tiles .objective-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-size: initial;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
 
 .objective-info {
     display: table-cell;
@@ -461,7 +462,7 @@
     padding-right: 60px;
 }
 
-.objectives-list-item .objective-info {
+.Tiles.objectives-list-item .objective-info {
     padding: 10px 15px;
     font-size: 13px;
     line-height: 20px;
@@ -470,13 +471,145 @@
     text-align: left;
     overflow: hidden;
 }
+/*#endregion Tiles*/
 
+/*#region List*/
+.List.objectives-list-item {
+    width: 100%;
+    min-height: 100px;
+    position: relative;
+    cursor: pointer;
+    margin: 20px 0px;
+    border: 2px solid transparent;
+    overflow: hidden;
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,.1);
+}
+
+.List .objective-info {
+    display: table;
+    width: 100%;
+    padding: 14px;
+    font-weight:300;
+}
+
+.List.objectives-list-item .objective-image-holder {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+    background-color:transparent;
+}
+
+    .List.objectives-list-item .objective-image-holder div {
+        width: 100px;
+        height: 70px;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        background-position: center;
+        background-size: contain;
+        border-radius: 4px;
+    }
+
+.List .objective-info-holder {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 70px 0px 10px;
+    word-break: break-word;
+    font-size: 14px;
+    font-family: Roboto;
+    line-height: 24px;
+    text-align: left;
+}
+
+.List .objective-start-button-holder {
+    display: table-cell;
+    width: 130px;
+    vertical-align: middle;
+}
+
+    .List .objective-start-button-holder:before {
+        position: absolute;
+        right: 165px;
+        top: 50%;
+        margin-top: -30px;
+        width: 1px;
+        height: 60px;
+        content: '';
+        background-color: #cecfd1;
+    }
+
+    .List .objective-start-button-holder button {
+        width: 115px;
+        padding: 0 10px;
+    }
+
+.List .objective-progress-no-questions {
+    color: #91b1d0;
+    font-size: 13px;
+    font-style: italic;
+    font-weight:400;
+}
+
+.List .objective-progress-wrapper {
+    width: 250px;
+    height: 10px;
+}
+
+.List .objective-progress {
+    display: table;
+}
+
+    .List .objective-progress .mastered-score-tooltip-text {
+        margin-bottom: 15px;
+    }
+
+    .List .objective-progress:hover .mastered-score-tooltip-text {
+        -webkit-transition: all linear 0.2s;
+        transition: all linear 0.2s;
+        margin-bottom: 10px;
+        opacity: 1;
+    }
+
+
+    .List .objective-progress .progressbar-wrapper {
+        display: table-cell;
+        width: 250px;
+        vertical-align: middle;
+    }
+
+.List .progressbar {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+}
+
+.List .progressbar-value {
+    height: 3px;
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.List .objective-progress .progress-value {
+    display: table-cell;
+    padding: 0px 20px;
+    color: #63798e;
+    white-space: nowrap;
+}
+
+.List .mastered-score-tooltip {
+    position: absolute;
+    top: -5px;
+    margin-left: -3px;
+}
+/*#endregion List*/
 @media (max-width: 975px) {
-    .objectives-list-item:nth-child(3n) {
+    .Tiles.objectives-list-item:nth-child(3n) {
         margin-right: 20px;
     }
 
-    .objectives-list-item:nth-child(3n+1) {
+    .Tiles.objectives-list-item:nth-child(3n+1) {
         margin-left: 20px;
     }
 }

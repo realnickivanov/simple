@@ -9,6 +9,9 @@ define([], function () {
         "theme": {
             "key": ""
         },
+        "objectivesLayout": {
+            "key": "Tiles"
+        },
         "background": null,
         "xApi": {
             "enabled": true,
@@ -41,6 +44,9 @@ define([], function () {
         theme: {
             key: ''
         },
+        objectivesLayout: {
+            key: ''
+        },
         xApi: {}
     };
 
@@ -58,14 +64,22 @@ define([], function () {
             if (!_.isEmptyOrWhitespace(fullSettings.logo.url)) {
                 that.logoUrl = fullSettings.logo.url;
             }
+
+            //objectives layout initialization
+            if (!_.isEmptyOrWhitespace(fullSettings.objectivesLayout.key)) {
+                that.objectivesLayout = fullSettings.objectivesLayout.key;
+            }
+
             //Theme initialization
             if (!_.isEmptyOrWhitespace(fullSettings.theme.key)) {
                 that.theme.key = fullSettings.theme.key;
             }
+
             if (fullSettings.background && fullSettings.background.image && fullSettings.background.image.src) {
                 that.background = fullSettings.background;
             }
             that.xApi = fullSettings.xApi;
+
         });
     }
 
