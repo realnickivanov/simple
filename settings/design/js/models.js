@@ -4,6 +4,8 @@
     app.LogoModel = LogoModel;
     app.ThemesModel = ThemesModel;
     app.BackgroundModel = BackgroundModel;
+    app.ObjectivesLayoutModel = ObjectivesLayoutModel;
+
 
     function UserAccessModel(userData) {
         this.hasStarterPlan = userData && userData.accessType > 0;
@@ -89,6 +91,7 @@
     }
 
     function ThemesModel(themesSettings, saveChanges) {
+        
         var that = this;
 
         that.list = [
@@ -132,7 +135,7 @@
             });
 
             item.isSelected(true);
-            
+
             saveChanges();
         }
 
@@ -162,6 +165,73 @@
         }
 
         function ThemeModel(name, isSelected) {
+            var that = this;
+
+            that.name = name;
+            that.isSelected = ko.observable(isSelected === true);
+
+            return that;
+        }
+    }
+
+    function ObjectivesLayoutModel(layoutSettings, saveChanges) {
+        var that = this;
+
+        that.list = [
+            new LayoutModel('Tiles', true),
+            new LayoutModel('List'),
+        ];
+
+        that.selectedLayoutName = ko.computed(function () {
+            var selectedName = '';
+            ko.utils.arrayForEach(that.list, function (layout) { //foreach because of we need to track selecting of all themes
+                if (layout.isSelected()) {
+                    selectedName = layout.name;
+                }
+            });
+            return selectedName;
+        }, that);
+
+        that.select = select;
+        that.selectByName = selectByName;
+        that.getData = getData;
+
+        init(layoutSettings);
+
+        return that;
+
+        function init(layoutSettings) {
+            if (!layoutSettings || !layoutSettings.key) {
+                return;
+            }
+            that.selectByName(layoutSettings.key);
+        }
+
+        function select(item) {
+            ko.utils.arrayForEach(that.list, function (layout) {
+                layout.isSelected(false);
+            });
+
+            item.isSelected(true);
+
+            saveChanges();
+        }
+
+        function selectByName(name) {
+            ko.utils.arrayForEach(that.list, function (layout) {
+                layout.isSelected(layout.name === name);
+            });
+
+        }
+
+        function getData() {
+            
+            return {
+                key: that.selectedLayoutName()
+            };
+        }
+
+        function LayoutModel(name, isSelected) {
             var that = this;
 
             that.name = name;
@@ -242,5 +312,7 @@
             };
         };
     }
+
+
 
 })(window.app = window.app || {});
