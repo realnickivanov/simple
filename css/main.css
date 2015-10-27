@@ -193,6 +193,7 @@
     width: 100%;
     position: relative;
     margin-bottom: 0;
+    margin-top: 5px;
 }
 
 .course-title {
@@ -489,14 +490,15 @@
     display: table;
     width: 100%;
     padding: 14px;
-    font-weight:300;
+    font-weight: 400;
+    letter-spacing: 0.05px;
 }
 
 .List.objectives-list-item .objective-image-holder {
     display: table-cell;
     vertical-align: middle;
     width: 100px;
-    background-color:transparent;
+    background-color: transparent;
 }
 
     .List.objectives-list-item .objective-image-holder div {
@@ -546,7 +548,7 @@
     color: #91b1d0;
     font-size: 13px;
     font-style: italic;
-    font-weight:400;
+    font-weight: 400;
 }
 
 .List .objective-progress-wrapper {
