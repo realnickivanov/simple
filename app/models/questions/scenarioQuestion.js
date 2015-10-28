@@ -34,7 +34,7 @@
         function submitAnswer(score) {
             guard.throwIfNotNumber(score, 'Score is not a number');
 
-            var correctScore = score >= this.masteryScore ? 100 : score;
+            var correctScore = score >= this.masteryScore ? 100 : 0;
 
             return correctScore;
         }
