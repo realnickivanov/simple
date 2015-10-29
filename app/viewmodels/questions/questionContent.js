@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/fillInTheBlank/fillInTheBlank', 'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/textMatching/textMatching', 'viewmodels/questions/statement/statement', 'viewmodels/questions/hotspot/hotspot', 'viewmodels/questions/openQuestion/openQuestion'],
-	function (router, constants, navigationModule, multipleSelectQuestionViewModel, singleSelectTextQuestionViewModel, fillInTheBlankQuestionViewModel, dragAndDropQuestionViewModel, singleSelectImageQuestionViewModel, textMatchingViewModel, statementViewModel, hotspotViewModel, openQuestionViewModel) {
+﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory'],
+	function (router, constants, navigationModule, questionViewModelFactory) {
 	    "use strict";
 
 	    var viewModel = {
@@ -14,7 +14,8 @@
 	        learningContents: [],
 	        correctFeedback: ko.observable(null),
 	        incorrectFeedback: ko.observable(null),
-            feedbackView: ko.observable(''),
+	        feedbackView: '',
+            submitViewModel: '',
 
 	        navigationContext: null,
 
@@ -27,6 +28,7 @@
 	        navigateNext: navigateNext,
 
 	        activate: activate,
+	        deactivate: deactivate,
 	        isNavigationLocked: router.isNavigationLocked
 	    };
 
@@ -66,35 +68,9 @@
 	        });
 	    }
 
-	    function setActiveViewModel(question) {
-	        switch (question.type) {
-	            case constants.questionTypes.multipleSelect:
-	                return multipleSelectQuestionViewModel;
-	            case constants.questionTypes.dragAndDrop:
-	                return dragAndDropQuestionViewModel;
-	            case constants.questionTypes.singleSelectText:
-	                return singleSelectTextQuestionViewModel;
-	            case constants.questionTypes.fillInTheBlank:
-	                return fillInTheBlankQuestionViewModel;
-	            case constants.questionTypes.singleSelectImage:
-	                return singleSelectImageQuestionViewModel;
-	            case constants.questionTypes.textMatching:
-	                return textMatchingViewModel;
-	            case constants.questionTypes.statement:
-	                return statementViewModel;
-	            case constants.questionTypes.hotspot:
-	                return hotspotViewModel;
-	            case constants.questionTypes.openQuestion:
-	                return openQuestionViewModel;
-	            default:
-	                return multipleSelectQuestionViewModel;
-	        }
-	    }
-
 	    function activate(objectiveId, question) {
 	        viewModel.objectiveId = objectiveId;
 	        viewModel.question = question;
-
 	        viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.objectiveId, viewModel.question.id);
 	        viewModel.title = viewModel.question.title;
 	        viewModel.isAnswered(viewModel.question.isAnswered);
@@ -104,14 +80,24 @@
 	        viewModel.correctFeedback(viewModel.question.feedback.correct);
 	        viewModel.incorrectFeedback(viewModel.question.feedback.incorrect);
 
-	        viewModel.activeQuestionViewModel = setActiveViewModel(viewModel.question);
-	        viewModel.feedbackView('questions/feedback.html');
+	        viewModel.activeQuestionViewModel = questionViewModelFactory.getViewModel(viewModel.question.type);
+	        viewModel.feedbackView = 'questions/feedback.html';
 
 	        if (viewModel.activeQuestionViewModel.feedbackView) {
 	            viewModel.feedbackView = viewModel.activeQuestionViewModel.feedbackView;
 	        }
 
+	        if (viewModel.activeQuestionViewModel.customSubmitViewModel) {
+	            viewModel.submitViewModel = viewModel.activeQuestionViewModel.customSubmitViewModel;
+	        }
+
 	        return viewModel.activeQuestionViewModel.initialize(viewModel.question);
+	    }
+
+	    function deactivate() {
+	        if (_.isFunction(viewModel.activeQuestionViewModel.deactivate)) {
+	            viewModel.activeQuestionViewModel.deactivate();
+	        }
 	    }
 	}
 );

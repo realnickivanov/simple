@@ -1,18 +1,19 @@
 ﻿define(function () {
-    "use strict";
+    'use strict';
 
     return {
         questionTypes: {
-            multipleSelect: "multipleSelect",
-            fillInTheBlank: "fillInTheBlank",
-            dragAndDrop: "dragAndDropText",
-            singleSelectText: "singleSelectText",
-            singleSelectImage: "singleSelectImage",
-            textMatching: "textMatching",
-            hotspot: "hotspot",
-            statement: "statement",
-            informationContent: "informationContent",
-            openQuestion: "openQuestion"
+            multipleSelect: 'multipleSelect',
+            fillInTheBlank: 'fillInTheBlank',
+            dragAndDrop: 'dragAndDropText',
+            singleSelectText: 'singleSelectText',
+            singleSelectImage: 'singleSelectImage',
+            textMatching: 'textMatching',
+            hotspot: 'hotspot',
+            statement: 'statement',
+            informationContent: 'informationContent',
+            openQuestion: 'openQuestion',
+            scenario: 'scenario'
         },
         defaultImageUrl: 'css/img/singleSelectImageAnwer.png',
         events: {
