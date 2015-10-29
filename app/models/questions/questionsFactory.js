@@ -67,8 +67,7 @@ define(['guard', 'constants', 'models/learningContent', 'models/questions/multip
                     questionData.embedUrl = question.embedUrl;
                     return new ScenarioQuestion(questionData);
                 default:
-                    questionData.answers = question.answers;
-                    return new MultipleSelectQuestion(questionData);
+                    return null;
             }
         }
 
