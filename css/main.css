@@ -1011,6 +1011,19 @@
     }
 /*#endregion voiceOver*/
 
+/*#region download course */
+
+.download-course-container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.download-course-wrapper {
+    margin: 0px 10px;
+}
+
+/*#endregion */
+
 @media (max-width: 975px) {
     #content,
     .header .header-items-holder {
