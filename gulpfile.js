@@ -39,7 +39,7 @@ function removeDebugBlocks() {
     });
 };
 
-gulp.task('build', ['pre-build', 'build-app', 'build-settings'], function () { 
+gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app'], function () { 
 });
 
 gulp.task('clean', function (cb) {
@@ -166,6 +166,19 @@ gulp.task('build-configure-settings', ['pre-build'], function () {
         .pipe(minifyCss())
         .pipe(gulp.dest(output + '/settings/configure/css'));
 
+});
+
+gulp.task('build-pdf-app', ['pre-build'], function () {
+    var assets = useref.assets();
+
+    gulp.src('pdf/index.html')
+        .pipe(assets)
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/pdf'));
 });
 
 gulp.task('webserver', function () {
