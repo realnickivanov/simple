@@ -376,7 +376,7 @@
         display: none;
     }
 
-.Tiles objectives-list-item:hover .objective-image-holder .button {
+.Tiles.objectives-list-item:hover .objective-image-holder .button {
     display: block;
     padding: 0;
 }
