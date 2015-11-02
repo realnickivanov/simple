@@ -21,20 +21,20 @@
         <div class="learning-content-title question-content-title">
             <span data-translate-text="[question]">question</span>
         </div>
-
         <div class="question-title selectable" data-bind="text: title">
             question title
         </div>
         <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
         <!-- ko compose: { view: feedbackView } --><!-- /ko -->
         <!-- ko ifnot: isAnswered -->
+        <!-- ko ifnot: submitViewModel -->
         <div class="btn-submit-wrapper">
             <button href="#" class="button medium primary" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</button>
         </div>
         <!-- /ko -->
+        <!-- ko if: submitViewModel -->
+        <!-- ko compose: { model: submitViewModel, activationData: { submit: submit } } --><!-- /ko-->
+        <!-- /ko -->
+        <!-- /ko -->
     </section>
-
-
-
-
 </section>
