@@ -29,6 +29,9 @@ define([], function () {
         "languages": {
             "selected": "",
             "customTranslations": {}
+        },
+        "pdfExport": {
+            "enabled": false
         }
     };
 
@@ -47,7 +50,8 @@ define([], function () {
         objectivesLayout: {
             key: ''
         },
-        xApi: {}
+        xApi: {},
+        pdfExport: {}
     };
 
     function init(settings) {
@@ -79,6 +83,7 @@ define([], function () {
                 that.background = fullSettings.background;
             }
             that.xApi = fullSettings.xApi;
+            that.pdfExport = fullSettings.pdfExport;
 
         });
     }

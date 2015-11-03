@@ -9,12 +9,17 @@
         'changes are not saved': 'Changes have NOT been saved. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
         'settings are not initialize': 'Template settings are not initialized. Please reload the page and change the settings again. Contact support@easygenerator.com if problem persists.',
 
+        //general settings tab
+        'general settings': 'General Settings',
+        'pdf export': 'PDF export (experimental):',
+        'show download as pdf button': 'Show button "Download course in PDF format"',
+
         //results tracking tab
         'results tracking': 'Results Tracking',
-		
-		'default': 'easygenerator (recommended)',
+
+        'default': 'easygenerator (recommended)',
         'custom': 'Custom LRS',
-		
+
         'track and trace settings': 'Track and trace settings',
         'results tracking option': 'Results tracking:',
         'results tracking hint': '(will not affect tracking and tracing in SCORM/LMS)',
