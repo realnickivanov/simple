@@ -15,7 +15,7 @@
 
                 var $tootlTipText = $('<span />')
                     .addClass('mastered-score-tooltip-text')
-                    .text(getScoreToComplete(masteryScore, score) + '% ' + translation.getTextByKey('[to complete]'))
+                    .text(getScoreTooltipText(masteryScore, score))
                     .appendTo($toolTip);
 
 
@@ -71,7 +71,7 @@
               $toolTip = ko.utils.domData.get(element, 'ko_tooltip'),
               $tootlTipText = ko.utils.domData.get(element, 'ko_tooltip_text');
 
-            $tootlTipText.text(getScoreToComplete(masteryScore, score) + '% ' + translation.getTextByKey('[to complete]'));
+            $tootlTipText.text(getScoreTooltipText(masteryScore, score));
 
             if (score >= masteryScore) {
                 $toolTip.addClass('mastered');
@@ -79,9 +79,9 @@
         }
     }
 
-    function getScoreToComplete(mastery, score) {
+    function getScoreTooltipText(mastery, score) {
         var scoreToComplete = mastery - score;
-        return scoreToComplete > 0 ? scoreToComplete : 0;
+        return scoreToComplete > 0 ? scoreToComplete + '% ' + translation.getTextByKey('[to complete]') : translation.getTextByKey('[completed]');
     }
 
     composition.addBindingHandler('toolTip');
