@@ -3,6 +3,7 @@
         init: function (element, valueAccessor) {
             var $element = $(element),
                lineWidth = valueAccessor().lineWidth || 4,
+               score = valueAccessor().progress || 0,
                masteryScore = valueAccessor().masteryScore,
                centerX = element.width / 2,
                centerY = element.height / 2,
@@ -14,7 +15,7 @@
 
                 var $tootlTipText = $('<span />')
                     .addClass('mastered-score-tooltip-text')
-                    .text(masteryScore + '% ' + translation.getTextByKey('[to complete]'))
+                    .text(getScoreToComplete(masteryScore, score) + '% ' + translation.getTextByKey('[to complete]'))
                     .appendTo($toolTip);
 
 
@@ -28,6 +29,7 @@
                 });
 
                 ko.utils.domData.set(element, 'ko_tooltip', $toolTip);
+                ko.utils.domData.set(element, 'ko_tooltip_text', $tootlTipText);
 
                 $(window).on('resize', updateTooltipPosition);
             }
@@ -66,12 +68,21 @@
         update: function (element, valueAccessor) {
             var score = valueAccessor().progress || 0,
               masteryScore = valueAccessor().masteryScore,
-              $toolTip = ko.utils.domData.get(element, 'ko_tooltip');
+              $toolTip = ko.utils.domData.get(element, 'ko_tooltip'),
+              $tootlTipText = ko.utils.domData.get(element, 'ko_tooltip_text');
+
+            $tootlTipText.text(getScoreToComplete(masteryScore, score) + '% ' + translation.getTextByKey('[to complete]'));
 
             if (score >= masteryScore) {
                 $toolTip.addClass('mastered');
             }
         }
     }
+
+    function getScoreToComplete(mastery, score) {
+        var scoreToComplete = mastery - score;
+        return scoreToComplete > 0 ? scoreToComplete : 0;
+    }
+
     composition.addBindingHandler('toolTip');
 })

@@ -24,6 +24,7 @@
                         title: item.title,
                         imageUrl: getResizedObjectiveThumbnailUrl(item.imageUrl),
                         score: item.score(),
+                        scoreToComplete: getScoreToComplete(templateSettings.masteryScore.score, item.score()),
                         questions: item.questions,
                         affectProgress: item.affectProgress,
                         goToFirstQuestion: function () {
@@ -62,6 +63,11 @@
             }
 
             return originalImage + imageResizerOptions;
+        }
+
+        function getScoreToComplete(masteryScore, score) {
+            var scoreToComplete = masteryScore - score;
+            return scoreToComplete > 0 ? scoreToComplete : 0;
         }
 
     });
