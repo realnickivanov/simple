@@ -9,11 +9,13 @@
 
         trackingData: null,
         masteryScore: null,
-        languages: null
+        languages: null,
+        pdfExport: null
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
         return $.extend({}, settings || currentSettings, {
+            pdfExport: viewModel.pdfExport.getData(),
             xApi: viewModel.trackingData.getData(),
             masteryScore: viewModel.masteryScore.getData(),
             languages: viewModel.languages.getData()
@@ -47,6 +49,7 @@
             var manifest = api.getManifest(),
                 settings = api.getSettings();
 
+            viewModel.pdfExport = new app.PdfExport(settings.pdfExport);
             viewModel.trackingData = new app.TrackingDataModel(settings.xApi);
             viewModel.masteryScore = new app.MasteryScore(settings.masteryScore);
             viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);

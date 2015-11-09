@@ -22,6 +22,15 @@
             <!-- /ko -->
             <!-- /ko -->
         </span>
+        
+        <!--ko if: pdfExportEnabled -->
+        <div class="download-course-container">
+            <div class="download-course-wrapper">
+                <a href="#" data-translate-title="[download course in pdf format]" data-bind="downloadAsPdf: { url: '/pdf/index.html' }">
+                </a>
+            </div>
+        </div>
+        <!--/ko-->
         <div class="exit-course-container">
             <!-- ko if: viewSettings().exitButtonVisible -->
             <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->

@@ -168,6 +168,16 @@ input[type="text"] {
         background: url("img/sprites_16.png") 0 -21px no-repeat;
     }
 
+    .settings-tabs-item.general:before {
+        top: 4px;
+        background: url("img/sprites_16.png") -105px 0 no-repeat;
+    }
+
+    .settings-tabs-item.general:hover:before,
+    .settings-tabs-item.active.general:before {
+        background: url("img/sprites_16.png") -105px -21px no-repeat;
+    }
+
     .settings-tabs-item.track-and-trace:before {
         top: 4px;
         background: url("img/sprites_16.png") -42px 0 no-repeat;
@@ -264,9 +274,9 @@ input[type="text"] {
     box-shadow: 0 4px 0 0 #f4f5f7;
 }
 
-.settings-section + .settings-section {
-    margin-top: 10px;
-}
+    .settings-section + .settings-section {
+        margin-top: 10px;
+    }
 
 .section-header {
     position: relative;
@@ -278,7 +288,6 @@ input[type="text"] {
 }
 
 .section-content {
-    
 }
 
 .settings-row {
@@ -293,9 +302,9 @@ input[type="text"] {
     align-items: baseline;
 }
 
-.settings-row + .settings-row {
-    border-top: 1px solid #e2e8eb;
-}
+    .settings-row + .settings-row {
+        border-top: 1px solid #e2e8eb;
+    }
 
 .settings-caption {
     -webkit-flex-basis: 60%;
@@ -305,6 +314,10 @@ input[type="text"] {
     font-family: 'OpenSans';
     font-weight: 600;
     font-size: 15px;
+}
+
+.settings-content {
+    margin-top: 20px;
 }
 
 .settings-column {
@@ -771,6 +784,60 @@ input[type="text"] {
     background-color: #fff;
     opacity: 0.6;
 }
+/*#endregion*/
+
+/*#region checkbox*/
+
+.checkbox,
+.checkbox-control-input {
+    cursor: pointer;
+}
+
+.checkbox-control {
+    position: relative;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    vertical-align: top;
+}
+
+.checkbox-control-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.checkbox-control-input-checked {
+    display: block;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+}
+
+.checkbox.checked .checkbox-control-input-checked {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAJCAYAAAAGuM1UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkFGQkY1OUI1NzkzNjExRTRBRUM4RkU4OTY4MzI0QTQ0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkFGQkY1OUI2NzkzNjExRTRBRUM4RkU4OTY4MzI0QTQ0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QUZCRjU5QjM3OTM2MTFFNEFFQzhGRTg5NjgzMjRBNDQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QUZCRjU5QjQ3OTM2MTFFNEFFQzhGRTg5NjgzMjRBNDQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7Cb05mAAAAgElEQVR42mL4//8/AxFYCYiPArEBMYqVgfjRfwhYT4riTUDMgU+xKhA/hipeAcSsIHGQBCMQu0NpmGI1IH4CVTwPiJlhciBiDlRiOchKIFYH4qdQsSloBoE1WALxc6iCE0D8DMpux+ZUGEMGiM/+R4BqXH5D5nBBPVeAL+QAAgwA2n1dvDwHMm0AAAAASUVORK5CYII=') center no-repeat;
+    background-color: #65bd77;
+    border-color: #65bd77;
+}
+
+.checkbox-label {
+    display: inline;
+    margin-left: 9px;
+    font-family: 'OpenSans';
+    font-size: 13px;
+    vertical-align: top;
+    color: #64798E;
+}
+
+.checkbox.checked .checkbox-label,
+.checkbox:hover .checkbox-label {
+    color: #44505E;
+}
+
 /*#endregion*/
 
 /*#region background*/

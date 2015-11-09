@@ -32,7 +32,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
             isNavigatingToAnotherView: ko.observable(false),
             isClosed: ko.observable(false),
             compositionComplete: compositionComplete,
-
+            pdfExportEnabled: false,
 
             activate: function () {
                 var that = this;
@@ -55,7 +55,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                         return userContext.initialize().then(function () {
                             return modulesInitializer.init().then(function () {
                                 that.logoUrl(templateSettings.logoUrl);
-
+                                that.pdfExportEnabled = templateSettings.pdfExport.enabled;
                                 return themesInjector.init().then(function () {
                                     app.title = dataContext.course.title;
 
