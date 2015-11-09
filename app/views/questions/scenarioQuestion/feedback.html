@@ -1,7 +1,7 @@
 ﻿<section id="feedback">
     <!-- ko if: isCorrectAnswered -->
     <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
-        <div class="question-result-block" data-translate-text="[your answer was stored]" data-translate-title="[your answer was stored]">Your answer has been stored</div>
+        <div class="question-result-block" data-translate-text="[scenario has been passed successfully]" data-translate-title="[scenario has been passed successfully]">Scenario has been passed successfully</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
             <!-- ko if: navigationContext.nextQuestionUrl -->
@@ -15,7 +15,7 @@
     <!-- /ko -->
     <!-- ko if: isWrongAnswered -->
     <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
-        <div class="question-result-block incorrect" data-translate-text="[your answer is empty and was not stored]" data-translate-title="[your answer is empty and was not stored]">Your answer is empty and was not stored</div>
+        <div class="question-result-block incorrect" data-translate-text="[scenario has not been passed successfully]" data-translate-title="[scenario has not been passed successfully]">Scenario has NOT been passed successfully</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
             <button class="button medium primary" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
