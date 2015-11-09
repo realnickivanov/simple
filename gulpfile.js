@@ -39,7 +39,7 @@ function removeDebugBlocks() {
     });
 };
 
-gulp.task('build', ['pre-build', 'build-app', 'build-settings'], function () { 
+gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app'], function () { 
 });
 
 gulp.task('clean', function (cb) {
@@ -125,7 +125,7 @@ gulp.task('build-settings', ['build-design-settings', 'build-configure-settings'
 gulp.task('build-design-settings', ['pre-build'], function () {
     var assets = useref.assets();
 
-    gulp.src(['settings/design/design.html'])
+    gulp.src(['settings/design/branding.html', 'settings/design/layout.html'])
         .pipe(assets)
         .pipe(gulpif('*.js', uglify()))
         .pipe(assets.restore())
@@ -166,6 +166,19 @@ gulp.task('build-configure-settings', ['pre-build'], function () {
         .pipe(minifyCss())
         .pipe(gulp.dest(output + '/settings/configure/css'));
 
+});
+
+gulp.task('build-pdf-app', ['pre-build'], function () {
+    var assets = useref.assets();
+
+    gulp.src('pdf/index.html')
+        .pipe(assets)
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/pdf'));
 });
 
 gulp.task('webserver', function () {

@@ -26,9 +26,11 @@
                                     id: objective.id,
                                     title: objective.title,
                                     imageUrl: objective.imageUrl,
-                                    questions: _.map(objective.questions, function (question) {
-                                        return questionsFactory.createQuestion(objective.id, question);
-                                    })
+                                    questions: _.chain(objective.questions).map(function (question) {
+                                        return questionsFactory.createQuestion(objective.id, question); 
+                                    }).filter(function(question){
+                                        return question != null;
+                                    }).value()
                                 });
                             })
                             .value(),
@@ -39,7 +41,7 @@
                     dfd.resolve({
                         course: that.course
                     });
-                }).fail(function() {
+                }).fail(function () {
                     dfd.reject('Unable to load data.js');
                 });
 
@@ -50,5 +52,4 @@
             initialize: initialize,
             course: course
         };
-
     });

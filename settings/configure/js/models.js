@@ -3,6 +3,29 @@
     app.TrackingDataModel = TrackingDataModel;
     app.LanguagesModel = LanguagesModel;
     app.MasteryScore = MasteryScore;
+    app.PdfExport = PdfExport;
+
+    function PdfExport(pdfExportSettings) {
+        var that = this;
+
+        that.enabled = ko.observable(false);
+        that.getData = getData;
+        init(pdfExportSettings);
+
+        function init(pdfExportSettings) {
+            if (!pdfExportSettings) {
+                return;
+            }
+
+            that.enabled(pdfExportSettings.enabled);
+        }
+
+        function getData() {
+            return {
+                enabled: that.enabled()
+            }
+        }
+    }
 
     function TrackingDataModel(xApiSettings) {
         var that = this;

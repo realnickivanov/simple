@@ -15,25 +15,59 @@
         </header>
         <ul class="objectives-list" data-bind="foreach: objectives">
 
-            <li class="objectives-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }">
+            <li class="objectives-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }, css:$root.objectivesLayout">
+                <!-- ko if: $root.objectivesLayout==="Tiles" -->
                 <div class="objective-image-holder">
                     <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
-                    <button class="button small success" data-translate-text="[start course]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
+                    <button class="button small success" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="objective-progress">
                     <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 },toolTip:{progress: score, masteryScore:$parent.masteryScore}"></canvas>
                     <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
-
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: affectProgress -->
                 <div class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
-
                 <!-- /ko -->
                 <div class="objective-info">
                     <span data-bind="text: title">objective title</span>
                 </div>
+                <!--/ko-->
+                <!-- ko if: $root.objectivesLayout==="List" -->
+                <div class="objective-info">
+                    <div class="objective-image-holder">
+                        <div data-bind="style: { 'background-image':  'url('+imageUrl+')'}"></div>
+                    </div>
+                    <div class="objective-info-holder">
+                        <div data-bind="text: title"></div>
+                        <!-- ko ifnot: affectProgress -->
+                        <span class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</span>
+                        <!-- /ko -->
+                        <!-- ko if: affectProgress -->
+                        <div class="objective-progress">
+                            <div class="progressbar-wrapper canvas-styles" >
+                                <div class='progressbar'>
+                                    <div class="progressbar-value" data-bind="style: {width: score+'%'}"></div>
+                                    <div class="mastered-score-tooltip" data-bind="style: {left:$parent.masteryScore+'%'}, css:{mastered:score >= $parent.masteryScore}">
+                                        <span  class="mastered-score-tooltip-text">
+                                            <span data-bind="text:$parent.masteryScore+'%'"></span>
+                                            <span  data-translate-text="[to complete]"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="progress-value" data-bind="text:score+'%'"></span>
+                        </div>
+
+                        <!-- /ko -->
+
+                    </div>
+                    <div class="objective-start-button-holder">
+                        <button class="button small default" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
+                    </div>
+                </div>
+                <!--/ko-->
             </li>
         </ul>
     </div>

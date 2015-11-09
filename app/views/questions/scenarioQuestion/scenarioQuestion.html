@@ -1,0 +1,20 @@
+﻿<section class="overlay-wrapper">
+    <!-- ko if: content -->
+    <div class="question-content-wrapper">
+        <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
+    </div>
+    <!-- /ko -->
+    <div class="scenario-question-container">
+        <div class="scenario-question" data-bind="html: embedCode"></div>
+        <!-- ko if: isAnswered -->
+        <div class="scenario-question-overlay">
+            <div class="scenario-question-overlay-container">
+                <span class="scenario-question-overlay-text" data-translate-text="[scenario has been submitted]" data-translate-title="[scenario has been submitted]"></span>    
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- ko if: isAnswered -->
+    <div class="question-overlay"></div>
+    <!-- /ko -->
+</section>
