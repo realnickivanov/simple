@@ -29,9 +29,7 @@
                 var hash = window.location.hash.slice(1, window.location.hash.length);
                 var navigateUrl = 'xapierror/' + encodeURIComponent(_.isEmpty(hash) ? '' : hash);
 
-                setTimeout(function () {
-                    router.navigate(navigateUrl, { replace: true, trigger: true });
-                }, 100);
+                app.trigger(constants.events.onError, { navigateUrl: navigateUrl });
             };
 
         return {

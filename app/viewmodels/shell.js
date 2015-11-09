@@ -1,6 +1,6 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants', 'userContext'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants, userContext) {
-
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themesInjector', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themesInjector, background, progressContext, constants, userContext, errorsHandler) {
+        
         var viewModel = {
             router: router,
             cssName: ko.computed(function () {
@@ -49,40 +49,42 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                     that.isClosed(true);
                 });
 
+                return context.initialize().then(function (dataContext) {
+                    return userContext.initialize().then(function () {
+                        return modulesInitializer.init().then(function () {
+                            that.logoUrl(templateSettings.logoUrl);
+                            that.pdfExportEnabled = templateSettings.pdfExport.enabled;
+                            return themesInjector.init().then(function () {
+                                app.title = dataContext.course.title;
 
-                return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
-                    return context.initialize().then(function (dataContext) {
-                        return userContext.initialize().then(function () {
-                            return modulesInitializer.init().then(function () {
-                                that.logoUrl(templateSettings.logoUrl);
-                                that.pdfExportEnabled = templateSettings.pdfExport.enabled;
-                                return themesInjector.init().then(function () {
-                                    app.title = dataContext.course.title;
+                                if (progressContext.ready()) {
+                                    var progress = progressContext.get();
+                                    if (_.isObject(progress)) {
+                                        if (_.isString(progress.url)) {
+                                            window.location.hash = progress.url;
+                                        }
 
-                                    if (progressContext.ready()) {
-                                        var progress = progressContext.get();
-                                        if (_.isObject(progress)) {
-                                            if (_.isString(progress.url)) {
-                                                window.location.hash = progress.url;
-                                            }
-
-                                            if (_.isObject(progress.answers)) {
-                                                _.each(dataContext.course.objectives, function (objective) {
-                                                    _.each(objective.questions, function (question) {
-                                                        if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
-                                                            question.progress(progress.answers[question.shortId]);
-                                                        }
-                                                    });
+                                        if (_.isObject(progress.answers)) {
+                                            _.each(dataContext.course.objectives, function (objective) {
+                                                _.each(objective.questions, function (question) {
+                                                    if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
+                                                        question.progress(progress.answers[question.shortId]);
+                                                    }
                                                 });
-                                            }
+                                            });
                                         }
                                     }
+                                }
+
+                                return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
+                                    errorsHandler.startHandle();
                                 });
                             });
                         });
                     });
                 });
             }
+
         };
 
         function compositionComplete() {
