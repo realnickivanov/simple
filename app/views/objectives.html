@@ -51,8 +51,7 @@
                                     <div class="progressbar-value" data-bind="style: {width: score+'%'}"></div>
                                     <div class="mastered-score-tooltip" data-bind="style: {left:$parent.masteryScore+'%'}, css:{mastered:score >= $parent.masteryScore}">
                                         <span  class="mastered-score-tooltip-text">
-                                            <span data-bind="text:$parent.masteryScore+'%'"></span>
-                                            <span  data-translate-text="[to complete]"></span>
+                                            <span data-bind="text: scoreTooltipText"></span>
                                         </span>
                                     </div>
                                 </div>
