@@ -63,5 +63,7 @@
     "[question]": "Question",
     "[scenario has been submitted]": "Scenario has been submitted",
     "[scenario has not been finished yet]": "Scenario has not been finished yet. You have to finish it before submitting.",
-    "[download course in pdf format]": "Download course in PDF format"
+    "[download course in pdf format]": "Download course in PDF format",
+    "[scenario has been passed successfully]": "Scenario has been passed successfully",
+    "[scenario has not been passed successfully]": "Scenario has NOT been passed successfully"
 }
