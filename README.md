@@ -1,4 +1,4 @@
-Simple pdf
+Simple course
 ======
 
-Simple course template with conversion to .pdf document.
+A course style like setup.
