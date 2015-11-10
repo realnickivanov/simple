@@ -997,17 +997,16 @@
 
 /*#region voiceOver*/
 .voiceOver {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    display: none;
+    width: 450px;
+    max-width: 100%;
+    height: 40px;
+    display: block;
 }
 
     .voiceOver iframe {
         display: block;
         width: 100%;
+        height: 100%;
     }
 /*#endregion voiceOver*/
 
