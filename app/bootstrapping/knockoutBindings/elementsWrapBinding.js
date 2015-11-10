@@ -1,4 +1,4 @@
-﻿define(['durandal/composition'], function (composition) {
+﻿define(['knockout', 'jquery', 'durandal/composition'], function (ko, $, composition) {
 
     ko.bindingHandlers.elementsWrap = {
         init: function (element) {
@@ -19,7 +19,8 @@
             var $image = $(image),
                 $wrapper = $(imageWrapper).css('float', $image.css('float'));
 
-            $(image).css('float', 'none');
+            $image.height('auto');
+            $image.css('float', 'none');
             $image.wrap($wrapper);
         });
 
