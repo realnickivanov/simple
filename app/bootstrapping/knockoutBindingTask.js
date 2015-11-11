@@ -11,6 +11,7 @@ define([
     'bootstrapping/knockoutBindings/learningContentBinding',
     'bootstrapping/knockoutBindings/toolTipBindingHandler',
     'bootstrapping/knockoutBindings/downloadAsPdfBinding',
+    'bootstrapping/knockoutBindings/mediaPlayerBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
