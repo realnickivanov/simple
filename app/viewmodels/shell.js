@@ -1,5 +1,5 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themes/themeSelector', 'themes/themeInjector', 'background', 'progressContext', 'constants', 'userContext'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themeSelector, themeInjector, background, progressContext, constants, userContext) {
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themes/themeSelector', 'themes/themeInjector', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themeSelector, themeInjector, background, progressContext, constants, userContext, errorsHandler) {
 
         var viewModel = {
             router: router,
@@ -49,7 +49,6 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                     that.isClosed(true);
                 });
 
-
                 return context.initialize().then(function (dataContext) {
                     return userContext.initialize().then(function () {
                         return modulesInitializer.init().then(function () {
@@ -78,10 +77,9 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                     }
                                 }
 
-                                return router.map(routes)
-                                    .buildNavigationModel()
-                                    .mapUnknownRoutes('viewmodels/404', '404')
-                                    .activate();
+                                return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
+                                    errorsHandler.startHandle();
+                                });
                             });
                         });
                     });
