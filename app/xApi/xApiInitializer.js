@@ -38,6 +38,9 @@
                         progress = progressContext.get(),
                         isCourseStarted = _.isObject(progress) && _.isObject(progress.user);
 
+                    routingManager.createGuard(xApiInitializer, 'login');
+                    routingManager.mapRoutes();
+                    
                     if (user && user.username && viewConstants.patterns.email.test(user.email)) {
                         return activate(user.username, user.email).then(function () {
                             if (!isCourseStarted) {
@@ -55,13 +58,9 @@
                             return;
                         }
                     }
-
-                    routingManager.createGuard(xApiInitializer, 'login');
-                    routingManager.mapRoutes();
                 });
             });
         }
-
 
         function activate(username, email) {
             var actor = activityProvider.createActor(username, email);
