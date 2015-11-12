@@ -1,5 +1,5 @@
-﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings', 'progressContext'],
-    function (context, repository, router, windowOperations, templateSettings, progressContext) {
+﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings', 'translation'],
+    function (context, repository, router, windowOperations, templateSettings, translation) {
 
         var
             objectives = [],
@@ -24,6 +24,7 @@
                         title: item.title,
                         imageUrl: getResizedObjectiveThumbnailUrl(item.imageUrl),
                         score: item.score(),
+                        scoreTooltipText: getScoreTooltipText(templateSettings.masteryScore.score, item.score()),
                         questions: item.questions,
                         affectProgress: item.affectProgress,
                         goToFirstQuestion: function () {
@@ -62,6 +63,11 @@
             }
 
             return originalImage + imageResizerOptions;
+        }
+
+        function getScoreTooltipText(masteryScore, score) {
+            var scoreToComplete = masteryScore - score;
+            return scoreToComplete > 0 ? scoreToComplete + '% ' + translation.getTextByKey('[to complete]') : translation.getTextByKey('[completed]');
         }
 
     });

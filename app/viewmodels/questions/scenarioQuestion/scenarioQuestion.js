@@ -10,6 +10,8 @@
         submit: submit,
         tryAnswerAgain: tryAnswerAgain,
         deactivate: deactivate,
+        
+        feedbackView: 'questions/scenarioQuestion/feedback.html',
         customSubmitViewModel: 'viewmodels/questions/scenarioQuestion/submitQuestion'
     };
 
