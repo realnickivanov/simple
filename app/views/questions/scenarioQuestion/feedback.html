@@ -1,6 +1,6 @@
 ﻿<section id="feedback">
     <!-- ko if: isCorrectAnswered -->
-    <div class="result-block-wrapper" data-bind="scrollIntoView: isCorrectAnswered && isAnswered">
+    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
         <div class="question-result-block" data-translate-text="[scenario has been passed successfully]" data-translate-title="[scenario has been passed successfully]">Scenario has been passed successfully</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
@@ -14,7 +14,7 @@
     </div>
     <!-- /ko -->
     <!-- ko if: isWrongAnswered -->
-    <div class="result-block-wrapper" data-bind="scrollIntoView: isWrongAnswered && isAnswered">
+    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
         <div class="question-result-block incorrect" data-translate-text="[scenario has not been passed successfully]" data-translate-title="[scenario has not been passed successfully]">Scenario has NOT been passed successfully</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
