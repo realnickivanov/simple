@@ -15,9 +15,11 @@
 
     function scrollToElement($element) {
         _.defer(function () {
-            $('html:not(:animated),body:not(:animated)').animate({
-                scrollTop: $element.offset().top
-            }, function () { });
+            if (!$element.is(':hidden')){
+                $('html:not(:animated),body:not(:animated)').animate({
+                    scrollTop: $element.offset().top
+                }, function () { });
+            }
         });
     }
 
