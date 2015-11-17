@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory'],
-	function (router, constants, navigationModule, questionViewModelFactory) {
+﻿define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory'],
+	function (ko, router, constants, navigationModule, questionViewModelFactory) {
 	    "use strict";
 
 	    var viewModel = {
@@ -82,6 +82,7 @@
 
 	        viewModel.activeQuestionViewModel = questionViewModelFactory.getViewModel(viewModel.question.type);
 	        viewModel.feedbackView = 'questions/feedback.html';
+			viewModel.submitViewModel = '';
 
 	        if (viewModel.activeQuestionViewModel.feedbackView) {
 	            viewModel.feedbackView = viewModel.activeQuestionViewModel.feedbackView;
