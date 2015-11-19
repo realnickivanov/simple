@@ -7,6 +7,9 @@
         },
         close: function () {
 
+        },
+        exitCourse: function () {
+
         }
     };
 
@@ -21,5 +24,6 @@
             data.close();
         };
         viewModel.close = data.close;
+        viewModel.exitCourse = data.exitCourse;
     }
 });
