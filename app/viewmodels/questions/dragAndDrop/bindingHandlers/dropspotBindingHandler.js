@@ -38,7 +38,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
 
                     return $(element).find('.drag-and-drop-text-draggable').length == 0;
                 },
-                tolerance: 'pointer',
+                tolerance: 'intersect',
                 scope: scope,
                 drop: function (e, ui) {
                     var text = ko.dataFor(ui.draggable.get(0));
