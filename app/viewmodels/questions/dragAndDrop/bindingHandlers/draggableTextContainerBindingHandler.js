@@ -25,7 +25,7 @@
                 drop: function (e, ui) {
                     ui.draggable.css('left', '').css('top', '').appendTo(this);
                     var text = ko.dataFor(ui.draggable.get(0));
-                    if (text.dropSpot) {
+                    if (text.dropSpot && text.dropSpot.text) {
                         text.dropSpot.text(undefined);
                     }
                 }

@@ -14,7 +14,7 @@ define(function () {
     return viewModel;
 
     function initialize(question) {
-        return Q.fcall(function() {
+        return Q.fcall(function () {
             viewModel.question = question;
 
             viewModel.isAnswered(question.isAnswered);
@@ -22,17 +22,19 @@ define(function () {
                 return {
                     x: answer.correctPosition.x,
                     y: answer.correctPosition.y,
-                    text: ko.observable('')
+                    text: ko.observable(''),
+                    
                 };
             });
 
             viewModel.texts = _.map(question.answers, function (answer) {
                 return {
                     id: answer.id,
-                    text: answer.text
+                    text: answer.text,
+                    placed: ko.observable(false)
                 };
             });
-            
+
             _.each(question.answers, function (answer) {
                 var selectedDropspot = _.find(viewModel.dropspots, function (dropspot) {
                     return dropspot.x === answer.currentPosition.x
@@ -43,6 +45,7 @@ define(function () {
                     var selectedText = _.find(viewModel.texts, function (item) {
                         return item.id === answer.id;
                     });
+                    selectedText.placed(true);
                     selectedDropspot.text(selectedText);
                 }
             });
@@ -57,7 +60,7 @@ define(function () {
                 var text = dropspot.text();
                 if (text) {
                     answer.push({
-                        id: text.id,
+                        text: text.text,
                         x: dropspot.x,
                         y: dropspot.y
                     });
@@ -74,6 +77,10 @@ define(function () {
             viewModel.isAnswered(false);
             _.each(viewModel.dropspots, function (dropspot) {
                 dropspot.text(undefined);
+            });
+            _.each(viewModel.texts, function (answer) {
+                answer.dropSpot = {};
+                answer.placed(false);
             });
         });
     }
