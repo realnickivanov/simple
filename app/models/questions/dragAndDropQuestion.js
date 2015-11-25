@@ -33,25 +33,28 @@
         function submitAnswer(dragableTexts) {
             guard.throwIfNotArray(dragableTexts, 'Dragable texts is not array.');
 
-            _.each(this.answers, function (answer) {
-                var matching = _.find(dragableTexts, function (draggableText) {
-                    return answer.id === draggableText.id;
-                });
-
-                if (matching) {
-                    answer.currentPosition = {
-                        x: matching.x,
-                        y: matching.y
-                    };
-                } else {
-                    answer.currentPosition = { x: -1, y: -1 };
-                }
+            var that = this;
+            var answersArray = [];
+            _.each(that.answers, function (answer) {
+                answer.currentPosition = { x: -1, y: -1 };
+            })
+            _.each(dragableTexts, function (dragableText) {
+                answersArray = _.where(that.answers, { text: dragableText.text });
+                var answer = _.find(answersArray, function (answer) {
+                    return answer.text === dragableText.text && answer.correctPosition.x === dragableText.x && answer.correctPosition.y === dragableText.y
+                })
+                if (answer && answer.currentPosition) {
+                    answer.currentPosition.x = answer.correctPosition.x,
+                    answer.currentPosition.y = answer.correctPosition.y
+                } 
             });
 
             return calculateScore(this.answers);
+
         }
 
         function calculateScore(answers) {
+
             var hasIncorrectAnswer = _.some(answers, function (answer) {
                 return answer.currentPosition.x != answer.correctPosition.x || answer.currentPosition.y != answer.correctPosition.y;
             });
@@ -60,6 +63,7 @@
         }
 
         function getProgress() {
+
             if (this.isCorrectAnswered) {
                 return 100;
             } else {

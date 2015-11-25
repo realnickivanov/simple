@@ -46,6 +46,7 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                     ui.draggable.css('left', '').css('top', '').appendTo(this);
 
                     if (ko.isWriteableObservable(value.text)) {
+                        text.placed(true);
                         value.text(text);
                         text.dropSpot = value;
                         $(element).addClass('dropped');
@@ -63,10 +64,11 @@ define(['knockout', 'durandal/composition'], function (ko, composition) {
                 draggableContainerMessageClass = '.drag-and-drop-text-draggable-container-message';
 
             if (text) {
+                
                 var $textChildren = $draggableTextContainer.children(draggableTextClass);
                 $.each($textChildren, function (index, item) {
                     var data = ko.dataFor(item);
-                    if (data.text === text.text) {
+                    if (data.text === text.text && data.placed() && $(element).children('.drag-and-drop-text-draggable').length ==0) {
                         data.dropSpot = value;
                         $(item).css('left', '').css('top', '').appendTo($(element));
                     }
