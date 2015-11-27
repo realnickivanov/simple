@@ -27,7 +27,7 @@ define(function () {
                 };
             });
 
-            viewModel.texts = _.map(question.answers, function (answer) {
+            viewModel.texts = _.map(_.shuffle(question.answers), function (answer) {
                 return {
                     id: answer.id,
                     text: answer.text,
