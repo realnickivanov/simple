@@ -2,15 +2,13 @@
     function (constants) {
 
         var
-            mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
-            isoDurationRegex = /^PT[0-9]{1,2}H[0-9]{1,2}M[0-9]{1,2}S$/,
 
             throwIfNotISODuration = function (duration, message) {
                 if (!_.isString(duration)) {
                     throw message;
                 }
 
-                if (!isoDurationRegex.test(duration)) {
+                if (!constants.patterns.isoDuration.test(duration)) {
                     throw message;
                 }
             },
@@ -36,7 +34,7 @@
                     throw message;
                 }
 
-                if (!mailRegex.test(email)) {
+                if (!constants.patterns.email.test(email)) {
                     throw message;
                 }
             },
