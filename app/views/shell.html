@@ -1,4 +1,5 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
+    <div class="header-overlay"></div>
     <section class="header-items-holder">
         <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
@@ -10,30 +11,31 @@
             <!-- ko ifnot: logoUrl -->
             <a href="#objectives">
                 <span class="default-logo"></span>
-            </a>
-            <!-- /ko -->
-            <!-- /ko -->
-            <!-- ko ifnot: viewSettings().rootLinkEnabled -->
-            <!-- ko if: logoUrl -->
-            <img alt="" src="" data-bind="attr: { src: logoUrl }">
-            <!-- /ko -->
-            <!-- ko ifnot: logoUrl -->
-            <span class="default-logo"></span>
-            <!-- /ko -->
-            <!-- /ko -->
+        </a>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: viewSettings().rootLinkEnabled -->
+        <!-- ko if: logoUrl -->
+        <img alt="" src="" data-bind="attr: { src: logoUrl }">
+        <!-- /ko -->
+        <!-- ko ifnot: logoUrl -->
+        <span class="default-logo"></span>
+        <!-- /ko -->
+        <!-- /ko -->
         </span>
-        
+
         <!--ko if: pdfExportEnabled -->
         <div class="download-course-container">
             <div class="download-course-wrapper">
                 <a href="#" data-translate-title="[download course in pdf format]" data-bind="downloadAsPdf: { url: '/pdf/index.html' }">
                 </a>
-        </div>
+            </div>
         </div>
         <!--/ko-->
         <div class="exit-course-button-wrapper">
             <!-- ko if: viewSettings().exitButtonVisible -->
-            <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->
+            <!-- ko compose: 'viewmodels/exitCourse' -->
+            <!-- /ko -->
             <!-- /ko -->
         </div>
     </section>

@@ -79,9 +79,9 @@ define([], function () {
                 that.theme.key = fullSettings.theme.key;
             }
 
-            if (fullSettings.background && fullSettings.background.image && fullSettings.background.image.src) {
-                that.background = fullSettings.background;
-            }
+            that.colors = fullSettings.colors;
+
+            that.background = fullSettings.background;
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
 

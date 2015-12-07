@@ -10,10 +10,9 @@
                 <span class="preview-thumbnail" data-bind="click: $parent.checkItem">
                     <img class="thumbnail" data-bind="attr:{'data-image': image, src: image + '?height=200&amp;width=250&amp;scaleBySmallerSide=true' }">
                 </span>
-                <button class="preview-button-wrapper" data-bind="click: $parent.previewItem"></button>
-            </div>
-            <div class="question-answer-radiobutton-wrapper">
-                <a class="question-answer-radiobutton" data-bind="click: $parent.checkItem, css: { checked: id == $parent.checkedAnswerId() }">&nbsp;</a>
+                <div class="preview-button-holder" data-bind="click: $parent.previewItem">
+                    <button class="preview-button-wrapper" ></button>
+                </div>
             </div>
         </li>
     </ul>
