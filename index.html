@@ -16,19 +16,21 @@
     <meta http-equiv="pragma" content="no-cache" />
 
     <link href='//fonts.googleapis.com/css?family=Roboto:500,400,300,100,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed&subset:500,400,300,100,700=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Lato:300&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+
+    <link href="css/colors.less" type="text/css" rel="stylesheet/less" />
 
     <!-- build:css css/vendor.css -->
     <link href="vendor/easy-supported-browser/css/easy-supported-browser.min.css" rel="stylesheet" />
     <link href="vendor/easygenerator-hotspot-on-an-image-plugin/hotspotOnAnImagePlugin.css" rel="stylesheet" />
     <!-- endbuild -->
-
     <!-- build:css css/general.css -->
     <link href="css/ie10mobile.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
     <link href="css/normalize.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+
     <!-- endbuild -->
 
     <script type="text/javascript">
@@ -41,6 +43,7 @@
     </script>
 </head>
 <body>
+    <div class="body-layout-wrapper"></div>
     <div id="applicationHost" class="application-wrapper">
 
         <div class="loader-container">
@@ -51,7 +54,7 @@
         </div>
     </div>
     <!-- build:js js/vendor.min.js -->
-    <script src="vendor/easy-supported-browser/easy-supported-browser.min.js" ></script>
+    <script src="vendor/easy-supported-browser/easy-supported-browser.min.js"></script>
     <script src="js/jquery-1.9.1.js"></script>
     <script src="js/jquery-ui-1.11.4.custom.js"></script>
     <script src="js/jquery-ui.customizations.js"></script>
@@ -65,7 +68,12 @@
     <script src="js/autosize.js"></script>
     <script src="vendor/easygenerator-hotspot-on-an-image-plugin/hotspotOnAnImagePlugin.js"></script>
     <script src="vendor/branchtrack-provider/index.js"></script>
+
+
+
     <!-- endbuild -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
     <script type="text/javascript">
         supportedBrowser.configure({
             browsers: {
@@ -85,8 +93,8 @@
                         image: 'css/img/browsers/android.png'
                     },
                     chrome: {
-						version: 39
-					}
+                        version: 39
+                    }
                 },
                 ios: {
                     safari: {},
@@ -125,7 +133,7 @@
                 }
             }
         }).init();
-    
+
         var require = {
             baseUrl: 'app',
             deps: ['main'],

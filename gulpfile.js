@@ -6,6 +6,9 @@ var gulp = require('gulp'),
     eventStream = require('event-stream'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
+    less = require('gulp-less'),
+    plumber = require('gulp-plumber')
+    autoprefixer = require('gulp-autoprefixer')
 
     bower = require('gulp-bower'),
     output = ".output",
@@ -39,7 +42,27 @@ function removeDebugBlocks() {
     });
 };
 
-gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app'], function () { 
+gulp.task('process-less', function () {
+    gulp.src(['./css/main.less'])
+        .pipe($.plumber({
+            errorHandler: function (error) {
+                console.log(error);
+                this.emit('end');
+            }
+        }))
+        .pipe($.less({
+            strictMath: true,
+            strictUnits: true
+        }))
+        .pipe($.csso())
+        .pipe($.autoprefixer({
+            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version', 'last 1 iOS version'],
+            cascade: false
+        }))
+        .pipe(gulp.dest('./css/'));
+});
+
+gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app'], function () {
 });
 
 gulp.task('clean', function (cb) {
@@ -75,11 +98,11 @@ gulp.task('build-app', ['pre-build'], function () {
     gulp.src(['settings.js', 'publishSettings.js'])
         .pipe(gulp.dest(output));
 
-	gulp.src('css/player/*.css')
+    gulp.src('css/player/*.css')
         .pipe(addBuildVersion())
         .pipe(minifyCss())
         .pipe(gulp.dest(output + '/css/player'));
-		
+
     gulp.src('css/themes/*.css')
         .pipe(addBuildVersion())
         .pipe(minifyCss())
