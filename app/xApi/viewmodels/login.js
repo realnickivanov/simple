@@ -1,5 +1,5 @@
-﻿define(['knockout', 'plugins/router', 'eventManager', '../configuration/viewConstants', '../xApiInitializer', 'context', '../configuration/xApiSettings', 'userContext'],
-    function (ko, router, eventManager, viewConstants, xApiInitializer, context, xApiSettings, userContext) {
+﻿define(['knockout', 'plugins/router', 'eventManager', '../constants', '../xApiInitializer', 'context', '../configuration/xApiSettings', 'userContext'],
+    function (ko, router, eventManager, constants, xApiInitializer, context, xApiSettings, userContext) {
 
         "use strict";
 
@@ -25,7 +25,7 @@
                 value(ko.utils.unwrapObservable(value).trim());
             };
             value.isValid = ko.computed(function () {
-                return !!value() && viewConstants.patterns.email.test(value().trim());
+                return !!value() && constants.patterns.email.test(value().trim());
             });
             value.isModified = ko.observable(false);
             value.markAsModified = function () {

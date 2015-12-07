@@ -57,12 +57,18 @@
 
         var extenstionKeys = {
             courseId: "http://easygenerator/expapi/course/id"
-        }
+        };
+
+        var patterns = {
+            email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,63})+)$/,
+            isoDuration: /^PT[0-9]{1,2}H[0-9]{1,2}M[0-9]{1,2}S$/
+        };
 
         return {
             verbs: verbs,
             interactionTypes: interactionTypes,
-            extenstionKeys: extenstionKeys
+            extenstionKeys: extenstionKeys,
+            patterns: patterns
         };
     }
 );

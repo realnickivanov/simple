@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', './routingManager', './requestManager', './activityProvider', './configuration/xApiSettings', './configuration/viewConstants', './statementQueueHandler', './errorsHandler', 'context', 'progressContext', 'userContext', 'eventManager'],
-    function (app, router, routingManager, requestManager, activityProvider, xApiSettings, viewConstants, statementQueueHandler, errorsHandler, context, progressContext, userContext, eventManager) {
+﻿define(['durandal/app', 'plugins/router', './routingManager', './requestManager', './activityProvider', './configuration/xApiSettings', './constants', './statementQueueHandler', './errorsHandler', 'context', 'progressContext', 'userContext', 'eventManager'],
+    function (app, router, routingManager, requestManager, activityProvider, xApiSettings, constants, statementQueueHandler, errorsHandler, context, progressContext, userContext, eventManager) {
         "use strict";
 
         var
@@ -41,7 +41,7 @@
                     routingManager.createGuard(xApiInitializer, 'login');
                     routingManager.mapRoutes();
                     
-                    if (user && user.username && viewConstants.patterns.email.test(user.email)) {
+                    if (user && user.username && constants.patterns.email.test(user.email)) {
                         return activate(user.username, user.email).then(function () {
                             if (!isCourseStarted) {
                                 return eventManager.courseStarted();
