@@ -24,7 +24,8 @@
                             return new Answer({
                                 id: answer.id,
                                 isCorrect: answer.isCorrect,
-                                text: answer.text
+                                text: answer.text,
+                                matchCase: answer.matchCase
                             });
                         })
                     });

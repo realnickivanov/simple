@@ -23,8 +23,13 @@
     }
 
     function checkIsCorrect(answerGroupValue) {
+        if (!_.isString(answerGroupValue.value)) {
+            return false;
+        }
+
         return _.some(this.answers, function (answer) {
-            return answer.text == answerGroupValue.value && answer.isCorrect;
+            return answer.isCorrect &&
+                answer.matchCase ? answer.text === answerGroupValue.value : answer.text.toLowerCase() === answerGroupValue.value.toLowerCase();
         });
     }
 })
