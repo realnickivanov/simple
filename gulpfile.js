@@ -8,11 +8,11 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     less = require('gulp-less'),
     plumber = require('gulp-plumber')
-    autoprefixer = require('gulp-autoprefixer')
+autoprefixer = require('gulp-autoprefixer')
 
-    bower = require('gulp-bower'),
-    output = ".output",
-    buildVersion = +new Date();
+bower = require('gulp-bower'),
+output = ".output",
+buildVersion = +new Date();
 
 var $ = require('gulp-load-plugins')({
     lazy: true
@@ -80,7 +80,7 @@ gulp.task('assets', ['clean', 'bower'], function () {
         .pipe(gulp.dest(output + '/css/font'));
 });
 
-gulp.task('pre-build', ['clean', 'bower', 'assets'], function () {
+gulp.task('pre-build', ['clean', 'bower', 'assets', 'process-less'], function () {
 });
 
 gulp.task('build-app', ['pre-build'], function () {
@@ -108,11 +108,19 @@ gulp.task('build-app', ['pre-build'], function () {
         .pipe(minifyCss())
         .pipe(gulp.dest(output + '/css/themes'));
 
+    gulp.src('css/colors.css')
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/css'));
+
     gulp.src('css/img/**')
         .pipe(gulp.dest(output + '/css/img'));
 
     gulp.src(['js/require.js'])
         .pipe(gulp.dest(output + '/js'));
+
+    gulp.src(['js/less.min.js'])
+        .pipe(gulp.dest(output + '/js'));
+
 
     gulp.src('lang/*.json')
         .pipe(gulp.dest(output + '/lang'));

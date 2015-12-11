@@ -11,26 +11,24 @@
     "background": {
         "header":{
             "image": {
-                "src": "http://render911.ru/textures/brick/brick_16.jpg",
+                "src": "http://staging.easygenerator.com/storage/image/4c9e06f8-238d-4ba0-b5a9-37bbf6f7e6f4.png",
                 "type": "repeat"
             },
             "brightness": "0"
         },
         "body":{
-            "image": {
-                "src": "http://render911.ru/textures/brick/brick_16.jpg",
-                "type": "repeat"
-            },
+            "color":"#fff",
             "brightness": "0"
+
         }
     },
-    "colors":{
-        "@text-color": "#252728",
-        "@main-color": "#43aaa3",
-        "@secondary-color": "#2d9ec6",
-        "@button-text-color": "#fff",
-        "@content-background-color": "#fff"
-    },
+    "colors":[
+        {"key":"@text-color","value":"#252728"},
+        {"key":"@main-color","value":"#43aaa3"},
+        {"key":"@secondary-color","value":"#2d9ec6"},
+        {"key":"@button-text-color","value":"#fff"},
+        {"key":"@content-background-color","value":"#fff"}
+    ],
     "xApi": {
         "enabled": true,
         "selectedLrs": "default",

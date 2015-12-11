@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'templateSettings', 'modules/questionsNavigation','themes/themeSelector'],
-    function (router, constants, questionRepository, objectiveRepository, templateSettings, navigationModule, themeSelector) {
+﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'templateSettings', 'modules/questionsNavigation'],
+    function (router, constants, questionRepository, objectiveRepository, templateSettings, navigationModule) {
         "use strict";
 
         var viewModel = {
@@ -77,7 +77,6 @@
 
 
                 viewModel.voiceOver = viewModel.question.voiceOver;
-                viewModel.theme = themeSelector.currentTheme;
 
                 viewModel.startTime = new Date();
                 viewModel.masteryScore = templateSettings.masteryScore.score;
