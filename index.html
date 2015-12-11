@@ -15,12 +15,9 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
 
-    <link href='//fonts.googleapis.com/css?family=Roboto:500,400,300,100,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed&subset:500,400,300,100,700=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Lato:300&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:300,400,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
 
-    <link href="css/colors.less" type="text/css" rel="stylesheet/less" />
+    <link href="css/colors.css" type="text/css" rel="stylesheet/less" />
 
     <!-- build:css css/vendor.css -->
     <link href="vendor/easy-supported-browser/css/easy-supported-browser.min.css" rel="stylesheet" />
@@ -30,7 +27,6 @@
     <link href="css/ie10mobile.css" rel="stylesheet" />
     <link href="css/normalize.css" rel="stylesheet" />
     <link href="css/main.css" rel="stylesheet" />
-
     <!-- endbuild -->
 
     <script type="text/javascript">
@@ -68,12 +64,7 @@
     <script src="js/autosize.js"></script>
     <script src="vendor/easygenerator-hotspot-on-an-image-plugin/hotspotOnAnImagePlugin.js"></script>
     <script src="vendor/branchtrack-provider/index.js"></script>
-
-
-
     <!-- endbuild -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
-
     <script type="text/javascript">
         supportedBrowser.configure({
             browsers: {
@@ -139,7 +130,14 @@
             deps: ['main'],
             urlArgs: 'v=buildVersion'
         };
+
+        less = {
+            env: 'production',
+            fileAsync: true,
+            async: true
+        };
     </script>
+    <script src="js/less.min.js"></script>
     <script src="js/require.js"></script>
 </body>
 </html>

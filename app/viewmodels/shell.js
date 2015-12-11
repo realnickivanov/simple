@@ -1,5 +1,5 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'themes/themeSelector', 'themes/themeInjector', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler', 'lessProcessor'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, themeSelector, themeInjector, background, progressContext, constants, userContext, errorsHandler, lessProcessor) {
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler', 'lessProcessor'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, background, progressContext, constants, userContext, errorsHandler, lessProcessor) {
 
         var viewModel = {
             router: router,
@@ -54,10 +54,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                         return modulesInitializer.init().then(function () {
                             that.logoUrl(templateSettings.logoUrl);
                             that.pdfExportEnabled = templateSettings.pdfExport.enabled;
-                            themeSelector.init();
-                            return themeInjector.init().then(function () {
-                                lessProcessor.init(templateSettings.colors)
-                            }).then(function () {
+                            return lessProcessor.init(templateSettings.colors).then(function () {
                                 app.title = dataContext.course.title;
 
                                 if (progressContext.ready()) {
