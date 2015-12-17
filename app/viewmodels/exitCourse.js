@@ -64,6 +64,10 @@
         }
 
         function openFinishPopup() {
+            if (router.isNavigationLocked()) {
+                return;
+            }
+
             viewModel.finishPopupVisibility(true);
         }
 

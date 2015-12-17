@@ -1022,6 +1022,18 @@
 }
 
 /*#endregion */
+/*#region exit course button */
+.exit-course-button-wrapper .exit-course-button.disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+    .exit-course-button-wrapper .exit-course-button.disabled:hover {
+        background-color: #50b2ac;
+}
+
+/*#endregion exit course button */
+
 
 @media (max-width: 975px) {
     #content,
