@@ -5,7 +5,6 @@
 
 
     function init(colors) {
-
         var colorsObj = {};
         _.each(colors, function (pair) {
             colorsObj[pair.key] = pair.value

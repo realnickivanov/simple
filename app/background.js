@@ -11,60 +11,101 @@ define([], function () {
                 element: ".header",
                 brightness: ".header-overlay"
             },
+            fullscreenHeader: {
+                element: ".fullscreen-header-overlay",
+                brightness: ".body-layout-wrapper"
+            },
             body: {
                 element: "body",
                 brightness: ".body-layout-wrapper"
             }
         }
 
-        _.each(background, function (backgroundSetting, group) {
-            var element = elementsClasses[group].element,
-                brightness = elementsClasses[group].brightness;
-            if (backgroundSetting.image && backgroundSetting.image.src) {
-                var image = new Image(),
-                    src = backgroundSetting.image.src,
-                    position = '0 0',
-                    repeat = 'no-repeat',
-                    size = 'auto';
-                if (backgroundSetting.image.type === 'repeat') {
-                    repeat = 'repeat';
-                }
-                if (backgroundSetting.image.type === 'fullscreen') {
-                    size = 'cover';
-                    position = 'center';
-                }
-                image.onload = function () {
-                    $(element)
-                        .css({
-                            'top': '0',
-                            'bottom': '0',
-                            'background-image': 'url(' + src + ')',
-                            'background-position': position,
-                            '-webkit-background-size': size,
-                            'background-size': size,
-                            'background-repeat': repeat
-                        });
-                }
-                image.src = src;
-            }
-            if (backgroundSetting.color) {
-                $(element).css({
-                    "background-color": backgroundSetting.color
-                })
-            }
-            if (backgroundSetting.brightness && backgroundSetting.brightness > 0) {
-                $(brightness).css({
-                    "background-color": "#fff",
-                    "opacity": backgroundSetting.brightness
-                })
-            }
-            if (backgroundSetting.brightness && backgroundSetting.brightness < 0){
-                $(brightness).css({
-                    "background-color": "#000",
-                    "opacity": -backgroundSetting.brightness
-                })
+        if (background.body) {
+            if (background.body.texture && background.body.texture.length) {
+                applyImage(elementsClasses.body.element, background.body.texture, "repeat");
+            };
+
+            if (background.body.color && background.body.color.length) {
+                applyColor(elementsClasses.body.element, background.body.color);
+            };
+
+            if (background.body.brightness) {
+                applyBrightness(elementsClasses.body.brightness, background.body.brightness);
+            };
+        }
+
+        if (background.header) {
+            var headerClasses = elementsClasses.header;
+
+            if (background.header.expanded) {
+                headerClasses = elementsClasses.fullscreenHeader;
             }
 
-        })
+            if (background.header.image && background.header.image.url && background.header.image.url.length) {
+                applyImage(headerClasses.element, background.header.image.url, background.header.image.option);
+            };
+            if (background.header.color && background.header.color.length) {
+                applyColor(headerClasses.element, background.header.color);
+            };
+            if (background.header.brightness) {
+                applyBrightness(headerClasses.brightness, background.header.brightness);
+            };
+
+        }
     }
+
+    function applyBrightness(element, brightness) {
+        var $element = $(element);
+        if (brightness > 0) {
+            $element.css({
+                "background-color": "#fff",
+                "opacity": brightness
+            });
+        };
+        if (brightness < 0) {
+            $element.css({
+                "background-color": "#000",
+                "opacity": -backgroundSetting.brightness
+            });
+        };
+    }
+
+    function applyImage(element, url, type) {
+        var $element = $(element),
+            image = new Image(),
+            position = '0 0',
+            repeat = 'no-repeat',
+            size = 'auto';
+
+        if (type === 'repeat') {
+            repeat = 'repeat';
+        };
+
+        if (type === 'fullscreen') {
+            size = 'cover';
+            position = 'center';
+        };
+
+        image.onload = function () {
+            $element.css({
+                'top': '0',
+                'bottom': '0',
+                'background-image': 'url(' + url + ')',
+                'background-position': position,
+                '-webkit-background-size': size,
+                'background-size': size,
+                'background-repeat': repeat
+            })
+        };
+        image.src = url;
+    }
+
+    function applyColor(element, color) {
+        var $element = $(element);
+        $element.css({
+            'background-color': color
+        });
+    }
+
 });
