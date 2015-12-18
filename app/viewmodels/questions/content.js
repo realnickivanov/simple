@@ -18,7 +18,6 @@
             previousQuestionUrl: previousQuestionUrl,
 
             voiceOver: null,
-            theme: null,
 
             activeViewModel: null,
 

@@ -3,16 +3,15 @@ define([], function () {
     var defaultTranslationsCode = 'en';
 
     var defaultTemplateSetting = {
-        "logo": {
-            "url": ""
-        },
-        "theme": {
-            "key": ""
+        "branding": {
+            "logo": {
+                "url": ""
+            },
+            "background": null
         },
         "objectivesLayout": {
             "key": "Tiles"
         },
-        "background": null,
         "xApi": {
             "enabled": true,
             "selectedLrs": "default",
@@ -44,9 +43,7 @@ define([], function () {
         },
 
         logoUrl: '',
-        theme: {
-            key: ''
-        },
+        
         objectivesLayout: {
             key: ''
         },
@@ -65,8 +62,8 @@ define([], function () {
             }
 
             //Course logo initialization
-            if (!_.isEmptyOrWhitespace(fullSettings.logo.url)) {
-                that.logoUrl = fullSettings.logo.url;
+            if (!_.isEmptyOrWhitespace(fullSettings.branding.logo.url)) {
+                that.logoUrl = fullSettings.branding.logo.url;
             }
 
             //objectives layout initialization
@@ -74,14 +71,10 @@ define([], function () {
                 that.objectivesLayout = fullSettings.objectivesLayout.key;
             }
 
-            //Theme initialization
-            if (!_.isEmptyOrWhitespace(fullSettings.theme.key)) {
-                that.theme.key = fullSettings.theme.key;
-            }
 
-            that.colors = fullSettings.colors;
+            that.colors = fullSettings.branding.colors;
 
-            that.background = fullSettings.background;
+            that.background = fullSettings.branding.background;
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
 
