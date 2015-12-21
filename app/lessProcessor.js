@@ -1,16 +1,17 @@
 ﻿define([], function () {
-    return {
-        init: init
+    var lessProcessor = {
+        init: init,
+        colors: {}
     }
 
+    return lessProcessor;
 
     function init(colors) {
-        var colorsObj = {};
         _.each(colors, function (pair) {
-            colorsObj[pair.key] = pair.value
+            lessProcessor.colors[pair.key] = pair.value;
         })
 
-        return less.modifyVars(colorsObj);
-    }
+        return less.modifyVars(lessProcessor.colors);
+    };
 
 });

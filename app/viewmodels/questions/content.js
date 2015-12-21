@@ -18,6 +18,7 @@
             previousQuestionUrl: previousQuestionUrl,
 
             voiceOver: null,
+            mainInterfaceColour: null,
 
             activeViewModel: null,
 
@@ -77,6 +78,10 @@
 
                 viewModel.voiceOver = viewModel.question.voiceOver;
 
+                viewModel.mainInterfaceColour = _.find(templateSettings.colors, function (pair) {
+                    return pair.key === "@main-color"
+                }).value
+           
                 viewModel.startTime = new Date();
                 viewModel.masteryScore = templateSettings.masteryScore.score;
                 viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.objective.id, viewModel.question.id);
