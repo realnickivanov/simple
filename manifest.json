@@ -47,12 +47,12 @@
       "url": "lang/tr.json"
     },
     {
-      "code": "ua",
-      "url": "lang/ua.json"
-    },
-    {
       "code": "es",
       "url": "lang/es.json"
+    },
+    {
+      "code": "ua",
+      "url": "lang/ua.json"
     }
   ]
 }
