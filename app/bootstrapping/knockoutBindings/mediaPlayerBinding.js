@@ -1,33 +1,37 @@
-﻿define(function () {
+﻿define(['lessProcessor'], function (lessProcessor) {
     ko.bindingHandlers.mediaPlayer = {
         init: function (element, valueAccessor) {
+            
             var
                 $element = $(element),
                 args = valueAccessor(),
                 embedCode = ko.utils.unwrapObservable(args.embedCode),
-                theme = ko.utils.unwrapObservable(args.theme)
-            ;
-
+                mainColor = getMainInterfaceColor();
+            
             $element.html(getMediaEmbedCode());
-
+            
             function getMediaEmbedCode() {
-                if (!embedCode || !theme)
+
+                if (!embedCode)
                     return embedCode;
 
                 var srcAttrName = 'src',
-                    themeCssPath = 'css/player/',
                     $container = $('<div/>').html(embedCode),
                     $iframe = $container.find('iframe'),
-                    src = $iframe.attr(srcAttrName),
-                    url = location.href.split(/[?#]/)[0];
+                    src = $iframe.attr(srcAttrName)
 
-                if (!src || !url)
-                    return embedCode;
+                
 
-                src += '&css=' + url.replace(/[^\/]+$/, '') + themeCssPath + theme + '.css';
+                src += '&color=' + mainColor;
                 $iframe.attr(srcAttrName, src);
                 return $container.html();
             }
         }
     };
+
+    function getMainInterfaceColor() {
+        var color = lessProcessor.colors['@main-color'];
+
+        return color.substring(1, color.length)
+    }
 })
