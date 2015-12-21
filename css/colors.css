@@ -1,13 +1,25 @@
+<<<<<<< HEAD
 ﻿@text-color: #252728;
 @main-color: #43aaa3;
 @secondary-color: #2d9ec6;
 @button-text-color: #fff;
 @content-background-color: #fff;
+=======
+﻿@content-text-color: #252728;
+@main-color: #43aaa3;
+@secondary-color: #2d9ec6;
+@button-text-color: #fff;
+@content-body-color: #fff;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 
 @main-font: Roboto Slab;
 
 body {
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     font-family: @main-font;
 }
 
@@ -39,22 +51,38 @@ body {
     }
 
     &.link {
+<<<<<<< HEAD
         color: fade(@text-color, 70%);
 
         &:not(.disabled):hover {
             color: @text-color;
             border-bottom-color: @text-color;
+=======
+        color: fade(@content-text-color, 70%);
+
+        &:not(.disabled):hover {
+            color: @content-text-color;
+            border-bottom-color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
         }
     }
 }
 
 .login {
     h2 {
+<<<<<<< HEAD
         color: fade(@text-color,90%);
     }
 
     footer {
         color: fade(@text-color,50%);
+=======
+        color: fade(@content-text-color,90%);
+    }
+
+    footer {
+        color: fade(@content-text-color,50%);
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 }
 
@@ -82,7 +110,11 @@ body {
 }
 
 .content {
+<<<<<<< HEAD
     background-color: @content-background-color;
+=======
+    background-color: @content-body-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 }
 
 .mastered-score-tooltip {
@@ -94,7 +126,11 @@ body {
 }
 
 .styled-content {
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 
     a {
         color: @secondary-color;
@@ -111,12 +147,20 @@ body {
     }
 
     u {
+<<<<<<< HEAD
         border-bottom: 1px solid @text-color;
+=======
+        border-bottom: 1px solid @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 
     .table-wrapper {
         table {
+<<<<<<< HEAD
             color: @text-color;
+=======
+            color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 
             thead {
                 th {
@@ -173,7 +217,11 @@ body {
 
 .radio {
     background-color: fade(@main-color,10%);
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 
     &:hover {
         background: fade(@main-color,20%);
@@ -190,7 +238,11 @@ body {
 
 .checkbox {
     background-color: fade(@main-color,10%);
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 
     &:hover {
         background: fade(@main-color,20%);
@@ -206,7 +258,11 @@ body {
 }
 
 .fill-in-the-blank {
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 
     .blankInput {
     }
@@ -265,7 +321,11 @@ body {
 
 .overlay-holder {
     .overlay {
+<<<<<<< HEAD
         background-color: fade(@content-background-color,90%);
+=======
+        background-color: fade(@content-body-color,90%);
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 }
 
@@ -308,12 +368,20 @@ body {
 .drag-and-drop-text-draggable-container {
     &.empty, &.active {
         border-color: @main-color;
+<<<<<<< HEAD
         color: fade(@text-color, 70%);
+=======
+        color: fade(@content-text-color, 70%);
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 }
 
 .drag-and-drop-text-draggable-container-message {
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 }
 
 .drag-and-drop-text-draggable {
@@ -340,20 +408,35 @@ body {
 .text-matching-source {
     background-color: fade(@main-color,10%);
     border: 1px solid @main-color;
+<<<<<<< HEAD
     color: @text-color;
 
     &:after {
         background: @content-background-color;
+=======
+    color: @content-text-color;
+
+    &:after {
+        background: @content-body-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
         border: 2px solid @main-color;
     }
 
     &:before {
+<<<<<<< HEAD
         background: @content-background-color;
+=======
+        background: @content-body-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 }
 
 .text-matching-source-text-wrapper {
+<<<<<<< HEAD
     color: @text-color;
+=======
+    color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
 }
 
 .text-matching-target {
@@ -383,7 +466,11 @@ body {
 
 .text-matching-target-placeholder-wrapper {
     .text-matching-target-placeholder-text {
+<<<<<<< HEAD
         color: fade(@text-color, 70%);
+=======
+        color: fade(@content-text-color, 70%);
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 
     &.hover {
@@ -393,7 +480,11 @@ body {
         }
 
         .text-matching-target-placeholder-text {
+<<<<<<< HEAD
             color: @text-color;
+=======
+            color: @content-text-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
         }
     }
 }
@@ -410,11 +501,19 @@ body {
 }
 
 .popup-layout {
+<<<<<<< HEAD
     background-color: fade(@content-background-color,90%);
 
     .popup {
         article {
             background-color: @content-background-color;
+=======
+    background-color: fade(@content-body-color,90%);
+
+    .popup {
+        article {
+            background-color: @content-body-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
         }
 
         footer {
@@ -464,7 +563,11 @@ body {
     }
 
     .objective-info {
+<<<<<<< HEAD
         background: @content-background-color;
+=======
+        background: @content-body-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
     }
 
     &.List {
@@ -475,7 +578,11 @@ body {
         }
 
         .objective-info {
+<<<<<<< HEAD
             background-color: @content-background-color;
+=======
+            background-color: @content-body-color;
+>>>>>>> 5e003dec3d2aec1677c8e017f6b5743c70b4ed7a
         }
 
         .progressbar {
