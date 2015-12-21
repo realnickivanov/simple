@@ -411,7 +411,7 @@ ul {
         line-height: 30px;
         padding-left: 60px;
 
-        li {
+        & > li {
             position: relative;
             list-style-position: outside;
 
@@ -437,6 +437,10 @@ ul {
             h3 {
                 display: inline;
             }
+
+            p {
+                display: inline;
+            }
         }
     }
 
@@ -447,7 +451,7 @@ ul {
         list-style-type: none;
         counter-reset: ol-counter;
 
-        li {
+        & > li {
             list-style-position: inside;
 
             &:before {
@@ -468,6 +472,10 @@ ul {
 
             h3 {
                 display: inline;
+            }
+
+            p {
+                display: inline;            
             }
         }
     }
@@ -2047,7 +2055,8 @@ form {
         .button {
 
             &:active,
-            &:focus {
+            &:focus,
+            &.focused {
                 + .submit-question-tooltip {
                     opacity: 1;
                     margin-bottom: 12px;
