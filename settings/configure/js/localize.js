@@ -61,6 +61,7 @@
         'nl': 'Dutch',
         'tr': 'Turkish',
         'ua': 'Ukrainian',
+		'es': 'Spanish',
         'pt-br': 'Portuguese (Brazil)',
 
         'choose language for your course': 'Choose language for your course',
