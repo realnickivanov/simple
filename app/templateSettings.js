@@ -60,9 +60,8 @@ define([], function () {
                 var score = Number(fullSettings.masteryScore.score);
                 that.masteryScore.score = (_.isNumber(score) && score >= 0 && score <= 100) ? score : 100;
             }
-
             //Course logo initialization
-            if (!_.isEmptyOrWhitespace(fullSettings.branding.logo.url)) {
+            if (fullSettings.branding.logo && fullSettings.branding.logo.url && fullSettings.branding.logo.url.length) {
                 that.logoUrl = fullSettings.branding.logo.url;
             }
 
