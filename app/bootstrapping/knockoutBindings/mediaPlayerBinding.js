@@ -1,15 +1,15 @@
 ﻿define(['lessProcessor'], function (lessProcessor) {
     ko.bindingHandlers.mediaPlayer = {
         init: function (element, valueAccessor) {
-            
+
             var
                 $element = $(element),
                 args = valueAccessor(),
-                embedCode = ko.utils.unwrapObservable(args.embedCode),
-                mainColor = getMainInterfaceColor();
-            
+                embedCode = ko.utils.unwrapObservable(args.embedCode);
+
+
             $element.html(getMediaEmbedCode());
-            
+
             function getMediaEmbedCode() {
 
                 if (!embedCode)
@@ -18,20 +18,20 @@
                 var srcAttrName = 'src',
                     $container = $('<div/>').html(embedCode),
                     $iframe = $container.find('iframe'),
-                    src = $iframe.attr(srcAttrName)
-
+                    src = $iframe.attr(srcAttrName),
+                    variablesList = getVariablesList();
                 
+                src += '&style_variables=' + encodeURIComponent(variablesList);
 
-                src += '&color=' + mainColor;
                 $iframe.attr(srcAttrName, src);
                 return $container.html();
             }
         }
     };
 
-    function getMainInterfaceColor() {
-        var color = lessProcessor.colors['@main-color'];
+    function getVariablesList() {
+        var variables = lessProcessor.vars;
 
-        return color.substring(1, color.length)
+        return JSON.stringify(variables)
     }
 })

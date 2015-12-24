@@ -1,4 +1,4 @@
-@content-text-color: #252728;
+@text-color: #252728;
 @main-color: #43aaa3;
 @secondary-color: #2d9ec6;
 @button-text-color: #fff;
@@ -7,7 +7,7 @@
 @main-font: Roboto Slab;
 
 body {
-    color: @content-text-color;
+    color: @text-color;
     font-family: @main-font;
 }
 
@@ -39,22 +39,22 @@ body {
     }
 
     &.link {
-        color: fade(@content-text-color, 70%);
+        color: fade(@text-color, 70%);
 
         &:not(.disabled):hover {
-            color: @content-text-color;
-            border-bottom-color: @content-text-color;
+            color: @text-color;
+            border-bottom-color: @text-color;
         }
     }
 }
 
 .login {
     h2 {
-        color: fade(@content-text-color,90%);
+        color: fade(@text-color,90%);
     }
 
     footer {
-        color: fade(@content-text-color,50%);
+        color: fade(@text-color,50%);
     }
 }
 
@@ -94,7 +94,7 @@ body {
 }
 
 .styled-content {
-    color: @content-text-color;
+    color: @text-color;
 
     a {
         color: @secondary-color;
@@ -111,12 +111,12 @@ body {
     }
 
     u {
-        border-bottom: 1px solid @content-text-color;
+        border-bottom: 1px solid @text-color;
     }
 
     .table-wrapper {
         table {
-            color: @content-text-color;
+            color: @text-color;
 
             thead {
                 th {
@@ -173,7 +173,7 @@ body {
 
 .radio {
     background-color: fade(@main-color,10%);
-    color: @content-text-color;
+    color: @text-color;
 
     &:hover {
         background: fade(@main-color,20%);
@@ -190,7 +190,7 @@ body {
 
 .checkbox {
     background-color: fade(@main-color,10%);
-    color: @content-text-color;
+    color: @text-color;
 
     &:hover {
         background: fade(@main-color,20%);
@@ -206,7 +206,7 @@ body {
 }
 
 .fill-in-the-blank {
-    color: @content-text-color;
+    color: @text-color;
 
     .blankInput {
     }
@@ -308,12 +308,12 @@ body {
 .drag-and-drop-text-draggable-container {
     &.empty, &.active {
         border-color: @main-color;
-        color: fade(@content-text-color, 70%);
+        color: fade(@text-color, 70%);
     }
 }
 
 .drag-and-drop-text-draggable-container-message {
-    color: @content-text-color;
+    color: @text-color;
 }
 
 .drag-and-drop-text-draggable {
@@ -340,7 +340,7 @@ body {
 .text-matching-source {
     background-color: fade(@main-color,10%);
     border: 1px solid @main-color;
-    color: @content-text-color;
+    color: @text-color;
 
     &:after {
         background: @content-body-color;
@@ -353,7 +353,7 @@ body {
 }
 
 .text-matching-source-text-wrapper {
-    color: @content-text-color;
+    color: @text-color;
 }
 
 .text-matching-target {
@@ -383,7 +383,7 @@ body {
 
 .text-matching-target-placeholder-wrapper {
     .text-matching-target-placeholder-text {
-        color: fade(@content-text-color, 70%);
+        color: fade(@text-color, 70%);
     }
 
     &.hover {
@@ -393,7 +393,7 @@ body {
         }
 
         .text-matching-target-placeholder-text {
-            color: @content-text-color;
+            color: @text-color;
         }
     }
 }

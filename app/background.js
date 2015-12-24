@@ -6,6 +6,7 @@ define([], function () {
 
 
     function apply(background) {
+
         var elementsClasses = {
             header: {
                 element: ".header",
@@ -13,7 +14,7 @@ define([], function () {
             },
             fullscreenHeader: {
                 element: ".fullscreen-header-overlay",
-                brightness: ".body-layout-wrapper"
+                brightness: ".fullscreen-header-brightness-holder"
             },
             body: {
                 element: "body",
@@ -36,6 +37,7 @@ define([], function () {
         }
 
         if (background.header) {
+
             var headerClasses = elementsClasses.header;
 
             if (background.header.expanded) {
@@ -51,7 +53,6 @@ define([], function () {
             if (background.header.brightness) {
                 applyBrightness(headerClasses.brightness, background.header.brightness);
             };
-
         }
     }
 
@@ -66,7 +67,7 @@ define([], function () {
         if (brightness < 0) {
             $element.css({
                 "background-color": "#000",
-                "opacity": -backgroundSetting.brightness
+                "opacity": -brightness
             });
         };
     }
