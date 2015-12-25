@@ -7,7 +7,8 @@ define([], function () {
             "logo": {
                 "url": ""
             },
-            "background": null
+            "background": null,
+            "colors": []
         },
         "objectivesLayout": {
             "key": "Tiles"
@@ -43,7 +44,7 @@ define([], function () {
         },
 
         logoUrl: '',
-        
+
         objectivesLayout: {
             key: ''
         },

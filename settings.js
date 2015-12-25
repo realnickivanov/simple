@@ -19,13 +19,8 @@
                     "texture": null
                 }
         },
-        "colors":[
-                { "key": "@content-text-color", "value": "#f0a" },
-                { "key": "@main-color", "value": "#f0a" },
-                { "key": "@secondary-color", "value": "#f0a" },
-                { "key": "@button-text-color", "value": "#f0a" },
-                { "key": "@content-background-color", "value": "#f0a" }
-        ]},
+        "colors":null
+    },
     "pdfExport":{
         "enabled":false
     },

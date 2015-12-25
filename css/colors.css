@@ -56,6 +56,18 @@ body {
     footer {
         color: fade(@text-color,50%);
     }
+
+    form {
+        .form-row {
+            input
+            {
+                color: @text-color;
+                +label{                   
+                          color: fade(@text-color,50%);
+                    }
+            }
+        }
+    }
 }
 
 .navigation-home-link {
@@ -209,6 +221,8 @@ body {
     color: @text-color;
 
     .blankInput {
+         color: @text-color;
+         font-family: @main-font;
     }
 }
 
@@ -396,6 +410,13 @@ body {
             color: @text-color;
         }
     }
+}
+
+.edit-field-wrapper {
+    .edit-field
+        {
+            color:@text-color;
+        }
 }
 
 .exit-course-button-wrapper {
