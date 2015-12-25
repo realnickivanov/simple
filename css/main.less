@@ -1468,6 +1468,11 @@ form {
         border-bottom-right-radius: 5px;
         box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
 
+        &.disabled {
+            cursor: default;
+            opacity: .5;
+        }
+
         &:before {
             position: absolute;
             left: 20px;
@@ -1874,7 +1879,7 @@ form {
         background-color: transparent;
         outline: none;
         max-width: 100%;
-        font-weight:300;
+        font-weight: 300;
         box-sizing: border-box;
 
         &:hover, &:focus {

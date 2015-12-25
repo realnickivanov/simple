@@ -424,7 +424,7 @@ body {
         color: @button-text-color;
         background-color: lighten(@main-color,20%);
 
-        &:hover {
+        &:not(.disabled):hover {
             background-color: @main-color;
         }
     }
