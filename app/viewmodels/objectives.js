@@ -28,6 +28,7 @@
                         questions: item.questions,
                         affectProgress: item.affectProgress,
                         goToFirstQuestion: function () {
+                            
                             if (router.isNavigationLocked()) {
                                 return;
                             }

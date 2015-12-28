@@ -20,7 +20,7 @@
                     $iframe = $container.find('iframe'),
                     src = $iframe.attr(srcAttrName),
                     variablesList = getVariablesList();
-                
+
                 src += '&style_variables=' + encodeURIComponent(variablesList);
 
                 $iframe.attr(srcAttrName, src);
@@ -30,8 +30,10 @@
     };
 
     function getVariablesList() {
-        var variables = lessProcessor.vars;
 
-        return JSON.stringify(variables)
+        if (lessProcessor.vars) {
+            var variables = lessProcessor.vars;
+            return JSON.stringify(variables);
+        }
     }
 })

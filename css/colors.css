@@ -78,6 +78,17 @@ body {
     }
 }
 
+.question-navigation-bar {
+    a{
+         &:hover{
+            &:before, &:after{
+            
+                border-color:@main-color;              
+            }               
+         }
+     }
+}
+
 .learning-content {
     .learning-content-title {
         background-color: lighten(@main-color, 20%);

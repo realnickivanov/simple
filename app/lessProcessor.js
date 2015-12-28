@@ -7,6 +7,7 @@
     return lessProcessor;
 
     function init(colors) {
+
         _.each(colors, function (pair) {
             lessProcessor.vars[pair.key] = pair.value;
         })
