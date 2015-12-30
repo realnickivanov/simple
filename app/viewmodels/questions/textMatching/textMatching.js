@@ -5,6 +5,8 @@
         content: null,
         isAnswered: ko.observable(false),
 
+        values: [],
+
         sources: ko.observableArray([]),
         targets: ko.observableArray([]),
 
@@ -33,11 +35,17 @@
             viewModel.content = question.content;
             viewModel.isAnswered(question.isAnswered);
 
+            viewModel.values = _.chain(question.answers)
+                .map(function (answer) {
+                    return answer.value;
+                })
+                .shuffle()
+                .value();
 
             var targets = [];
 
-            _.each(question.answers, function (pair) {
-                targets.push(new Target(pair.value));
+            _.each(viewModel.values, function (value) {
+                targets.push(new Target(value));
             });
 
             var sources = [];
@@ -57,7 +65,7 @@
                 sources.push(source);
             });
 
-            viewModel.targets(_.shuffle(targets));
+            viewModel.targets(targets);
             viewModel.sources(_.shuffle(sources));
         });
     }
@@ -76,10 +84,8 @@
         return Q.fcall(function () {
 
             _.each(viewModel.sources(), function (pair, index) {
-                if (pair.value()) {
-                    viewModel.targets()[index].acceptValue(pair.value());
-                    pair.rejectValue();
-                }
+                pair.rejectValue();
+                viewModel.targets()[index].acceptValue(viewModel.values[index]);
             });
 
             viewModel.isAnswered(false);
