@@ -26,7 +26,7 @@
                 },
                 {
                     "key": "@main-color",
-                    "value": "#43aaa3"
+                    "value": "#e9de85"
                 },
                 {
                     "key": "@secondary-color",
@@ -34,7 +34,7 @@
                 },
                 {
                     "key": "@button-text-color",
-                    "value": "#fff"
+                    "value": "#f0a"
                 },
                 {
                     "key": "@content-body-color",

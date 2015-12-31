@@ -12,7 +12,7 @@ body {
 }
 
 .header:before {
-    background-color: lighten(@main-color,20%);
+    background-color: tint(@main-color,20%);
 }
 
 .button {
@@ -20,11 +20,11 @@ body {
 
     &.primary {
         color: @button-text-color;
-        border-color: darken(@main-color,7%);
+        border-color:shade(@main-color,10%);
         background-color: @main-color;
 
         &:not(.disabled):hover {
-            background-color: darken(@main-color,7%);
+            background-color:shade(@main-color,10%);
         }
     }
 
@@ -39,10 +39,10 @@ body {
     }
 
     &.link {
-        color: fade(@text-color, 70%);
+        color: fade(@text-color, 60%);
 
         &:not(.disabled):hover {
-            color: @text-color;
+            color: fade(@text-color, 90%);
             border-bottom-color: @text-color;
         }
     }
@@ -71,7 +71,8 @@ body {
 }
 
 .navigation-home-link {
-    background-color: lighten(@main-color,20%);
+    background-color: tint(@main-color,20%);
+    color: @button-text-color;
 
     &:not(.disabled):hover {
         background-color: @main-color;
@@ -80,9 +81,8 @@ body {
 
 .question-navigation-bar {
     a{
-         &:hover{
+         &:not(.disabled):hover{
             &:before, &:after{
-            
                 border-color:@main-color;              
             }               
          }
@@ -91,7 +91,7 @@ body {
 
 .learning-content {
     .learning-content-title {
-        background-color: lighten(@main-color, 20%);
+        background-color: tint(@main-color,20%);
         color: @button-text-color;
     }
 }
@@ -110,7 +110,7 @@ body {
 
 .mastered-score-tooltip {
     background-color: @secondary-color;
-
+    color:@button-text-color;
     &.mastered {
         background-color: @main-color;
     }
@@ -249,11 +249,11 @@ body {
             }
 
             &:hover {
-                background-color: darken(@main-color, 5%);
+                background-color: shade(@main-color,10%);
 
                 &:first-child {
                     &:after {
-                        background-color: darken(@main-color, 7%);
+                        background-color: shade(@main-color,10%);
                     }
                 }
             }
@@ -265,7 +265,7 @@ body {
     .select-image {
 
         .select-image-wrapper {
-            border: 3px solid lighten(@main-color,20%);
+            border: 3px solid tint(@main-color,20%);
 
             &:hover {
                 border: 3px solid @main-color;
@@ -276,6 +276,7 @@ body {
                 &:hover {
                     background-color: @main-color;
                     border-color: @main-color;
+                    color:@button-text-color;
                 }
             }
         }
@@ -345,20 +346,20 @@ body {
     background-color: @main-color;
 
     &.ui-draggable-dragging, &:hover {
-        background-color: darken(@main-color,7%);
+        background-color:shade(@main-color,10%);
     }
 }
 
 .text-matching-caption {
-    background-color: fade(@main-color,10%);
-    color: fade(@main-color,50%);
+    background-color: fade(@main-color,20%);
+    color: fade(@text-color,50%);
 
     &:after {
-        background-color: fade(@main-color,10%);
+        background-color: fade(@main-color,20%);
     }
 
     &:before {
-        border-right: 8px solid fade(@main-color,10%);
+        border-right: 5px solid fade(@main-color,20%);
     }
 }
 
@@ -390,14 +391,14 @@ body {
     }
 
     &.handle {
-        background-color: darken(@main-color,7%);
+        background-color:shade(@main-color,10%);
 
         &:before {
-            background: darken(@main-color,7%);
+            background:shade(@main-color,10%);
         }
 
         &:after {
-            background: darken(@main-color,7%);
+            background:shade(@main-color,10%);
         }
     }
 }
@@ -427,16 +428,26 @@ body {
     .edit-field
         {
             color:@text-color;
+         &:focus::-moz-placeholder {
+            color: fade(@text-color,50%);
+            opacity: 1;
+        }
+
+        &:focus::-webkit-input-placeholder {
+            color: fade(@text-color,50%);
+            opacity: 1;
+        }
         }
 }
 
 .exit-course-button-wrapper {
     .exit-course-button {
         color: @button-text-color;
-        background-color: lighten(@main-color,20%);
+        background-color: @main-color;
+        font-family:@main-font;
 
         &:not(.disabled):hover {
-            background-color: @main-color;
+            background-color: shade(@main-color, 10%);
         }
     }
 }
@@ -500,10 +511,9 @@ body {
     }
 
     &.List {
-        border:2px solid fade(@main-color,70%);
 
         &:not(.disabled):hover {
-            border-color: @main-color;
+            box-shadow: 0 0px 0px 2px @main-color;
         }
 
         .objective-info {

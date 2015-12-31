@@ -21,6 +21,9 @@
       "title": "default",
       "settings": {
         "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
           "colors": [
             {
               "key": "@text-color",
@@ -66,6 +69,9 @@
       "title": "black",
       "settings": {
         "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
           "colors": [
             {
               "key": "@text-color",
@@ -111,6 +117,9 @@
       "title": "cartoon",
       "settings": {
         "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
           "colors": [
             {
               "key": "@text-color",
@@ -156,6 +165,9 @@
       "title": "grey",
       "settings": {
         "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
           "colors": [
             {
               "key": "@text-color",
@@ -202,6 +214,9 @@
       "title": "flat",
       "settings": {
         "branding": {
+          "logo": {
+            "url": "//cdn.easygenerator.com/logo.png"
+          },
           "colors": [
             {
               "key": "@text-color",

@@ -19,6 +19,7 @@
   "dependencies": {
     "easy-supported-browser": "~1.0.0",
     "easygenerator-hotspot-on-an-image-plugin": "*",
-    "branchtrack-provider": "*"
+    "branchtrack-provider": "*",
+    "components-webfontloader": "~1.6.3"
   }
 }

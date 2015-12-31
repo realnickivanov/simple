@@ -9,12 +9,14 @@
 
 define('jquery', function () { return jQuery; });
 define('knockout', function () { return ko; });
+define('WebFont', function () { return WebFont; });
+
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation'],
     function(app, viewLocator, system, modulesInitializer, bootstrapper, templateSettings, settingsReader, translation) {
         app.title = 'easygenerator';
 
-        system.debug(true);
+        system.debug(false);
 
         app.configurePlugins({
             router: true,
