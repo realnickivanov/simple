@@ -1,5 +1,5 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler', 'lessProcessor', 'modules/webFontLoaderProvider'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, background, progressContext, constants, userContext, errorsHandler, lessProcessor, webFontLoaderProvider) {
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler', 'lessProcessor'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, background, progressContext, constants, userContext, errorsHandler, lessProcessor) {
 
         var viewModel = {
             router: router,
@@ -55,31 +55,29 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                             that.logoUrl(templateSettings.logoUrl);
                             that.pdfExportEnabled = templateSettings.pdfExport.enabled;
                             return lessProcessor.init(templateSettings.colors).then(function () {
-                                return webFontLoaderProvider.init().then(function () {
-                                    app.title = dataContext.course.title;
+                                app.title = dataContext.course.title;
 
-                                    if (progressContext.ready()) {
-                                        var progress = progressContext.get();
-                                        if (_.isObject(progress)) {
-                                            if (_.isString(progress.url)) {
-                                                window.location.hash = progress.url;
-                                            }
+                                if (progressContext.ready()) {
+                                    var progress = progressContext.get();
+                                    if (_.isObject(progress)) {
+                                        if (_.isString(progress.url)) {
+                                            window.location.hash = progress.url;
+                                        }
 
-                                            if (_.isObject(progress.answers)) {
-                                                _.each(dataContext.course.objectives, function (objective) {
-                                                    _.each(objective.questions, function (question) {
-                                                        if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
-                                                            question.progress(progress.answers[question.shortId]);
-                                                        }
-                                                    });
+                                        if (_.isObject(progress.answers)) {
+                                            _.each(dataContext.course.objectives, function (objective) {
+                                                _.each(objective.questions, function (question) {
+                                                    if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
+                                                        question.progress(progress.answers[question.shortId]);
+                                                    }
                                                 });
-                                            }
+                                            });
                                         }
                                     }
+                                }
 
-                                    return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
-                                        errorsHandler.startHandle();
-                                    });
+                                return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
+                                    errorsHandler.startHandle();
                                 });
                             });
                         });

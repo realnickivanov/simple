@@ -7,7 +7,6 @@
                 args = valueAccessor(),
                 embedCode = ko.utils.unwrapObservable(args.embedCode);
 
-
             $element.html(getMediaEmbedCode());
 
             function getMediaEmbedCode() {
@@ -30,6 +29,6 @@
     };
 
     function getVariablesList() {
-        return lessProcessor.vars ? JSON.stringify(essProcessor.vars) : undefined;
+        return lessProcessor.vars ? JSON.stringify(lessProcessor.vars) : undefined;
     }
 })
