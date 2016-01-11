@@ -30,10 +30,6 @@
     };
 
     function getVariablesList() {
-
-        if (lessProcessor.vars) {
-            var variables = lessProcessor.vars;
-            return JSON.stringify(variables);
-        }
+        return lessProcessor.vars ? JSON.stringify(essProcessor.vars) : undefined;
     }
 })

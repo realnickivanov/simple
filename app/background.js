@@ -20,7 +20,7 @@ define([], function () {
                 element: "body",
                 brightness: ".body-layout-wrapper"
             }
-        }
+        };
 
         if (background.body) {
             if (background.body.texture && background.body.texture.length) {
@@ -58,18 +58,15 @@ define([], function () {
 
     function applyBrightness(element, brightness) {
         var $element = $(element);
-        if (brightness > 0) {
-            $element.css({
-                "background-color": "#fff",
-                "opacity": brightness
-            });
-        };
-        if (brightness < 0) {
-            $element.css({
-                "background-color": "#000",
-                "opacity": -brightness
-            });
-        };
+
+        if (brightness === 0) {
+            return;
+        }
+
+        $element.css({
+            "background-color": brightness > 0 ? 'white' : 'black',
+            "opacity": brightness > 0 ? brightness : -brightness
+        });
     }
 
     function applyImage(element, url, type) {
@@ -103,8 +100,7 @@ define([], function () {
     }
 
     function applyColor(element, color) {
-        var $element = $(element);
-        $element.css({
+        $(element).css({
             'background-color': color
         });
     }

@@ -63,6 +63,6 @@
         "selected":"en"
     },
     "objectivesLayout":{
-        "key":"Tiles"
+        "key":"List"
     }
 }
