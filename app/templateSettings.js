@@ -7,7 +7,22 @@ define([], function () {
             "logo": {
                 "url": ""
             },
-            "background": null,
+            "background": {
+                "header": {
+                    "expanded": false,
+                    "brightness": 0,
+                    "color": null,
+                    "image": {
+                        "url": "//cdn.easygenerator.com/images/2.jpg",
+                        "option": "repeat"
+                    }
+                },
+                "body": {
+                    "brightness": 0,
+                    "color": "#ececed",
+                    "texture": null
+                }
+            },
             "colors": []
         },
         "objectivesLayout": {

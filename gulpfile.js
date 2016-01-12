@@ -62,6 +62,10 @@ gulp.task('process-less', function () {
         .pipe(gulp.dest('./css/'));
 });
 
+gulp.task('watch', function () {
+    gulp.watch('./css/main.less', ['process-less']);
+});
+
 gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app'], function () {
 });
 
