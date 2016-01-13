@@ -16,8 +16,7 @@
                 </div>
             </div>
             <div class="objective-info">
-                <span data-bind="text: objective.title">objective title</span>
-
+                <span class="reviewable" data-bind="text: objective.title">objective title</span>
             </div>
             <div class="questions-navigation-container">
                 <div class="question-navigation-bar">
@@ -28,7 +27,7 @@
             </div>
         </header>
         <!-- ko if: voiceOver -->
-        <div class="voiceOver" data-bind="mediaPlayer: { embedCode: voiceOver, theme: theme}"></div>
+        <div class="voiceOver reviewable" data-bind="mediaPlayer: { embedCode: voiceOver, theme: theme}"></div>
         <!-- /ko -->
         <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
     </div>

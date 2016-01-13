@@ -51,7 +51,8 @@ define([], function () {
             key: ''
         },
         xApi: {},
-        pdfExport: {}
+        pdfExport: {},
+        languages: {}
     };
 
     function init(settings) {
@@ -84,6 +85,8 @@ define([], function () {
             }
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
+
+            that.languages.selected = fullSettings.languages.selected;
 
         });
     }

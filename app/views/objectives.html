@@ -2,7 +2,7 @@
     <div>
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
-                <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
+                <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption reviewable" data-bind="text: courseTitle">"course_name"</span>
             </h1>
             <div class="overall-progress-block">
                 <div class="overall-progress-block-container">
@@ -15,7 +15,7 @@
         </header>
         <ul class="objectives-list" data-bind="foreach: objectives">
 
-            <li class="objectives-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }, css:$root.objectivesLayout">
+            <li class="objectives-list-item reviewable" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }, css:$root.objectivesLayout">
                 <!-- ko if: $root.objectivesLayout==="Tiles" -->
                 <div class="objective-image-holder">
                     <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>

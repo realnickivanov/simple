@@ -77,6 +77,8 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                     }
                                 }
 
+
+                                app.trigger(constants.events.appInitialized);
                                 return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
                                     errorsHandler.startHandle();
                                 });
