@@ -27,7 +27,7 @@ define([], function () {
             "allowedVerbs": []
         },
         "languages": {
-            "selected": "",
+            "selected": "en",
             "customTranslations": {}
         },
         "pdfExport": {
