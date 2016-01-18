@@ -102,17 +102,7 @@ gulp.task('build-app', ['pre-build'], function () {
     gulp.src(['settings.js', 'publishSettings.js'])
         .pipe(gulp.dest(output));
 
-    gulp.src('css/player/*.css')
-        .pipe(addBuildVersion())
-        .pipe(minifyCss())
-        .pipe(gulp.dest(output + '/css/player'));
-
-    gulp.src('css/themes/*.css')
-        .pipe(addBuildVersion())
-        .pipe(minifyCss())
-        .pipe(gulp.dest(output + '/css/themes'));
-
-    gulp.src('css/colors.css')
+    gulp.src('css/colors.less')
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/css'));
 
