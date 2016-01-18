@@ -13,6 +13,14 @@
                 var $toolTip = $('<div />')
                     .addClass('mastered-score-tooltip').appendTo($canvasParent);
 
+
+                var $icon = $('<span> /')
+                    .addClass('material-icons')
+                    .text('done')
+                    .appendTo($toolTip)
+
+               
+
                 var $tootlTipText = $('<span />')
                     .addClass('mastered-score-tooltip-text')
                     .text(getScoreTooltipText(masteryScore, score))

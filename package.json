@@ -30,5 +30,10 @@
     "gulp-util": "^3.0.1",
     "gulp-webserver": "^0.9.1",
     "gulp-bower": "0.0.10"
+  },
+  "dependencies": {
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-less": "^3.0.5",
+    "gulp-plumber": "^1.0.1"
   }
 }

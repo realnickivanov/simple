@@ -46,7 +46,14 @@
                 if (answer && answer.currentPosition) {
                     answer.currentPosition.x = answer.correctPosition.x,
                     answer.currentPosition.y = answer.correctPosition.y
-                } 
+                }
+                else {
+                    var answer = _.find(that.answers, function (answer) {
+                        return answer.text == dragableText.text
+                    })
+                    answer.currentPosition.x = dragableText.x,
+                    answer.currentPosition.y = dragableText.y
+                }
             });
 
             return calculateScore(this.answers);

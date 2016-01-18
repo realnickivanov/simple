@@ -7,7 +7,7 @@
             <div class="overall-progress-block">
                 <div class="overall-progress-block-container">
                     <div class="overall-progress-wrapper">
-                        <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: score,lineWidth:2,radius:43}"></canvas>
+                        <canvas class="canvas-styles" width="100" height="100" data-bind="circleProgress: { progress: score,lineWidth:2,radius:43, masteryScore:masteryScore}"></canvas>
                         <div class="overall-progress-score " data-bind="text: score + '%'">0%</div>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                 <!-- ko if: $root.objectivesLayout==="Tiles" -->
                 <div class="objective-image-holder">
                     <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
-                    <button class="button small success" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
+                    <button class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="objective-progress">
@@ -46,11 +46,12 @@
                         <!-- /ko -->
                         <!-- ko if: affectProgress -->
                         <div class="objective-progress">
-                            <div class="progressbar-wrapper canvas-styles" >
+                            <div class="progressbar-wrapper canvas-styles">
                                 <div class='progressbar'>
-                                    <div class="progressbar-value" data-bind="style: {width: score+'%'}"></div>
+                                    <div class="progressbar-value" data-bind="style: {width: score+'%'}, css:{mastered:score >= $parent.masteryScore}"></div>
                                     <div class="mastered-score-tooltip" data-bind="style: {left:$parent.masteryScore+'%'}, css:{mastered:score >= $parent.masteryScore}">
-                                        <span  class="mastered-score-tooltip-text">
+                                        <span class="material-icons">done</span>
+                                        <span class="mastered-score-tooltip-text">
                                             <span data-bind="text: scoreTooltipText"></span>
                                         </span>
                                     </div>
@@ -63,7 +64,7 @@
 
                     </div>
                     <div class="objective-start-button-holder">
-                        <button class="button small default" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
+                        <button class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                     </div>
                 </div>
                 <!--/ko-->
