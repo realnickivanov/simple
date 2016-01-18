@@ -57,8 +57,6 @@ gulp.task('assets', ['clean', 'bower'], function () {
         .pipe(gulp.dest(output + '/css/font'));
     gulp.src('vendor/easygenerator-plugins/dist/img/**')
         .pipe(gulp.dest(output + '/css/img'));
-    gulp.src('vendor/easygenerator-plugins/dist/font/**')
-        .pipe(gulp.dest(output + '/css/font'));
 });
 
 gulp.task('pre-build', ['clean', 'bower', 'assets'], function () {
