@@ -21,6 +21,7 @@
     "easygenerator-hotspot-on-an-image-plugin": "*",
     "branchtrack-provider": "*",
     "jquery-file-download": "~1.4.4",
-    "has": "*"
+    "has": "*",
+    "components-webfontloader": "~1.6.3"
   }
 }

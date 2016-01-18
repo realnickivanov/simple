@@ -1,4 +1,7 @@
 ﻿<div class="header clearfix" data-bind="css: 'module-' + cssName()">
+    <div class="header-overlay"></div>
+    <div class="fullscreen-header-overlay"></div>
+    <div class="fullscreen-header-brightness-holder"></div>
     <section class="header-items-holder">
         <span class="logo-img">
             <!-- ko if: viewSettings().rootLinkEnabled  -->
@@ -22,8 +25,8 @@
             <!-- /ko -->
             <!-- /ko -->
         </span>
-        
-        <!--ko if: pdfExportEnabled -->
+
+        <!-- ko ifnot: pdfExportEnabled -->
         <div class="download-course-container">
             <div class="download-course-wrapper">
                 <div class="download-as-pdf-button default" data-translate-title="[download course in pdf format]" data-bind="downloadAsPdf: { title: title }"></div>
@@ -36,17 +39,18 @@
                 </div>
             </div>
         </div>
-        <!--/ko-->
+        <!-- /ko -->
         <div class="exit-course-button-wrapper">
             <!-- ko if: viewSettings().exitButtonVisible -->
-            <!-- ko compose: 'viewmodels/exitCourse' --><!-- /ko -->
+            <!-- ko compose: 'viewmodels/exitCourse' -->
+            <!-- /ko -->
             <!-- /ko -->
         </div>
     </section>
 </div>
 <section id="content" class="content-wrapper">
-    <!--ko router: { cacheViews: false, transition: 'entrance' }-->
-    <!--/ko-->
+    <!-- ko router: { cacheViews: false, transition: 'entrance' } -->
+    <!-- /ko -->
 </section>
 <div class="blockout" data-bind="css: { active: isClosed }"></div>
 <div data-bind="widget: {kind:'imagePreview'}"></div>
