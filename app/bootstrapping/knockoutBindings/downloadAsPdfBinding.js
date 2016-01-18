@@ -1,4 +1,14 @@
 ﻿define(function () {
+    var buttonStatuses = {
+        default: 'default',
+        proggress: 'proggress',
+        error: 'error'
+    };
+
+    var serviceUrl = has('release')
+        ? '//pdf.easygenerator.com'
+        : '//localhost:999';
+
     ko.bindingHandlers.downloadAsPdf = {
         init: function (element, valueAccessor) {
             var Url = function (url) {
@@ -17,30 +27,46 @@
 
             var
                 $element = $(element),
-                args = valueAccessor(),
-                url = ko.utils.unwrapObservable(args.url)
-            ;
+                title = (valueAccessor().title || $element.attr('title')) + ' ' + getDateTimeString();
 
-            var convertionUrl = new Url('//FreeHTMLtoPDF.com/')
-                .addQueryStringParam('convert', location.href.replace(location.hash, '') + url)
-                .addQueryStringParam('title', $element.attr('title'));
+            var convertionUrl = new Url(serviceUrl + '/convert/')
+                .addQueryStringParam('url', location.href.replace(location.hash, '') + 'pdf/')
+                .addQueryStringParam('filename', title);
 
-            $element.attr('href', convertionUrl.value);
+            var timeoutId;
 
-            $('<script>', {
-                src: '//FreeHTMLtoPDF.com/scripts/api.js'
-            }).appendTo($element);
+            $element.click(function () {
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                    timeoutId = null;
+                }
+                
+                setStatus($element, buttonStatuses.proggress);
 
-            if (location.href.indexOf('easygenerator.com/preview/') !== -1) {
-                disableLink($element.parent());
-            }
+                $.fileDownload(convertionUrl.value)
+                    .done(function (url) {
+                        setStatus($element, buttonStatuses.default);
+                    })
+                    .fail(function (responseHtml, url) {
+                        setStatus($element, buttonStatuses.error);
+                        timeoutId = setTimeout(function () {
+                            setStatus($element, buttonStatuses.default);
+                        }, 5000);
+                    });
+                return false;
+            });
         }
     };
 
-    function disableLink($link) {
-        $link.css({
-            'pointer-events': 'none',
-            'opacity': '0.5'
-        });
+    function setStatus($element, status) {
+        $element
+            .toggleClass(buttonStatuses.default, status === buttonStatuses.default)
+            .toggleClass(buttonStatuses.proggress, status === buttonStatuses.proggress)
+            .toggleClass(buttonStatuses.error, status === buttonStatuses.error);
+    }
+
+    function getDateTimeString() {
+        var now = new Date();
+        return now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
     }
 })

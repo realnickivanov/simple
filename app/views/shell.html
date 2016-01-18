@@ -26,9 +26,15 @@
         <!--ko if: pdfExportEnabled -->
         <div class="download-course-container">
             <div class="download-course-wrapper">
-                <a href="#" data-translate-title="[download course in pdf format]" data-bind="downloadAsPdf: { url: '/pdf/index.html' }">
-                </a>
-        </div>
+                <div class="download-as-pdf-button default" data-translate-title="[download course in pdf format]" data-bind="downloadAsPdf: { title: title }"></div>
+                <div class="download-as-pdf-status-wrapper">
+                    <div class="download-as-pdf-status">
+                        <span class="default" data-translate-text="[download as pdf]"></span>
+                        <span class="proggress" data-translate-text="[download as pdf preparing]"></span>
+                        <span class="error" data-translate-text="[download as pdf error]"></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--/ko-->
         <div class="exit-course-button-wrapper">

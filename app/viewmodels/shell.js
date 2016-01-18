@@ -28,6 +28,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                 return settings;
             },
 
+            title: '',
             logoUrl: ko.observable(''),
             isNavigatingToAnotherView: ko.observable(false),
             isClosed: ko.observable(false),
@@ -56,7 +57,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                             that.pdfExportEnabled = templateSettings.pdfExport.enabled;
                             themeSelector.init();
                             return themeInjector.init().then(function () {
-                                app.title = dataContext.course.title;
+                                that.title = app.title = dataContext.course.title;
 
                                 if (progressContext.ready()) {
                                     var progress = progressContext.get();

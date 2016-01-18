@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     eventStream = require('event-stream'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
+    has = require('gulp-has'),
 
     bower = require('gulp-bower'),
     output = ".output",
@@ -105,6 +106,9 @@ gulp.task('build-app', ['pre-build'], function () {
             minify: true,
             extraModules: ['transitions/entrance']
         })
+        .pipe(has({
+			'release': true
+        }))
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/app'));
 });

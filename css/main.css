@@ -196,6 +196,10 @@
     margin-top: 5px;
 }
 
+.header-items-holder .default-logo{
+    vertical-align: middle;
+}
+
 .course-title {
     display: table-cell;
     vertical-align: middle;
@@ -1018,7 +1022,104 @@
 }
 
 .download-course-wrapper {
-    margin: 0px 10px;
+    position: relative;
+    margin: 0px 15px;
+}
+
+.download-as-pdf-button {
+    position: relative;
+    width: 36px;
+    height: 43px;
+    background: url(img/pdf/pdf-button-bkg.png) 0 0 no-repeat;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.download-as-pdf-button.proggress {
+    pointer-events: none;
+    cursor: default;
+}
+
+.download-as-pdf-button.default:after {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 19px;
+    background: url(img/pdf/pdf-button-default.png) 0 0 no-repeat;
+}
+
+.download-as-pdf-button.proggress:after {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 8px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(img/pdf/pdf-button-proggress.gif) 0 0 no-repeat;
+}
+
+.download-as-pdf-button.error:after {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: url(img/pdf/pdf-button-error.png) 0 0 no-repeat;
+}
+
+.download-as-pdf-status-wrapper {
+    position: absolute;
+    left: 31px;
+    top: 50%;
+    width: 220px;
+    height: 30px;
+    margin-top: -15px;
+    margin-left: 5px;
+    transition: opacity linear 0.2s, margin-left linear 0.2s;
+    opacity: 0;
+}
+
+.download-as-pdf-status {
+    display: inline-block;
+    min-width: 125px;
+    max-width: 220px;
+    height: 100%;
+    padding: 2px 7px;
+    background-color: #f27071;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 1px 2px 3px -1px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-family: Roboto Slab;
+    font-size: 13px;
+    color: #fff;
+    cursor: default;
+}
+
+.download-as-pdf-button:hover ~ .download-as-pdf-status-wrapper,
+.download-as-pdf-button.proggress ~ .download-as-pdf-status-wrapper,
+.download-as-pdf-button.error ~ .download-as-pdf-status-wrapper {
+    opacity: 1;
+    margin-left: 0;
+}
+
+.download-as-pdf-status * {
+    display: none;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.download-as-pdf-button.default ~ .download-as-pdf-status-wrapper .default,
+.download-as-pdf-button.proggress ~ .download-as-pdf-status-wrapper .proggress,
+.download-as-pdf-button.error ~ .download-as-pdf-status-wrapper .error {
+    display: inline-block;
 }
 
 /*#endregion */

@@ -19,6 +19,8 @@
   "dependencies": {
     "easy-supported-browser": "~1.0.0",
     "easygenerator-hotspot-on-an-image-plugin": "*",
-    "branchtrack-provider": "*"
+    "branchtrack-provider": "*",
+    "jquery-file-download": "~1.4.4",
+    "has": "*"
   }
 }
