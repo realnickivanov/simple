@@ -12,13 +12,13 @@
         if (!reviewApiUrl)
             return;
 
-        var reviewPlugin = new easygeneratorPlugins.ReviewPlugin();
-
         postMessage({ supportsNativeReview: true });
 
         app.on(constants.events.appInitialized, function () {
+            pluginsLocalizationService.init(templateSettings.languages.selected);
+
+            var reviewPlugin = new ReviewPlugin();
             reviewPlugin.init({
-                locale: templateSettings.languages.selected,
                 reviewApiUrl: decodeURIComponent(reviewApiUrl),
                 courseId: context.course.id
             });
