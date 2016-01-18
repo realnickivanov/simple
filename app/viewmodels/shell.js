@@ -29,6 +29,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
             },
 
             title: '',
+            createdOn: null,
             logoUrl: ko.observable(''),
             isNavigatingToAnotherView: ko.observable(false),
             isClosed: ko.observable(false),
@@ -57,7 +58,8 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                             that.pdfExportEnabled = templateSettings.pdfExport.enabled;
                             return lessProcessor.init(templateSettings.colors).then(function () {
                                 that.title = app.title = dataContext.course.title;
-
+                                that.createdOn = dataContext.course.createdOn;
+                                
                                 if (progressContext.ready()) {
                                     var progress = progressContext.get();
                                     if (_.isObject(progress)) {
