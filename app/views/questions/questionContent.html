@@ -3,6 +3,7 @@
     <section class="content learning-content reviewable" data-bind="css:{collapsed:!isExpanded()},toggleVisible:{isExpanded:isExpanded()}">
         <div class="toggle-expand-container" data-bind="click: toggleExpand">
             <div class="learning-content-title" >
+                <span class="material-icons"> school</span>
                 <span data-translate-text="[learning content]">Learning content</span>
             </div>
             <a class="expand-button" data-bind="css:{expand:!isExpanded()}"></a>
@@ -18,6 +19,7 @@
     <!-- /ko -->
     <section class="content learning-content reviewable">
         <div class="learning-content-title question-content-title">
+            <span class="material-icons"> help_outline</span>
             <span data-translate-text="[question]">question</span>
         </div>
         <div class="question-title selectable" data-bind="text: title">

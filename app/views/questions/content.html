@@ -2,7 +2,7 @@
     <div>
         <header class="page-header">
             <div class="navigation-home-link-wrapper" data-bind="click: backToObjectives">
-                <div class="navigation-home-link" data-bind="css: { disabled: isNavigationLocked }"></div>
+                <div class="navigation-home-link material-icons" data-bind="css: { disabled: isNavigationLocked }">home</div>
             </div>
             <div class="objective-progress-wrapper">
                 <div class="objective-image-wrapper" data-bind="style: { 'background-image': 'url(' + objective.imageUrl + ')' }">
@@ -27,7 +27,7 @@
             </div>
         </header>
         <!-- ko if: voiceOver -->
-        <div class="voiceOver reviewable" data-bind="mediaPlayer: { embedCode: voiceOver, theme: theme}"></div>
+        <div class="voiceOver reviewable" data-bind="mediaPlayer: { embedCode: voiceOver}"></div>
         <!-- /ko -->
         <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
     </div>

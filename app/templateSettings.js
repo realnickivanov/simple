@@ -3,16 +3,31 @@ define([], function () {
     var defaultTranslationsCode = 'en';
 
     var defaultTemplateSetting = {
-        "logo": {
-            "url": ""
-        },
-        "theme": {
-            "key": ""
+        "branding": {
+            "logo": {
+                "url": ""
+            },
+            "background": {
+                "header": {
+                    "expanded": false,
+                    "brightness": 0,
+                    "color": null,
+                    "image": {
+                        "url": "//cdn.easygenerator.com/images/2.jpg",
+                        "option": "repeat"
+                    }
+                },
+                "body": {
+                    "brightness": 0,
+                    "color": "#ececed",
+                    "texture": null
+                }
+            },
+            "colors": []
         },
         "objectivesLayout": {
             "key": "Tiles"
         },
-        "background": null,
         "xApi": {
             "enabled": true,
             "selectedLrs": "default",
@@ -44,9 +59,7 @@ define([], function () {
         },
 
         logoUrl: '',
-        theme: {
-            key: ''
-        },
+
         objectivesLayout: {
             key: ''
         },
@@ -64,10 +77,9 @@ define([], function () {
                 var score = Number(fullSettings.masteryScore.score);
                 that.masteryScore.score = (_.isNumber(score) && score >= 0 && score <= 100) ? score : 100;
             }
-
             //Course logo initialization
-            if (!_.isEmptyOrWhitespace(fullSettings.logo.url)) {
-                that.logoUrl = fullSettings.logo.url;
+            if (fullSettings.branding.logo && fullSettings.branding.logo.url && fullSettings.branding.logo.url.length) {
+                that.logoUrl = fullSettings.branding.logo.url;
             }
 
             //objectives layout initialization
@@ -75,14 +87,10 @@ define([], function () {
                 that.objectivesLayout = fullSettings.objectivesLayout.key;
             }
 
-            //Theme initialization
-            if (!_.isEmptyOrWhitespace(fullSettings.theme.key)) {
-                that.theme.key = fullSettings.theme.key;
-            }
 
-            if (fullSettings.background && fullSettings.background.image && fullSettings.background.image.src) {
-                that.background = fullSettings.background;
-            }
+            that.colors = fullSettings.branding.colors;
+
+            that.background = fullSettings.branding.background;
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
 

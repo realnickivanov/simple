@@ -20,10 +20,10 @@
         <div class="result-btn-holder">
             <button class="button medium primary" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
             <!-- ko if: navigationContext.nextQuestionUrl -->
-            <button class="button medium danger" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
+            <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
             <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="button medium info" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
             <!-- /ko -->
         </div>
     </div>
