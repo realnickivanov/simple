@@ -8,6 +8,9 @@
     return task;
 
     function execute() {
+        if (!supportedBrowser.isBrowserSupported())
+            return;
+
         var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
         if (!reviewApiUrl)
             return;
