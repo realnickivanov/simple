@@ -35,7 +35,7 @@
                 version = valueAccessor().version;
 
             var convertionUrl = new Url(serviceUrl + '/convert/')
-                .addQueryStringParam('url', location.href.replace(location.hash, '') + 'pdf/')
+                .addQueryStringParam('url', location.href.replace(location.hash, '') + '/pdf/')
                 .addQueryStringParam('filename', title)
                 .addQueryStringParam('version', version);
 
