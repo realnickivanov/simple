@@ -2,12 +2,12 @@
     <div class="">
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
-                <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle">"course_name"</span>
+                <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption reviewable" data-bind="text: courseTitle">"course_name"</span>
             </h1>
             <div class="course-action-block intro">
                 <button class="button medium primary" href="#" data-bind="click: startCourse, css: { disabled: isNavigationLocked }" data-translate-text="[start course]" data-translate-title="[start course]">Start course</button>
             </div>
         </header>
-            <div class="course-intro-text styled-content content" data-bind="html: content,  elementsWrap: {}"></div>
+            <div class="course-intro-text styled-content content reviewable" data-bind="html: content,  elementsWrap: {}"></div>
     </div>
 </section>
