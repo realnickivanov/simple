@@ -15,6 +15,17 @@
 
     ko.bindingHandlers.downloadAsPdf = {
         init: function (element, valueAccessor) {
+
+            var
+                $element = $(element),
+                title = (valueAccessor().title || $element.attr('title')) + ' ' + getDateTimeString(),
+                version = valueAccessor().version;
+            
+            if (location.href.indexOf('/preview/') !== -1) {
+                disableLink($element);
+                return;
+            }
+            
             var Url = function (url) {
                 var that = this;
                 that.value = url || '',
@@ -28,11 +39,6 @@
                     return that;
                 }
             };
-
-            var
-                $element = $(element),
-                title = (valueAccessor().title || $element.attr('title')) + ' ' + getDateTimeString(),
-                version = valueAccessor().version;
 
             var convertionUrl = new Url(serviceUrl + '/convert/')
                 .addQueryStringParam('url', location.href.replace(location.hash, '') + '/pdf/')
@@ -75,4 +81,12 @@
         var now = new Date();
         return now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
     }
+    
+    function disableLink($link) {
+        $link.css({
+            'pointer-events': 'none',
+            'opacity': '0.5'
+        });
+    }
+    
 })
