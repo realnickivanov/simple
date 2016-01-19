@@ -22,7 +22,7 @@
             ;
 
             var convertionUrl = new Url('//FreeHTMLtoPDF.com/')
-                .addQueryStringParam('convert', location.href.replace(location.hash, '') + url)
+                .addQueryStringParam('convert', getBaseUrl() + url)
                 .addQueryStringParam('title', $element.attr('title'));
 
             $element.attr('href', convertionUrl.value);
@@ -42,5 +42,21 @@
             'pointer-events': 'none',
             'opacity': '0.5'
         });
+    }
+
+    function getBaseUrl() {
+        var baseUrl = location.href.replace(location.hash, '');
+        baseUrl = baseUrl.replace('#', '');
+
+        if (location.pathname && location.pathname.length > 1) {
+            var pageName = location.pathname.split("/").pop();
+            baseUrl = baseUrl.replace(pageName, '');
+        }
+
+        if (location.search && location.search.length > 1) {
+            baseUrl = baseUrl.replace(location.search, '');
+        }
+
+        return baseUrl;
     }
 })
