@@ -18,6 +18,8 @@
   ],
   "dependencies": {
     "easygenerator-plugins": "*",
+    "jquery-file-download": "~1.4.4",
+    "has": "*",
     "components-webfontloader": "~1.6.3"
   }
 }

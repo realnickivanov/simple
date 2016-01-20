@@ -6,13 +6,14 @@ var gulp = require('gulp'),
     eventStream = require('event-stream'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
+    has = require('gulp-has'),
     less = require('gulp-less'),
-    plumber = require('gulp-plumber')
-autoprefixer = require('gulp-autoprefixer')
+    plumber = require('gulp-plumber'),
+    autoprefixer = require('gulp-autoprefixer'),
 
-bower = require('gulp-bower'),
-output = ".output",
-buildVersion = +new Date();
+    bower = require('gulp-bower'),
+    output = ".output",
+    buildVersion = +new Date();
 
 var $ = require('gulp-load-plugins')({
     lazy: true
@@ -130,6 +131,9 @@ gulp.task('build-app', ['pre-build'], function () {
             minify: true,
             extraModules: ['transitions/entrance']
         })
+        .pipe(has({
+			'release': true
+        }))
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/app'));
 });

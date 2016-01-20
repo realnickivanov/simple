@@ -1,6 +1,31 @@
 ﻿define(function () {
+    var buttonStatuses = {
+        default: 'default',
+        proggress: 'proggress',
+        error: 'error'
+    };
+
+    var serviceUrl, cookieDomain = null;
+    if (has('release')) {
+        serviceUrl = '//pdf.easygenerator.com';
+        cookieDomain = 'easygenerator.com';
+    } else {
+        serviceUrl = '//localhost:999';
+    }
+
     ko.bindingHandlers.downloadAsPdf = {
         init: function (element, valueAccessor) {
+
+            var
+                $element = $(element),
+                title = (valueAccessor().title || $element.attr('title')) + ' ' + getDateTimeString(),
+                version = valueAccessor().version;
+            
+            if (location.href.indexOf('/preview/') !== -1) {
+                disableLink($element);
+                return;
+            }
+            
             var Url = function (url) {
                 var that = this;
                 that.value = url || '',
@@ -15,35 +40,56 @@
                 }
             };
 
-            var
-                $element = $(element),
-                args = valueAccessor(),
-                url = ko.utils.unwrapObservable(args.url)
-            ;
+            var convertionUrl = new Url(serviceUrl + '/convert/')
+                .addQueryStringParam('url', getBaseUrl() + '/pdf/index.html')
+                .addQueryStringParam('filename', title)
+                .addQueryStringParam('version', version);
 
-            var convertionUrl = new Url('//FreeHTMLtoPDF.com/')
-                .addQueryStringParam('convert', getBaseUrl() + url)
-                .addQueryStringParam('title', $element.attr('title'));
+            var timeoutId;
 
-            $element.attr('href', convertionUrl.value);
+            $element.click(function () {
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                    timeoutId = null;
+                }
+                
+                setStatus($element, buttonStatuses.proggress);
 
-            $('<script>', {
-                src: '//FreeHTMLtoPDF.com/scripts/api.js'
-            }).appendTo($element);
-
-            if (location.href.indexOf('easygenerator.com/preview/') !== -1) {
-                disableLink($element.parent());
-            }
+                $.fileDownload(convertionUrl.value, { cookieDomain: cookieDomain })
+                    .done(function (url) {
+                        setStatus($element, buttonStatuses.default);
+                    })
+                    .fail(function (responseHtml, url) {
+                        setStatus($element, buttonStatuses.error);
+                        timeoutId = setTimeout(function () {
+                            setStatus($element, buttonStatuses.default);
+                        }, 5000);
+                    });
+                return false;
+            });
         }
     };
 
+    function setStatus($element, status) {
+        $element
+            .toggleClass(buttonStatuses.default, status === buttonStatuses.default)
+            .toggleClass(buttonStatuses.proggress, status === buttonStatuses.proggress)
+            .toggleClass(buttonStatuses.error, status === buttonStatuses.error);
+    }
+
+    function getDateTimeString() {
+        var now = new Date();
+        return now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+    }
+    
     function disableLink($link) {
         $link.css({
             'pointer-events': 'none',
             'opacity': '0.5'
         });
+        $link.parent().addClass('disabled');
     }
-
+    
     function getBaseUrl() {
         var baseUrl = location.href.replace(location.hash, '');
         baseUrl = baseUrl.replace('#', '');
@@ -59,4 +105,5 @@
 
         return baseUrl;
     }
+    
 })
