@@ -17,9 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "easy-supported-browser": "~1.0.0",
-    "easygenerator-hotspot-on-an-image-plugin": "*",
-    "branchtrack-provider": "*",
+    "easygenerator-plugins": "*",
     "jquery-file-download": "~1.4.4",
     "has": "*",
     "components-webfontloader": "~1.6.3"

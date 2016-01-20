@@ -42,7 +42,7 @@ define([], function () {
             "allowedVerbs": []
         },
         "languages": {
-            "selected": "",
+            "selected": "en",
             "customTranslations": {}
         },
         "pdfExport": {
@@ -64,7 +64,8 @@ define([], function () {
             key: ''
         },
         xApi: {},
-        pdfExport: {}
+        pdfExport: {},
+        languages: {}
     };
 
     function init(settings) {
@@ -92,6 +93,8 @@ define([], function () {
             that.background = fullSettings.branding.background;
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
+
+            that.languages.selected = fullSettings.languages.selected;
 
         });
     }

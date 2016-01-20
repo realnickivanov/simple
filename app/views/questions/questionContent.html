@@ -1,6 +1,6 @@
 <section id="questionContent">
     <!-- ko if: learningContents.length > 0 -->
-    <section class="content learning-content" data-bind="css:{collapsed:!isExpanded()},toggleVisible:{isExpanded:isExpanded()}">
+    <section class="content learning-content reviewable" data-bind="css:{collapsed:!isExpanded()},toggleVisible:{isExpanded:isExpanded()}">
         <div class="toggle-expand-container" data-bind="click: toggleExpand">
             <div class="learning-content-title" >
                 <span class="material-icons"> school</span>
@@ -15,10 +15,9 @@
                     <!-- /ko -->
                 </ul>
             </section>
-
     </section>
     <!-- /ko -->
-    <section class="content learning-content">
+    <section class="content learning-content reviewable">
         <div class="learning-content-title question-content-title">
             <span class="material-icons"> help_outline</span>
             <span data-translate-text="[question]">question</span>

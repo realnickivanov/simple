@@ -41,7 +41,7 @@
             };
 
             var convertionUrl = new Url(serviceUrl + '/convert/')
-                .addQueryStringParam('url', location.href.replace(location.hash, '') + '/pdf/')
+                .addQueryStringParam('url', getBaseUrl() + '/pdf/index.html')
                 .addQueryStringParam('filename', title)
                 .addQueryStringParam('version', version);
 
@@ -88,6 +88,22 @@
             'opacity': '0.5'
         });
         $link.parent().addClass('disabled');
+    }
+    
+    function getBaseUrl() {
+        var baseUrl = location.href.replace(location.hash, '');
+        baseUrl = baseUrl.replace('#', '');
+
+        if (location.pathname && location.pathname.length > 1) {
+            var pageName = location.pathname.split("/").pop();
+            baseUrl = baseUrl.replace(pageName, '');
+        }
+
+        if (location.search && location.search.length > 1) {
+            baseUrl = baseUrl.replace(location.search, '');
+        }
+
+        return baseUrl;
     }
     
 })

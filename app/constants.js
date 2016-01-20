@@ -18,7 +18,8 @@
         defaultImageUrl: 'css/img/singleSelectImageAnwer.png',
         events: {
             appClosed: 'appClosed',
-            onError: 'onError'
+            onError: 'onError',
+            appInitialized: 'appInitialized'
         },
         localStorageProgressKey: 'course_progress',
         localStorageResultKey: 'course_result',

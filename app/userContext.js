@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(['plugins/router'], function (router) {
     var self = {
         currentUser: null
     },
@@ -16,19 +16,12 @@
 
     function initialize() {
         return Q.fcall(function () {
-            var username = getQueryStringValue('name'),
-                email = getQueryStringValue('email');
+            var username = router.getQueryStringValue('name'),
+                email = router.getQueryStringValue('email');
 
             if (username || email) {
-                self.currentUser = { username: username, email: email };
+                self.currentUser = { username: username ? username : '', email: email ? email : '' };
             }
         });
-    }
-
-    function getQueryStringValue(key) {
-        var urlParams = window.location.search;
-        var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
-        var results = regex.exec(urlParams);
-        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 });
