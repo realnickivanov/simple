@@ -1,9 +1,28 @@
-define([], function () {
+define(['templateSettings'], function (templateSettings) {
+
+    ko.bindingHandlers.secondaryBackground = {
+        init: function(element) {
+            var body = templateSettings && templateSettings.background && templateSettings.background.body;
+             
+            if (body) {
+                if (body.texture && body.texture.length) {
+                    applyImage(element, body.texture, "repeat");
+                }
+
+                if (body.color && body.color.length) {
+                    applyColor(element, body.color);
+                }
+
+                if (body.brightness) {
+                    applyBrightness($('<div />').width('100%').height('100%').appendTo(element), body.brightness);
+                }
+            }            
+        }
+    };
 
     return {
         apply: apply
     };
-
 
     function apply(background) {
 

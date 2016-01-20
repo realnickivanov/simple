@@ -1,16 +1,50 @@
-﻿<section class="exit-course-wrapper">
-    <button class="exit-course-button" data-bind="click: openFinishPopup, css: { disabled: isNavigationLocked }" >
-        <span class="material-icons">exit_to_app</span>
-        <span data-translate-text="[save and exit]"></span>
-    </button>
+﻿<section class="summary-wrapper">
+
+    <!-- ko if: type() === 'extended' -->
+    <section class="summary-extended-wrapper">
+        <div class="summary-extended-background" data-bind="secondaryBackground: {}"></div>
+        <div class="summary-extended">
+            <div class="overall-progress-wrapper">
+                <div class="overall-progress">
+                    <div>
+                        <div class="overall-progress-label-wrapper">
+                            <label class="overall-progress-label" data-translate-text="[Overall progress]"></label>
+                        </div>
+                        <div class="overall-progress-progressbar-wrapper">
+                            <div class="overall-progress-progressbar">
+                                <canvas class="overall-progress-progressbar-canvas canvas-styles" width="80" height="80" data-bind="circleProgress: { progress: score(), lineWidth:2,radius:39, masteryScore:masteryScore }"></canvas>
+                                <div class="overall-progress-progressbar-text" data-bind="text: score() + '%'">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exit-course-wrapper">
+                <button class="exit-course-button" data-bind="click: popup.show, css: { disabled: isNavigationLocked }">
+                    <span data-translate-text="[finish course]"></span>
+                </button>
+            </div>
+            <div>
+    </section>
+    <!-- /ko -->
+
+    <!-- ko ifnot: type() ==='extended' -->
+    <section class="summary-short">
+        <button class="exit-course-button" data-bind="click: popup.show, css: { disabled: isNavigationLocked }">
+            <span class="material-icons">exit_to_app</span>
+            <span data-translate-text="[save and exit]"></span>
+        </button>
+    </section>
+    <!-- /ko -->
+
     <div class="finish-course-layout" data-bind="visible: status() == statuses.sendingRequests">
         <div class="finish-course-layout-block"></div>
         <div class="finish-course-layout-loader">
             <span class="finish-course-layout-loader-text" data-translate-text="[tracking and tracing reporting progress]">reporting progress...</span>
         </div>
     </div>
-    <!-- ko if: finishPopupVisibility -->
-    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: { finish: finish, close: closeFinishPopup, exitCourse: close } } -->
+    <!-- ko if: popup.isVisible -->
+    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: [ popup.actions() ] } -->
     <!-- /ko -->
     <!-- /ko -->
 </section>
