@@ -3,11 +3,15 @@ define(function () {
 
     var viewModel = {
         question: null,
+	    content: null,
+
         dropspots: [],
         texts: [],
+
         isAnswered: ko.observable(false),
         submit: submit,
         tryAnswerAgain: tryAnswerAgain,
+
         initialize: initialize
     };
 
@@ -16,6 +20,7 @@ define(function () {
     function initialize(question) {
         return Q.fcall(function () {
             viewModel.question = question;
+            viewModel.content = question.content;
 
             viewModel.isAnswered(question.isAnswered);
             viewModel.dropspots = _.map(question.answers, function (answer) {
