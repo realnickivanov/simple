@@ -29,7 +29,7 @@
 
         return _.some(this.answers, function (answer) {
             return answer.isCorrect &&
-                answer.matchCase ? answer.text === answerGroupValue.value : answer.text.toLowerCase() === answerGroupValue.value.toLowerCase();
+                (answer.matchCase ? answer.text === answerGroupValue.value : answer.text.toLowerCase() === answerGroupValue.value.toLowerCase());
         });
     }
 })
