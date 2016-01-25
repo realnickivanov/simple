@@ -10,6 +10,14 @@
 
             $element.html(getMediaEmbedCode());
 
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $iframe = $element.find('iframe');
+                if ($iframe.length) {
+                    $iframe.attr('src', 'about:blank');
+                }
+                $element.empty();
+            });
+
             function getMediaEmbedCode() {
                 if (!embedCode || !theme)
                     return embedCode;
