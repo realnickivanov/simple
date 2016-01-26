@@ -9,7 +9,6 @@ define([], function () {
             },
             "background": {
                 "header": {
-                    "expanded": false,
                     "brightness": 0,
                     "color": null,
                     "image": {
@@ -18,6 +17,7 @@ define([], function () {
                     }
                 },
                 "body": {
+                    "enabled": true,
                     "brightness": 0,
                     "color": "#ececed",
                     "texture": null

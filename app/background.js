@@ -41,38 +41,33 @@ define(['templateSettings'], function (templateSettings) {
             }
         };
 
-        if (background.body) {
-            if (background.body.texture && background.body.texture.length) {
-                applyImage(elementsClasses.body.element, background.body.texture, "repeat");
-            };
+        if (background.body.texture && background.body.texture.length) {
+            applyImage(elementsClasses.body.element, background.body.texture, "repeat");
+        };
 
-            if (background.body.color && background.body.color.length) {
-                applyColor(elementsClasses.body.element, background.body.color);
-            };
+        if (background.body.color && background.body.color.length) {
+            applyColor(elementsClasses.body.element, background.body.color);
+        };
 
-            if (background.body.brightness) {
-                applyBrightness(elementsClasses.body.brightness, background.body.brightness);
-            };
+        if (background.body.brightness) {
+            applyBrightness(elementsClasses.body.brightness, background.body.brightness);
+        };
+
+        var headerClasses = elementsClasses.header;
+
+        if (!background.body.enabled) {
+            headerClasses = elementsClasses.fullscreenHeader;
         }
 
-        if (background.header) {
-
-            var headerClasses = elementsClasses.header;
-
-            if (background.header.expanded) {
-                headerClasses = elementsClasses.fullscreenHeader;
-            }
-
-            if (background.header.image && background.header.image.url && background.header.image.url.length) {
-                applyImage(headerClasses.element, background.header.image.url, background.header.image.option);
-            };
-            if (background.header.color && background.header.color.length) {
-                applyColor(headerClasses.element, background.header.color);
-            };
-            if (background.header.brightness) {
-                applyBrightness(headerClasses.brightness, background.header.brightness);
-            };
-        }
+        if (background.header.image && background.header.image.url && background.header.image.url.length) {
+            applyImage(headerClasses.element, background.header.image.url, background.header.image.option);
+        };
+        if (background.header.color && background.header.color.length) {
+            applyColor(headerClasses.element, background.header.color);
+        };
+        if (background.header.brightness) {
+            applyBrightness(headerClasses.brightness, background.header.brightness);
+        };
     }
 
     function applyBrightness(element, brightness) {
