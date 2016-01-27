@@ -1,29 +1,21 @@
 ﻿define([], function () {
 
     var viewModel = {
-        activate: activate,
-        finish: function () {
-
-        },
-        close: function () {
-
-        },
-        exitCourse: function () {
-
-        }
+        activate: activate
     };
 
     return viewModel;
 
     function activate(data) {
-        if (!_.isFunction(data.finish) || !_.isFunction(data.close)) {
-            return;
+        if (data) {
+            viewModel.close = data.close;
+            viewModel.exit = data.exit;
+            viewModel.cancel = data.cancel;
+
+            viewModel.finish = function () {
+                data.finish();
+                data.close();
+            }
         }
-        viewModel.finish = function () {
-            data.finish();
-            data.close();
-        };
-        viewModel.close = data.close;
-        viewModel.exitCourse = data.exitCourse;
     }
 });

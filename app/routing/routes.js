@@ -12,7 +12,8 @@
             route: 'objectives',
             moduleId: 'viewmodels/objectives',
             title: 'Objectives',
-            rootLinkDisabled: true
+            rootLinkDisabled: true,
+            hideExitButton: true
         },
         {
             route: 'objective/:objectiveId/question/:questionId',

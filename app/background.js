@@ -1,9 +1,28 @@
-define([], function () {
+define(['templateSettings'], function (templateSettings) {
+
+    ko.bindingHandlers.secondaryBackground = {
+        init: function(element) {
+            var body = templateSettings && templateSettings.background && templateSettings.background.body;
+             
+            if (body) {
+                if (body.texture && body.texture.length) {
+                    applyImage(element, body.texture, "repeat");
+                }
+
+                if (body.color && body.color.length) {
+                    applyColor(element, body.color);
+                }
+
+                if (body.brightness) {
+                    applyBrightness($('<div />').width('100%').height('100%').appendTo(element), body.brightness);
+                }
+            }            
+        }
+    };
 
     return {
         apply: apply
     };
-
 
     function apply(background) {
 
@@ -22,38 +41,33 @@ define([], function () {
             }
         };
 
-        if (background.body) {
-            if (background.body.texture && background.body.texture.length) {
-                applyImage(elementsClasses.body.element, background.body.texture, "repeat");
-            };
+        if (background.body.texture && background.body.texture.length) {
+            applyImage(elementsClasses.body.element, background.body.texture, "repeat");
+        };
 
-            if (background.body.color && background.body.color.length) {
-                applyColor(elementsClasses.body.element, background.body.color);
-            };
+        if (background.body.color && background.body.color.length) {
+            applyColor(elementsClasses.body.element, background.body.color);
+        };
 
-            if (background.body.brightness) {
-                applyBrightness(elementsClasses.body.brightness, background.body.brightness);
-            };
+        if (background.body.brightness) {
+            applyBrightness(elementsClasses.body.brightness, background.body.brightness);
+        };
+
+        var headerClasses = elementsClasses.header;
+
+        if (!background.body.enabled) {
+            headerClasses = elementsClasses.fullscreenHeader;
         }
 
-        if (background.header) {
-
-            var headerClasses = elementsClasses.header;
-
-            if (background.header.expanded) {
-                headerClasses = elementsClasses.fullscreenHeader;
-            }
-
-            if (background.header.image && background.header.image.url && background.header.image.url.length) {
-                applyImage(headerClasses.element, background.header.image.url, background.header.image.option);
-            };
-            if (background.header.color && background.header.color.length) {
-                applyColor(headerClasses.element, background.header.color);
-            };
-            if (background.header.brightness) {
-                applyBrightness(headerClasses.brightness, background.header.brightness);
-            };
-        }
+        if (background.header.image && background.header.image.url && background.header.image.url.length) {
+            applyImage(headerClasses.element, background.header.image.url, background.header.image.option);
+        };
+        if (background.header.color && background.header.color.length) {
+            applyColor(headerClasses.element, background.header.color);
+        };
+        if (background.header.brightness) {
+            applyBrightness(headerClasses.brightness, background.header.brightness);
+        };
     }
 
     function applyBrightness(element, brightness) {
