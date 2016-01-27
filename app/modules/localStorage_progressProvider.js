@@ -1,6 +1,6 @@
 ﻿define(['context', 'constants', 'translation'], function (context, constants, translation) {
-    var pregressKey = constants.localStorageProgressKey + context.course.id + context.course.createdOn,
-        resultKey = constants.localStorageResultKey + context.course.id + context.course.createdOn;
+    var pregressKey = constants.localStorageProgressKey + context.course.id,
+        resultKey = constants.localStorageResultKey + context.course.id;
 
     var module = {
         initialize: initialize,
