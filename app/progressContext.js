@@ -32,6 +32,10 @@
             }
 
             context.status(self.storage.saveProgress(self.progress) ? statuses.saved : statuses.error);
+            
+            if (_.isFunction(self.storage.saveResults)) {
+                self.storage.saveResults();
+            }
         }
 
         function navigated(obj, instruction) {
