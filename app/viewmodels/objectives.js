@@ -3,7 +3,6 @@
 
         var
             objectives = [],
-            score = 0,
             masteryScore = 0,
             courseTitle = "\"" + context.course.title + "\"",
             objectivesLayout = null,
@@ -15,7 +14,6 @@
                     return;
                 }
                 this.objectivesLayout = templateSettings.objectivesLayout,
-                this.score = course.score();
                 this.masteryScore = templateSettings.masteryScore.score;
                 this.objectives = _.map(course.objectives, function (item) {
 
@@ -46,7 +44,6 @@
             courseTitle: courseTitle,
             objectivesLayout: objectivesLayout,
 
-            score: score,
             masteryScore: masteryScore,
             objectives: objectives
         };

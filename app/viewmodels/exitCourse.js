@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router', 'translation', 'constants'],
-    function (app, windowOperations, courseRepository, progressContext, router, translation, constants) {
+﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router', 'templateSettings', 'translation', 'constants'],
+    function (app, windowOperations, courseRepository, progressContext, router, templateSettings, translation, constants) {
         "use strict";
 
         var progressStatuses = constants.progressContext.statuses;
@@ -10,18 +10,33 @@
             finished: 'finished'
         };
 
+        var course = courseRepository.get();
+
         var viewModel = {
+            type: ko.observable(),
             isNavigationLocked: router.isNavigationLocked,
 
             status: ko.observable(statuses.readyToFinish),
             statuses: statuses,
-            finishPopupVisibility: ko.observable(false),
 
-            close: close,
-            finish: finish,
-            openFinishPopup: openFinishPopup,
-            closeFinishPopup: closeFinishPopup
+            score: course.score,
+            masteryScore: templateSettings.masteryScore.score,
+            activate: activate
         };
+
+
+        viewModel.popup = {
+            isVisible: ko.observable(false),
+            show: showPopup,
+            hide: hidePopup,
+
+            actions: ko.computed(function () {
+                if (viewModel.type() === 'extended') {
+                    return { close: hidePopup, cancel: hidePopup, finish: finish };
+                }
+                return { close: hidePopup, exit: exit, finish: finish };
+            })
+        }
 
         viewModel.isProgressSaved = ko.computed(function () {
             return progressContext.status() === progressStatuses.saved;
@@ -33,6 +48,10 @@
 
         return viewModel;
 
+        function activate(type) {
+            viewModel.type(type);
+        }
+
         function onCourseFinishedCallback() {
             viewModel.status(statuses.finished);
 
@@ -40,7 +59,7 @@
             windowOperations.close();
         }
 
-        function close() {
+        function exit() {
             if (progressContext.status() === progressStatuses.error) {
                 var isCourseClosingConfirmed = confirm(translation.getTextByKey('[progress is not saved confirmation]'));
                 if (!isCourseClosingConfirmed) {
@@ -63,16 +82,16 @@
             progressContext.remove();
         }
 
-        function openFinishPopup() {
+        function showPopup() {
             if (router.isNavigationLocked()) {
                 return;
             }
 
-            viewModel.finishPopupVisibility(true);
+            viewModel.popup.isVisible(true);
         }
 
-        function closeFinishPopup() {
-            viewModel.finishPopupVisibility(false);
+        function hidePopup() {
+            viewModel.popup.isVisible(false);
         }
 
     });
