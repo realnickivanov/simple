@@ -4,30 +4,35 @@
         <article>
             <header>
                 <h2>
-                    <span data-translate-text="[finish course popup title]">You are one step away from finishing the course</span>
+                    <span data-translate-text="[note that]"></span>
                 </h2>
             </header>
             <section>
-                <h3 data-translate-text="[finish course popup explanation title]">Please note that:</h3>
                 <ul>
-                    <li data-translate-text="[finish course popup first remark]">- your final score will be reported</li>
-                    <li data-translate-text="[finish course popup second remark]">- your current progress will NOT be restored when you open the course next time</li>
+                    <!-- ko if: exit -->
+                    <li data-translate-text="[finish course take brake first remark]"></li>
+                    <li data-translate-text="[finish course take brake second remark]"></li>
+                    <!-- /ko -->
+                    <!-- ko if: finish -->
+                    <li data-translate-text="[finish course submit first remark]"></li>
+                    <li data-translate-text="[finish course submit second remark]"></li>
+                    <!-- /ko -->
                 </ul>
             </section>
             <footer>
                 <!-- ko if: cancel -->
                 <span class="button-wrapper">
-                    <button class="button block default" data-bind="click: cancel" data-translate-text="[cancel]" data-translate-title="[cancel]"></button>
+                    <button class="button block default" data-bind="click: cancel" data-translate-text="[cancel, continue course]" data-translate-title="[cancel, continue course]"></button>
                 </span>
                 <!-- /ko -->
                 <!-- ko if: exit -->
                 <span class="button-wrapper">
-                    <button class="button block default" data-bind="click: exit" data-translate-text="[Save, I will continue later]" data-translate-title="[Save, I will continue later]">Save, I will continue later</button>
+                    <button class="button block primary" data-bind="click: exit" data-translate-text="[OK, close course]" data-translate-title="[OK, close course]"></button>
                 </span>
                 <!-- /ko -->
                 <!-- ko if: finish -->
                 <span class="button-wrapper">
-                    <button class="button block primary" data-bind="click: finish" data-translate-text="[I'm done, report my progress]" data-translate-title="[I'm done, report my progress]">I'm done, report my progress</button>
+                    <button class="button block primary" data-bind="click: finish" data-translate-text="[OK, submit results]" data-translate-title="[OK, submit results]"></button>
                 </span>
                 <!-- /ko -->
             </footer>
