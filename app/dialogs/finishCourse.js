@@ -11,11 +11,7 @@
             viewModel.close = data.close;
             viewModel.exit = data.exit;
             viewModel.cancel = data.cancel;
-
-            viewModel.finish = function () {
-                data.finish();
-                data.close();
-            }
+            viewModel.finish = data.finish;
         }
     }
 });

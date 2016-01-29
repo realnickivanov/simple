@@ -32,9 +32,14 @@
 
             actions: ko.computed(function () {
                 if (viewModel.type() === 'extended') {
-                    return { close: hidePopup, cancel: hidePopup, finish: finish };
+                    return {
+                        close: hidePopup, cancel: hidePopup, finish: function () {
+                            finish();
+                            hidePopup();
+                        }
+                    };
                 }
-                return { close: hidePopup, exit: exit, finish: finish };
+                return { close: hidePopup, cancel: hidePopup, exit: exit };
             })
         }
 
