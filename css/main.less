@@ -491,6 +491,7 @@ ul {
         display: block;
         margin: 20px;
         max-width: 100%;
+        clear: both;
 
         &[style*="float:left"],
         &[style*="float: left"] {
@@ -508,6 +509,10 @@ ul {
         }
     }
 
+        .image-wrapper ~ .image-wrapper {
+            clear: none;
+        }
+
     iframe {
         max-width: 100%;
     }
@@ -520,6 +525,10 @@ ul {
 
     &.hotspot-on-image-container {
         text-align: center;
+    }
+
+    .image-wrapper ~ .image-wrapper {
+        clear: none;
     }
 }
 /*#endregion*/
