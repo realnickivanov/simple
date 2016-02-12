@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="objective-info">
-                <span class="reviewable" data-bind="text: objective.title">objective title</span>
+                <span data-bind="text: objective.title, reviewable: {type: 'objective', property: 'title', id: objective.id, title: objective.title}">objective title</span>
             </div>
             <div class="questions-navigation-container">
                 <div class="question-navigation-bar">
@@ -27,7 +27,7 @@
             </div>
         </header>
         <!-- ko if: voiceOver -->
-        <div class="voiceOver reviewable" data-bind="mediaPlayer: { embedCode: voiceOver}"></div>
+        <div class="voiceOver" data-bind="mediaPlayer: { embedCode: voiceOver}, reviewable: {type: question.isInformationContent ? 'informationContent' : 'question', property: 'voiceOver', id: question.id, title: question.title}"></div>
         <!-- /ko -->
         <!-- ko compose: { model: activeViewModel, activationData: [ objective.id, question ] } --><!-- /ko -->
     </div>

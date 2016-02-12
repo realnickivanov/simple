@@ -1,4 +1,4 @@
-﻿define(['eventManager', 'guard', 'plugins/http'], function (eventManager, guard, http) {
+﻿define(['eventManager', 'guard', 'plugins/http', 'constants'], function (eventManager, guard, http, constants) {
     "use strict";
 
     function Question(spec, _protected) {
@@ -16,6 +16,7 @@
         this.learningContents = spec.learningContents;
         this.isAnswered = false;
         this.isCorrectAnswered = false;
+        this.isInformationContent = spec.type === constants.questionTypes.informationContent;
 
         this.feedback = {
             hasCorrect: spec.hasCorrectFeedback,
