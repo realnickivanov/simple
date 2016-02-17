@@ -5,6 +5,7 @@
 
             var course = {
                 id: spec.id,
+                templateId: spec.templateId,
                 title: spec.title,
 
                 createdBy: spec.createdBy,

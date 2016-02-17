@@ -15,6 +15,7 @@
                 }).done(function (response) {
                     that.course = new Course({
                         id: response.id,
+                        templateId: response.templateId,
                         title: response.title,
                         hasIntroductionContent: response.hasIntroductionContent,
                         objectives: _.chain(response.objectives)
