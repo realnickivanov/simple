@@ -144,6 +144,9 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     case globalConstants.questionTypes.scenario:
                         parts = getScenarioQuestionActivityAndResult(question);
                         break;
+                    case globalConstants.questionTypes.rankingText:
+                        parts = getRankingTextQuestionActivityAndResult(question);
+                        break;
                 }
 
                 var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
@@ -377,6 +380,33 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.other
+                    })
+                })
+            };
+        }
+
+        function getRankingTextQuestionActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score() / 100),
+                    response: _.map(question.rankingItems, function (item) {
+                        return item.text.toLowerCase();
+                    }).join("[,]")
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.sequencing,
+                        correctResponsesPattern: [_.map(question.correctOrder, function (item) {
+                            return item.text.toLowerCase();
+                        }).join("[,]")],
+                        choices: _.map(question.rankingItems, function (item) {
+                            return {
+                                id: item.text,
+                                description: new languageMapModel(item.text)
+                            };
+                        })
                     })
                 })
             };

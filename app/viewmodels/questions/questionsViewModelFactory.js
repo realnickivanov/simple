@@ -1,8 +1,9 @@
 ﻿define(['constants', 'viewmodels/questions/multipleSelect/multipleSelect', 'viewmodels/questions/singleSelectText/singleSelectText', 'viewmodels/questions/fillInTheBlank/fillInTheBlank',
     'viewmodels/questions/dragAndDrop/dragAndDrop', 'viewmodels/questions/singleSelectImage/singleSelectImage', 'viewmodels/questions/textMatching/textMatching',
     'viewmodels/questions/statement/statement', 'viewmodels/questions/hotspot/hotspot', 'viewmodels/questions/openQuestion/openQuestion',
-    'viewmodels/questions/scenarioQuestion/scenarioQuestion'],
-    function (constants, multipleSelect, singleSelectText, fillInTheBlank, dragAndDrop, singleSelectImage, textMatching, statement, hotspot, openQuestion, scenarioQuestion) {
+    'viewmodels/questions/scenarioQuestion/scenarioQuestion', 'viewmodels/questions/rankingText/rankingText'],
+    function (constants, multipleSelect, singleSelectText, fillInTheBlank, dragAndDrop, singleSelectImage,
+        textMatching, statement, hotspot, openQuestion, scenarioQuestion, rankingText) {
         'use strict';
 
         return {
@@ -31,6 +32,8 @@
                     return openQuestion;
                 case constants.questionTypes.scenario:
                     return scenarioQuestion;
+                case constants.questionTypes.rankingText:
+                    return rankingText;
                 default:
                     return multipleSelect;
             }

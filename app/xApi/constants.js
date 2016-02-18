@@ -52,6 +52,7 @@
             matching: "matching",
             dragAndDrop: "dragAndDrop",
             hotspot: "hotspot",
+            sequencing: 'sequencing',
             other: "other"
         };
 
