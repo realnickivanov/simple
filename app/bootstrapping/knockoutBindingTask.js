@@ -13,6 +13,7 @@ define([
     'bootstrapping/knockoutBindings/downloadAsPdfBinding',
     'bootstrapping/knockoutBindings/mediaPlayerBinding',
     'bootstrapping/knockoutBindings/customFocusBinding',
+    'bootstrapping/knockoutBindings/reviewableBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',

@@ -24,7 +24,7 @@
     function activate(objectiveId, question) {
         return Q.fcall(function () {
             viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, question.id);
-
+            viewModel.id = question.id;
             viewModel.title = question.title;
             viewModel.learningContents = question.learningContents;
         });

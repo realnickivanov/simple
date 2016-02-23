@@ -12,6 +12,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                 }
                 return '';
             }),
+            isInReviewMode: router.getQueryStringValue('reviewApiUrl'),
 
 
             viewSettings: function () {
