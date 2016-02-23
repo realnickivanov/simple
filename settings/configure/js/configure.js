@@ -56,7 +56,7 @@
             viewModel.masteryScore = new app.MasteryScore(settings.masteryScore);
             viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
             if (settings.hasOwnProperty('showConfirmationPopup')) {            
-                viewModel.showConfirmationPopup = ko.observable(settings.showConfirmationPopup);
+                viewModel.showConfirmationPopup(settings.showConfirmationPopup);
             }
 
             currentSettings = viewModel.getCurrentSettingsData(settings);

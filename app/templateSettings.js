@@ -30,7 +30,7 @@ define([], function () {
         },
         "xApi": {
             "enabled": true,
-            "selectedLrs": "default",            
+            "selectedLrs": "default",
             "lrs": {
                 "uri": "",
                 "credentials": {

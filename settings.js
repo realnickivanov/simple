@@ -48,7 +48,7 @@
     "xApi":{
         "enabled":true,
         "required":false,
-        "selectedLrs":"default",        
+        "selectedLrs":"default",
         "lrs":{
             "uri":"",
             "authenticationRequired":false,

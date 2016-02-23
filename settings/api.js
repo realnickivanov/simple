@@ -120,7 +120,7 @@
             settings = {
                 xApi: {
                     enabled: true,
-                    selectedLrs: 'default',                    
+                    selectedLrs: 'default',
                     lrs: {
                         credentials: {}
                     }

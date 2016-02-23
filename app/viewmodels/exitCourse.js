@@ -55,7 +55,7 @@
             if (templateSettings.showConfirmationPopup) {
                 viewModel.popup.show();
             } else {
-                exit();
+                finish();
             }
         };
         
