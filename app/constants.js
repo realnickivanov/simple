@@ -13,7 +13,8 @@
             statement: 'statement',
             informationContent: 'informationContent',
             openQuestion: 'openQuestion',
-            scenario: 'scenario'
+            scenario: 'scenario',
+            rankingText: 'rankingText'
         },
         defaultImageUrl: 'css/img/singleSelectImageAnwer.png',
         events: {

@@ -152,6 +152,37 @@ body {
 	display: none;
 }
 
+.ranking-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.ranking-item-box {
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    width: 65px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 0 1px 1px rgba(142,142,143,.75) inset;
+    display: inline-block;
+}
+
+.ranking-item-text {
+    border-radius: 5px;
+    background-color: rgba(200,209,215,.2);
+    border: 1px solid rgba(200,209,215,.2);
+    padding: 10px;
+    cursor: pointer;
+    font-family: Roboto Slab;
+    font-size: 18px;
+    line-height: 30px;
+    min-height: 50px;
+    color: #3a4046;
+    margin-left: 80px;
+}
+
 .edit-field-wrapper {
 	padding: 0;
 }

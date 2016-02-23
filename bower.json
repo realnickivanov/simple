@@ -17,9 +17,10 @@
     "tests"
   ],
   "dependencies": {
+    "components-webfontloader": "~1.6.3",
     "easygenerator-plugins": "*",
-    "jquery-file-download": "~1.4.4",
     "has": "*",
-    "components-webfontloader": "~1.6.3"
+    "jquery-file-download": "~1.4.4",
+    "knockout-dragula": "~0.2.2"
   }
 }
