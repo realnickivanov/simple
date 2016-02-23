@@ -125,7 +125,8 @@
                         credentials: {}
                     }
                 },
-                masteryScore: {}
+                masteryScore: {},
+                showConfirmationPopup: true
             };
         }
         return settings;

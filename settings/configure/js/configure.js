@@ -10,7 +10,8 @@
         trackingData: null,
         masteryScore: null,
         languages: null,
-        pdfExport: null
+        pdfExport: null,
+        showConfirmationPopup: ko.observable(true)
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -18,7 +19,8 @@
             pdfExport: viewModel.pdfExport.getData(),
             xApi: viewModel.trackingData.getData(),
             masteryScore: viewModel.masteryScore.getData(),
-            languages: viewModel.languages.getData()
+            languages: viewModel.languages.getData(),
+            showConfirmationPopup: viewModel.showConfirmationPopup()
         });
     };
 
@@ -53,6 +55,9 @@
             viewModel.trackingData = new app.TrackingDataModel(settings.xApi);
             viewModel.masteryScore = new app.MasteryScore(settings.masteryScore);
             viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
+            if (settings.hasOwnProperty('showConfirmationPopup')) {            
+                viewModel.showConfirmationPopup(settings.showConfirmationPopup);
+            }
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();

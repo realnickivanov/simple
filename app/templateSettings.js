@@ -47,7 +47,8 @@ define([], function () {
         },
         "pdfExport": {
             "enabled": false
-        }
+        },
+        "showConfirmationPopup": true
     };
 
 
@@ -93,6 +94,7 @@ define([], function () {
             that.background = fullSettings.branding.background;
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
+            that.showConfirmationPopup = fullSettings.showConfirmationPopup;
 
             that.languages.selected = fullSettings.languages.selected;
 
