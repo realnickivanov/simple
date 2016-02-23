@@ -120,12 +120,13 @@
             settings = {
                 xApi: {
                     enabled: true,
-                    selectedLrs: 'default',
+                    selectedLrs: 'default',                    
                     lrs: {
                         credentials: {}
                     }
                 },
-                masteryScore: {}
+                masteryScore: {},
+                showConfirmationPopup: true
             };
         }
         return settings;

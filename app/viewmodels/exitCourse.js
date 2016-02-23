@@ -51,6 +51,14 @@
             return progressContext.status() === progressStatuses.error;
         });
 
+        viewModel.finishAction = function() {
+            if (templateSettings.showConfirmationPopup) {
+                viewModel.popup.show();
+            } else {
+                exit();
+            }
+        };
+        
         return viewModel;
 
         function activate(type) {

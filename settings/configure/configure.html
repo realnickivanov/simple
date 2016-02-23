@@ -72,6 +72,25 @@
                             </div>
                             <div class="preview-disabled" data-bind="visible: !enableXAPI()"></div>
                         </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div data-bind="localize: 'show confirmation popup'"></div>
+                                <div class="settings-hint" data-bind="localize: 'show confirmation popup hint'"></div>
+                            </div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: $parent.showConfirmationPopup() }, localize: 'hide'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: $parent.showConfirmationPopup }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !$parent.showConfirmationPopup() }, localize: 'show'"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="advanced-settings">
                             <div class="advanced-settings-title-container" data-bind="click: toggleAdvancedSettings">
                                 <div class="advanced-settings-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }, localize: 'advanced settings'"></div>
