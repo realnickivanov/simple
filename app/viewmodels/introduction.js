@@ -6,7 +6,7 @@
 
             canActivate = function () {
                 if (context.course.hasIntroductionContent == false) {
-                    return { redirect: '#objectives' };
+                    return { redirect: '#sections' };
                 }
                 return true;
             },
@@ -29,7 +29,7 @@
                 if (router.isNavigationLocked()) {
                     return;
                 }
-                router.navigate('objectives');
+                router.navigate('sections');
 
             };
 

@@ -1,5 +1,5 @@
-define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/objectiveRepository', 'progressContext'],
-    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, objectiveRepository, progressContext) {
+define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/sectionRepository', 'progressContext'],
+    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, sectionRepository, progressContext) {
 
         "use strict";
 
@@ -61,19 +61,19 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
         function enqueueCourseFinished(course) {
             guard.throwIfNotAnObject(course, 'Course is not an object');
 
-            if (_.isArray(course.objectives)) {
-                _.each(course.objectives, function (objective) {
-                    if (_.isArray(objective.questions)) {
-                        _.each(objective.questions, function (question) {
+            if (_.isArray(course.sections)) {
+                _.each(course.sections, function (section) {
+                    if (_.isArray(section.questions)) {
+                        _.each(section.questions, function (question) {
                             if (question.affectProgress && !question.isAnswered) {
                                 enqueueQuestionAnsweredStatement(question);
                             }
                         });
                     }
 
-                    var objectiveUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
-                    var score = objective.affectProgress ? new scoreModel(objective.score() / 100) : undefined;
-                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: score }), createActivity(objectiveUrl, objective.title));
+                    var sectionUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
+                    var score = section.affectProgress ? new scoreModel(section.score() / 100) : undefined;
+                    var statement = createStatement(constants.verbs.mastered, new resultModel({ score: score }), createActivity(sectionUrl, section.title));
                     pushStatementIfSupported(statement);
                 });
             }
@@ -108,8 +108,8 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             try {
                 guard.throwIfNotAnObject(question, 'Question is not an object');
 
-                var objective = objectiveRepository.get(question.objectiveId);
-                guard.throwIfNotAnObject(objective, 'Objective is not found');
+                var section = sectionRepository.get(question.sectionId);
+                guard.throwIfNotAnObject(section, 'Section is not found');
 
 
                 var parts = null;
@@ -151,11 +151,11 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                         break;
                 }
 
-                var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+                var parentUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
 
                 var context = createContextModel({
                     contextActivities: new contextActivitiesModel({
-                        parent: [createActivity(parentUrl, objective.title)]
+                        parent: [createActivity(parentUrl, section.title)]
                     })
                 });
 
@@ -183,7 +183,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).toString()
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.choice,
@@ -214,7 +214,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).value().join("[,]")
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.choice,
@@ -244,7 +244,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).toString()
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.choice,
@@ -270,7 +270,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).toString()
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.fillIn,
@@ -294,7 +294,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).join("[,]")
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.other,
@@ -319,7 +319,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                 }),
 
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.other,
@@ -341,7 +341,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).join("[,]")
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.matching,
@@ -366,7 +366,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     response: question.answeredText
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.other
@@ -381,7 +381,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     score: new scoreModel(question.score() / 100),
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.other
@@ -399,7 +399,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     }).join("[,]")
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.sequencing,
@@ -423,7 +423,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     score: new scoreModel(question.score() / 100)
                 }),
                 object: new activityModel({
-                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.other
@@ -446,22 +446,22 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             guard.throwIfNotAnObject(question, 'Question is not an object');
             guard.throwIfNotNumber(spentTime, 'SpentTime is not a number');
 
-            var objective = objectiveRepository.get(question.objectiveId);
-            guard.throwIfNotAnObject(objective, 'Objective is not found');
+            var section = sectionRepository.get(question.sectionId);
+            guard.throwIfNotAnObject(section, 'Section is not found');
 
             var result = new resultModel({
                 duration: dateTimeConverter.timeToISODurationString(spentTime)
             });
 
-            var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + objective.id + '/question/' + question.id + '?learningContents';
-            var parentUrl = activityProvider.rootCourseUrl + '#objective/' + objective.id + '/question/' + question.id;
-            var groupingUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
+            var learningContentUrl = activityProvider.rootCourseUrl + '#section/' + section.id + '/question/' + question.id + '?learningContents';
+            var parentUrl = activityProvider.rootCourseUrl + '#section/' + section.id + '/question/' + question.id;
+            var groupingUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
             var object = createActivity(learningContentUrl, question.title);
 
             var context = createContextModel({
                 contextActivities: new contextActivitiesModel({
                     parent: [createActivity(parentUrl, question.title)],
-                    grouping: [createActivity(groupingUrl, objective.title)]
+                    grouping: [createActivity(groupingUrl, section.title)]
                 })
             });
 

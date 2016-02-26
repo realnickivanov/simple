@@ -25,7 +25,7 @@ define([], function () {
             },
             "colors": []
         },
-        "objectivesLayout": {
+        "sectionsLayout": {
             "key": "Tiles"
         },
         "xApi": {
@@ -62,7 +62,7 @@ define([], function () {
 
         logoUrl: '',
 
-        objectivesLayout: {
+        sectionsLayout: {
             key: ''
         },
         xApi: {},
@@ -84,9 +84,9 @@ define([], function () {
                 that.logoUrl = fullSettings.branding.logo.url;
             }
 
-            //objectives layout initialization
-            if (!_.isEmptyOrWhitespace(fullSettings.objectivesLayout.key)) {
-                that.objectivesLayout = fullSettings.objectivesLayout.key;
+            //sections layout initialization
+            if (!_.isEmptyOrWhitespace(fullSettings.sectionsLayout.key)) {
+                that.sectionsLayout = fullSettings.sectionsLayout.key;
             }
 
 

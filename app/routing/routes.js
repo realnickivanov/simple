@@ -9,14 +9,14 @@
             hideExitButton: true
         },
         {
-            route: 'objectives',
-            moduleId: 'viewmodels/objectives',
-            title: 'Objectives',
+            route: 'sections',
+            moduleId: 'viewmodels/sections',
+            title: 'Sections',
             rootLinkDisabled: true,
             hideExitButton: true
         },
         {
-            route: 'objective/:objectiveId/question/:questionId',
+            route: 'section/:sectionId/question/:questionId',
             moduleId: 'viewmodels/questions/content',
             title: 'Question'
         },

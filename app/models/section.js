@@ -3,30 +3,30 @@
 
         var ctor = function (spec) {
 
-            var objective = {
+            var section = {
                 id: spec.id,
                 title: spec.title,
                 imageUrl: spec.imageUrl,
                 questions: spec.questions
             };
 
-            var questions = _.filter(objective.questions, function (question) {
+            var questions = _.filter(section.questions, function (question) {
                     return question.affectProgress;
                 });
 
-            objective.affectProgress = questions.length > 0;
+            section.affectProgress = questions.length > 0;
 
-            objective.score = ko.computed(function () {
+            section.score = ko.computed(function () {
                 var result = _.reduce(questions, function (memo, question) { return memo + question.score(); }, 0);
                 var questionsLength = questions.length;
                 return questionsLength === 0 ? 0 : Math.floor(result / questionsLength);
             });
 
-            objective.isCompleted = ko.computed(function () {
-                return objective.score() >= templateSettings.masteryScore.score;
+            section.isCompleted = ko.computed(function () {
+                return section.score() >= templateSettings.masteryScore.score;
             });
 
-            return objective;
+            return section;
         };
 
         return ctor;

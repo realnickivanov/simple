@@ -8,7 +8,7 @@
 
         this.id = spec.id;
         this.shortId = spec.shortId;
-        this.objectiveId = spec.objectiveId;
+        this.sectionId = spec.sectionId;
         this.title = spec.title;
         this.hasContent = spec.hasContent;
         this.type = spec.type;
@@ -77,7 +77,7 @@
                 return;
             }
 
-            var contentUrl = 'content/' + that.objectiveId + '/' + that.id + '/content.html';
+            var contentUrl = 'content/' + that.sectionId + '/' + that.id + '/content.html';
             return http.get(contentUrl)
                 .then(function (response) {
                     that.content = response;
@@ -93,7 +93,7 @@
         var requests = [];
         _.each(that.learningContents, function (item) {
             if (_.isNullOrUndefined(item.content)) {
-                requests.push(http.get('content/' + that.objectiveId + '/' + that.id + '/' + item.id + '.html')
+                requests.push(http.get('content/' + that.sectionId + '/' + that.id + '/' + item.id + '.html')
                     .then(function (response) {
                         item.content = response;
                     }));
@@ -116,7 +116,7 @@
         var
             that = this,
             requests = [],
-            feedbackUrlPath = 'content/' + that.objectiveId + '/' + that.id + '/',
+            feedbackUrlPath = 'content/' + that.sectionId + '/' + that.id + '/',
             correctFeedbackContentUrl = feedbackUrlPath + 'correctFeedback.html',
             incorrectFeedbackContentUrl = feedbackUrlPath + 'incorrectFeedback.html';
 

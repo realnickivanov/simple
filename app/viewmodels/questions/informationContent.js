@@ -17,13 +17,13 @@
             return;
         }
 
-        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
+        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'sections';
         router.navigate(nextUrl);
     }
 
-    function activate(objectiveId, question) {
+    function activate(sectionId, question) {
         return Q.fcall(function () {
-            viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, question.id);
+            viewModel.navigationContext = navigationModule.getNavigationContext(sectionId, question.id);
             viewModel.id = question.id;
             viewModel.title = question.title;
             viewModel.learningContents = question.learningContents;

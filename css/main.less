@@ -2515,13 +2515,13 @@ form {
     color: #fff;
 }
 
-.objective-image-wrapper .canvas-styles {
+.section-image-wrapper .canvas-styles {
     position: absolute;
     left: 50%;
     margin-left: -46px;
 }
 
-.objectives-canvas-wrapper {
+.sections-canvas-wrapper {
     width: 92px;
     height: 92px;
     margin: auto;
@@ -2529,7 +2529,7 @@ form {
     z-index: 1;
 }
 
-.objective-progress-text-wrapper {
+.section-progress-text-wrapper {
     position: absolute;
     top: 50%;
     margin-top: -12px;
@@ -2539,7 +2539,7 @@ form {
     left: 2px;
 }
 
-.objective-progress:hover .mastered-score-tooltip {
+.section-progress:hover .mastered-score-tooltip {
     opacity: 1;
 }
 
@@ -2670,20 +2670,20 @@ form {
 
 /*#endregion content css-styles*/
 
-/*#region objectives view*/
+/*#region sections view*/
 
-.objectives .course-action-block {
+.sections .course-action-block {
     width: 292px;
 }
 
 
-.header.module-objectives {
+.header.module-sections {
     .summary-wrapper {
         display: none;
     }
 }
 
-.objectives {
+.sections {
     .summary-wrapper {
         .summary-extended-wrapper {
             display: block;
@@ -2699,7 +2699,7 @@ form {
 
 @media (max-width: 768px) {
 
-    .objectives {
+    .sections {
         .page-header {
             display: block;
 
@@ -2750,12 +2750,12 @@ form {
     }
 }
 
-.objectives-list {
+.sections-list {
     list-style-type: none;
     text-align: center;
 }
 
-.objective-image-wrapper {
+.section-image-wrapper {
     position: relative;
     border-radius: 10px;
     width: 100%;
@@ -2766,7 +2766,7 @@ form {
     padding: 4px;
 }
 
-.objective-image-wrapper:before {
+.section-image-wrapper:before {
     position: absolute;
     top: 0;
     left: 0;
@@ -2777,7 +2777,7 @@ form {
     background-color: rgba(0,0,0,0.5);
 }
 
-.objective-progress-wrapper {
+.section-progress-wrapper {
     display: table-cell;
     width: 160px;
     vertical-align: middle;
@@ -2795,7 +2795,7 @@ form {
     font-weight: 100;
 }
 
-.objectives-list-item {
+.sections-list-item {
     border-radius: 5px;
     box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
 
@@ -2803,12 +2803,12 @@ form {
         cursor: default;
     }
 
-    .objective-image-holder {
+    .section-image-holder {
         background-color: #fff;
     }
 }
 /*#region Tiles*/
-.Tiles.objectives-list-item {
+.Tiles.sections-list-item {
     display: inline-block;
     width: 290px;
     height: 350px;
@@ -2819,22 +2819,22 @@ form {
     vertical-align: top;
 }
 
-.Tiles.objectives-list-item:nth-child(3n) {
+.Tiles.sections-list-item:nth-child(3n) {
     margin-right: 0;
 }
 
-.Tiles.objectives-list-item:nth-child(3n+1) {
+.Tiles.sections-list-item:nth-child(3n+1) {
     margin-left: 0;
 }
 
-.Tiles.objectives-list-item .content {
+.Tiles.sections-list-item .content {
     padding: 0;
     height: 100%;
     margin: 0;
     border: 0;
 }
 
-.Tiles .objective-image-holder {
+.Tiles .section-image-holder {
     position: relative;
     vertical-align: middle;
     width: 100%;
@@ -2845,7 +2845,7 @@ form {
     border-top-right-radius: 3px;
 }
 
-.Tiles .objective-image-holder .button {
+.Tiles .section-image-holder .button {
     position: absolute;
     top: 62px;
     left: 62px;
@@ -2853,22 +2853,22 @@ form {
     display: none;
 }
 
-.Tiles.objectives-list-item:hover .objective-image-holder .button {
+.Tiles.sections-list-item:hover .section-image-holder .button {
     display: block;
     padding: 0;
 }
 
-.Tiles.objectives-list-item .objective-image-holder .objective-image {
+.Tiles.sections-list-item .section-image-holder .section-image {
     transform: none;
     overflow: hidden;
     transition: transform 0.6s ease;
 }
 
-.Tiles.objectives-list-item:hover .objective-image-holder .objective-image {
+.Tiles.sections-list-item:hover .section-image-holder .section-image {
     transform: scale(1.06,1.06);
 }
 
-.Tiles.objectives-list-item:hover .objective-image-holder:after {
+.Tiles.sections-list-item:hover .section-image-holder:after {
     position: absolute;
     content: '';
     top: 0;
@@ -2879,7 +2879,7 @@ form {
     background-color: rgba(66,81,95,.7);
 }
 
-.Tiles .objective-progress-no-questions {
+.Tiles .section-progress-no-questions {
     position: absolute;
     z-index: 1;
     top: 148px;
@@ -2902,7 +2902,7 @@ form {
     z-index: 11;
 }
 
-.Tiles .objective-progress {
+.Tiles .section-progress {
     position: absolute;
     width: 48px;
     height: 48px;
@@ -2917,7 +2917,7 @@ form {
 
 
 
-.Tiles .objective-image {
+.Tiles .section-image {
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -2927,7 +2927,7 @@ form {
     background-repeat: no-repeat;
 }
 
-.objective-info {
+.section-info {
     display: table-cell;
     width: 100%;
     position: relative;
@@ -2939,7 +2939,7 @@ form {
     padding-right: 60px;
 }
 
-.Tiles.objectives-list-item .objective-info {
+.Tiles.sections-list-item .section-info {
     padding: 10px 15px;
     font-size: 13px;
     line-height: 19px;
@@ -2953,7 +2953,7 @@ form {
 /*#endregion Tiles*/
 
 /*#region List*/
-.List.objectives-list-item {
+.List.sections-list-item {
     width: 100%;
     position: relative;
     cursor: pointer;
@@ -2963,7 +2963,7 @@ form {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.3);
 }
 
-.List .objective-info {
+.List .section-info {
     display: table;
     width: 100%;
     padding: 14px;
@@ -2973,14 +2973,14 @@ form {
     box-shadow: none;
 }
 
-.List.objectives-list-item .objective-image-holder {
+.List.sections-list-item .section-image-holder {
     display: table-cell;
     vertical-align: middle;
     width: 100px;
     background-color: transparent;
 }
 
-.List.objectives-list-item .objective-image-holder div {
+.List.sections-list-item .section-image-holder div {
     width: 100px;
     height: 70px;
     background-repeat: no-repeat;
@@ -2990,7 +2990,7 @@ form {
     border-radius: 4px;
 }
 
-.List .objective-info-holder {
+.List .section-info-holder {
     display: table-cell;
     vertical-align: middle;
     padding: 0 70px 0px 10px;
@@ -3000,13 +3000,13 @@ form {
     text-align: left;
 }
 
-.List .objective-start-button-holder {
+.List .section-start-button-holder {
     display: table-cell;
     width: 130px;
     vertical-align: middle;
 }
 
-.List .objective-start-button-holder:before {
+.List .section-start-button-holder:before {
     position: absolute;
     right: 165px;
     top: 50%;
@@ -3017,39 +3017,39 @@ form {
     background-color: #cecfd1;
 }
 
-.List .objective-start-button-holder button {
+.List .section-start-button-holder button {
     width: 115px;
     padding: 0 10px;
 }
 
-.List .objective-progress-no-questions {
+.List .section-progress-no-questions {
     color: #91b1d0;
     font-size: 13px;
     font-style: italic;
     font-weight: 400;
 }
 
-.List .objective-progress-wrapper {
+.List .section-progress-wrapper {
     width: 250px;
     height: 10px;
 }
 
-.List .objective-progress {
+.List .section-progress {
     display: table;
 }
 
-.List .objective-progress .mastered-score-tooltip-text {
+.List .section-progress .mastered-score-tooltip-text {
     margin-bottom: 15px;
 }
 
-.List .objective-progress:hover .mastered-score-tooltip-text {
+.List .section-progress:hover .mastered-score-tooltip-text {
     -webkit-transition: all linear 0.2s;
     transition: all linear 0.2s;
     margin-bottom: 10px;
     opacity: 1;
 }
 
-.List .objective-progress .progressbar-wrapper {
+.List .section-progress .progressbar-wrapper {
     display: table-cell;
     width: 250px;
     vertical-align: middle;
@@ -3070,7 +3070,7 @@ form {
     top: 0;
 }
 
-.List .objective-progress .progress-value {
+.List .section-progress .progress-value {
     display: table-cell;
     padding: 0px 20px;
     color: #63798e;
@@ -3084,16 +3084,16 @@ form {
 }
 /*#endregion List*/
 @media (max-width: 975px) {
-    .Tiles.objectives-list-item:nth-child(3n) {
+    .Tiles.sections-list-item:nth-child(3n) {
         margin-right: 20px;
     }
 
-    .Tiles.objectives-list-item:nth-child(3n+1) {
+    .Tiles.sections-list-item:nth-child(3n+1) {
         margin-left: 20px;
     }
 }
 
-/*#endregion objectives view*/
+/*#endregion sections view*/
 
 /*#region questions navigation styles */
 
@@ -3883,7 +3883,7 @@ form {
 }
 
 @media (max-width: 920px) {
-    .objective-info {
+    .section-info {
         padding-right: 0;
     }
 

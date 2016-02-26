@@ -1,4 +1,4 @@
-﻿<section id="objectivesPage" class="objectives " data-view="views/objectives" data-active-view="true" style="">
+﻿<section id="sectionsPage" class="sections " data-view="views/sections" data-active-view="true" style="">
     <div>
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
@@ -10,39 +10,39 @@
             </div>
         </header>
 
-        <ul class="objectives-list" data-bind="foreach: objectives">
+        <ul class="sections-list" data-bind="foreach: sections">
 
-            <li class="objectives-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }, css:$root.objectivesLayout, reviewable: {type: 'objective', property: 'title', id: id, title: title}">
-                <!-- ko if: $root.objectivesLayout==="Tiles" -->
-                <div class="objective-image-holder">
-                    <div class="objective-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
+            <li class="sections-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }, css:$root.sectionsLayout, reviewable: {type: 'section', property: 'title', id: id, title: title}">
+                <!-- ko if: $root.sectionsLayout==="Tiles" -->
+                <div class="section-image-holder">
+                    <div class="section-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
                     <button class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                 </div>
                 <!-- ko if: affectProgress -->
-                <div class="objective-progress">
+                <div class="section-progress">
                     <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 },toolTip:{progress: score, masteryScore:$parent.masteryScore}"></canvas>
-                    <span class="objective-progress-text-wrapper" data-bind="text:score+'%'"></span>
+                    <span class="section-progress-text-wrapper" data-bind="text:score+'%'"></span>
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: affectProgress -->
-                <div class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
+                <div class="section-progress-no-questions" data-translate-text="[there are no questions]">No questions</div>
                 <!-- /ko -->
-                <div class="objective-info">
-                    <span data-bind="text: title">objective title</span>
+                <div class="section-info">
+                    <span data-bind="text: title">section title</span>
                 </div>
                 <!--/ko-->
-                <!-- ko if: $root.objectivesLayout==="List" -->
-                <div class="objective-info">
-                    <div class="objective-image-holder">
+                <!-- ko if: $root.sectionsLayout==="List" -->
+                <div class="section-info">
+                    <div class="section-image-holder">
                         <div data-bind="style: { 'background-image':  'url('+imageUrl+')'}"></div>
                     </div>
-                    <div class="objective-info-holder">
+                    <div class="section-info-holder">
                         <div data-bind="text: title"></div>
                         <!-- ko ifnot: affectProgress -->
-                        <span class="objective-progress-no-questions" data-translate-text="[there are no questions]">No questions</span>
+                        <span class="section-progress-no-questions" data-translate-text="[there are no questions]">No questions</span>
                         <!-- /ko -->
                         <!-- ko if: affectProgress -->
-                        <div class="objective-progress">
+                        <div class="section-progress">
                             <div class="progressbar-wrapper canvas-styles">
                                 <div class='progressbar'>
                                     <div class="progressbar-value" data-bind="style: {width: score+'%'}, css:{mastered:score >= $parent.masteryScore}"></div>
@@ -60,7 +60,7 @@
                         <!-- /ko -->
 
                     </div>
-                    <div class="objective-start-button-holder">
+                    <div class="section-start-button-holder">
                         <button class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                     </div>
                 </div>

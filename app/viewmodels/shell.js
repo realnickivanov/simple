@@ -65,12 +65,12 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                     var progress = progressContext.get();
                                     if (_.isObject(progress)) {
                                         if (_.isString(progress.url)) {
-                                            window.location.hash = progress.url;
+                                            window.location.hash = progress.url.replace('objective', 'section'); //fix for old links
                                         }
 
                                         if (_.isObject(progress.answers)) {
-                                            _.each(dataContext.course.objectives, function (objective) {
-                                                _.each(objective.questions, function (question) {
+                                            _.each(dataContext.course.sections, function (section) {
+                                                _.each(section.questions, function (question) {
                                                     if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
                                                         question.progress(progress.answers[question.shortId]);
                                                     }
