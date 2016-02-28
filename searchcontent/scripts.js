@@ -55,8 +55,10 @@
 		$.getJSON('../settings.js', function (settings) {
 			content.filterQuestionTypes = filterQuestionTypes;
 			content.shuffleKeyValues = shuffleKeyValues;
+            content.shuffle = shuffle;
 			content.logoUrl = (settings && settings.logo && settings.logo.url) ? settings.logo.url : defaultLogo;
 
+            document.title = 'easygenerator | ' + content.title;
 			ko.applyBindings(content);
 		});
 	});
@@ -72,7 +74,8 @@
 			'statement',
 			'openQuestion',
 			'dragAndDropText',
-			'hotspot'
+			'hotspot',
+            'rankingText'
 		];
 
 		var resultArray = [];
