@@ -20,13 +20,14 @@
         var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
         router.navigate(nextUrl);
     }
-    
+
     function activate(objectiveId, question) {
         return Q.fcall(function () {
             viewModel.navigationContext = navigationModule.getNavigationContext(objectiveId, question.id);
             viewModel.id = question.id;
             viewModel.title = question.title;
             viewModel.learningContents = question.learningContents;
+            question.submitAnswer();
         });
     }
 });

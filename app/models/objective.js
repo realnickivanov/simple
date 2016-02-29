@@ -1,5 +1,5 @@
-﻿define(['templateSettings', 'constants'],
-    function (templateSettings, constants) {
+﻿define(['templateSettings'],
+    function (templateSettings) {
 
         var ctor = function (spec) {
 
@@ -10,16 +10,16 @@
                 questions: spec.questions
             };
 
-            var questions = _.filter(objective.questions, function(question) {
-                 return question.type !== constants.questionTypes.informationContent;
-            });
+            var questions = _.filter(objective.questions, function (question) {
+                    return question.affectProgress;
+                });
 
             objective.affectProgress = questions.length > 0;
 
             objective.score = ko.computed(function () {
                 var result = _.reduce(questions, function (memo, question) { return memo + question.score(); }, 0);
                 var questionsLength = questions.length;
-                return questionsLength == 0 ? 0 : Math.floor(result / questionsLength);
+                return questionsLength === 0 ? 0 : Math.floor(result / questionsLength);
             });
 
             objective.isCompleted = ko.computed(function () {

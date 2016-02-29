@@ -16,6 +16,7 @@
         this.learningContents = spec.learningContents;
         this.isAnswered = false;
         this.isCorrectAnswered = false;
+        this.affectProgress = true;
         this.isInformationContent = spec.type === constants.questionTypes.informationContent;
 
         this.feedback = {
@@ -37,21 +38,27 @@
         this.learningContentExperienced = learningContentExperienced;
 
         this.progress = function (data) {
+            if (!this.affectProgress)
+                return 0;
+
             if (!_.isNullOrUndefined(data)) {
                 _protected.restoreProgress.call(this, data);
 
                 this.isAnswered = true;
-                this.isCorrectAnswered = this.score() == 100;
+                this.isCorrectAnswered = this.score() === 100;
             } else {
                 return _protected.getProgress.call(this);
             }
         };
 
         this.submitAnswer = function () {
+            if (!this.affectProgress)
+                return;
+
             this.score(_protected.submit.apply(this, arguments));
 
             this.isAnswered = true;
-            this.isCorrectAnswered = this.score() == 100;
+            this.isCorrectAnswered = this.score() === 100;
 
             eventManager.answersSubmitted(this);
         }

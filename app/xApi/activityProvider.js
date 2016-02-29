@@ -65,7 +65,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                 _.each(course.objectives, function (objective) {
                     if (_.isArray(objective.questions)) {
                         _.each(objective.questions, function (question) {
-                            if (!question.isAnswered) {
+                            if (question.affectProgress && !question.isAnswered) {
                                 enqueueQuestionAnsweredStatement(question);
                             }
                         });
@@ -105,7 +105,6 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
         }
 
         function enqueueQuestionAnsweredStatement(question) {
-
             try {
                 guard.throwIfNotAnObject(question, 'Question is not an object');
 
@@ -147,6 +146,9 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     case globalConstants.questionTypes.rankingText:
                         parts = getRankingTextQuestionActivityAndResult(question);
                         break;
+                    case globalConstants.questionTypes.informationContent:
+                        parts = getInformationContentActivityAndResult(question);
+                        break;
                 }
 
                 var parentUrl = activityProvider.rootCourseUrl + '#objectives?objective_id=' + objective.id;
@@ -158,7 +160,10 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                 });
 
                 if (parts) {
-                    var statement = createStatement(constants.verbs.answered, parts.result, parts.object, context);;
+                    var verb = question.type === globalConstants.questionTypes.informationContent ?
+                        constants.verbs.experienced : constants.verbs.answered;
+
+                    var statement = createStatement(verb, parts.result, parts.object, context);;
                     if (statement) {
                         pushStatementIfSupported(statement);
                     }
@@ -407,6 +412,21 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                                 description: new languageMapModel(item.text)
                             };
                         })
+                    })
+                })
+            };
+        }
+
+        function getInformationContentActivityAndResult(question) {
+            return {
+                result: new resultModel({
+                    score: new scoreModel(question.score() / 100)
+                }),
+                object: new activityModel({
+                    id: activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id,
+                    definition: new interactionDefinitionModel({
+                        name: new languageMapModel(question.title),
+                        interactionType: constants.interactionTypes.other
                     })
                 })
             };
