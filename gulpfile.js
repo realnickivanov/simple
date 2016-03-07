@@ -72,7 +72,7 @@ gulp.task('watch', function () {
     gulp.watch('./css/main.less', ['process-less']);
 });
 
-gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app'], function () {
+gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app', 'build-searchcontent-app'], function () {
 });
 
 gulp.task('clean', function (cb) {
@@ -218,6 +218,19 @@ gulp.task('build-pdf-app', ['pre-build'], function () {
         .pipe(useref())
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/pdf'));
+});
+
+gulp.task('build-searchcontent-app', ['pre-build'], function () {
+    var assets = useref.assets();
+
+    gulp.src('searchcontent/index.html')
+        .pipe(assets)
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/searchcontent'));
 });
 
 gulp.task('webserver', function () {
