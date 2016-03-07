@@ -91,6 +91,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">
+                                <div data-bind="localize: 'allow scoring of content pages'"></div>
+                            </div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: $parent.allowContentPagesScoring() }, localize: 'disabled'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: $parent.allowContentPagesScoring }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !$parent.allowContentPagesScoring() }, localize: 'enabled'"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="advanced-settings">
                             <div class="advanced-settings-title-container" data-bind="click: toggleAdvancedSettings">
                                 <div class="advanced-settings-title" data-bind="css: { expanded: advancedSettingsExpanded(),  collapsed: !advancedSettingsExpanded() }, localize: 'advanced settings'"></div>

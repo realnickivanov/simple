@@ -48,7 +48,8 @@ define([], function () {
         "pdfExport": {
             "enabled": false
         },
-        "showConfirmationPopup": true
+        "showConfirmationPopup": true,
+        "allowContentPagesScoring": false
     };
 
 
@@ -95,6 +96,7 @@ define([], function () {
             that.xApi = fullSettings.xApi;
             that.pdfExport = fullSettings.pdfExport;
             that.showConfirmationPopup = fullSettings.showConfirmationPopup;
+            that.allowContentPagesScoring = fullSettings.allowContentPagesScoring;
 
             that.languages.selected = fullSettings.languages.selected;
 

@@ -24,6 +24,7 @@
         'results tracking option': 'Results tracking:',
         'results tracking hint': '(will not affect tracking and tracing in SCORM/LMS)',
         'allow user to skip option': 'Allow user to skip tracking and tracing:',
+        'allow scoring of content pages': 'Allow scoring of content pages:',
         'show confirmation popup': 'Show confirmation dialogue:',
         'show confirmation popup hint': '(when submitting final results)',
         'disabled': 'Disabled',

@@ -11,7 +11,8 @@
         masteryScore: null,
         languages: null,
         pdfExport: null,
-        showConfirmationPopup: ko.observable(true)
+        showConfirmationPopup: ko.observable(true),
+        allowContentPagesScoring: ko.observable(false)
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -20,7 +21,8 @@
             xApi: viewModel.trackingData.getData(),
             masteryScore: viewModel.masteryScore.getData(),
             languages: viewModel.languages.getData(),
-            showConfirmationPopup: viewModel.showConfirmationPopup()
+            showConfirmationPopup: viewModel.showConfirmationPopup(),
+            allowContentPagesScoring: viewModel.allowContentPagesScoring()
         });
     };
 
@@ -57,6 +59,10 @@
             viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
             if (settings.hasOwnProperty('showConfirmationPopup')) {            
                 viewModel.showConfirmationPopup(settings.showConfirmationPopup);
+            }
+
+            if (settings.hasOwnProperty('allowContentPagesScoring')) {
+                viewModel.allowContentPagesScoring(settings.allowContentPagesScoring);
             }
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
