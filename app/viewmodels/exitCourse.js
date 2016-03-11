@@ -24,24 +24,16 @@
             activate: activate
         };
 
+        viewModel.popup = new Popup();
+        viewModel.finishPopupActions = {
+            close: viewModel.popup.hide,
+            finish: function () {
+                finish();
+                viewModel.popup.hide();
+            }
+        };
 
-        viewModel.popup = {
-            isVisible: ko.observable(false),
-            show: showPopup,
-            hide: hidePopup,
-
-            actions: ko.computed(function () {
-                if (viewModel.type() === 'extended') {
-                    return {
-                        close: hidePopup, cancel: hidePopup, finish: function () {
-                            finish();
-                            hidePopup();
-                        }
-                    };
-                }
-                return { close: hidePopup, cancel: hidePopup, exit: exit };
-            })
-        }
+        viewModel.takeABreakPopupActions = { close: viewModel.popup.hide, exit: exit };
 
         viewModel.isProgressSaved = ko.computed(function () {
             return progressContext.status() === progressStatuses.saved;
@@ -51,14 +43,20 @@
             return progressContext.status() === progressStatuses.error;
         });
 
-        viewModel.finishAction = function() {
+        viewModel.finishAction = function () {
             if (templateSettings.showConfirmationPopup) {
+                viewModel.popup.actions(viewModel.finishPopupActions);
                 viewModel.popup.show();
             } else {
                 finish();
             }
         };
-        
+
+        viewModel.takeABreakAction = function () {
+            viewModel.popup.actions(viewModel.takeABreakPopupActions);
+            viewModel.popup.show();
+        }
+
         return viewModel;
 
         function activate(type) {
@@ -85,7 +83,7 @@
         }
 
         function finish() {
-            if (viewModel.isNavigationLocked() || viewModel.status() != statuses.readyToFinish) {
+            if (viewModel.isNavigationLocked() || viewModel.status() !== statuses.readyToFinish) {
                 return;
             }
             viewModel.status(statuses.sendingRequests);
@@ -95,16 +93,21 @@
             progressContext.remove();
         }
 
-        function showPopup() {
-            if (router.isNavigationLocked()) {
-                return;
-            }
+        function Popup() {
+            var that = this;
+            this.actions = ko.observable();
+            this.isVisible = ko.observable(false);
+            this.show = function () {
+                if (router.isNavigationLocked()) {
+                    return;
+                }
 
-            viewModel.popup.isVisible(true);
-        }
+                that.isVisible(true);
+            };
 
-        function hidePopup() {
-            viewModel.popup.isVisible(false);
+            this.hide = function () {
+                that.isVisible(false);
+            };
         }
 
     });

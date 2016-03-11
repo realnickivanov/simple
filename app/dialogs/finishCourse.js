@@ -10,7 +10,6 @@
         if (data) {
             viewModel.close = data.close;
             viewModel.exit = data.exit;
-            viewModel.cancel = data.cancel;
             viewModel.finish = data.finish;
         }
     }
