@@ -6,14 +6,29 @@
 
     return lessProcessor;
 
-    function init(colors) {
-
+    function init(colors, fonts) {
+        
         clearLocalStorage();
 
         _.each(colors, function (pair) {
             lessProcessor.vars[pair.key] = pair.value;
         })
+        _.each(fonts, function (obj) {
 
+            var props = _.keys(obj);
+            _.each(props, function (prop) {
+                if (prop === 'key' || prop === 'isGeneralSelected') {
+                    return
+                }
+                if (prop === 'size') {
+                    lessProcessor.vars['@' + obj.key + '-' + prop] = obj[prop] + 'px';
+                }
+
+                else{
+                    lessProcessor.vars['@' + obj.key + '-' + prop] = obj[prop];
+                }
+            });
+        });
         return less.modifyVars(lessProcessor.vars);
     };
 

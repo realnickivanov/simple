@@ -203,21 +203,18 @@ ul {
 
     p {
         margin: 0 0 20px;
-        line-height: 30px;
+        line-height: 1.5;
     }
 
     a {
-        text-decoration: underline;
         cursor: pointer;
-        line-height: 30px;
+        line-height: 1.5;
     }
 
     h1 {
-        font-size: 26px;
-        font-weight: 700;
         text-align: justify;
         margin: 35px 0 20px;
-        line-height: 40px;
+        line-height: 1.5;
 
         &:first-child {
             margin-top: 0;
@@ -225,12 +222,10 @@ ul {
     }
 
     h2 {
-        font-size: 24px;
-        font-weight: 700;
         text-align: justify;
         margin: 35px 0 20px;
         text-transform: none;
-        line-height: 36px;
+        line-height: 1.5;
 
         &:first-child {
             margin-top: 0;
@@ -238,12 +233,10 @@ ul {
     }
 
     h3 {
-        font-size: 20px;
-        font-weight: 700;
         text-align: justify;
         margin: 35px 0 20px;
         text-transform: none;
-        line-height: 30px;
+        line-height: 1.5;
 
         &:first-child {
             margin-top: 0;
@@ -256,8 +249,7 @@ ul {
         width: 75%;
         margin: 15px auto;
         padding: 10px 40px;
-        font-size: 18px;
-        line-height: 30px;
+        line-height: 1.5;
         white-space: pre-line;
         overflow: hidden;
 
@@ -282,7 +274,7 @@ ul {
     }
 
     mark {
-        line-height: 30px;
+        line-height: 1.5;
     }
 
     .table-wrapper {
@@ -459,6 +451,10 @@ ul {
             p {
                 display: inline;
             }
+
+            cite {
+                display: inline;
+            }
         }
     }
 
@@ -552,10 +548,6 @@ ul {
 
     &.hotspot-on-image-container {
         text-align: center;
-    }
-
-    .image-wrapper ~ .image-wrapper {
-        clear: none;
     }
 }
 /*#endregion*/
@@ -3807,7 +3799,6 @@ form {
     border-radius: 0 4px 4px 0;
     box-shadow: 1px 2px 3px -1px rgba(0, 0, 0, 0.3);
     text-align: center;
-    font-family: Roboto Slab;
     font-size: 13px;
     color: #fff;
     cursor: default;

@@ -112,6 +112,13 @@ gulp.task('build-app', ['pre-build'], function () {
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/css'));
 
+    gulp.src('css/fonts.css')
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/css'));
+
+    gulp.src('fonts/*')
+        .pipe(gulp.dest(output + '/fonts'));
+
     gulp.src('css/img/**')
         .pipe(gulp.dest(output + '/css/img'));
 
@@ -137,7 +144,7 @@ gulp.task('build-app', ['pre-build'], function () {
             extraModules: ['transitions/entrance']
         })
         .pipe(has({
-			'release': true
+            'release': true
         }))
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/app'));

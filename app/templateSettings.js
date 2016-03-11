@@ -28,6 +28,8 @@ define([], function () {
         "sectionsLayout": {
             "key": "Tiles"
         },
+
+        "fonts": [],
         "xApi": {
             "enabled": true,
             "selectedLrs": "default",
@@ -91,6 +93,7 @@ define([], function () {
 
 
             that.colors = fullSettings.branding.colors;
+            that.fonts = fullSettings.fonts;
 
             that.background = fullSettings.branding.background;
             that.xApi = fullSettings.xApi;

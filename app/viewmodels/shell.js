@@ -57,7 +57,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                         return modulesInitializer.init().then(function () {
                             that.logoUrl(templateSettings.logoUrl);
                             that.pdfExportEnabled = templateSettings.pdfExport.enabled;
-                            return lessProcessor.init(templateSettings.colors).then(function () {
+                            return lessProcessor.init(templateSettings.colors, templateSettings.fonts).then(function () {
                                 that.title = app.title = dataContext.course.title;
                                 that.createdOn = dataContext.course.createdOn;
                                 
