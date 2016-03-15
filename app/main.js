@@ -12,8 +12,8 @@ define('knockout', function () { return ko; });
 define('WebFont', function () { return WebFont; });
 
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation'],
-    function(app, viewLocator, system, modulesInitializer, bootstrapper, templateSettings, settingsReader, translation) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/router', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation'],
+    function (app, viewLocator, system, router, modulesInitializer, bootstrapper, templateSettings, settingsReader, translation) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -59,10 +59,18 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             }
 
             function initTemplateSettings(settings) {
-                return templateSettings.init(settings).then(function() {
+                return templateSettings.init(settings).then(function () {
+                    if(isXapiDisabled()){
+						templateSettings.xApi.enabled = false;
+					}
                     modules['xApi/xApiInitializer'] = templateSettings.xApi;
                 });
             }
+			
+			function isXapiDisabled(){
+				var xapi = router.getQueryStringValue('xapi');
+				return !templateSettings.xApi.required && !_.isNullOrUndefined(xapi) && xapi.toLowerCase() === 'false';
+			}
 
             function initTranslations(settings) {
                 return translation.init(settings.languages.selected, settings.languages.customTranslations);
