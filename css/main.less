@@ -576,7 +576,7 @@ ul {
 
 .header {
     position: relative;
-    height: 300px;
+    height: 335px;
     box-shadow: 0px 60px 90px -90px rgba(0,0,0,0.75);
 
     &:before {
@@ -888,7 +888,7 @@ form {
     padding: 15px 15px 15px 40px;
     font-size: 18px;
     line-height: 30px;
-    min-height: 60px; 
+    min-height: 60px;
     margin-bottom: 12px;
     transition-property: box-shadow, background-color;
     transition-timing-function: linear;
@@ -898,7 +898,7 @@ form {
     &.gu-mirror {
         box-shadow: 0px 2px 3px 0px rgba(0,0,0,.3);
     }
-        
+
     .ranking-item-icon {
         position: absolute;
         top: 50%;
@@ -1542,35 +1542,71 @@ form {
     text-align: right;
 }
 
-.exit-course-button {
-    height: 42px;
-    width: 170px;
-    border: 0;
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
+.exit-course-wrapper {
+    .exit-course-container {
+        display: block;
+        max-width: 220px;
+        margin: 0 auto;
+        text-align: center;
+    }
 
-    span {
-        line-height: 42px;
+    .exit-course-button {
+        width: 200px;
+        height: 44px;
+    }
+
+    .exit-course-separator {
+        width: 200px;
         display: inline-block;
-        vertical-align: bottom;
+        margin-top: 5px;
+        overflow: hidden;
+        text-align: center;
+
+        .exit-course-separator-text {
+            display: inline-block;
+            padding: 0 15px;
+            position: relative;
+            font-size: 12px;
+            cursor: default;
+
+            &:before,
+            &:after {
+                content: "";
+                display: block;
+                height: 1px;
+                position: absolute;
+                top: 50%;
+                width: 400%;
+            }
+
+            &:before {
+                right: 100%;
+            }
+
+            &:after {
+                left: 100%;
+            }
+        }
     }
 
-    &.disabled {
-        cursor: default;
-        opacity: .5;
-    }
+    .exit-course-link-wrapper {
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-    .material-icons {
-        font-size: 26px;
-        vertical-align: baseline;
+        .exit-course-link {
+            white-space: nowrap;
+            font-size: 14px;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: transparent;
+            transition-property: border-color;
+            transition-timing-function: ease-out;
+            transition-duration: .1s;
+        }
     }
 }
+
+
 
 .summary-wrapper {
     position: relative;
@@ -1583,7 +1619,7 @@ form {
     border-radius: 5px;
     border: 0 none;
     display: inline-block;
-    padding: 13px 25px 23px 25px;
+    padding: 13px 25px 13px 25px;
     display: none;
     overflow: hidden;
 
@@ -1612,6 +1648,36 @@ form {
 
 .summary-short {
     display: block;
+
+    .exit-course-button {
+        height: 42px;
+        width: 170px;
+        border: 0;
+        font-size: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        position: relative;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3);
+
+        span {
+            line-height: 42px;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        &.disabled {
+            cursor: default;
+            opacity: .5;
+        }
+
+        .material-icons {
+            font-size: 26px;
+            vertical-align: baseline;
+        }
+    }
 }
 
 .overall-progress {
@@ -2549,7 +2615,7 @@ form {
     max-width: 960px;
     margin: -220px auto 20px;
     position: relative;
-    
+
     &.review-mode {
         margin-bottom: 110px;
     }
@@ -2567,7 +2633,7 @@ form {
 .course-title {
     display: table-cell;
     vertical-align: middle;
-    height: 100px;
+    height: 125px;
     width: 100%;
     padding: 15px 20px 0 0;
     margin: 0;
@@ -2621,7 +2687,7 @@ form {
     .summary-wrapper {
         .summary-extended-wrapper {
             display: block;
-            top: -135px;
+            top: -182px;
             position: absolute;
         }
 
@@ -2671,6 +2737,11 @@ form {
 
                         .exit-course-wrapper {
                             text-align: right;
+                            padding-top: 10px;
+
+                            .exit-course-container {
+                                float: right;
+                            }
                         }
                     }
                 }
