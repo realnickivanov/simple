@@ -55,7 +55,7 @@
             viewModel.themes = new app.ThemesModel(settings.theme, viewModel.saveChanges);
             viewModel.background = new app.BackgroundModel(settings.background, viewModel.saveChanges);
 
-            viewModel.sectionsLayout = new app.sectionsLayoutModel(settings.sectionsLayout, viewModel.saveChanges);
+            viewModel.sectionsLayout = new app.SectionsLayoutModel(settings.sectionsLayout, viewModel.saveChanges);
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();
