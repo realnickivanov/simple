@@ -1,5 +1,5 @@
-﻿define(['models/course', 'models/objective', 'models/questions/questionsFactory'],
-    function (Course, Objective, questionsFactory) {
+﻿define(['models/course', 'models/section', 'models/questions/questionsFactory'],
+    function (Course, Section, questionsFactory) {
 
         var
             course = {},
@@ -18,17 +18,17 @@
                         templateId: response.templateId,
                         title: response.title,
                         hasIntroductionContent: response.hasIntroductionContent,
-                        objectives: _.chain(response.objectives)
+                        sections: _.chain(response.sections)
                             .filter(function (item) {
                                 return !_.isNullOrUndefined(item.questions) && item.questions.length > 0;
                             })
-                            .map(function (objective) {
-                                return new Objective({
-                                    id: objective.id,
-                                    title: objective.title,
-                                    imageUrl: objective.imageUrl,
-                                    questions: _.chain(objective.questions).map(function (question) {
-                                        return questionsFactory.createQuestion(objective.id, question); 
+                            .map(function (section) {
+                                return new Section({
+                                    id: section.id,
+                                    title: section.title,
+                                    imageUrl: section.imageUrl,
+                                    questions: _.chain(section.questions).map(function (question) {
+                                        return questionsFactory.createQuestion(section.id, question); 
                                     }).filter(function(question){
                                         return question != null;
                                     }).value()

@@ -12,21 +12,21 @@
                 createdOn: spec.createdOn,
 
                 hasIntroductionContent: spec.hasIntroductionContent,
-                objectives: spec.objectives,
+                sections: spec.sections,
                 isFinished: false
             }
 
-            var affectProgressObjectives = _.filter(course.objectives, function (objective) {
-                return objective.affectProgress;
+            var affectProgressSections = _.filter(course.sections, function (section) {
+                return section.affectProgress;
             });
 
             course.score = function () {
-                var result = _.reduce(affectProgressObjectives, function (memo, objective) {
-                    return memo + objective.score();
+                var result = _.reduce(affectProgressSections, function (memo, section) {
+                    return memo + section.score();
                 }, 0);
 
-                var objectivesLength = affectProgressObjectives.length;
-                return objectivesLength == 0 ? 0 : Math.floor(result / objectivesLength);
+                var sectionsLength = affectProgressSections.length;
+                return sectionsLength == 0 ? 0 : Math.floor(result / sectionsLength);
             };
 
             course.result = function () {
@@ -34,8 +34,8 @@
             }
 
             course.isCompleted = function () {
-                return !_.some(affectProgressObjectives, function (objective) {
-                    return !objective.isCompleted();
+                return !_.some(affectProgressSections, function (section) {
+                    return !section.isCompleted();
                 });
             };
 

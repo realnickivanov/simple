@@ -4,18 +4,18 @@
         get: get
     };
 
-    function get(objectiveId, questionId) {
-        guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+    function get(sectionId, questionId) {
+        guard.throwIfNotString(sectionId, 'section id is not a string');
         guard.throwIfNotString(questionId, 'Question id is not a string');
 
-        var objective = _.find(context.course.objectives, function (item) {
-            return item.id == objectiveId;
+        var section = _.find(context.course.sections, function (item) {
+            return item.id == sectionId;
         });
 
-        if (!objective) {
+        if (!section) {
             return null;
         }
-        var question = _.find(objective.questions, function (item) {
+        var question = _.find(section.questions, function (item) {
             return item.id == questionId;
         });
         

@@ -15,14 +15,14 @@ define(['guard', 'constants', 'models/learningContent', 'models/questions/multip
             createQuestion: createQuestion
         };
 
-        function createQuestion(objectiveId, question) {
-            guard.throwIfNotString(objectiveId, 'ObjectiveId is invalid');
+        function createQuestion(sectionId, question) {
+            guard.throwIfNotString(sectionId, 'sectionId is invalid');
             guard.throwIfNotAnObject(question, 'Question data is invalid');
             guard.throwIfNotString(question.type, 'Question type is invalid');
             var questionData = {
                 id: question.id,
                 shortId: index++,
-                objectiveId: objectiveId,
+                sectionId: sectionId,
                 title: question.title,
                 type: question.type,
                 learningContents: _.map(question.learningContents, function (learningContent) {
