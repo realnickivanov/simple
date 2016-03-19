@@ -43,6 +43,12 @@
                 display: {
                     "en-US": "mastered"
                 }
+            },
+            progressed: {
+                id: "http://adlnet.gov/expapi/verbs/progressed",
+                display: {
+                    "en-US": "progressed"
+                }
             }
         };
 
@@ -56,6 +62,11 @@
             other: "other"
         };
 
+        var activityTypes = {
+            course: "http://adlnet.gov/expapi/activities/course",
+            objective: "http://adlnet.gov/expapi/activities/objective"
+        }
+
         var extenstionKeys = {
             courseId: "http://easygenerator/expapi/course/id"
         };
@@ -68,6 +79,7 @@
         return {
             verbs: verbs,
             interactionTypes: interactionTypes,
+            activityTypes: activityTypes,
             extenstionKeys: extenstionKeys,
             patterns: patterns
         };

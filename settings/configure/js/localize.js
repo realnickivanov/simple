@@ -48,6 +48,7 @@
         'mastered': 'Mastered',
         'expirenced': 'Expirenced',
         'failed': 'Failed',
+        'progressed': 'Progressed',
 
         //mastery score
         'mastery score settings': 'Mastery score settings',
