@@ -11,7 +11,7 @@
         logo: null,
         themes: null,
         background: null,
-        objectivesLayout:null
+        sectionsLayout:null
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -19,7 +19,7 @@
             logo: viewModel.logo.getData(),
             theme: viewModel.themes.getData(),
             background: viewModel.background.getData(),
-            objectivesLayout: viewModel.objectivesLayout.getData(),
+            sectionsLayout: viewModel.sectionsLayout.getData(),
         });
     };
 
@@ -55,7 +55,7 @@
             viewModel.themes = new app.ThemesModel(settings.theme, viewModel.saveChanges);
             viewModel.background = new app.BackgroundModel(settings.background, viewModel.saveChanges);
 
-            viewModel.objectivesLayout = new app.ObjectivesLayoutModel(settings.objectivesLayout, viewModel.saveChanges);
+            viewModel.sectionsLayout = new app.SectionsLayoutModel(settings.sectionsLayout, viewModel.saveChanges);
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();

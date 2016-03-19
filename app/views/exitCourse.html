@@ -20,17 +20,23 @@
                 </div>
             </div>
             <div class="exit-course-wrapper">
-                <button class="exit-course-button" data-bind="click: finishAction, css: { disabled: isNavigationLocked }">
-                    <span data-translate-text="[finish course]"></span>
-                </button>
+                <div class="exit-course-container">
+                    <button class="button small primary exit-course-button" data-translate-text="[finish course]" data-bind="click: finishAction, css: { disabled: isNavigationLocked }">
+                    </button>
+                    <div class="exit-course-separator">
+                        <span class="exit-course-separator-text" data-translate-text="[or]"></span>
+                    </div>
+                    <div class="exit-course-link-wrapper">
+                        <a class="exit-course-link" href="#" data-translate-title="[take a break and continue later]" data-translate-text="[take a break and continue later]" data-bind="click: takeABreakAction"></a>
+                    </div>
+                </div>
             </div>
-            <div>
+        </div>
     </section>
     <!-- /ko -->
-
     <!-- ko ifnot: type() ==='extended' -->
     <section class="summary-short">
-        <button class="exit-course-button" data-bind="click: popup.show, css: { disabled: isNavigationLocked }">
+        <button class="exit-course-button" data-bind="click: takeABreakAction, css: { disabled: isNavigationLocked }">
             <span class="material-icons">exit_to_app</span>
             <span data-translate-text="[take a brake]"></span>
         </button>

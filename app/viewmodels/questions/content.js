@@ -1,9 +1,9 @@
-﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'templateSettings', 'modules/questionsNavigation'],
-    function (router, constants, questionRepository, objectiveRepository, templateSettings, navigationModule) {
+﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/sectionRepository', 'templateSettings', 'modules/questionsNavigation'],
+    function (router, constants, questionRepository, sectionRepository, templateSettings, navigationModule) {
         "use strict";
 
         var viewModel = {
-            objective: null,
+            section: null,
             question: null,
 
             startTime: null,
@@ -11,7 +11,7 @@
             masteryScore: 0,
 
             navigationContext: null,
-            backToObjectives: backToObjectives,
+            backToSections: backToSections,
             isNextQuestionAvailable: isNextQuestionAvailable,
             nextQuestionUrl: nextQuestionUrl,
             isPreviousQuestionAvailable: isPreviousQuestionAvailable,
@@ -28,11 +28,11 @@
 
         return viewModel;
 
-        function backToObjectives() {
+        function backToSections() {
             if (router.isNavigationLocked()) {
                 return;
             }
-            router.navigate('objectives');
+            router.navigate('sections');
         }
 
         function isNextQuestionAvailable() {
@@ -60,16 +60,16 @@
             }
         }
 
-        function activate(objectiveId, questionId) {
+        function activate(sectionId, questionId) {
 
             return Q.fcall(function () {
-                viewModel.objective = objectiveRepository.get(objectiveId);
-                if (viewModel.objective === null) {
+                viewModel.section = sectionRepository.get(sectionId);
+                if (viewModel.section === null) {
                     router.navigate('404');
                     return;
                 }
 
-                viewModel.question = questionRepository.get(objectiveId, questionId);
+                viewModel.question = questionRepository.get(sectionId, questionId);
                 if (viewModel.question === null) {
                     router.navigate('404');
                     return;
@@ -80,7 +80,7 @@
 
                 viewModel.startTime = new Date();
                 viewModel.masteryScore = templateSettings.masteryScore.score;
-                viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.objective.id, viewModel.question.id);
+                viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.section.id, viewModel.question.id);
 
 
                 return viewModel.question.load().then(function () {

@@ -4,7 +4,7 @@
     app.LogoModel = LogoModel;
     app.ThemesModel = ThemesModel;
     app.BackgroundModel = BackgroundModel;
-    app.ObjectivesLayoutModel = ObjectivesLayoutModel;
+    app.SectionsLayoutModel = SectionsLayoutModel;
 
 
     function UserAccessModel(userData) {
@@ -174,7 +174,7 @@
         }
     }
 
-    function ObjectivesLayoutModel(layoutSettings, saveChanges) {
+    function SectionsLayoutModel(layoutSettings, saveChanges) {
         var that = this;
 
         that.list = [

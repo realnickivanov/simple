@@ -3,7 +3,7 @@
 	    "use strict";
 
 	    var viewModel = {
-	        objectiveId: null,
+	        sectionId: null,
 	        question: null,
 	        
 	        title: '',
@@ -47,7 +47,7 @@
 	            return;
 	        }
 
-	        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'objectives';
+	        var nextUrl = !_.isNullOrUndefined(viewModel.navigationContext.nextQuestionUrl) ? viewModel.navigationContext.nextQuestionUrl : 'sections';
 	        router.navigate(nextUrl);
 	    }
 	    
@@ -68,10 +68,10 @@
 	        });
 	    }
 
-	    function activate(objectiveId, question) {
-	        viewModel.objectiveId = objectiveId;
+	    function activate(sectionId, question) {
+	        viewModel.sectionId = sectionId;
 	        viewModel.question = question;
-	        viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.objectiveId, viewModel.question.id);
+	        viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.sectionId, viewModel.question.id);
 	        viewModel.title = viewModel.question.title;
 	        viewModel.isAnswered(viewModel.question.isAnswered);
 	        viewModel.isCorrect(viewModel.question.isCorrectAnswered);

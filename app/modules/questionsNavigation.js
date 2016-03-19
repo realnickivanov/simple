@@ -1,14 +1,14 @@
-﻿define(['repositories/objectiveRepository'], function (objectiveRepository) {
-    function getNavigationContext(objectiveId, questionId) {
-        var objective = objectiveRepository.get(objectiveId);
+﻿define(['repositories/sectionRepository'], function (sectionRepository) {
+    function getNavigationContext(sectionId, questionId) {
+        var section = sectionRepository.get(sectionId);
 
-        if (objective && objective.questions) {
-            var currentItemIndex = _getItemIndexById(objective.questions, questionId);
+        if (section && section.questions) {
+            var currentItemIndex = _getItemIndexById(section.questions, questionId);
             if (currentItemIndex > -1) {
                 return {
-                    previousQuestionUrl: _getQuestionUrl(objective, objective.questions[currentItemIndex - 1]),
-                    nextQuestionUrl: _getQuestionUrl(objective, objective.questions[currentItemIndex + 1]),
-                    questionsCount : objective.questions.length,
+                    previousQuestionUrl: _getQuestionUrl(section, section.questions[currentItemIndex - 1]),
+                    nextQuestionUrl: _getQuestionUrl(section, section.questions[currentItemIndex + 1]),
+                    questionsCount : section.questions.length,
                     currentQuestionIndex : currentItemIndex + 1
                 };
             }
@@ -24,9 +24,9 @@
         return -1;
     }
 
-    function _getQuestionUrl(objective, question) {
-        if (objective && question) {
-            return '#/objective/' + objective.id + '/question/' + question.id;
+    function _getQuestionUrl(section, question) {
+        if (section && question) {
+            return '#/section/' + section.id + '/question/' + question.id;
         }
         return undefined;
     }

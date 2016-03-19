@@ -2,10 +2,10 @@
     function (context, repository, router, windowOperations, templateSettings, translation) {
 
         var
-            objectives = [],
+            sections = [],
             masteryScore = 0,
             courseTitle = "\"" + context.course.title + "\"",
-            objectivesLayout = null,
+            sectionsLayout = null,
 
             activate = function () {
                 var course = repository.get();
@@ -13,14 +13,15 @@
                     router.navigate('404');
                     return;
                 }
-                this.objectivesLayout = templateSettings.objectivesLayout,
+                this.sectionsLayout = templateSettings.sectionsLayout,
                 this.masteryScore = templateSettings.masteryScore.score;
-                this.objectives = _.map(course.objectives, function (item) {
+                
+                this.sections = _.map(course.sections, function (item) {
 
                     return {
                         id: item.id,
                         title: item.title,
-                        imageUrl: getResizedObjectiveThumbnailUrl(item.imageUrl),
+                        imageUrl: getResizedSectionThumbnailUrl(item.imageUrl),
                         score: item.score(),
                         scoreTooltipText: getScoreTooltipText(templateSettings.masteryScore.score, item.score()),
                         questions: item.questions,
@@ -30,7 +31,7 @@
                             if (router.isNavigationLocked()) {
                                 return;
                             }
-                            router.navigate('#/objective/' + item.id + '/question/' + item.questions[0].id);
+                            router.navigate('#/section/' + item.id + '/question/' + item.questions[0].id);
                         }
                     };
                 });
@@ -40,20 +41,20 @@
         return {
             activate: activate,
             isNavigationLocked: router.isNavigationLocked,
-            caption: 'Objectives and questions',
+            caption: 'Sections and questions',
             courseTitle: courseTitle,
-            objectivesLayout: objectivesLayout,
+            sectionsLayout: sectionsLayout,
 
             masteryScore: masteryScore,
-            objectives: objectives
+            sections: sections
         };
 
-        function getResizedObjectiveThumbnailUrl(imageUrl) {
+        function getResizedSectionThumbnailUrl(imageUrl) {
             var regex = /\?width=\d+\&height=\d+&scaleBySmallerSide=\w+/,
                 imageResizerOptions = '?width=284&height=170&scaleBySmallerSide=false',
                 coincidences = regex.exec(imageUrl),
                 originalImage = imageUrl;
-            if (templateSettings.objectivesLayout === "List") {
+            if (templateSettings.sectionsLayout === "List") {
                 imageResizerOptions = '?width=100&height=70&scaleBySmallerSide=false';
             }
             if (coincidences && coincidences.length) {
