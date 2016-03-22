@@ -70,7 +70,8 @@
             mastered: ko.observable(true),
             answered: ko.observable(true),
             passed: ko.observable(true),
-            failed: ko.observable(true)
+            failed: ko.observable(true),
+            progressed: ko.observable(true)
         };
 
         that.toggleAdvancedSettings = toggleAdvancedSettings;

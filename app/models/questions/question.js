@@ -60,7 +60,7 @@
             this.isAnswered = true;
             this.isCorrectAnswered = this.score() === 100;
 
-            eventManager.answersSubmitted(this);
+            eventManager.answersSubmitted(this, true);
         }
     }
 

@@ -33,7 +33,7 @@
                     password: ''
                 }
             },
-            allowedVerbs: ['started', 'stopped', 'experienced', 'mastered', 'answered', 'passed', 'failed']
+            allowedVerbs: ['started', 'stopped', 'experienced', 'mastered', 'answered', 'passed', 'failed', 'progressed']
         };
 
         return settings;

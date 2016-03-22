@@ -31,8 +31,8 @@
                 return executeAfterSubscribersDone(events.courseFinished, data, callback);
             },
 
-            answersSubmitted = function (data) {
-                app.trigger(events.answersSubmitted, data);
+            answersSubmitted = function (data, sendParentProgress) {
+                app.trigger(events.answersSubmitted, data, sendParentProgress);
             },
             
             learningContentExperienced = function (data, spentTime) {

@@ -1,5 +1,5 @@
-define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/sectionRepository', 'progressContext'],
-    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, sectionRepository, progressContext) {
+define(['./models/actor', './models/statement', './models/activity', './models/activityDefinition', 'eventManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './models/languageMap', './models/interactionDefinition', './utils/dateTimeConverter', './statementQueue', 'constants', 'guard', 'repositories/sectionRepository', 'progressContext', 'context'],
+    function (actorModel, statementModel, activityModel, activityDefinitionModel, eventManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, languageMapModel, interactionDefinitionModel, dateTimeConverter, statementQueue, globalConstants, guard, sectionRepository, progressContext, courseContext) {
 
         "use strict";
 
@@ -100,17 +100,35 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             return dfd.promise;
         }
 
+        function enqueueCourseProgressedStatement(course) {
+            guard.throwIfNotAnObject(course, 'Course is not an object');
+
+            var result = new resultModel({
+                score: new scoreModel(course.result())
+            });
+
+            pushStatementIfSupported(createStatement(constants.verbs.progressed, result, createActivity(null, activityProvider.activityName, constants.activityTypes.course)));
+        }
+
+        function enqueueSectionProgressedStatement(section) {
+            guard.throwIfNotAnObject(section, 'Section is not an object');
+
+			var sectionUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
+            var score = section.affectProgress ? new scoreModel(section.score() / 100) : undefined;
+            var statement = createStatement(constants.verbs.progressed, new resultModel({ score: score }), createActivity(sectionUrl, section.title, constants.activityTypes.objective));
+            pushStatementIfSupported(statement);
+        }
+
         function enqueueLearningContentExperienced(question, spentTime) {
             pushStatementIfSupported(getLearningContentExperiencedStatement(question, spentTime));
         }
 
-        function enqueueQuestionAnsweredStatement(question) {
+        function enqueueQuestionAnsweredStatement(question, sendParentProgress) {
             try {
                 guard.throwIfNotAnObject(question, 'Question is not an object');
 
                 var section = sectionRepository.get(question.sectionId);
                 guard.throwIfNotAnObject(section, 'Section is not found');
-
 
                 var parts = null;
 
@@ -163,9 +181,13 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     var verb = question.type === globalConstants.questionTypes.informationContent ?
                         constants.verbs.experienced : constants.verbs.answered;
 
-                    var statement = createStatement(verb, parts.result, parts.object, context);;
+                    var statement = createStatement(verb, parts.result, parts.object, context);
                     if (statement) {
                         pushStatementIfSupported(statement);
+                        if (sendParentProgress) {
+                            enqueueSectionProgressedStatement(section);
+                            enqueueCourseProgressedStatement(courseContext.course);
+                        }
                     }
                 }
 
@@ -483,11 +505,12 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             return actor;
         }
 
-        function createActivity(id, name) {
+        function createActivity(id, name, type) {
             return activityModel({
                 id: id || activityProvider.activityUrl,
                 definition: new activityDefinitionModel({
-                    name: new languageMapModel(name)
+                    name: new languageMapModel(name),
+                    type: type
                 })
             });
         }
