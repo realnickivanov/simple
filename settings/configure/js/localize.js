@@ -68,7 +68,10 @@
         'tr': 'Turkish',
         'ua': 'Ukrainian',
 		'es': 'Spanish',
-        'pt-br': 'Portuguese (Brazil)',
+		'pt-br': 'Portuguese (Brazil)',
+		'ru': 'Russian',
+		'malay': 'Malay',
+		'kr': 'Korean',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',

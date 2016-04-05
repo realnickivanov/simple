@@ -219,10 +219,18 @@
 
         return that;
 
+        function sortByLanguageName(a, b){
+            var aName = a.name.toLowerCase();
+            var bName = b.name.toLowerCase(); 
+            return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+        }
+
         function init(languages, languagesSettings) {
             ko.utils.arrayForEach(languages || [], function (language) {
                 addLanguage(new LanguageModel(language.code, app.localize(language.code), language.url));
             });
+
+            that.languages.sort(sortByLanguageName);
 
             var defaultLanguage = getLanguage(defaultLanguageCode);
             var customLanguage = new LanguageModel(customLanguageCode, app.localize(customLanguageCode), defaultLanguage ? defaultLanguage.resourcesUrl : null, languagesSettings ? languagesSettings.customTranslations : null);
