@@ -37,6 +37,6 @@
     };
 
     function getVariablesList() {
-        return lessProcessor.vars ? JSON.stringify(lessProcessor.vars) : undefined;
+        return lessProcessor.vars ? JSON.stringify({'@main-color':lessProcessor.vars['@main-color']}) : undefined;
     }
 })

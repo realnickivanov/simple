@@ -7,7 +7,6 @@
                 require('bootstrapping/knockoutBindingTask'),
                 require('bootstrapping/binderTask'),
                 require('bootstrapping/routingTask'),
-                require('bootstrapping/fontLoaderTask'),
                 require('bootstrapping/reviewTask')
             ];
         }

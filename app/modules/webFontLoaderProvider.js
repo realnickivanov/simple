@@ -5,18 +5,27 @@
         init: init
     }
 
-    function init() {
+    function init(fonts) {
         var defer = Q.defer();
+
+        var familiesToLoad = _.map(fonts, function (font) {
+            return font.fontFamily
+        });
 
         fontLoader.load({
             google: {
-                families: ['Roboto Slab:300,400,700', 'Material Icons']
+                families: familiesToLoad && familiesToLoad.length ? familiesToLoad : ['Roboto Slab']
+            },
+            custom: {
+                families: ['Material Icons'],
+                urls: ['./css/fonts.css']
             },
             active: function () {
                 defer.resolve()
             },
             inactive: function () {
-                defer.reject('Browser does not support linked fonts or none of the fonts could be loaded!')
+                //added to make possible ofline template loading
+                defer.resolve()
             }
         })
         return defer.promise;

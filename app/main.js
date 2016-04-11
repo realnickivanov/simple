@@ -12,8 +12,8 @@ define('knockout', function () { return ko; });
 define('WebFont', function () { return WebFont; });
 
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/router', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation'],
-    function (app, viewLocator, system, router, modulesInitializer, bootstrapper, templateSettings, settingsReader, translation) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/router', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation', 'modules/webFontLoaderProvider'],
+    function(app, viewLocator, system,router ,modulesInitializer, bootstrapper, templateSettings, settingsReader, translation, webFontLoader) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -34,10 +34,12 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
 
             return readPublishSettings().then(function() {
                 return readTemplateSettings().then(function(settings) {
-                    return initTemplateSettings(settings).then(function() {
-                        return initTranslations(settings).then(function() {
-                            modulesInitializer.register(modules);
-                            app.setRoot('viewmodels/shell');
+                    return initTemplateSettings(settings).then(function () {
+                        return webFontLoader.init(settings.fonts).then(function(){
+                            return initTranslations(settings).then(function() {
+                                modulesInitializer.register(modules);
+                                app.setRoot('viewmodels/shell');
+                            });
                         });
                     });
                 });
