@@ -31,15 +31,16 @@
                 $toolTip.hover(showTooltip, hideTooltip);
 
                 updateTooltipPosition();
-
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    $toolTip.remove();
-                });
-
+                
                 ko.utils.domData.set(element, 'ko_tooltip', $toolTip);
                 ko.utils.domData.set(element, 'ko_tooltip_text', $tootlTipText);
 
                 $(window).on('resize', updateTooltipPosition);
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                    $toolTip.remove();
+                    $(window).off('resize', updateTooltipPosition);
+                });
             }
 
             function showTooltip() {
