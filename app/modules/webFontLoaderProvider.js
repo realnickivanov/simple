@@ -8,9 +8,13 @@
     function init(fonts) {
         var defer = Q.defer();
 
-        var familiesToLoad = _.map(fonts, function (font) {
-            return font.fontFamily
-        });
+        var familiesToLoad = _.chain(fonts)
+            .map(function (font) {
+                return font.fontFamily
+            })
+            .uniq()
+            .without('Arial', 'Times new roman', 'Verdana') //filter font families that are available in all supported browsers
+            .value();
 
         fontLoader.load({
             google: {
