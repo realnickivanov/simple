@@ -29,6 +29,7 @@
             var $selectWrapper = $element.parent('.' + cssClasses.wrapper);
             var $valueWrapper = $('<div class="' + cssClasses.value + '"></div>')
                 .text(that.options.defaultText)
+                .addClass(cssClasses.default)
                 .appendTo($selectWrapper);
 
             $selectWrapper.on('click', function () {
@@ -60,7 +61,10 @@
                         $element.find('.' + cssClasses.current)
                             .text(text)
                             .removeClass(cssClasses.default);
-
+                            
+                        $element.find('.' + cssClasses.default)
+                            .removeClass(cssClasses.default);
+                            
                         if (callback) {
                             callback(text);
                         }
@@ -93,13 +97,17 @@
         refresh: function () {
             var $element = $(this.element);
             $element.val(this.options.defaultText);
-            $('.' + cssClasses.value, $element.parent('.' + cssClasses.wrapper)).text(this.options.defaultText);
+            $('.' + cssClasses.value, $element.parent('.' + cssClasses.wrapper))
+                .text(this.options.defaultText)
+                .addClass(cssClasses.default);
         },
         updateValue: function (selectedText) {
             if (typeof selectedText === 'string') {
                 var $element = $(this.element);
                 $element.val(selectedText);
-                $('.' + cssClasses.value, $element.parent('.' + cssClasses.wrapper)).text(selectedText);
+                $('.' + cssClasses.value, $element.parent('.' + cssClasses.wrapper))
+                    .text(selectedText)
+                    .removeClass(cssClasses.default);
             }
         }
     };

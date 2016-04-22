@@ -2133,7 +2133,8 @@ form {
     }
 
     .select-wrapper {
-        width: 200px;
+        max-width: 300px;
+        min-width: 170px;
         min-height: 30px;
         cursor: pointer;
         padding-left: 6px;
@@ -2141,12 +2142,12 @@ form {
         display: inline-block;
         border-bottom-left-radius: 6px;
         margin-right: 10px;
+        margin-top: -1px;
         position: relative;
         font-size: 18px;
         letter-spacing: .2px;
         line-height: 29px;
         vertical-align: middle;
-        max-width: 100%;
 
         &:after {
             height: 22px;
@@ -2178,17 +2179,25 @@ form {
 
         .value {
             text-overflow: ellipsis;
-            padding-right: 15px;
+            padding-right: 25px;
             white-space: nowrap;
             overflow: hidden;
             display: block;
             /*           color: @fib-select-value-font-color;*/
             font-size: 18px;
+            
+            &.default {
+                font-size: 14px;
+                opacity: 0.7;
+            }
         }
     }
 
     .blankSelect {
-        display: none;
+        display: block;
+        height: 0;
+        border: none;
+        visibility: hidden;
     }
 }
 
