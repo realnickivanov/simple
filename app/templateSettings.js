@@ -54,7 +54,8 @@ define([], function () {
             "enabled": false
         },
         "showConfirmationPopup": true,
-        "allowContentPagesScoring": false
+        "allowContentPagesScoring": false,
+        "allowLoginViaSocialMedia": true
     };
 
 
@@ -103,6 +104,7 @@ define([], function () {
             that.pdfExport = fullSettings.pdfExport;
             that.showConfirmationPopup = fullSettings.showConfirmationPopup;
             that.allowContentPagesScoring = fullSettings.allowContentPagesScoring;
+            that.allowLoginViaSocialMedia = fullSettings.allowLoginViaSocialMedia;
 
             that.languages.selected = fullSettings.languages.selected;
 

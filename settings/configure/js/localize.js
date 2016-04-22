@@ -49,6 +49,7 @@
         'expirenced': 'Expirenced',
         'failed': 'Failed',
         'progressed': 'Progressed',
+        'allow social media': 'Allow login via social media',
 
         //mastery score
         'mastery score settings': 'Mastery score settings',

@@ -12,7 +12,8 @@
         languages: null,
         pdfExport: null,
         showConfirmationPopup: ko.observable(true),
-        allowContentPagesScoring: ko.observable(false)
+        allowContentPagesScoring: ko.observable(false),
+        allowSocialLogin: ko.observable(true),
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -22,7 +23,8 @@
             masteryScore: viewModel.masteryScore.getData(),
             languages: viewModel.languages.getData(),
             showConfirmationPopup: viewModel.showConfirmationPopup(),
-            allowContentPagesScoring: viewModel.allowContentPagesScoring()
+            allowContentPagesScoring: viewModel.allowContentPagesScoring(),
+            allowLoginViaSocialMedia: viewModel.allowSocialLogin()
         });
     };
 
@@ -63,6 +65,10 @@
 
             if (settings.hasOwnProperty('allowContentPagesScoring')) {
                 viewModel.allowContentPagesScoring(settings.allowContentPagesScoring);
+            }
+            
+            if (settings.hasOwnProperty('allowLoginViaSocialMedia')) {
+                viewModel.allowSocialLogin(settings.allowLoginViaSocialMedia);
             }
 
             currentSettings = viewModel.getCurrentSettingsData(settings);

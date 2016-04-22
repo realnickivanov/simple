@@ -1,39 +1,40 @@
-﻿<section class="popup-layout">
+﻿<section class="popup-layout" data-bind="scrollbar: { checkDOMChanges: true }">
     <div class="popup">
         <span class="close-btn" data-bind="click: close"></span>
-        <article>
-            <header>
-                <h2>
-                    <span data-translate-text="[note that]"></span>
-                </h2>
-            </header>
-            <section>
-                <ul>
-                    <!-- ko if: exit -->
-                    <li data-translate-text="[finish course take brake first remark]"></li>
-                    <li data-translate-text="[finish course take brake second remark]"></li>
-                    <!-- /ko -->
+        <div class="popup-wrapper">
+            <article>
+                <header>
+                    <h2>
+                        <span data-translate-text="[note that]"></span>
+                    </h2>
+                </header>
+                <section>
+                    <ul>
+                        <!-- ko if: finish -->
+                        <li data-translate-text="[finish course submit first remark]"></li>
+                        <li data-translate-text="[finish course submit second remark]"></li>
+                        <!-- /ko -->
+                    </ul>
+                </section>
+                <button class="button check small mb10" type="submit" data-bind="click: toggleStayLoggedIn, css: { active: stayLoggedIn }">
+                    <span data-translate-text="[keep me logged-in for the next courses]" data-translate-title="[keep me logged-in for the next courses]"></span>
+                </button>
+                <footer>
+                    <span class="button-wrapper">
+                        <button class="button block default" data-bind="click: close" data-translate-text="[cancel, continue course]" data-translate-title="[cancel, continue course]"></button>
+                    </span>
                     <!-- ko if: finish -->
-                    <li data-translate-text="[finish course submit first remark]"></li>
-                    <li data-translate-text="[finish course submit second remark]"></li>
+                    <span class="button-wrapper">
+                        <!-- ko if: stayLoggedIn -->                    
+                        <button class="button block primary" data-bind="click: finish" data-translate-text="[OK, submit results]" data-translate-title="[OK, submit results]"></button>
+                        <!-- /ko -->
+                        <!-- ko ifnot: stayLoggedIn -->                    
+                        <button class="button block primary" data-bind="click: finish" data-translate-text="[OK, submit results and log out]" data-translate-title="[OK, submit results and log out]"></button>
+                        <!-- /ko -->
+                    </span>
                     <!-- /ko -->
-                </ul>
-            </section>
-            <footer>
-                <span class="button-wrapper">
-                    <button class="button block default" data-bind="click: close" data-translate-text="[cancel, continue course]" data-translate-title="[cancel, continue course]"></button>
-                </span>
-                <!-- ko if: exit -->
-                <span class="button-wrapper">
-                    <button class="button block primary" data-bind="click: exit" data-translate-text="[OK, close course]" data-translate-title="[OK, close course]"></button>
-                </span>
-                <!-- /ko -->
-                <!-- ko if: finish -->
-                <span class="button-wrapper">
-                    <button class="button block primary" data-bind="click: finish" data-translate-text="[OK, submit results]" data-translate-title="[OK, submit results]"></button>
-                </span>
-                <!-- /ko -->
-            </footer>
-        </article>
+                </footer>
+            </article>
+        </div>
     </div>
 </section>

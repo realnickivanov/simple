@@ -1,5 +1,4 @@
-﻿<section class="summary-wrapper">
-
+﻿<section class="summary-wrapper" data-bind="blockBodyScroll: finishCoursePopup.isVisible() || continueLaterPopup.isVisible()">
     <!-- ko if: type() === 'extended' -->
     <section class="summary-extended-wrapper">
         <div class="summary-extended-background" data-bind="secondaryBackground: {}"></div>
@@ -8,7 +7,7 @@
                 <div class="overall-progress">
                     <div>
                         <div class="overall-progress-label-wrapper">
-                            <label class="overall-progress-label" data-translate-text="[Overall progress]"></label>
+                            <span class="overall-progress-label" data-translate-text="[Overall progress]"></span>
                         </div>
                         <div class="overall-progress-progressbar-wrapper">
                             <div class="overall-progress-progressbar">
@@ -23,8 +22,8 @@
                 <div class="exit-course-container">
                     <button class="button small primary exit-course-button" data-translate-text="[finish course]" data-bind="click: finishAction, css: { disabled: isNavigationLocked }">
                     </button>
-                    <div class="exit-course-separator">
-                        <span class="exit-course-separator-text" data-translate-text="[or]"></span>
+                    <div class="or-separator">
+                        <span class="or-separator-text" data-translate-text="[or]"></span>
                     </div>
                     <div class="exit-course-link-wrapper">
                         <a class="exit-course-link" href="#" data-translate-title="[take a break and continue later]" data-translate-text="[take a break and continue later]" data-bind="click: takeABreakAction"></a>
@@ -49,8 +48,10 @@
             <span class="finish-course-layout-loader-text" data-translate-text="[tracking and tracing reporting progress]">reporting progress...</span>
         </div>
     </div>
-    <!-- ko if: popup.isVisible -->
-    <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: [ popup.actions() ] } -->
+    <!-- ko if: finishCoursePopup.isVisible -->
+        <!-- ko compose: { view: 'dialogs/finishCourse', model: 'dialogs/finishCourse', activationData: [ finishCoursePopup.actions, finishCoursePopup.isVisible ] } --><!-- /ko -->
     <!-- /ko -->
+    <!-- ko if: continueLaterPopup.isVisible -->
+        <!-- ko compose: { view: 'dialogs/continueLater', model: 'dialogs/continueLater', activationData: [ continueLaterPopup.actions, continueLaterPopup.isVisible ] } --><!-- /ko -->
     <!-- /ko -->
 </section>
