@@ -30,6 +30,9 @@ define([], function () {
         },
 
         "fonts": [],
+        "treeOfContent":{
+            "enabled": true
+        },
         "xApi": {
             "enabled": true,
             "selectedLrs": "default",
@@ -91,7 +94,7 @@ define([], function () {
                 that.sectionsLayout = fullSettings.sectionsLayout.key;
             }
 
-
+            that.treeOfContent = fullSettings.treeOfContent;
             that.colors = fullSettings.branding.colors;
             that.fonts = fullSettings.fonts;
 

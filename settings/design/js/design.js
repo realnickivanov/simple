@@ -7,19 +7,14 @@
     var viewModel = {
         isError: ko.observable(false),
 
-        userAccess: null,
-        logo: null,
-        themes: null,
-        background: null,
+        treeOfContent: null,
         sectionsLayout:null
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
         return $.extend({}, settings || currentSettings, {
-            logo: viewModel.logo.getData(),
-            theme: viewModel.themes.getData(),
-            background: viewModel.background.getData(),
-            sectionsLayout: viewModel.sectionsLayout.getData(),
+            treeOfContent: viewModel.treeOfContent.getData(),
+            sectionsLayout: viewModel.sectionsLayout.getData()
         });
     };
 
@@ -48,14 +43,10 @@
     viewModel.init = function () {
         var api = window.egApi;
         return api.init().then(function () {
-            var user = api.getUser(),
-                settings = api.getSettings();
-            viewModel.userAccess = new app.UserAccessModel(user);
-            viewModel.logo = new app.LogoModel(settings.logo, viewModel.saveChanges);
-            viewModel.themes = new app.ThemesModel(settings.theme, viewModel.saveChanges);
-            viewModel.background = new app.BackgroundModel(settings.background, viewModel.saveChanges);
+            var settings = api.getSettings();
 
             viewModel.sectionsLayout = new app.SectionsLayoutModel(settings.sectionsLayout, viewModel.saveChanges);
+            viewModel.treeOfContent = new app.TreeOfContentModel(settings.treeOfContent, viewModel.saveChanges);
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();

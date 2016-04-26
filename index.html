@@ -14,8 +14,9 @@
     <link href="css/colors.less" type="text/css" rel="stylesheet/less" />
 
     <!-- build:css css/vendor.css -->
-    <link href="vendor/easygenerator-plugins/dist/styles.css" rel="stylesheet"/>
+    <link href="vendor/easygenerator-plugins/dist/styles.css" rel="stylesheet" />
     <link href="vendor/dragula/dist/dragula.css" rel="stylesheet" />
+    <link href="vendor/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
     <!-- endbuild -->
     <!-- build:css css/general.css -->
     <link href="css/ie10mobile.css" rel="stylesheet" />
@@ -61,6 +62,7 @@
     <script src="vendor/easygenerator-plugins/dist/plugins.js"></script>
     <script src="vendor/dragula/dist/dragula.js"></script>
     <script src="vendor/knockout-dragula/dist/knockout-dragula.js"></script>
+    <script src="vendor/perfect-scrollbar/js/perfect-scrollbar.js"></script>
     <!-- endbuild -->
     <script type="text/javascript">
         supportedBrowser.configure({
@@ -82,8 +84,8 @@
                         image: 'css/img/browsers/android.png'
                     },
                     chrome: {
-						version: 39
-					}
+                        version: 39
+                    }
                 },
                 ios: {
                     safari: {},
@@ -122,7 +124,7 @@
                 }
             }
         }).init();
-    
+
         var require = {
             baseUrl: 'app',
             deps: ['main'],

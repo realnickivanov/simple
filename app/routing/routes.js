@@ -13,12 +13,14 @@
             moduleId: 'viewmodels/sections',
             title: 'Sections',
             rootLinkDisabled: true,
-            hideExitButton: true
+            hideExitButton: true,
+            displayTreeOfContent: true
         },
         {
             route: 'section/:sectionId/question/:questionId',
             moduleId: 'viewmodels/questions/content',
-            title: 'Question'
+            title: 'Question',
+            displayTreeOfContent: true
         },
         {
             route: '404(/:url)',

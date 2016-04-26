@@ -18,13 +18,15 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
             viewSettings: function () {
                 var settings = {
                     rootLinkEnabled: true,
-                    exitButtonVisible: true
+                    exitButtonVisible: true,
+                    treeOfContentVisible: true
                 };
 
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
                     settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
                     settings.exitButtonVisible = !activeInstruction.config.hideExitButton;
+                    settings.treeOfContentVisible = templateSettings.treeOfContent.enabled && activeInstruction.config.displayTreeOfContent;
                 }
                 return settings;
             },
@@ -55,12 +57,14 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                 return context.initialize().then(function (dataContext) {
                     return userContext.initialize().then(function () {
                         return modulesInitializer.init().then(function () {
+
+
                             that.logoUrl(templateSettings.logoUrl);
                             that.pdfExportEnabled = templateSettings.pdfExport.enabled;
                             return lessProcessor.init(templateSettings.colors, templateSettings.fonts).then(function () {
                                 that.title = app.title = dataContext.course.title;
                                 that.createdOn = dataContext.course.createdOn;
-                                
+
                                 if (progressContext.ready()) {
                                     var progress = progressContext.get();
                                     if (_.isObject(progress)) {

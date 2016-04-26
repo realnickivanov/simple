@@ -21,6 +21,7 @@
     "easygenerator-plugins": "*",
     "has": "*",
     "jquery-file-download": "~1.4.4",
-    "knockout-dragula": "~0.2.2"
+    "knockout-dragula": "~0.2.2",
+    "perfect-scrollbar": "~0.6.10"
   }
 }

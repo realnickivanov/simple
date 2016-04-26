@@ -15,7 +15,6 @@
     <!-- endbuild -->
     <!-- build:js js/design.min.js -->
     <script src="js/localize.js"></script>
-    <script src="js/upload.js"></script>
     <script src="js/knockoutBindings.js"></script>
     <script src="js/models.js"></script>
     <script src="js/design.js"></script>
@@ -40,9 +39,28 @@
                 <!-- /ko -->
             </section>
         </article>
+        <hr/>
+        <article class="flex direction-column settings-item-container">
+            <header class="settings-item-title" data-bind="localize:'Display table of content:'">
+                Display table of content:
+            </header>
+            <section class="settings-item-content flex direction-row flex-wrap" data-bind="with: treeOfContent">
+                <div class="switcher">
+                    <div class="switcher-text" data-bind="css: { disabled: enabled() }, localize: 'Dont show'"></div>
+                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: enabled }">
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch-toggle-on"></div>
+                            <div class="switch-toogle-blob"></div>
+                            <div class="switch-toggle-off"></div>
+                        </div>
+                    </div>
+                    <div class="switcher-text" data-bind="css: { disabled: !enabled() }, localize: 'Show'"></div>
+                </div>
+            </section>
+        </article>
         <!-- /ko -->
         <!-- ko if: isError -->
-        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialize'"></div>
+        <div class="settings-tab-wrapper" data-bind="localize: 'settings are not initialized'"></div>
         <!-- /ko -->
     </main>
 </body>

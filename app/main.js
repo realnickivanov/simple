@@ -10,6 +10,7 @@
 define('jquery', function() { return jQuery; });
 define('knockout', function() { return ko; });
 define('WebFont', function() { return WebFont; });
+define('perfectScrollbar', function () { return Ps; });
 
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/router', 'modulesInitializer', 'bootstrapper', 'templateSettings', 'settingsReader', 'translation', 'modules/webFontLoaderProvider'],

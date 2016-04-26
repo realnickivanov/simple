@@ -73,6 +73,14 @@ blockquote, q {
         content: none;
     }
 
+hr {
+    margin: 12px 0;
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background-color: #b3c2cc;
+}
+
 /* Don't kill focus outline for keyboard users: http://24ways.org/2009/dont-lose-your-focus */
 a:hover, a:active, button {
     outline: none;
@@ -132,6 +140,7 @@ main {
 .settings-item-container {
     margin-bottom: 12px;
 }
+
 
 .settings-item-content {
     position: relative;
@@ -298,6 +307,7 @@ main {
 /*#endregion*/
 
 /*#region custom corse logo*/
+/*
 .logo-container {
     align-items: center;
     -webkit-align-items: center;
@@ -418,11 +428,11 @@ main {
     line-height: 22px;
     color: #63798e;
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQ3ODVBNEM2MUMwNzExRTVCRTQ2RjY0MjlDRjQ2MkU1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQ3ODVBNEM3MUMwNzExRTVCRTQ2RjY0MjlDRjQ2MkU1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDc4NUE0QzQxQzA3MTFFNUJFNDZGNjQyOUNGNDYyRTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NDc4NUE0QzUxQzA3MTFFNUJFNDZGNjQyOUNGNDYyRTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4eyb/SAAABWElEQVR42nzTzysEYRzH8bFNipOTclAsq3BwccCeVhS5cHAnK5LLHvkjuChkJOW+LluKOCkHB2WT/ArrD5CDw568v9tntmnMs0+9avd5vp9nnnmeZ5qWNra8WBtAHtPoVt8bzhDgIVqcivxuxg7uMYwDzEugPhvbQ0sY8iPhkp4+iUvvf7Ol5nCCjFZYDVewjX6MOsJhu8II+jRh7RUGsYJFfCaE7tAR+V9R7aplfW3YNc4dTx3Db6zvQpm8rWAKRUfYXmvBMXZqWVtBGq8JBW3YxI9jghfL+g027BtfeG5QUzsFuyQ9jgI7+1vHWC8+Urphc46iIbQ7xmZtM22CQ2QxEStoTdj9sI0rE9gelLGPIx1ZRUUW7koId+JYmXJ4Ewt4xI2uq6vlVPOkTP1bqGJG1zO8JMXICWS0T1l9ZAVlvOgxWsc6drGs651W/7smXtMr19ufAAMAoJ1IAFWFhtcAAAAASUVORK5CYII=') 1px 3px no-repeat;
-}
+}*/
 /*#region custom corse logo*/
 
 /*#region choose scheme*/
-.choose-scheme-container {
+/*.choose-scheme-container {
     position: relative;
     flex: 0 0 45%;
     -webkit-flex: 0 0 45%;
@@ -612,9 +622,8 @@ main {
     background-color: #50b2ac;
     border-color: #43aaa3;
     border-radius: 5px;
-}
+}*/
 /*#endregion choose scheme*/
-
 
 /*#region choose sections layout*/
 .choose-layout-container {
@@ -699,7 +708,7 @@ main {
 
 /*#region change background*/
 
-.background-container {
+/*.background-container {
     position: relative;
     flex: 1 0 0;
     -webkit-flex: 1 0 0;
@@ -865,8 +874,147 @@ main {
     .background-position-option-btn .tooltip {
         left: -17px;
     }
-
+    */
 /*#region change background*/
+
+/*#region switcher*/
+
+.switcher {
+}
+
+.switcher-text {
+    display: inline-block;
+    color: #42515f;
+    vertical-align: middle;
+    font-family: 'OpenSans';
+    font-weight: 600;
+    font-size: 13px;
+    cursor: default;
+}
+
+    .switcher-text.disabled {
+        color: #546677;
+        font-weight: normal;
+    }
+
+.switch-toggle-slider {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 5px;
+    width: 57px;
+    height: 28px;
+    border-radius: 57px;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-transition: box-shadow 250ms ease-out 0s;
+    -moz-transition: box-shadow 250ms ease-out 0s;
+    transition: box-shadow 250ms ease-out 0s;
+}
+
+    .switch-toggle-slider.on {
+        background: none repeat scroll 0 0 #65bd77;
+        -webkit-box-shadow: 0 0 0 1px #65bd77;
+        box-shadow: 0 0 0 1px #65bd77;
+    }
+
+    .switch-toggle-slider.off {
+        background: none repeat scroll 0 0 #e85e5d;
+        -webkit-box-shadow: 0 0 0 1px #e85e5d;
+        box-shadow: 0 0 0 1px #e85e5d;
+    }
+
+.switch-toggle-wrapper {
+    width: 114px;
+}
+
+.switch-toggle-on,
+.switch-toggle-off {
+    float: left;
+    width: 57px;
+    height: 28px;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-family: 'OpenSans', sans-serif;
+    line-height: 28px;
+}
+
+.switch-toggle-on {
+    background: none repeat scroll 0 0 #65bd77;
+    text-indent: -25px;
+}
+
+.switch-toggle-off {
+    margin-left: -14px;
+    background: none repeat scroll 0 0 #e85e5d;
+    text-indent: -3px;
+}
+
+.switch-toogle-blob {
+    position: relative;
+    z-index: 99;
+    float: left;
+    margin-left: -28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    background: linear-gradient(to bottom, #fdfdfd 0%, #eef0ed 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.switch-toggle-slider.on .switch-toogle-blob,
+.switch-toggle-slider.off .switch-toogle-blob {
+    -webkit-transition: box-shadow 250ms ease-out 0s;
+    -moz-transition: box-shadow 250ms ease-out 0s;
+    transition: box-shadow 250ms ease-out 0s;
+}
+
+.switch-toggle-slider.on .switch-toogle-blob {
+    -webkit-box-shadow: 0 0 0 1px #65bd77;
+    -moz-box-shadow: 0 0 0 1px #65bd77;
+    box-shadow: 0 0 0 1px #65bd77;
+}
+
+.switch-toggle-slider.off .switch-toogle-blob {
+    -webkit-box-shadow: 0 0 0 1px #e85e5d;
+    -moz-box-shadow: 0 0 0 1px #e85e5d;
+    box-shadow: 0 0 0 1px #e85e5d;
+}
+
+.switcher.statement .switch-toggle-slider {
+    width: 37px;
+    height: 22px;
+}
+
+.switcher.statement .switch-toggle-on,
+.switcher.statement .switch-toggle-off {
+    width: 35px;
+    height: 22px;
+}
+
+.switcher.statement .switch-toogle-blob {
+    margin-left: -20px;
+    width: 22px;
+    height: 22px;
+}
+
+.switcher.statement .switch-toggle-off {
+    background: none repeat scroll 0 0 #ddd;
+}
+
+.switcher.statement .switch-toggle-slider.off,
+.switcher.statement .switch-toggle-slider.off .switch-toogle-blob {
+    -webkit-box-shadow: 0 0 0 1px #d3d2d2;
+    -moz-box-shadow: 0 0 0 1px #d3d2d2;
+    box-shadow: 0 0 0 1px #d3d2d2;
+}
+
+.switcher.statement .switch-toggle-slider.off {
+    background: none repeat scroll 0 0 #d3d2d2;
+}
+
+/*#endregion*/
 
 /*#region animations*/
 
