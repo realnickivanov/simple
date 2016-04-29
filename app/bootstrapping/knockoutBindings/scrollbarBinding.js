@@ -4,8 +4,7 @@
         init: function (element, valueAccessors) {
             if (browserSupport.isMobileDevice) {
                 $(element).css({
-                    'overflow-y': 'auto',
-                    '-webkit-overflow-scrolling': 'touch'
+                    'overflow-y': 'auto'
                 });
                 return;
             }

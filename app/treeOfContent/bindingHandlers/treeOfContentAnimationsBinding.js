@@ -28,14 +28,12 @@
                     });
                 }
 
-                if (isExpanded) {
-                    $body.css({
-                        'max-height': isLowResolution ? '100vh' : 'none',
-                        'overflow': isLowResolution ? 'hidden' : 'visible'
-                    });
-                }
+                $body.css({
+                    'max-height': isExpanded && isLowResolution ? '100vh' : 'none',
+                    'overflow': isExpanded && isLowResolution ? 'hidden' : 'visible'
+                });
 
-                $html.css('overflow-y', isExpanded && isLowResolution ? 'hidden' : 'auto');
+                $html.css('overflow-y', isExpanded && isLowResolution ? 'hidden' : 'scroll');
 
                 function setVisibilityWithoutAnimations(visibility) {
                     $element.css({
@@ -56,7 +54,7 @@
 
             function onIsExpandedChanged(isExpanded) {
                 if (screenResolutionChecker.isLowResolution()) {
-                    $html.css('overflow-y', isExpanded ? 'hidden' : 'auto');
+                    $html.css('overflow-y', isExpanded ? 'hidden' : 'scroll');
 
                     $body.css({
                         'max-height': isExpanded ? '100vh' : 'none',
