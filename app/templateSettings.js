@@ -12,7 +12,7 @@ define([], function () {
                     "brightness": 0,
                     "color": null,
                     "image": {
-                        "url": "//cdn.easygenerator.com/images/2.jpg",
+                        "url": "css/img/default-bkg.jpg",
                         "option": "repeat"
                     }
                 },
