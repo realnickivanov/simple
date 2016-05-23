@@ -34,14 +34,7 @@
                 }
             });
 
-            fontLoader.load({
-                google: {
-                    families: familiesToLoad.map(mapFontName)
-                },
-                custom: {
-                    families: _.filter(manifest.fonts, function(font) { return font.local; }).map(mapFontName),
-                    urls: ['./css/fonts.css']
-                },
+            var fontLoaderConfig = {
                 active: function() {
                     defer.resolve()
                 },
@@ -49,7 +42,24 @@
                     //added to make possible ofline template loading
                     defer.resolve()
                 }
-            });
+            };
+
+            if (familiesToLoad.length) {
+                fontLoaderConfig.google = {
+                    families: familiesToLoad.map(mapFontName)
+                }
+            }
+
+            var customFonts = _.filter(manifest.fonts, function(font) { return font.local; });
+
+            if (customFonts && customFonts.length) {
+                fontLoaderConfig.custom = {
+                    families: customFonts.map(mapFontName),
+                    urls: ['./css/fonts.css']
+                }
+            }
+
+            fontLoader.load(fontLoaderConfig);
         });
         return defer.promise;
     }
