@@ -16,7 +16,7 @@
             scenario: 'scenario',
             rankingText: 'rankingText'
         },
-        defaultImageUrl: 'css/img/singleSelectImageAnwer.png',
+        defaultImageUrl: 'css/img/single-select-image-anwer.png',
         events: {
             appClosed: 'appClosed',
             onError: 'onError',
