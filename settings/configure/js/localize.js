@@ -72,6 +72,8 @@
 		'ru': 'Russian',
 		'malay': 'Malay',
 		'kr': 'Korean',
+		'nb-no': 'Norwegian (Bokmal)',
+		'nn-no': 'Norwegian (Nynorsk)',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
