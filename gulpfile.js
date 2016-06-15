@@ -68,7 +68,7 @@ gulp.task('process-less', function () {
         .pipe(gulp.dest('./css/'));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['process-less'], function () {
     gulp.watch('./css/main.less', ['process-less']);
 });
 

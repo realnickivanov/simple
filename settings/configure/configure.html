@@ -74,6 +74,24 @@
                         </div>
                         <div class="settings-row">
                             <div class="settings-caption">
+                                <div data-bind="localize: 'allow social media'"></div>
+                            </div>
+                            <div class="settings-column">
+                                <div class="switcher">
+                                    <div class="switcher-text" data-bind="css: { disabled: $parent.allowSocialLogin() }, localize: 'forbid'"></div>
+                                    <div class="switch-toggle-slider" data-bind="switchToggle: { value: $parent.allowSocialLogin }">
+                                        <div class="switch-toggle-wrapper">
+                                            <div class="switch-toggle-on"></div>
+                                            <div class="switch-toogle-blob"></div>
+                                            <div class="switch-toggle-off"></div>
+                                        </div>
+                                    </div>
+                                    <div class="switcher-text" data-bind="css: { disabled: !$parent.allowSocialLogin() }, localize: 'allow'"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-row">
+                            <div class="settings-caption">
                                 <div data-bind="localize: 'show confirmation popup'"></div>
                                 <div class="settings-hint" data-bind="localize: 'show confirmation popup hint'"></div>
                             </div>

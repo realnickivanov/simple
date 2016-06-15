@@ -1,15 +1,21 @@
 ﻿define(['moduleLoader', 'eventManager', 'progressContext'],
-    function (moduleLoader, eventManager, progressContext) {
+    function(moduleLoader, eventManager, progressContext) {
 
         "use strict";
 
-        var modulesConfigs = [],
+        var modulesConfigs = {},
             modulesManager = {
                 register: register,
-                init: init
+                init: init,
+                hasModule: hasModule
             };
 
         return modulesManager;
+
+        function hasModule(moduleName) {
+            moduleName = moduleName || '';
+            return _.has(modulesConfigs, moduleName)
+        }
 
         function register(config) {
             if (_.isNullOrUndefined(config)) {
@@ -33,16 +39,17 @@
                     modulesToLoad.push(moduleId);
                 }
             }
-            
+
             var dfd = Q.defer();
+
             function loadModulesSequentially() {
                 if (modulesToLoad.length == 0) {
                     dfd.resolve();
                     return;
                 }
 
-                
-                var module = modulesToLoad.shift();                
+
+                var module = modulesToLoad.shift();
                 moduleLoader.loadModule(module).then(onModuleLoaded).fail(onModuleLoadingFailed).then(function() {
                     loadModulesSequentially();
                 });
@@ -53,7 +60,7 @@
         }
 
         function onModuleLoaded(module) {
-            return Q.fcall(function () {
+            return Q.fcall(function() {
                 if (_.isFunction(module.initialize)) {
                     module.initialize(modulesConfigs[module.__moduleId__]);
                 }

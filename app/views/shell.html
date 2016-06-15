@@ -62,6 +62,10 @@
             <!-- /ko -->
         </div>
     </section>
-    <div class="blockout" data-bind="css: { active: isClosed }"></div>
+    <div class="blockout" data-bind="css: { active: isClosed }">
+        <div class="blockout-text-wrapper">
+            <span class="blockout-text" data-translate-text="[please close the browser tab now]"></span>
+        </div>
+    </div>
     <div data-bind="widget: {kind:'imagePreview'}"></div>
 </section>

@@ -18,6 +18,9 @@ define([
     'bootstrapping/knockoutBindings/scrollbarBinding',
     'bootstrapping/knockoutBindings/localizeBinding',
     'treeOfContent/bindingHandlers/treeOfContentAnimationsBinding',
+    'bootstrapping/knockoutBindings/selectTextBinding',
+    'bootstrapping/knockoutBindings/submitOnEnterBinding',
+    'bootstrapping/knockoutBindings/copyToClipboardBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
@@ -28,7 +31,9 @@ define([
     'viewmodels/questions/textMatching/bindingHandlers/syncHeightBindingHandler',
     'viewmodels/questions/openQuestion/bindingHandlers/textAreaBindingHandler',
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
-    'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler'
+    'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',
+    'dialogs/bindingHandlers/blockBodyScrollBinding',
+    'dialogs/bindingHandlers/heightAnimation'
 ], function () {
 
     return {

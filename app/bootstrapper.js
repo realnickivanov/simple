@@ -12,8 +12,6 @@
             } else {
                 system.log('Bootstrapper task ' + system.getModuleId(task) + 'is not executable');
             }
-
         });
      }
-
-})
+});

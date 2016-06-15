@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router', 'templateSettings', 'translation', 'constants'],
-    function (app, windowOperations, courseRepository, progressContext, router, templateSettings, translation, constants) {
+﻿define(['durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext', 'plugins/router', 'templateSettings', 'translation', 'constants', 'modules/progress/index'],
+    function (app, windowOperations, courseRepository, progressContext, router, templateSettings, translation, constants, progressProvider) {
         "use strict";
 
         var progressStatuses = constants.progressContext.statuses;
@@ -24,16 +24,21 @@
             activate: activate
         };
 
-        viewModel.popup = new Popup();
-        viewModel.finishPopupActions = {
-            close: viewModel.popup.hide,
-            finish: function () {
-                finish();
-                viewModel.popup.hide();
+        viewModel.finishCoursePopup = new Popup();
+        viewModel.finishCoursePopup.actions = {
+            close: viewModel.finishCoursePopup.hide,
+            finish: function (logOutCallback) {
+                finish(logOutCallback);
+                viewModel.finishCoursePopup.hide();
             }
         };
-
-        viewModel.takeABreakPopupActions = { close: viewModel.popup.hide, exit: exit };
+        
+        viewModel.continueLaterPopup = new Popup();
+        
+        viewModel.continueLaterPopup.actions = {
+            close: viewModel.continueLaterPopup.hide,
+            exit: exit
+        };
 
         viewModel.isProgressSaved = ko.computed(function () {
             return progressContext.status() === progressStatuses.saved;
@@ -45,16 +50,16 @@
 
         viewModel.finishAction = function () {
             if (templateSettings.showConfirmationPopup) {
-                viewModel.popup.actions(viewModel.finishPopupActions);
-                viewModel.popup.show();
+                viewModel.continueLaterPopup.hide();
+                viewModel.finishCoursePopup.show();
             } else {
                 finish();
             }
         };
 
         viewModel.takeABreakAction = function () {
-            viewModel.popup.actions(viewModel.takeABreakPopupActions);
-            viewModel.popup.show();
+            viewModel.finishCoursePopup.hide();
+            viewModel.continueLaterPopup.show();
         }
 
         return viewModel;
@@ -63,10 +68,11 @@
             viewModel.type(type);
         }
 
-        function onCourseFinishedCallback() {
+        function onCourseFinishedCallback(logOutCallback) {
             viewModel.status(statuses.finished);
 
             progressContext.status(progressStatuses.ignored);
+            logOutCallback();
             windowOperations.close();
         }
 
@@ -82,20 +88,20 @@
             windowOperations.close();
         }
 
-        function finish() {
+        function finish(logOutCallback) {
             if (viewModel.isNavigationLocked() || viewModel.status() !== statuses.readyToFinish) {
                 return;
             }
             viewModel.status(statuses.sendingRequests);
             var course = courseRepository.get();
-            course.finish(onCourseFinishedCallback);
+            course.finish(onCourseFinishedCallback.bind(viewModel, logOutCallback || function(){}));
 
             progressContext.remove();
         }
 
         function Popup() {
             var that = this;
-            this.actions = ko.observable();
+            this.actions = {};
             this.isVisible = ko.observable(false);
             this.show = function () {
                 if (router.isNavigationLocked()) {

@@ -22,7 +22,6 @@
 
         function deactivate() {
             activityProvider.turnOffSubscriptions();
-            routingManager.removeRoutes();
             isInitialized = false;
             app.trigger('user:authentication-skipped');
         }
@@ -38,7 +37,6 @@
                         progress = progressContext.get(),
                         isCourseStarted = _.isObject(progress) && _.isObject(progress.user);
 
-                    routingManager.createGuard(xApiInitializer, 'login');
                     routingManager.mapRoutes();
                     
                     if (user && user.username && constants.patterns.email.test(user.email)) {

@@ -7,9 +7,11 @@
     }
 });
 
-define('jquery', function() { return jQuery; });
-define('knockout', function() { return ko; });
-define('WebFont', function() { return WebFont; });
+define('jquery', function () { return jQuery; });
+define('knockout', function () { return ko; });
+define('WebFont', function () { return WebFont; });
+define('q', function () { return Q; });
+define('underscore', function () { return _; });
 define('perfectScrollbar', function () { return Ps; });
 
 
@@ -25,15 +27,11 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
             http: true,
             widget: true
         });
-
+        
         app.start().then(function() {
             bootstrapper.run();
 
             var modules = {};
-
-            if (location.href.indexOf('/preview/') === -1) {
-                modules['modules/localStorage_progressProvider'] = true;
-            }
 
             return readPublishSettings().then(function() {
                 return readTemplateSettings().then(function(settings) {

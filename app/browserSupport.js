@@ -7,6 +7,7 @@
         isMobileDevice: null,
         isFirefox: null,
         isChromeWithPageCoordsBug: null,
+        isSafari: false,
 
         initialize: initialize
     };
@@ -21,6 +22,7 @@
         browserSupport.isSupportedMobile = isSupportedMobile();
         browserSupport.isSupportedBrowser = isSupportedBrowser(browserInfo);
         browserSupport.isChromeWithPageCoordsBug = isChromeWithPageCoordsBug();
+        browserSupport.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     };
 
     function isChromeWithPageCoordsBug() {
@@ -29,6 +31,8 @@
         }
         return false;
     }
+
+
 
     function getBrowserInfo() {
         var N = navigator.appName,

@@ -1,5 +1,8 @@
-define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context', 'modulesInitializer', 'templateSettings', 'background', 'progressContext', 'constants', 'userContext', 'errorsHandler', 'lessProcessor'],
-    function (app, composition, router, routes, context, modulesInitializer, templateSettings, background, progressContext, constants, userContext, errorsHandler, lessProcessor) {
+define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/routes', 'context',
+        'modulesInitializer', 'templateSettings', 'background', 'progressContext', 'constants',
+        'userContext', 'errorsHandler', 'lessProcessor', 'modules/progress/index', 'routing/guardLogin', 'xApi/xApiInitializer'],
+    function (app, composition, router, routes, context, modulesInitializer, templateSettings, background,
+            progressContext, constants, userContext, errorsHandler, lessProcessor, progressProvider, guardLogin, xApiInitializer) {
 
         var viewModel = {
             router: router,
@@ -41,7 +44,7 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
 
             activate: function () {
                 var that = this;
-
+                
                 router.on('router:route:activating').then(function (newView) {
                     var currentView = router.activeItem();
                     if (newView && currentView && newView.__moduleId__ === currentView.__moduleId__) {
@@ -56,41 +59,59 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
 
                 return context.initialize().then(function (dataContext) {
                     return userContext.initialize().then(function () {
-                        return modulesInitializer.init().then(function () {
+                        if(!modulesInitializer.hasModule('../includedModules/lms') && location.href.indexOf('/preview/') === -1){
+                            return progressProvider.initialize(dataContext.course.id, dataContext.course.title, dataContext.course.templateId).then(function(user){
+                                if(_.isNull(user)){
+                                    guardLogin.createGuard(progressProvider.isUserAuthenticated);
+                                }
+                                progressContext.use(progressProvider.progressProvider);
+                                return initApp(dataContext);
+                            }).fail(function(){
+                                guardLogin.createGuard(progressProvider.isUserAuthenticated);
+                                progressContext.use(progressProvider.progressProvider);
+                                return initApp(dataContext);
+                            });
+                        } else {
+                            if(templateSettings.xApi.enabled){
+                                guardLogin.createGuard(xApiInitializer.isActivated);
+                            }
+                            return initApp(dataContext);
+                        }
+                        
+                        function initApp(dataContext){
+                            return modulesInitializer.init().then(function () {
+                                that.logoUrl(templateSettings.logoUrl);
+                                that.pdfExportEnabled = templateSettings.pdfExport.enabled;
+                                return lessProcessor.init(templateSettings.colors, templateSettings.fonts).then(function () {
+                                    that.title = app.title = dataContext.course.title;
+                                    that.createdOn = dataContext.course.createdOn;
+                                    
+                                    if (progressContext.ready()) {
+                                        var progress = progressContext.get();
+                                        if (_.isObject(progress)) {
+                                            if (_.isString(progress.url)) {
+                                                window.location.hash = progress.url.replace('objective', 'section'); //fix for old links
+                                            }
 
-
-                            that.logoUrl(templateSettings.logoUrl);
-                            that.pdfExportEnabled = templateSettings.pdfExport.enabled;
-                            return lessProcessor.init(templateSettings.colors, templateSettings.fonts).then(function () {
-                                that.title = app.title = dataContext.course.title;
-                                that.createdOn = dataContext.course.createdOn;
-
-                                if (progressContext.ready()) {
-                                    var progress = progressContext.get();
-                                    if (_.isObject(progress)) {
-                                        if (_.isString(progress.url)) {
-                                            window.location.hash = progress.url.replace('objective', 'section'); //fix for old links
-                                        }
-
-                                        if (_.isObject(progress.answers)) {
-                                            _.each(dataContext.course.sections, function (section) {
-                                                _.each(section.questions, function (question) {
-                                                    if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
-                                                        question.progress(progress.answers[question.shortId]);
-                                                    }
+                                            if (_.isObject(progress.answers)) {
+                                                _.each(dataContext.course.sections, function (section) {
+                                                    _.each(section.questions, function (question) {
+                                                        if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
+                                                            question.progress(progress.answers[question.shortId]);
+                                                        }
+                                                    });
                                                 });
-                                            });
+                                            }
                                         }
                                     }
-                                }
 
-
-                                app.trigger(constants.events.appInitialized);
-                                return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
-                                    errorsHandler.startHandle();
+                                    app.trigger(constants.events.appInitialized);
+                                    return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
+                                        errorsHandler.startHandle();
+                                    });
                                 });
                             });
-                        });
+                        }
                     });
                 });
             }

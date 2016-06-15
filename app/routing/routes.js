@@ -9,6 +9,13 @@
             hideExitButton: true
         },
         {
+            route: 'login',
+            moduleId: 'login/login',
+            title: 'Login',
+            rootLinkDisabled: true,
+            hideExitButton: true
+        },
+        {
             route: 'sections',
             moduleId: 'viewmodels/sections',
             title: 'Sections',
