@@ -10,6 +10,8 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     plumber = require('gulp-plumber'),
     autoprefixer = require('gulp-autoprefixer'),
+    replace = require('gulp-replace'),
+    rename  = require('gulp-rename'),
 
     bower = require('gulp-bower'),
     output = ".output",
@@ -102,7 +104,8 @@ gulp.task('build-app', ['pre-build'], function () {
         .pipe(gulpif('*.css', minifyCss()))
         .pipe(assets.restore())
         .pipe(useref())
-        .pipe(addBuildVersion())
+        .pipe(replace('css/colors.less', 'css/colors.css'))
+        .pipe(addBuildVersion())        
         .pipe(gulp.dest(output));
 
     gulp.src(['settings.js', 'publishSettings.js'])
@@ -110,6 +113,7 @@ gulp.task('build-app', ['pre-build'], function () {
 
     gulp.src('css/colors.less')
         .pipe(addBuildVersion())
+        .pipe(rename('colors.css'))
         .pipe(gulp.dest(output + '/css'));
 
     gulp.src('css/fonts.css')
