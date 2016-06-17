@@ -71,10 +71,11 @@
 		'es': 'Spanish',
 		'pt-br': 'Portuguese (Brazil)',
 		'ru': 'Russian',
-		'malay': 'Malay',
+		'ms': 'Malay',
 		'kr': 'Korean',
 		'nb-no': 'Norwegian (Bokmal)',
 		'nn-no': 'Norwegian (Nynorsk)',
+        'vi': 'Vietnamese',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
