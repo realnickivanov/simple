@@ -1,4 +1,5 @@
 <section id="login" class="unselectable">
+    <!-- ko if: loginEnabled -->
     <div data-bind="focusHandler: {}">
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
@@ -8,7 +9,7 @@
     </div>
     <!-- ko ifnot: userExists -->
     <section class="content login">
-        <h2  data-translate-text="[login header]">Introduce yourself</h2>
+        <h2 data-translate-text="[login header]">Introduce yourself</h2>
         <!-- ko if: progressStorageActivated && socialLoginAllowed -->
         <form>
             <div class="form-row center" data-bind="css: { error: !username.isValid() && username.isModified() }">
@@ -48,7 +49,7 @@
                 </button>
                 <!-- /ko -->
                 <!-- ko if: useEmail -->
-                
+
                 <!-- ko if: progressStorageActivated -->
                 <button class="button check small w280" type="submit" data-bind="click: toggleStayLoggedIn, css: { active: stayLoggedIn }">
                     <span data-translate-text="[remember me on this device]" data-translate-title="[remember me on this device]"></span>
@@ -137,5 +138,6 @@
             </div>
         </form>
     </section>
+    <!-- /ko -->
     <!-- /ko -->
 </section>
