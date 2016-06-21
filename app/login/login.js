@@ -36,7 +36,8 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
 
             skip: skip,
             login: login,
-            requestProcessing: ko.observable(false)
+            requestProcessing: ko.observable(false),
+            loginEnabled: xApiSettings.xApi.enabled
         };
 
         return viewModel;
@@ -51,6 +52,10 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
         }
 
         function activate() {
+            if (!viewModel.loginEnabled) {
+                viewModel.skip();
+                return;
+            }
             if (progressProvider.isInitialized) {
                 viewModel.progressStorageActivated = true;
             } else {
@@ -135,7 +140,7 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
         }
 
         function skip() {
-            if (!viewModel.allowToSkip()) {
+            if (!viewModel.allowToSkip() && viewModel.loginEnabled) {
                 return;
             }
             guardLogin.removeGuard();
