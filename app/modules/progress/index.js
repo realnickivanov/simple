@@ -167,7 +167,9 @@ define(['durandal/app', 'q', 'userContext', './providers/progressProviders/local
             };
 
             this.logOut = function() {
-                _private.localStorageProvider.removeProgress();
+                if(_private.localStorageProvider){
+                    _private.localStorageProvider.removeProgress();
+                }
                 authProvider.logOut();
             };
 
