@@ -73,7 +73,10 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
             if (user) {
                 viewModel.username(user.username);
                 viewModel.usermail(user.email);
-                showValidationMessages();
+
+                viewModel.stayLoggedIn(true);
+                userContext.keepMeLoggedIn = viewModel.stayLoggedIn();
+                register();
             }
 
             viewModel.allowToSkip(!xApiSettings.xApi.required);

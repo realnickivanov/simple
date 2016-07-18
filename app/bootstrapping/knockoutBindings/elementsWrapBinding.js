@@ -17,7 +17,7 @@
 
         $('img', $element).each(function (index, image) {
             var $image = $(image),
-                $wrapper = $(imageWrapper).css('float', $image.css('float'));
+                $wrapper = $(imageWrapper).css('float', $image[0].style.cssFloat);
 
             // moved to css, because of IE11 crash on Windows 10 => .image-wrapper img {height:auto!important;float:none!important;}
             //$image.height('auto');
