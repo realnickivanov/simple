@@ -32,7 +32,6 @@
                 moduleSettings = settings;
 
                 return xApiSettings.init(moduleSettings).then(function () {
-
                     var user = userContext.getCurrentUser(),
                         progress = progressContext.get(),
                         isCourseStarted = _.isObject(progress) && _.isObject(progress.user);
