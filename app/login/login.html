@@ -31,12 +31,12 @@
         <!-- /ko -->
         <form class="h200" data-bind="css: { hidden: !useEmail(), shown: useEmail() }">
             <div class="form-row mh75" data-bind="css: { error: !username.isValid() && username.isModified() }">
-                <input type="text" ondrop="return false;" data-bind="value: username, valueUpdate: 'afterkeydown',css:{empty:!username().length}">
+                <input type="text" ondrop="return false;" data-bind="value: username, valueUpdate: 'afterkeydown',css:{empty:!username().length}, event: { blur: username.trim }">
                 <label data-translate-text="[login name field]">Your name</label>
                 <div class='error-message' data-bind="visible: !username.isValid() && username.isModified()" data-translate-text="[tracking and tracing name is not valid]"></div>
             </div>
             <div class="form-row mh75" data-bind="css: { error: !usermail.isValid() && usermail.isModified() }">
-                <input type="email" ondrop="return false;" data-bind="value: usermail, valueUpdate: 'afterkeydown',css:{empty:!usermail().length}, submitOnEnter: register">
+                <input type="email" ondrop="return false;" data-bind="value: usermail, valueUpdate: 'afterkeydown',css:{empty:!usermail().length}, event: { blur: usermail.trim }, submitOnEnter: register">
                 <label data-translate-text="[login email field]">Your e-mail</label>
                 <span class="error-message" data-bind="visible: !usermail.isValid() && usermail.isModified()" data-translate-text="[tracking and tracing email is not valid]"></span>
             </div>
@@ -89,7 +89,7 @@
         </h4>
         <form class="mb7 visible">
             <div class="form-row mh75" data-bind="css: { error: !password.isValid() && password.isModified() }">
-                <input type="text" ondrop="return false;" data-bind="value: password, valueUpdate: 'afterkeydown',css:{empty:!password().length}, attr: { type: passwordHidden() ? 'password' : 'text' }">
+                <input type="text" ondrop="return false;" data-bind="value: password, valueUpdate: 'afterkeydown',css:{empty:!password().length}, attr: { type: passwordHidden() ? 'password' : 'text' }, event: { blur: password.trim }">
                 <label>
                     <span data-translate-text="[password]"></span>
                     <span class="helper-tooltip-container">
