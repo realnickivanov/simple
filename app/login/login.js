@@ -18,13 +18,13 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
             useEmail: ko.observable(false),
             register: register,
             usermail: validatedValue(function(value){
-                return !!value() && constants.patterns.email.test(value().trim());
+                return !!value() && constants.patterns.email.test(value());
             }),
             username: validatedValue(function(value){
-                return !!value() && !!value().trim();
+                return !!value();
             }),
             password: validatedValue(function(value){
-                return !!value() && !!value().trim();
+                return !!value();
             }),
             passwordIsNotCorrect: ko.observable(false),
             passwordHidden: ko.observable(true),
