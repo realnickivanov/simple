@@ -39,9 +39,10 @@
         }
 
         function navigated(obj, instruction) {
-            if (instruction.config.moduleId == 'viewmodels/introduction'
-                || instruction.config.moduleId == 'xApi/viewmodels/xAPIError'
-                || instruction.config.moduleId == 'viewmodels/404') {
+            if (instruction.config.moduleId === 'viewmodels/introduction'
+                || instruction.config.moduleId === 'xApi/viewmodels/xAPIError'
+                || instruction.config.moduleId === 'viewmodels/404'
+                || instruction.config.moduleId === 'login/login') {
                 return;
             }
             if (_.isEmpty(self.progress.url)) {
