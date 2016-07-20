@@ -7,7 +7,7 @@
                 storage: null,
                 progress: {
                     _v: 1,
-                    url: '',
+                    url: null,
                     answers: {},
                     user: null,
                     attemptId: system.guid()
@@ -39,14 +39,14 @@
         }
 
         function navigated(obj, instruction) {
-            if (instruction.config.moduleId === 'viewmodels/introduction'
-                || instruction.config.moduleId === 'xApi/viewmodels/xAPIError'
+            if (instruction.config.moduleId === 'xApi/viewmodels/xAPIError'
                 || instruction.config.moduleId === 'viewmodels/404'
                 || instruction.config.moduleId === 'login/login') {
                 return;
             }
-            if (_.isEmpty(self.progress.url)) {
+            if (_.isNull(self.progress.url)) {
                 self.progress.url = instruction.fragment;
+                save();
             }
             else if (self.progress.url != instruction.fragment) {
                 self.progress.url = instruction.fragment;
@@ -127,7 +127,6 @@
 
         function restore(user) {
             var progress = self.storage.getProgress();
-
             if (!_.isEmpty(progress) &&
                 _.isString(progress.attemptId) &&
                 ((!user) || (user.username == progress.user.username && user.email == progress.user.email))) {

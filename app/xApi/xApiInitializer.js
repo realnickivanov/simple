@@ -33,12 +33,12 @@
 
                 return xApiSettings.init(moduleSettings).then(function () {
                     var user = userContext.getCurrentUser(),
-                        progress = progressContext.get(),
-                        isCourseStarted = _.isObject(progress) && _.isObject(progress.user);
+                        progress = progressContext.get;
 
                     routingManager.mapRoutes();
                     
                     if (user && user.username && constants.patterns.email.test(user.email)) {
+                        var isCourseStarted = _.isObject(progress()) && _.isObject(progress().user);
                         return activate(user.username, user.email).then(function () {
                             if (!isCourseStarted) {
                                 return eventManager.courseStarted();
@@ -46,11 +46,11 @@
                         });
                     }
 
-                    if (_.isObject(progress)) {
-                        if (_.isObject(progress.user)) {
-                            return activate(progress.user.username, progress.user.email);
+                    if (_.isObject(progress())) {
+                        if (_.isObject(progress().user)) {
+                            return activate(progress().user.username, progress().user.email);
                         }
-                        if (progress.user === 0) {
+                        if (progress().user === 0) {
                             deactivate();
                             return;
                         }
