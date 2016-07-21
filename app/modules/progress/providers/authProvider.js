@@ -59,7 +59,7 @@ define(['../commands/login', '../commands/register', '../utils/urlProvider'], fu
             return loginCommand.execute(email, password, shortTermAccess)
                 .then(function(response) {
                     that.setToken(response.token);
-                    return true;
+                    return response.username;
                 });
         };
 

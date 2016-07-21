@@ -156,7 +156,11 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
             viewModel.passwordIsNotCorrect(false);
             if (viewModel.password.isValid()) {
                 viewModel.requestProcessing(true);
-                progressProvider.login(viewModel.usermail(), viewModel.password(), viewModel.stayLoggedIn()).then(function() {
+                progressProvider.login(viewModel.usermail(), viewModel.password(), viewModel.stayLoggedIn()).then(function(username) {
+                    if(username){
+                        viewModel.username(username);
+                    }
+
                     progressProvider.syncProviders().then(function() {
                         if (templateSettings.xApi.enabled) {
                             xApiInitializer.activate(viewModel.username(), viewModel.usermail()).then(function() {
@@ -186,13 +190,16 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
         
         function initProgress() {
             progressContext.use(progressProvider.progressProvider);
-            eventManager.courseStarted();
+
+            
             if (progressContext.ready()) {
-                var progress = progressContext.get();
+                var user = userContext.getCurrentUser(),
+                    progress = progressContext.get();
+                var isCourseStarted = _.isObject(progress) && _.isObject(progress.user) && _.isString(progress.url);
+                if(!isCourseStarted){
+                    eventManager.courseStarted();
+                }
                 if (_.isObject(progress)) {
-                    if (_.isString(progress.url)) {
-                        router.navigate(progress.url.replace('objective', 'section')); //fix for old links
-                    }
                     if (_. isObject(progress.answers)) {
                         _.each(context.course.sections, function(section) {
                             _.each(section.questions, function(question) {
@@ -202,6 +209,7 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
                             });
                         });
                     }
+                    router.navigate(_.isNull(progress.url) ? '' : progress.url.replace('objective', 'section')); //fix for old links
                 }
             }
         }

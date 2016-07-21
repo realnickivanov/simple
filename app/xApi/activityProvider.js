@@ -25,14 +25,16 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
 
-                sessionId = progressContext.get().attemptId;
+                sessionId = function () {
+                    return progressContext.get().attemptId;
+                };
 
                 activityProvider.actor = actorData;
                 activityProvider.activityName = activityName;
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl !== undefined ? activityUrl.split("?")[0].split("#")[0] : '';
                 activityProvider.courseId = courseId;
-
+                eventManager.turnAllEventsOff();
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(enqueueLearningContentExperienced));
@@ -520,7 +522,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             var contextExtensions = contextSpec.extensions || {};
             contextExtensions[constants.extenstionKeys.courseId] = activityProvider.courseId;
             contextSpec.extensions = contextExtensions;
-            contextSpec.registration = sessionId;
+            contextSpec.registration = sessionId();
 
             return new contextModel(contextSpec);
         }
