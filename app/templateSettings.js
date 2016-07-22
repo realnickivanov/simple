@@ -2,17 +2,39 @@ define([], function () {
 
     var defaultTranslationsCode = 'en';
 
-    var defaultTemplateSetting = {
+    var defaultThemeSettings = {
         "branding": {
             "logo": {
-                "url": ""
+                "url": "//cdn.easygenerator.com/logo.png"
             },
+            "colors": [
+              {
+                  "key": "@text-color",
+                  "value": "#252728"
+              },
+              {
+                  "key": "@main-color",
+                  "value": "#43aaa3"
+              },
+              {
+                  "key": "@secondary-color",
+                  "value": "#2d9ec6"
+              },
+              {
+                  "key": "@button-text-color",
+                  "value": "#fff"
+              },
+              {
+                  "key": "@content-body-color",
+                  "value": "#fff"
+              }
+            ],
             "background": {
                 "header": {
                     "brightness": 0,
                     "color": null,
                     "image": {
-                        "url": "css/img/default-bkg.jpg",
+                        "url": "//cdn.easygenerator.com/images/2.jpg",
                         "option": "repeat"
                     }
                 },
@@ -22,14 +44,104 @@ define([], function () {
                     "color": "#ececed",
                     "texture": null
                 }
-            },
-            "colors": []
+            }
         },
+        "fonts": [
+          {
+              "key": "main-font",
+              "fontFamily": "Roboto Slab"
+          },
+          {
+              "key": "Heading1",
+              "size": 26,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "700",
+              "textDecoration": "none",
+              "fontStyle": "normal",
+              "textBackgroundColor": null,
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          },
+          {
+              "key": "Heading2",
+              "size": 24,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "700",
+              "textDecoration": "none",
+              "fontStyle": "normal",
+              "textBackgroundColor": null,
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          },
+          {
+              "key": "Heading3",
+              "size": 20,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "700",
+              "textDecoration": "none",
+              "fontStyle": "normal",
+              "textBackgroundColor": null,
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          },
+          {
+              "key": "Normal",
+              "size": 18,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal",
+              "textBackgroundColor": null,
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          },
+          {
+              "key": "Quote",
+              "size": 18,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "italic",
+              "textBackgroundColor": null,
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          },
+          {
+              "key": "Highlighted",
+              "size": 18,
+              "fontFamily": "Roboto Slab",
+              "color": "#252728",
+              "fontWeight": "normal",
+              "textDecoration": "none",
+              "fontStyle": "normal",
+              "textBackgroundColor": "#2d9ec6",
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          },
+          {
+              "key": "links",
+              "size": 18,
+              "fontFamily": "Roboto Slab",
+              "color": "#2d9ec6",
+              "fontWeight": "normal",
+              "textDecoration": "underline",
+              "fontStyle": "normal",
+              "textBackgroundColor": null,
+              "isGeneralSelected": true,
+              "isGeneralColorSelected": true
+          }
+        ]
+    }
+
+    var defaultTemplateSetting = {
         "sectionsLayout": {
             "key": "Tiles"
         },
-
-        "fonts": [],
         "treeOfContent":{
             "enabled": true
         },
@@ -58,7 +170,6 @@ define([], function () {
         "allowLoginViaSocialMedia": true
     };
 
-
     return {
         init: init,
 
@@ -76,9 +187,12 @@ define([], function () {
         languages: {}
     };
 
-    function init(settings) {
+    function init(settings, themeSettings) {
         var that = this;
-        var fullSettings = _.defaults(settings, defaultTemplateSetting);
+        var designSettings = _.defaults(themeSettings, defaultThemeSettings);
+        var templateSettings = _.defaults(settings, defaultTemplateSetting);
+
+        var fullSettings = deepExtend(templateSettings, designSettings);
         return Q.fcall(function () {
             //Mastery score initialization
             if (fullSettings.masteryScore) {
@@ -111,4 +225,23 @@ define([], function () {
         });
     }
 
+    function deepExtend(destination, source) {
+        if (_.isNullOrUndefined(destination)) {
+            return source;
+        }
+
+        for (var property in source) {
+            if (source[property] && source[property].constructor &&
+             (source[property].constructor === Object || source[property].constructor === Array)) {
+                if (destination[property]) {
+                    deepExtend(destination[property], source[property]);
+                } else {
+                    destination[property] = source[property];
+                }
+            } else {
+                destination[property] = destination[property] || source[property];
+            }
+        }
+        return destination;
+    };
 });

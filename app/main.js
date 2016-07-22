@@ -27,20 +27,18 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
             http: true,
             widget: true
         });
-        
+
         app.start().then(function() {
             bootstrapper.run();
 
             var modules = {};
 
-            return readPublishSettings().then(function() {
-                return readTemplateSettings().then(function(settings) {
-                    return initTemplateSettings(settings).then(function() {
-                        return webFontLoader.init(settings.fonts).then(function() {
-                            return initTranslations(settings).then(function() {
-                                modulesInitializer.register(modules);
-                                app.setRoot('viewmodels/shell');
-                            });
+            return loadIncludedModules().then(function() {
+                return initTemplateSettings().then(function(templateSettings) {
+                    return loadExternalResources(templateSettings).then(function() {
+                        return initTranslations(templateSettings).then(function() {
+                            modulesInitializer.register(modules);
+                            app.setRoot('viewmodels/shell');
                         });
                     });
                 });
@@ -48,8 +46,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
                 console.error(e);
             });
 
-
-            function readPublishSettings() {
+            function loadIncludedModules() {
                 return settingsReader.readPublishSettings().then(function(settings) {
                     _.each(settings.modules, function(module) {
                         modules['../includedModules/' + module.name] = true;
@@ -57,16 +54,18 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
                 });
             }
 
-            function readTemplateSettings() {
-                return settingsReader.readTemplateSettings();
-            }
+            function initTemplateSettings() {
+                return settingsReader.readTemplateSettings().then(function(settings) {
+                    return settingsReader.readThemeSettings().then(function (themeSettings) {
+                        return templateSettings.init(settings, themeSettings).then(function () {
+                            if (isXapiDisabled()) {
+                                templateSettings.xApi.enabled = false;
+                            }
+                            modules['xApi/xApiInitializer'] = templateSettings.xApi;
 
-            function initTemplateSettings(settings) {
-                return templateSettings.init(settings).then(function() {
-                    if (isXapiDisabled()) {
-                        templateSettings.xApi.enabled = false;
-                    }
-                    modules['xApi/xApiInitializer'] = templateSettings.xApi;
+                            return templateSettings;
+                        });
+                    });
                 });
             }
 
@@ -75,8 +74,12 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
                 return !templateSettings.xApi.required && !_.isNullOrUndefined(xapi) && xapi.toLowerCase() === 'false';
             }
 
-            function initTranslations(settings) {
-                return translation.init(settings.languages.selected, settings.languages.customTranslations);
+            function loadExternalResources(templateSettings) {
+                return webFontLoader.init(templateSettings.fonts);
+            }
+
+            function initTranslations(templateSettings) {
+                return translation.init(templateSettings.languages.selected, templateSettings.languages.customTranslations);
             }
         });
     }

@@ -8,9 +8,14 @@
         return jsonReader.read('publishSettings.js');
     }
 
+    function readThemeSettings() {
+        return jsonReader.read('themeSettings.js');
+    }
+
     return {
         readTemplateSettings: readTemplateSettings,
-        readPublishSettings: readPublishSettings
+        readPublishSettings: readPublishSettings,
+        readThemeSettings: readThemeSettings
     };
 
 });
