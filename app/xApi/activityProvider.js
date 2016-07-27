@@ -34,7 +34,12 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl !== undefined ? activityUrl.split("?")[0].split("#")[0] : '';
                 activityProvider.courseId = courseId;
-                eventManager.turnAllEventsOff();
+                
+                eventManager.unsubscribeForEvent(eventManager.events.courseStarted, enqueueCourseStarted);
+                eventManager.unsubscribeForEvent(eventManager.events.courseFinished, enqueueCourseFinished);
+                eventManager.unsubscribeForEvent(eventManager.events.learningContentExperienced, enqueueLearningContentExperienced);
+                eventManager.unsubscribeForEvent(eventManager.events.answersSubmitted, enqueueQuestionAnsweredStatement);
+
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(enqueueCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(enqueueCourseFinished));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(enqueueLearningContentExperienced));

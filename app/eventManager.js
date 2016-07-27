@@ -23,6 +23,14 @@
                 return app.on(event);
             },
 
+            unsubscribeForEvent = function(event, callback) {
+                if (!events.hasOwnProperty(event)) {
+                    throw 'Unsupported event';
+                }
+
+                return app.off(event, callback);
+            },
+
             courseStarted = function (data) {
                 app.trigger(events.courseStarted, data);
             },
@@ -70,6 +78,7 @@
             events: events,
             turnAllEventsOff: turnAllEventsOff,
             subscribeForEvent: subscribeForEvent,
+            unsubscribeForEvent: unsubscribeForEvent,
 
             courseStarted: courseStarted,
             courseFinished: courseFinished,
