@@ -89,10 +89,6 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                     if (progressContext.ready()) {
                                         var progress = progressContext.get();
                                         if (_.isObject(progress)) {
-                                            if (_.isString(progress.url)) {
-                                                window.location.hash = progress.url.replace('objective', 'section'); //fix for old links
-                                            }
-
                                             if (_.isObject(progress.answers)) {
                                                 _.each(dataContext.course.sections, function (section) {
                                                     _.each(section.questions, function (question) {
@@ -101,6 +97,11 @@ define(['durandal/app', 'durandal/composition', 'plugins/router', 'routing/route
                                                         }
                                                     });
                                                 });
+                                            }
+                                            if (_.isString(progress.url)) {
+                                                window.location.hash = progress.url.replace('objective', 'section'); //fix for old links
+                                            } else if(_.isNull(progress.url)){
+                                                window.location.hash = '';
                                             }
                                         }
                                     }
