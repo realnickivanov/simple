@@ -221,7 +221,7 @@ define([], function () {
             that.allowLoginViaSocialMedia = fullSettings.allowLoginViaSocialMedia;
 
             that.languages.selected = fullSettings.languages.selected;
-
+            that.languages.customTranslations = fullSettings.languages.customTranslations;
         });
     }
 
