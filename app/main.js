@@ -63,7 +63,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
                             }
                             modules['xApi/xApiInitializer'] = templateSettings.xApi;
 
-                            return settings;
+                            return templateSettings;
                         });
                     });
                 });
