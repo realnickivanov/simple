@@ -231,17 +231,21 @@ define([], function () {
         }
 
         for (var property in source) {
+            if (!source.hasOwnProperty(property)) {
+                continue;
+            }
+
             if (source[property] && source[property].constructor &&
              (source[property].constructor === Object || source[property].constructor === Array)) {
-                if (destination[property]) {
+                if (destination.hasOwnProperty(property)) {
                     deepExtend(destination[property], source[property]);
                 } else {
                     destination[property] = source[property];
                 }
             } else {
-                destination[property] = destination[property] || source[property];
+                destination[property] = destination.hasOwnProperty(property) ? destination[property] : source[property];
             }
         }
         return destination;
-    };
+    }
 });

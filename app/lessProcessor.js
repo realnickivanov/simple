@@ -19,7 +19,7 @@
         _.each(fonts, function (obj) {
             var props = _.keys(obj);
             _.each(props, function (prop) {
-                if (prop === 'key' || prop === 'isGeneralSelected') {
+                if (prop === 'key' || prop === 'isGeneralSelected' || prop === 'isGeneralColorSelected' || obj[prop] == null) {
                     return;
                 }
 
