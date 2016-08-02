@@ -189,7 +189,16 @@ define([], function () {
 
     function init(settings, themeSettings) {
         var that = this;
+
+        // fix for fonts:
+        // remove nulls from fonts array, because deepDiff in case with arrays returns array with the only changed element
+        // e.g: deepDiff({ array: [{ id: 1 }, { id: 2 }] }, { array: [{ id: 1 }, { id: 3 }] }) => { array: [ , { id: 2 }] }
+        // the first element in returned array will be not defined, json convert will return { array: [null, { id: 2 }] }
+        // that'a why nulls should be deleted or untracked.
         settings && _.isArray(settings.fonts) && removeNullsInArray(settings.fonts);
+        themeSettings && _.isArray(themeSettings.fonts) && removeNullsInArray(themeSettings.fonts);
+        // end fix
+
         var designSettings = _.defaults(themeSettings, defaultThemeSettings);
         var templateSettings = _.defaults(settings, defaultTemplateSetting);
 
