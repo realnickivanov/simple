@@ -189,6 +189,7 @@ define([], function () {
 
     function init(settings, themeSettings) {
         var that = this;
+        settings && _.isArray(settings.fonts) && removeNullsInArray(settings.fonts);
         var designSettings = _.defaults(themeSettings, defaultThemeSettings);
         var templateSettings = _.defaults(settings, defaultTemplateSetting);
 
@@ -247,5 +248,15 @@ define([], function () {
             }
         }
         return destination;
+    }
+
+    function removeNullsInArray(array){
+        if (array && array.length) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] === null) {
+                    delete array[i];
+                }
+            }
+        }
     }
 });
