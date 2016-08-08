@@ -30,6 +30,12 @@
                 $canvasParent.hover(showTooltip, hideTooltip);
                 $toolTip.hover(showTooltip, hideTooltip);
 
+                $canvasParent.focusin(showTooltip);
+                $canvasParent.focusout(hideTooltip);
+
+                $toolTip.focusin(showTooltip);
+                $toolTip.focusout(hideTooltip);
+
                 updateTooltipPosition();
                 
                 ko.utils.domData.set(element, 'ko_tooltip', $toolTip);

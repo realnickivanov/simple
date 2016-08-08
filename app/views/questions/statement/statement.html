@@ -18,7 +18,7 @@
     <li class="statement-item" data-bind="css:{ enabled: !$parent.isAnswered(), checked: isTrueChecked() || isFalseChecked() }">
         <span class="statement-option ">
             <span class="radio-icon-wrapper">
-                <button class="radio-icon" data-bind="click:$parent.markStatementAsTrue, css: { checked: isTrueChecked() }"></button>
+                <button class="radio-icon" data-bind="click:$parent.markStatementAsTrue, css: { checked: isTrueChecked() }, attr:{ disabled: $parent.isAnswered() }"></button>
             </span>
         </span>
         <span class="statement-option-separator-wrapper">
@@ -26,7 +26,7 @@
         </span>
         <span class="statement-option">
             <span class="radio-icon-wrapper">
-                <button class="radio-icon checked" data-bind="click:$parent.markStatementAsFalse, css: { checked: isFalseChecked() }"></button>
+                <button class="radio-icon checked" data-bind="click:$parent.markStatementAsFalse, css: { checked: isFalseChecked() }, attr:{ disabled: $parent.isAnswered() }"></button>
             </span>
         </span>
         <span class="statement-label" data-bind="text: text"></span>

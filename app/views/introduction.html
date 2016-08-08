@@ -1,11 +1,11 @@
-﻿<section id="introduction" class="unselectable">
+﻿<section id="introduction" class="unselectable" data-bind="autofocus">
     <div class="">
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
                 <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle, reviewable: {type: 'course', property: 'title'}">"course_name"</span>
             </h1>
             <div class="course-action-block intro">
-                <button class="button medium primary" href="#" data-bind="click: startCourse, css: { disabled: isNavigationLocked }" data-translate-text="[start course]" data-translate-title="[start course]">Start course</button>
+                <button class="button medium primary autofocus" href="#" data-bind="click: startCourse, css: { disabled: isNavigationLocked }" data-translate-text="[start course]" data-translate-title="[start course]">Start course</button>
             </div>
         </header>
             <div class="course-intro-text styled-content content" data-bind="html: content,  elementsWrap: {}, reviewable: {type: 'course', property: 'introduction'}"></div>

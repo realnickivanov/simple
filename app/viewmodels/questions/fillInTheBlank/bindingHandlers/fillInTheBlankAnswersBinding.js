@@ -1,4 +1,4 @@
-﻿define(['knockout','durandal/composition', 'translation'], function (ko, composition, translation) {
+﻿define(['knockout', 'durandal/composition', 'translation'], function (ko, composition, translation) {
     ko.bindingHandlers.fillInTheBlankAnswers = {
         init: function (element, valueAccessor) {
             var $element = $(element),
@@ -31,9 +31,13 @@
                 inputValues = ko.utils.unwrapObservable(valueAccessor().inputValues);
 
             if (!isAnswered) {
-                $('.blankSelect').select('refresh');
-                $('.blankInput').each(function() {
+                $('.blankSelect')
+                    .select('refresh')
+                    .select('enabled', true);
+
+                $('.blankInput').each(function () {
                     $(this).val('');
+                    $(this).removeAttr('disabled');
                 });
             } else {
                 _.each(inputValues, function (blank) {
@@ -41,8 +45,10 @@
 
                     if ($source.is('input')) {
                         $source.val(blank.value);
+                        $source.attr('disabled', 'disabled');
                     } else if ($source.is('select')) {
                         $source.select('updateValue', blank.value);
+                        $source.select('enabled', false);
                     }
                 });
             }

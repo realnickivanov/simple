@@ -1,5 +1,6 @@
 define([
     'bootstrapping/knockoutBindings/areaBinding',
+    'bootstrapping/knockoutBindings/autofocusBinding',
     'bootstrapping/knockoutBindings/backgroundBinding',
     'bootstrapping/knockoutBindings/circleProgressBinding',
     'bootstrapping/knockoutBindings/contextBinding',
@@ -20,6 +21,8 @@ define([
     'treeOfContent/bindingHandlers/treeOfContentAnimationsBinding',
     'bootstrapping/knockoutBindings/selectTextBinding',
     'bootstrapping/knockoutBindings/submitOnEnterBinding',
+    'bootstrapping/knockoutBindings/keyDownBinding',
+    'bootstrapping/knockoutBindings/tabFocusBinding',
     'bootstrapping/knockoutBindings/copyToClipboardBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
@@ -30,6 +33,7 @@ define([
     'viewmodels/questions/textMatching/bindingHandlers/overlayBindingHandler',
     'viewmodels/questions/textMatching/bindingHandlers/syncHeightBindingHandler',
     'viewmodels/questions/openQuestion/bindingHandlers/textAreaBindingHandler',
+    'viewmodels/questions/singleSelectImage/bindingHandlers/previewImageBinding',
     'widgets/imagePreview/bindingHandlers/fadeBindingHandler',
     'widgets/imagePreview/bindingHandlers/imageLoaderBindingHandler',
     'dialogs/bindingHandlers/blockBodyScrollBinding',

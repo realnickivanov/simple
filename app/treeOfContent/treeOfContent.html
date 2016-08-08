@@ -1,5 +1,5 @@
-﻿<section class="tree-of-content-panel unselectable" data-bind="css: { expanded: isExpanded }">
-    <div class="tree-of-content-panel-tail" data-bind="click: toggleIsExpanded.bind($data), localize: { title: isExpanded() ? '[collapse]' : '[expand]'}">
+﻿<section class="tree-of-content-panel unselectable" data-bind="css: { expanded: isExpanded }, tabFocus">
+    <div tabindex="0" class="tree-of-content-panel-tail" data-bind="click: toggleIsExpanded.bind($data), localize: { title: isExpanded() ? '[collapse]' : '[expand]'}, submitOnEnter">
         <i class="tree-of-content-panel-tail-icon material-icons" data-bind="text: isExpanded() ? '&#xE314;' : 'menu'"></i>
     </div>
     <div class="tree-of-content-container" data-bind="css: { expanded: isExpanded }, treeOfContentAnimations: { expanded: isExpanded }">
@@ -15,7 +15,7 @@
             </header>
             <ul class="tree-of-content-items" data-bind="foreach: children">
                 <li class="tree-of-content-section-item" data-bind="css:{ expanded : isExpanded, active: hasActiveQuestion }">
-                    <div class="tree-of-content-section-title-wrapper" data-bind="click: toggleIsExpanded.bind($data)">
+                    <div class="tree-of-content-section-title-wrapper" data-bind="click: toggleIsExpanded.bind($data), keyDown: { handlers: { 13: toggleIsExpanded.bind($data) } }, attr: { tabindex: $parent.isExpanded() ? '0' : '-1' }">
                         <i class="tree-of-content-section-title-icon material-icons" data-bind="text: isExpanded() ? '&#xE313;' : '&#xE315;', localize: { title: isExpanded() ? '[collapse]' : '[expand]'}"></i>
                         <div class="tree-of-content-section-title" data-bind="limitedLengthText: { text: title, maxLength: 70 }, attr: { title: title }"></div>
                     </div>
@@ -28,7 +28,7 @@
                         <ul class="tree-of-content-questions" data-bind="foreach: children">
                             <li class="tree-of-content-question-item" data-bind="css: { active: isActive }">
                                 <!-- ko if: canNavigate -->
-                                <a class="tree-of-content-question-title-wrapper navigatable" href="#" data-bind="attr: { href: url }">
+                                <a class="tree-of-content-question-title-wrapper navigatable" href="#" data-bind="attr: { href: url, tabindex: $parent.isExpanded() && $root.isExpanded() ? '0' : '-1' }">
                                     <i class="tree-of-content-question-title-icon material-icons" data-bind="css: { question: !isInformationContent }, text: isInformationContent ? 'school' : (isActive() ? 'help' : '&#xE8FD;')"></i>
                                     <span class="tree-of-content-question-title" data-bind="text: title"></span>
                                 </a>

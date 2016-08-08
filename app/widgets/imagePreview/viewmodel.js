@@ -1,7 +1,8 @@
-﻿define(['durandal/system', 'durandal/composition'], function (system, composition) {
+﻿define(['durandal/system', 'durandal/composition', 'durandal/app', 'constants'], function (system, composition, app, constants) {
     "use strict";
 
     var imagePreviewModel = {
+        imageId: ko.observable(null),
         imageUrl: ko.observable(''),
         isVisible: ko.observable(false),
         isLoaded: ko.observable(false),
@@ -14,16 +15,17 @@
     return imagePreviewModel;
 
     function activate() {
-      
+        
     }
 
-    function openPreviewImage(url) {
+    function openPreviewImage(data) {
         showOverlay();
-        setPreviewImage(url);
+        setPreviewImage(data);
     }
 
-    function setPreviewImage(url) {
-        imagePreviewModel.imageUrl(url);
+    function setPreviewImage(data) {
+        imagePreviewModel.imageId(data.id);
+        imagePreviewModel.imageUrl(data.image);
     }
 
     function showOverlay() {
@@ -36,5 +38,6 @@
 
     function hideOverlay() {
         imagePreviewModel.isVisible(false);
+        app.trigger(constants.events.imagePreviewClosed, imagePreviewModel.imageId());
     }
 });

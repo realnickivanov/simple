@@ -20,7 +20,8 @@
         events: {
             appClosed: 'appClosed',
             onError: 'onError',
-            appInitialized: 'appInitialized'
+            appInitialized: 'appInitialized',
+            imagePreviewClosed: 'image:preview:closed'
         },
         localStorageProgressKey: 'course_progress',
         localStorageResultKey: 'course_result',

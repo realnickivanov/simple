@@ -1,4 +1,4 @@
-<section class="popup-layout" data-bind="scrollbar: { checkDOMChanges: true }">
+<section class="popup-layout" data-bind="scrollbar: { checkDOMChanges: true }, keyDown: { handlers: { 27: close } }">
     <div class="popup">
         <span class="close-btn" data-bind="click: close"></span>
         <!-- ko ifnot: progressStorageActivated -->
@@ -17,13 +17,13 @@
                         <!-- /ko -->
                     </ul>
                 </section>
-                <footer>
+                <footer data-bind="autofocus">
                     <span class="button-wrapper">
                         <button class="button block default" data-bind="click: close" data-translate-text="[cancel, continue course]" data-translate-title="[cancel, continue course]"></button>
                     </span>
                     <!-- ko if: exit -->
                     <span class="button-wrapper">
-                        <button class="button block primary" data-bind="click: exit" data-translate-text="[OK, close course]" data-translate-title="[OK, close course]"></button>
+                        <button class="button block primary autofocus" data-bind="click: exit" data-translate-text="[OK, close course]" data-translate-title="[OK, close course]"></button>
                     </span>
                     <!-- /ko -->
                 </footer>
@@ -52,7 +52,7 @@
                         <span class="icon-envelope"></span>
                         <span data-translate-text="[message about mailbox]"></span>
                     </aside>
-                    <div class="popup-switch-options" data-bind="click: toggleOptionsVisibility">
+                    <div tabindex="0" class="popup-switch-options" data-bind="click: toggleOptionsVisibility, submitOnEnter">
                         <i class="tree-of-content-section-title-icon material-icons" data-bind="text: optionsShowed() ? '&#xE313;' : '&#xE315;'"></i>
                         <span data-translate-text="[show other options]" data-bind="visible: !optionsShowed()"></span>
                         <span data-translate-text="[hide other options]" data-bind="visible: optionsShowed"></span>

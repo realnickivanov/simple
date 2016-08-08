@@ -1,4 +1,4 @@
-﻿define(['widgets/imagePreview/viewmodel', 'browserSupport'], function (imagePreview, browserSupport) {
+﻿define(['browserSupport'], function (browserSupport) {
     "use strict";
 
     var viewModel = {
@@ -9,10 +9,8 @@
         isAnswered: ko.observable(false),
         answers: null,
         checkedAnswerId: ko.observable(null),
-
         checkItem: checkItem,
-        previewItem: previewItem,
-
+        
         submit: submit,
         tryAnswerAgain: tryAnswerAgain,
 
@@ -38,15 +36,11 @@
         });
     }
 
-    function checkItem(item) {
+    function checkItem() {
         if (viewModel.isAnswered()) {
             return;
         }
-        viewModel.checkedAnswerId(item.id);
-    }
-
-    function previewItem(item) {
-        imagePreview.openPreviewImage(item.image);
+        viewModel.checkedAnswerId(this.id);
     }
 
     function submit() {

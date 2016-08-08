@@ -5,11 +5,15 @@ define(function () {
             var $element = $(element),
                 callback = valueAccessor();
             
-            $element.keypress(function(e){
-                if(e.which == 13){
+            $element.keydown(function (e) {
+                if (e.which == 13 || e.which == 32) {
                     e.preventDefault();
-                    if(typeof callback === 'function'){
-                        callback.call(viewModel)
+                    e.stopPropagation();
+
+                    if (typeof callback === 'function') {
+                        callback.call(viewModel);
+                    } else {
+                        $element.click();
                     }
                 }
             });

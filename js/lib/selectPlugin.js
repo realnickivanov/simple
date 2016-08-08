@@ -1,4 +1,4 @@
-﻿(function($) {
+﻿(function ($) {
     'use strict';
 
     var cssClasses = {
@@ -13,6 +13,7 @@
     var Select = function (element, opt) {
         this.element = element;
         this.options = $.extend({}, opt);
+        this.isEnabled = true;
 
         this.init();
     };
@@ -22,10 +23,10 @@
             var that = this,
                 $element = $(that.element),
                 options = [];
-            $.each($element[0].options, function(index, item) {
+            $.each($element[0].options, function (index, item) {
                 options.push(item);
             });
-            $element.wrap('<div class="' + cssClasses.wrapper + '"></div>');
+            $element.wrap('<div tabindex="0" class="' + cssClasses.wrapper + '"></div>');
             var $selectWrapper = $element.parent('.' + cssClasses.wrapper);
             var $valueWrapper = $('<div class="' + cssClasses.value + '"></div>')
                 .text(that.options.defaultText)
@@ -33,10 +34,21 @@
                 .appendTo($selectWrapper);
 
             $selectWrapper.on('click', function () {
-                that.show($selectWrapper, options, function (newValue) {
-                    $element.val(newValue).trigger('change');
-                    $($valueWrapper).text(newValue);
-                });
+                if (that.isEnabled) {
+                    that.show($selectWrapper, options, function (newValue) {
+                        $element.val(newValue).trigger('change');
+                        $($valueWrapper).text(newValue);
+                        $selectWrapper.focus();
+                    });
+                }
+            });
+
+            $selectWrapper.on('keydown', function (event) {
+                var key = event.which;
+                if (key == 13) {
+                    event.preventDefault();
+                    $selectWrapper.click();
+                }
             });
         },
         show: function ($element, options, callback) {
@@ -55,22 +67,31 @@
                     top: ($element.offset().top + $element.height()) + 'px',
                     width: ($element.width() + 45) + 'px'
                 })
-                .append($('<ul/>')
+                .append($('<ul tabindex="-1"/>')
                     .on('click', 'li', function () {
                         var text = $(this).text();
                         $element.find('.' + cssClasses.current)
                             .text(text)
                             .removeClass(cssClasses.default);
-                            
+
                         $element.find('.' + cssClasses.default)
                             .removeClass(cssClasses.default);
-                            
+
                         if (callback) {
                             callback(text);
                         }
                     })
+                    .on('keydown', 'li', function (event) {
+                        var key = event.which;
+                        if (key == 13) {
+                            event.preventDefault();
+                            $(this).click();
+                        }
+                    })
                     .append(getOptionsMarkup()))
                     .appendTo('body');
+
+            container.find('ul').first().focus();
 
             var handler = function () {
                 container.remove();
@@ -88,7 +109,7 @@
                 var optionsMarkup = [];
                 for (var i = 0; i < options.length; i++) {
                     if (options[i].text !== $element.find('.' + cssClasses.current).text()) {
-                        optionsMarkup.push($('<li/>').text(options[i].text));
+                        optionsMarkup.push($('<li tabindex="0"/>').text(options[i].text));
                     }
                 }
                 return optionsMarkup;
@@ -108,6 +129,20 @@
                 $('.' + cssClasses.value, $element.parent('.' + cssClasses.wrapper))
                     .text(selectedText)
                     .removeClass(cssClasses.default);
+            }
+        },
+        enabled: function (isEnabled) {
+            this.isEnabled = isEnabled;
+
+            var $selectWrapper = $(this.element).parent('.' + cssClasses.wrapper);
+            if (isEnabled) {
+                $selectWrapper
+                    .attr('tabindex', '0')
+                    .addClass('enabled');
+            } else {
+                $selectWrapper
+                    .attr('tabindex', '-1')
+                    .removeClass('enabled');
             }
         }
     };

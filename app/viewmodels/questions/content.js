@@ -14,8 +14,10 @@
             backToSections: backToSections,
             isNextQuestionAvailable: isNextQuestionAvailable,
             nextQuestionUrl: nextQuestionUrl,
+            goNext: goNext,
             isPreviousQuestionAvailable: isPreviousQuestionAvailable,
             previousQuestionUrl: previousQuestionUrl,
+            goPrevious: goPrevious,
 
             voiceOver: null,
 
@@ -43,12 +45,26 @@
             return router.isNavigationLocked() ? undefined : viewModel.navigationContext.nextQuestionUrl;
         }
 
+        function goNext() {
+            if (router.isNavigationLocked() || !isNextQuestionAvailable()) {
+                return;
+            }
+            router.navigate(viewModel.navigationContext.nextQuestionUrl);
+        }
+
         function isPreviousQuestionAvailable() {
             return !_.isNullOrUndefined(viewModel.navigationContext.previousQuestionUrl) && !router.isNavigationLocked();
         }
 
         function previousQuestionUrl() {
             return router.isNavigationLocked() ? undefined : viewModel.navigationContext.previousQuestionUrl;
+        }
+
+        function goPrevious() {
+            if (router.isNavigationLocked() || !isPreviousQuestionAvailable()) {
+                return;
+            }
+            router.navigate(viewModel.navigationContext.previousQuestionUrl);
         }
 
         function getActiveContentViewModel(question) {

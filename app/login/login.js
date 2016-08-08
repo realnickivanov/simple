@@ -30,6 +30,7 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
             passwordHidden: ko.observable(true),
             toglePasswordVisibility: toglePasswordVisibility,
             toggleStayLoggedIn: toggleStayLoggedIn,
+            toggleUseEmail: toggleUseEmail,
             stayLoggedIn: ko.observable(false),
 
             allowToSkip: ko.observable(false),
@@ -42,6 +43,13 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
 
         return viewModel;
         
+        function toggleUseEmail() {
+            viewModel.useEmail(!viewModel.useEmail());
+            if (viewModel.useEmail()) {
+                viewModel.username.hasFocus(true);
+            }
+        }
+
         function toggleStayLoggedIn(){
             viewModel.stayLoggedIn(!viewModel.stayLoggedIn());
             userContext.keepMeLoggedIn = viewModel.stayLoggedIn();
@@ -89,6 +97,7 @@ define(['knockout','underscore', 'plugins/router', 'eventManager', 'xApi/constan
             };
             value.isValid = ko.computed(validateCallback.bind(null, value));
             value.isModified = ko.observable(false);
+            value.hasFocus = ko.observable(false);
             value.markAsModified = function() {
                 value.isModified(true);
                 return value;

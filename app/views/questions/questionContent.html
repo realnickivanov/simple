@@ -1,7 +1,7 @@
-<section id="questionContent">
+<section id="questionContent" data-bind="autofocus">
     <!-- ko if: learningContents.length > 0 -->
     <section class="content learning-content" data-bind="css:{collapsed:!isExpanded()},toggleVisible:{isExpanded:isExpanded()}, reviewable: {type: 'question', property: 'learningContent', id: question.id, title: question.title}">
-        <div class="toggle-expand-container" data-bind="click: toggleExpand">
+        <div tabindex="0" class="toggle-expand-container" data-bind="click: toggleExpand, submitOnEnter, css: { 'autofocus': !isAnswered() }">
             <div class="learning-content-title" >
                 <span class="material-icons"> school</span>
                 <span data-translate-text="[learning content]">Learning content</span>
@@ -22,15 +22,15 @@
             <span class="material-icons"> help_outline</span>
             <span data-translate-text="[question]">question</span>
         </div>
-        <div class="question-title selectable" data-bind="text: title">
+        <div tabindex="-1" class="question-title selectable" data-bind="text: title, css: { 'autofocus': !isAnswered() }">
             question title
         </div>
         <!-- ko compose: activeQuestionViewModel --><!-- /ko -->
         <!-- ko compose: { view: feedbackView } --><!-- /ko -->
         <!-- ko ifnot: isAnswered -->
         <!-- ko ifnot: submitViewModel -->
-        <div class="btn-submit-wrapper">
-            <button href="#" class="button medium primary" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</button>
+        <div class="btn-submit-wrapper" data-bind="autofocus">
+            <button href="#" class="button medium primary autofocus" data-bind="click: submit" data-translate-text="[submit]" data-translate-title="[submit]">Submit</button>
         </div>
         <!-- /ko -->
         <!-- ko if: submitViewModel -->

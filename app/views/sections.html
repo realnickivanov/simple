@@ -1,5 +1,5 @@
 ﻿<section id="sectionsPage" class="sections " data-view="views/sections" data-active-view="true" style="">
-    <div>
+    <div data-bind="autofocus">
         <header class="page-header">
             <h1 class="course-title" data-bind="css: {small: courseTitle.length>100}">
                     <span class="course-label" data-translate-text="[course]">Course:</span>&nbsp;<span class="course-caption" data-bind="text: courseTitle, reviewable: {type: 'course', property: 'title'}">"course_name"</span>
@@ -10,17 +10,17 @@
             </div>
         </header>
 
-        <ul class="sections-list" data-bind="foreach: sections">
+        <ul tabindex="-1" class="sections-list autofocus" data-bind="foreach: sections">
 
-            <li class="sections-list-item" data-bind="click: goToFirstQuestion, css: { disabled: $parent.isNavigationLocked }, css:$root.sectionsLayout, reviewable: {type: 'section', property: 'title', id: id, title: title}">
+            <li tabindex="0" class="sections-list-item" data-bind="click: goToFirstQuestion, submitOnEnter, css: { disabled: $parent.isNavigationLocked }, css:$root.sectionsLayout, reviewable: {type: 'section', property: 'title', id: id, title: title}">
                 <!-- ko if: $root.sectionsLayout==="Tiles" -->
                 <div class="section-image-holder">
                     <div class="section-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
-                    <button class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
+                    <button tabindex="-1" class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                 </div>
                 <!-- ko if: affectProgress -->
                 <div class="section-progress">
-                    <canvas class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 },toolTip:{progress: score, masteryScore:$parent.masteryScore}"></canvas>
+                    <canvas tabindex="0" class="canvas-styles" width="48" height="48" data-bind="circleProgress: { progress: score, radius:22,masteryScore:$parent.masteryScore,lineWidth:2 },toolTip:{progress: score, masteryScore:$parent.masteryScore}"></canvas>
                     <span class="section-progress-text-wrapper" data-bind="text:score+'%'"></span>
                 </div>
                 <!-- /ko -->

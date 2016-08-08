@@ -1,14 +1,14 @@
-﻿<section id="content" class="question unselectable">
+﻿<section id="content" class="question unselectable" data-bind="keyDown: { handlers: { 37: goPrevious, 39: goNext } }">
     <div>
         <header class="page-header">
             <div class="navigation-home-link-wrapper" data-bind="click: backToSections">
-                <div class="navigation-home-link material-icons" data-bind="css: { disabled: isNavigationLocked }">home</div>
+                <div tabindex="0" class="navigation-home-link material-icons" data-bind="submitOnEnter: backToSections, css: { disabled: isNavigationLocked }">home</div>
             </div>
             <div class="section-progress-wrapper">
                 <div class="section-image-wrapper" data-bind="style: { 'background-image': 'url(' + section.imageUrl + ')' }">
                     <!-- ko if: section.affectProgress -->
                     <div class="sections-canvas-wrapper">
-                        <canvas class="canvas-styles" width="92" height="92" data-bind="circleProgress: { progress: section.score(), masteryScore:masteryScore,lineWidth:2 },toolTip:{progress: section.score(), masteryScore:masteryScore}"></canvas>
+                        <canvas tabindex="0" class="canvas-styles" width="92" height="92" data-bind="circleProgress: { progress: section.score(), masteryScore:masteryScore,lineWidth:2 },toolTip:{progress: section.score(), masteryScore:masteryScore}"></canvas>
                     </div>
                     <span class="progress-text" data-bind="text: section.score() + '%'"></span>
 

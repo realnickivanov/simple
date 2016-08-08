@@ -1,4 +1,4 @@
-﻿<section class="popup-layout" data-bind="scrollbar: { checkDOMChanges: true }">
+﻿<section class="popup-layout" data-bind="scrollbar: { checkDOMChanges: true }, keyDown: { handlers: { 27: close } }">
     <div class="popup">
         <span class="close-btn" data-bind="click: close"></span>
         <div class="popup-wrapper">
@@ -24,12 +24,12 @@
                         <button class="button block default" data-bind="click: close" data-translate-text="[cancel, continue course]" data-translate-title="[cancel, continue course]"></button>
                     </span>
                     <!-- ko if: finish -->
-                    <span class="button-wrapper">
+                    <span class="button-wrapper" data-bind="autofocus">
                         <!-- ko if: stayLoggedIn -->                    
-                        <button class="button block primary" data-bind="click: finish" data-translate-text="[OK, submit results]" data-translate-title="[OK, submit results]"></button>
+                        <button class="button block primary autofocus" data-bind="click: finish" data-translate-text="[OK, submit results]" data-translate-title="[OK, submit results]"></button>
                         <!-- /ko -->
                         <!-- ko ifnot: stayLoggedIn -->                    
-                        <button class="button block primary" data-bind="click: finish" data-translate-text="[OK, submit results and log out]" data-translate-title="[OK, submit results and log out]"></button>
+                        <button class="button block primary autofocus" data-bind="click: finish" data-translate-text="[OK, submit results and log out]" data-translate-title="[OK, submit results and log out]"></button>
                         <!-- /ko -->
                     </span>
                     <!-- /ko -->

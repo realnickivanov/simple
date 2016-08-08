@@ -5,9 +5,9 @@
     </div>
     <!-- /ko -->
     <ul class="question-answers-list" data-bind="foreach: answers">
-        <li class="checkbox" data-bind="click: $parent.checkItem, css: { checked: isChecked(), enabled: !$parent.isAnswered() }">
+        <li class="checkbox" data-bind="click: $parent.checkItem, submitOnEnter, css: { checked: isChecked(), enabled: !$parent.isAnswered()}, attr: { tabindex: $parent.isAnswered() ? '-1' : '0' }">
             <span class="checkbox-icon-wrapper">
-                <button class="checkbox-icon" data-bind="css: { checked: isChecked() }"></button>
+                <button tabindex="-1" class="checkbox-icon" data-bind="css: { checked: isChecked() }"></button>
             </span>
             <label class="checkbox-text" data-bind="text: text"></label>
         </li>

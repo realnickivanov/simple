@@ -1,24 +1,24 @@
 ﻿<section id="feedback">
     <!-- ko if: isCorrectAnswered -->
-    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
+    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered, autofocus">
         <div class="question-result-block" data-translate-text="[scenario has been passed successfully]" data-translate-title="[scenario has been passed successfully]">Scenario has been passed successfully</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
             <!-- ko if: navigationContext.nextQuestionUrl -->
-            <button class="button medium primary" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
+            <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
             <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="button medium primary" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
             <!-- /ko -->
         </div>
     </div>
     <!-- /ko -->
     <!-- ko if: isWrongAnswered -->
-    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered">
+    <div class="result-block-wrapper" data-bind="scrollIntoView: isAnswered, autofocus">
         <div class="question-result-block incorrect" data-translate-text="[scenario has not been passed successfully]" data-translate-title="[scenario has not been passed successfully]">Scenario has NOT been passed successfully</div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
-            <button class="button medium primary" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
+            <button class="button medium primary autofocus" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
             <!-- ko if: navigationContext.nextQuestionUrl -->
             <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
