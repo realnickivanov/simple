@@ -3403,18 +3403,25 @@ form {
     background-position: 50% 50%;
     background-repeat: no-repeat;
     padding: 4px;
-}
 
-    .section-image-wrapper:before {
+    &.affect-progress{
+        &:before{
+            display: block;
+        }
+    }
+
+    &:before {
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
+        display: none;
         width: 100%;
         height: 100%;
         border-radius: 10px;
-        content: '';
         background-color: rgba(0, 0, 0, 0.5);
     }
+}
 
 .section-progress-wrapper {
     display: table-cell;
