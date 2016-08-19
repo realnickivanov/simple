@@ -18,7 +18,7 @@
                         <!-- /ko -->
                     </ul>
                 </section>
-                <!-- ko if: crossDeviceEnabled -->
+                <!-- ko if: crossDeviceEnabled && !scormEnabled -->
                 <button class="button check small mb10" type="submit" data-bind="click: toggleStayLoggedIn, css: { active: stayLoggedIn }">
                     <span data-translate-text="[keep me logged-in for the next courses]" data-translate-title="[keep me logged-in for the next courses]"></span>
                 </button>

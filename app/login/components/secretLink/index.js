@@ -10,7 +10,7 @@ define([
         this.isSecretLinkSent = ko.observable(false);
         this.sendSecretLink = function (){
             this.isSecretLinkSent(true);
-            progressProvider.sendSecretLink(usermail(), context.course.title, true);
+            progressProvider.sendSecretLink(usermail, context.course.title, true);
         };
         this.activate = function(userEmail) {
             usermail = userEmail;

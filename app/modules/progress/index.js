@@ -40,16 +40,14 @@ define([
             _private.progressProviders.create(this.crossDeviceEnabled);
 
             if (crossDeviceSavingEnabled) {
-                if (authProvider.authenticated) {
+                var token = authProvider.getValueFromUrl('token');
+                if (!_.isNull(token)) {
+                    authProvider.setToken(token);
+                    this.syncProviders().then(resolvePromise).fail(defer.reject);
+                } else if (authProvider.authenticated) {
                     this.syncProviders().then(resolvePromise).fail(defer.reject);
                 } else {
-                    var token = authProvider.getValueFromUrl('token');
-                    if (!_.isNull(token)) {
-                        authProvider.setToken(token);
-                        this.syncProviders().then(resolvePromise).fail(defer.reject);
-                    } else {
-                        defer.resolve(null);
-                    }
+                    defer.resolve(null);
                 }
             } else {
                 defer.resolve(null);
