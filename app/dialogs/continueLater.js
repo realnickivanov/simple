@@ -45,6 +45,7 @@ define(['modules/progress/index', 'userContext', 'browserSupport'], function (pr
             viewModel.authLink = progressProvider.authLink();
             viewModel.email = userContext.user.email;
             viewModel.password = userContext.user.password;
+            viewModel.showProgressStorageInfo = userContext.user.showProgressStorageInfo;
         }
     }
 });
