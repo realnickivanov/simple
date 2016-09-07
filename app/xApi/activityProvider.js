@@ -497,13 +497,14 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             return createStatement(constants.verbs.experienced, result, object, context);
         }
 
-        function createActor(name, email) {
+        function createActor(name, email, account) {
             var actor = {};
 
             try {
                 actor = actorModel({
                     name: name,
-                    mbox: 'mailto:' + email
+                    mbox: 'mailto:' + email,
+                    account: account
                 });
             } catch (e) {
                 errorsHandler.handleError(errorsHandler.errors.actorDataIsIncorrect);
