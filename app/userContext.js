@@ -1,5 +1,6 @@
 ﻿define(['plugins/router'], function(router) {
     var context = {
+        use: use,
         initialize: initialize,
         getCurrentUser: getCurrentUser,
         user: new UserContext()
@@ -8,6 +9,7 @@
     return context;
 
     function UserContext() {
+        this.account = null;
         this.email = null;
         this.username = null;
         this.password = null;
@@ -16,7 +18,25 @@
     }
 
     function getCurrentUser() {
-        return context.user.email && context.user.username ? context.user : null;
+        return (context.user.email || context.user.account) && context.user.username ? context.user : null;
+    }
+
+    function use(userInfoProvider) {
+        if(!userInfoProvider) {
+            return;
+        }
+        var accountId = userInfoProvider.getAccountId(),
+            accountHomePage = userInfoProvider.getAccountHomePage(),
+            username = userInfoProvider.getUsername();
+        if(!accountId || !accountHomePage || !username) {
+            return;
+        }
+        context.user.email = accountId;
+        context.user.username = username;
+        context.user.account = {
+            homePage: accountHomePage,
+            name: accountId
+        };
     }
 
     function initialize() {
