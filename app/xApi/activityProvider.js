@@ -178,11 +178,15 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
 
                 var parentUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
 
-                var context = createContextModel({
-                    contextActivities: new contextActivitiesModel({
-                        parent: [createActivity(parentUrl, section.title)]
-                    })
+                var contextObj = {};
+                contextObj.contextActivities = new contextActivitiesModel({
+                    parent: [createActivity(parentUrl, section.title)]
                 });
+                contextObj.extensions = {};
+                contextObj.extensions[constants.extenstionKeys.surveyMode] = question.hasOwnProperty('isSurvey') && question.isSurvey;
+                contextObj.extensions[constants.extenstionKeys.questionType] = question.type;
+
+                var context = createContextModel(contextObj);
 
                 if (parts) {
                     var verb = question.type === globalConstants.questionTypes.informationContent ?

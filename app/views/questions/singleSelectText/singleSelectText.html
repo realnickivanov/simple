@@ -4,6 +4,9 @@
         <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
     </div>
     <!-- /ko -->
+    <!-- ko if: isSurveyModeEnabled -->
+    <div class="text-matching-caption" data-translate-text="[survey mode caption]"></div>
+    <!-- /ko -->
     <ul class="question-answers-list" data-bind="foreach: answers">
         <li class="radio" data-bind="click: $parent.checkItem, submitOnEnter, css: { checked: isChecked(), enabled: !$parent.isAnswered() }, attr: { tabindex: $parent.isAnswered() ? '-1' : '0' }">
             <span class="radio-icon-wrapper">

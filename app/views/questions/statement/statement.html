@@ -3,6 +3,9 @@
     <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
 </div>
 <!-- /ko -->
+<!-- ko if: isSurveyModeEnabled -->
+<div class="text-matching-caption" data-translate-text="[survey mode caption]"></div>
+<!-- /ko -->
 <!-- ko if: statements().length -->
 <ul class="statement">
     <li class="statement-headers-group">

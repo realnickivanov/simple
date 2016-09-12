@@ -6,6 +6,7 @@
 
         content: null,
         isAnswered: ko.observable(false),
+		isSurveyModeEnabled: false,
         answers: null,
 
         checkItem: checkItem,
@@ -22,6 +23,7 @@
         return Q.fcall(function () {
             viewModel.question = question;
 
+			viewModel.isSurveyModeEnabled = !!question.isSurvey;
             viewModel.content = question.content;
             viewModel.isAnswered(question.isAnswered);
 

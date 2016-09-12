@@ -16,6 +16,7 @@
 	        incorrectFeedback: ko.observable(null),
 	        feedbackView: '',
             submitViewModel: '',
+			isSurvey: false,
 
 	        navigationContext: null,
 
@@ -71,6 +72,7 @@
 	    function activate(sectionId, question) {
 	        viewModel.sectionId = sectionId;
 	        viewModel.question = question;
+			viewModel.isSurvey = !!question.isSurvey;
 	        viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.sectionId, viewModel.question.id);
 	        viewModel.title = viewModel.question.title;
 	        viewModel.isAnswered(viewModel.question.isAnswered);
