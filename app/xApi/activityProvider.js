@@ -220,7 +220,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.choice,
-                        correctResponsesPattern: [
+                        correctResponsesPattern: !!question.isSurvey ? [] : [
                             getItemsIds(question.answers, function (item) {
                                 return item.isCorrect;
                             }).join("[,]")
@@ -251,7 +251,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                     definition: new interactionDefinitionModel({
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.choice,
-                        correctResponsesPattern: [
+                        correctResponsesPattern: !!question.isSurvey ? [] : [
                             _.map(question.statements, function (item) {
                                 return item.id + '[.]' + item.isCorrect;
                             }).join("[,]")
