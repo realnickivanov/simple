@@ -16,6 +16,13 @@
             hideExitButton: true
         },
         {
+            route: 'noaccess',
+            moduleId: 'limitAccess/noAccess',
+            title: 'Limited access',
+            rootLinkDisabled: true,
+            hideExitButton: true
+        },
+        {
             route: 'sections',
             moduleId: 'viewmodels/sections',
             title: 'Sections',

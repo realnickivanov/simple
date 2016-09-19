@@ -22,7 +22,7 @@
             }
 
             familiesToLoad = familiesToLoad.map(function(font) {
-                return { "fontFamily": font, "variants": ["400"] };
+                return { "fontFamily": font, "variants": ["300","400"] };
             });
 
             _.each(_.filter(manifest.fonts, function(font) { return !font.local; }), function(font) {
