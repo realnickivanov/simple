@@ -6,6 +6,7 @@
         content: null,
         statements: null,
         isAnswered: ko.observable(false),
+		isSurveyModeEnabled: false,
 
         initialize: initialize,
         submit: submit,
@@ -18,6 +19,8 @@
 
     function initialize(question) {
         viewModel.question = question;
+
+        viewModel.isSurveyModeEnabled = !!question.isSurvey;
         viewModel.content = question.content;
         viewModel.isAnswered(question.isAnswered);
         viewModel.statements = _.map(question.statements, function(statement) {
