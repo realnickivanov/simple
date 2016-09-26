@@ -1,11 +1,11 @@
 define(['knockout', 'underscore', 'plugins/router', 'eventManager', 'xApi/constants', 'xApi/xApiInitializer',
         'context', 'xApi/configuration/xApiSettings', 'userContext', 'modules/progress/index',
         'routing/guardRoute', 'templateSettings', './components/socialLogin/index', './components/checkPassword/index',
-        './helpers/validatedValue', 'limitAccess/accessLimiter'
+        './helpers/validatedValue', 'limitAccess/accessLimiter', './helpers/initProgress'
 ],
     function (ko, _, router, eventManager, constants, xApiInitializer, context, xApiSettings,
             userContext, progressProvider, guardRoute, templateSettings, SocialLoginViewModel, CheckPasswordViewModel,
-            validatedValue, accessLimiter) {
+            validatedValue, accessLimiter, initProgress) {
 
         "use strict";
 
@@ -77,7 +77,7 @@ define(['knockout', 'underscore', 'plugins/router', 'eventManager', 'xApi/consta
             guardRoute.skipLoginGuard();
             progressProvider.deactivateProgressStorage();
             xApiInitializer.deactivate();
-            startCourse();
+            initProgress();
         }
 
         function toggleRememberMe() {
