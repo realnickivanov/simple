@@ -5241,8 +5241,8 @@ form {
     transition: background-color .3s;
 
     #content{          
-        max-width: 800px;
-        margin: 0px auto 20px;
+        max-width: 100%;
+        margin: 0;
         position: static;
 
         #sectionsPage{
@@ -5255,17 +5255,8 @@ form {
             text-align: center;
             padding: 80px 0px;
             opacity: 1;
-
-            &::after{
-                display: block;
-                content: '';
-                width: 100%;
-                position: absolute;
-                left: 0;
-                margin-top: 80px;
-                height: 100%;
-                z-index: 1;
-            }
+            max-width: 800px;
+            margin: 0 auto;
             
             .course-title{					
                 display: inline-flex;
@@ -5356,88 +5347,86 @@ form {
 
         .result-page-content{ 
             opacity: 1;
+            padding-bottom: 1px;
 
             .section{
                 margin-bottom: 100px;
             
                 .section-header{
-                    height: 213px;
-                
-                    &::before{         
-                        content: '';
-                        display: block;
-                        width: 100%;
-                        position: absolute;       
-                        height: 213px;
-                        left: 0px;
-                        border-top-style: solid;
-                        border-top-width: 4px;
-                        z-index: 1;
-                    }
+                    border-top-style: solid;
+                    border-top-width: 4px;
+                    padding-bottom: 40px;
 
-                    .section-header-analytic::before{
-                        font-size: 12px;
-                        color: #fff;
-                        text-align: center;
-                        padding-left: 1px;
-                        width: 21px;
-                        line-height: 23px;
-                    }
+                    .section-header-wrapper{
+                        margin: 0 auto;
+                        max-width: 800px;
 
-                    .section-header-label{
-                        margin-bottom: 10px;
-                        padding-top: 40px;
-                        font-size: 12px;
-                        position: relative;
-                        z-index: 1;
-
-                        &::after{
-                            content: attr(data-index);
-                        }
-                    }
-
-                    .section-header-title{
-                        font-size: 22px;
-                        padding-bottom: 30px;
-                        position: relative;
-                        z-index: 1;
-                    }
-
-                    .section-header-analytic{
-                        font-size: 20px;
-                        position: relative;
-                        padding-left: 35px;
-                        z-index: 1;
-
-                        &::before{
-                            display: block;
-
-                            background-repeat: no-repeat;
-                            background-position: -2px 6px;
-                            background-size: 22px;
+                        .section-header-analytic::before{
+                            font-size: 12px;
+                            color: #fff;
+                            text-align: center;
+                            padding-left: 1px;
                             width: 21px;
-                            height: 22px;
-                            border-radius: 20px;
-                            position: absolute;
-                            left: 0;
+                            line-height: 23px;
                         }
 
-                        .section-header-correct{
-                            padding-bottom: 5px;
+                        .section-header-label{
+                            margin-bottom: 10px;
+                            padding-top: 40px;
+                            font-size: 12px;
+                            position: relative;
+                            z-index: 1;
+
+                            &::after{
+                                content: attr(data-index);
+                            }
                         }
 
-                        .section-header-correct::before,
-                        .section-header-content-readed::before{
-                            display: inline-block;
-                            content: attr(data-count);
-                            margin-right: 5px;
+                        .section-header-title{
+                            font-size: 22px;
+                            padding-bottom: 30px;
+                            position: relative;
+                            z-index: 1;
                         }
-                    }
+
+                        .section-header-analytic{
+                            font-size: 20px;
+                            position: relative;
+                            padding-left: 35px;
+                            z-index: 1;
+
+                            &::before{
+                                display: block;
+
+                                background-repeat: no-repeat;
+                                background-position: -2px 6px;
+                                background-size: 22px;
+                                width: 21px;
+                                height: 22px;
+                                border-radius: 20px;
+                                position: absolute;
+                                left: 0;
+                            }
+
+                            .section-header-correct{
+                                padding-bottom: 15px;
+                            }
+
+                            .section-header-correct::before,
+                            .section-header-content-readed::before{
+                                display: inline-block;
+                                content: attr(data-count);
+                                margin-right: 5px;
+                            }
+                        }
+                    }                    
                 }
                 .section-content{
                     padding-top: 60px;
                     position: relative;
                     z-index: 1;
+                    max-width: 800px;
+                    margin: 0 auto;
 
                     &:not(:last-child){
                         padding-bottom: 60px;

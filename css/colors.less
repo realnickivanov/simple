@@ -1196,10 +1196,6 @@ body {
     background-color: fade(@content-body-color, 50%);
     #content{
         .result-header{
-            &::after{
-                background-color: @content-body-color;
-            }
-
             .course-title{				
                 .course-title-label{
                     color: fade(@text-color, 50%);
@@ -1216,24 +1212,22 @@ body {
             }
         }
 
-        .result-page-content{  
+        .result-page-content{              
+            background-color: @content-body-color;
+            
             .section-header{  
-                &.correct{          
-                    &::before{
-                        background-color: fade(@correct-color, 10%);
-                        border-top-color: fade(@correct-color, 20%);   
-                    }
+                &.correct{
+                    background-color: fade(@correct-color, 10%);
+                    border-top-color: fade(@correct-color, 20%);
 
                     .section-header-analytic::before{
                         background-color: @correct-color;
                     }
                 }
 
-                &.wrong{          
-                    &::before{
-                        background-color: fade(@incorrect-color, 10%);
-                        border-top-color: fade(@incorrect-color, 20%);   
-                    }
+                &.wrong{     
+                    background-color: fade(@incorrect-color, 10%);
+                    border-top-color: fade(@incorrect-color, 20%);  
 
                     .section-header-analytic::before{
                         background-color: @incorrect-color;
