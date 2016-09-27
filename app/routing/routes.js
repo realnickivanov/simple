@@ -37,6 +37,13 @@
             displayTreeOfContent: true
         },
         {
+            route: 'finish',
+            moduleId: 'resultPage/resultPage',
+            title: 'Results',
+            rootLinkDisabled: true,
+            hideExitButton: true
+        },
+        {
             route: '404(/:url)',
             moduleId: 'viewmodels/404',
             title: 'Not found',

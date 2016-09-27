@@ -3,6 +3,8 @@
 @secondary-color: #2d9ec6;
 @button-text-color: #fff;
 @content-body-color: #fff;
+@correct-color: #4caf50;
+@incorrect-color: #f16162;
 
 @main-font-fontFamily: Roboto Slab;
 
@@ -251,8 +253,12 @@ body {
 
 .result-block-wrapper {
     .question-result-block {
-        &:before {
-            background-color: @main-color;
+        &::before {
+            background-color: @correct-color;
+        }
+
+        &.incorrect::before{
+            background-color: @incorrect-color;
         }
     }
 }
@@ -266,7 +272,7 @@ body {
     color: @button-text-color;
 
     &.mastered {
-        background-color: @main-color;
+        background-color: @correct-color;
     }
 }
 
@@ -905,7 +911,11 @@ body {
     border-color: @secondary-color;
 
     &.mastered {
-        border-color: @main-color;
+        border-color: @correct-color;
+    }
+
+    &.result {        
+        border-color: fade(@correct-color, 70%);
     }
 }
 
@@ -980,7 +990,7 @@ body {
         }
 
         .tree-of-content-panel-tail-icon {
-            color: @content-body-color;
+            color: @button-text-color;
         }
     }
 
@@ -1180,3 +1190,124 @@ body {
         color: fade(@text-color, 80%);
     }
 }
+
+/*#region RESULT PAGE */
+.content-container.module-resultPage{
+    background-color: fade(@content-body-color, 50%);
+    #content{
+        .result-header{
+            &::after{
+                background-color: @content-body-color;
+            }
+
+            .course-title{				
+                .course-title-label{
+                    color: fade(@text-color, 50%);
+                }
+            }
+
+            .overall-progress{
+                .canvas-styles{
+                    color: fade(@text-color, 20%);
+                }
+                .overall-progress-progressbar-text{
+                    color: fade(@text-color, 70%);
+                }
+            }
+        }
+
+        .result-page-content{  
+            .section-header{  
+                &.correct{          
+                    &::before{
+                        background-color: fade(@correct-color, 10%);
+                        border-top-color: fade(@correct-color, 20%);   
+                    }
+
+                    .section-header-analytic::before{
+                        background-color: @correct-color;
+                    }
+                }
+
+                &.wrong{          
+                    &::before{
+                        background-color: fade(@incorrect-color, 10%);
+                        border-top-color: fade(@incorrect-color, 20%);   
+                    }
+
+                    .section-header-analytic::before{
+                        background-color: @incorrect-color;
+                    }
+                }
+
+                .section-header-label{
+                    color: fade(@text-color, 50%);
+                }
+
+                .section-header-analytic{
+                    color: fade(@text-color, 50%);
+                }
+
+                .section-header-content-readed,
+                .section-header-correct{
+                    font-family: @main-font-fontFamily;
+                }
+            }
+
+            .section-content{                    
+                .question-header{   
+                    &.survey{
+                        &::after,
+                        &::before{
+                            color: @secondary-color;
+                        }
+                    }
+
+                    &.wrong{
+                        &::after,
+                        &::before{
+                            color: @incorrect-color;
+                        }
+                    }
+
+                    &.correct{
+                        &::after,
+                        &::before{
+                            color: @correct-color;
+                        }
+                    }
+                }
+
+                .question-title,
+                .question-content{                        
+                    border-color: fade(@text-color, 10%);
+
+                    .overlay-wrapper::before{
+                        background-color: fade(@content-body-color, 30%);
+                    }
+                    
+                    .question-result-block{
+                        color: @correct-color;
+                        background-color: fade(@correct-color, 10%);
+
+                        &.incorrect{
+                            color: @incorrect-color;
+                            background-color: fade(@incorrect-color, 10%);
+                        }
+                    }
+                }
+            }
+        }   
+
+        .result-page-go-top{
+            background-color: fade(@main-color, 70%);
+            color: white;
+            box-shadow: 0px 0px 4px -1px black;
+
+            &:hover{            
+                background-color: @main-color;
+            }
+        }
+    }
+}
+/*#endregion */

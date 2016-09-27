@@ -57,12 +57,13 @@
         };
 
         this.submitAnswer = function () {
+            this.isAnswered = true;
+            
             if (!this.affectProgress && !this.hasOwnProperty('isSurvey'))
                 return;
                 
             this.score(_protected.submit.apply(this, arguments));
 
-            this.isAnswered = true;
             this.isCorrectAnswered = this.score() === 100;
 
             eventManager.answersSubmitted(this, true);
