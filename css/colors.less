@@ -270,16 +270,41 @@ body {
     }
 }
 
-.styled-content {
-    color: @text-color;
+.normal-styled-text {
+    font-family: @Normal-fontFamily;
+    font-style: @Normal-fontStyle;
+    font-weight: @Normal-fontWeight;
+    font-size: @Normal-size;
+    text-decoration: @Normal-textDecoration;
+}
 
-    .h1-styled-text {
-        font-size: @Heading1-size;
-        font-weight: @Heading1-fontWeight;
-        font-family: @Heading1-fontFamily;
-        font-style: @Heading1-fontStyle;
-        text-decoration: @Heading1-textDecoration;
-    }
+.h1-styled-text {
+    font-size: @Heading1-size;
+    font-weight: @Heading1-fontWeight;
+    font-family: @Heading1-fontFamily;
+    font-style: @Heading1-fontStyle;
+    text-decoration: @Heading1-textDecoration;
+}
+
+.h2-styled-text {
+    font-size: @Heading2-size;
+    font-weight: @Heading2-fontWeight;
+    font-family: @Heading2-fontFamily;
+    font-style: @Heading2-fontStyle;
+    text-decoration: @Heading2-textDecoration;
+}
+
+.h3-styled-text {
+    font-size: @Heading3-size;
+    font-weight: @Heading3-fontWeight;
+    font-family: @Heading3-fontFamily;
+    font-style: @Heading3-fontStyle;
+    text-decoration: @Heading3-textDecoration;
+}
+
+.styled-content {
+    .normal-styled-text;
+    color: @Normal-color;
 
     h1 {
         .h1-styled-text;
@@ -291,14 +316,6 @@ body {
         }
     }
 
-    .h2-styled-text {
-        font-size: @Heading2-size;
-        font-weight: @Heading2-fontWeight;
-        font-family: @Heading2-fontFamily;
-        font-style: @Heading2-fontStyle;
-        text-decoration: @Heading2-textDecoration;
-    }
-
     h2 {
         .h2-styled-text;
         color: @Heading2-color;
@@ -307,14 +324,6 @@ body {
         mark {
             .h2-styled-text;
         }
-    }
-
-    .h3-styled-text {
-        font-size: @Heading3-size;
-        font-weight: @Heading3-fontWeight;
-        font-family: @Heading3-fontFamily;
-        font-style: @Heading3-fontStyle;
-        text-decoration: @Heading3-textDecoration;
     }
 
     h3 {
@@ -328,12 +337,8 @@ body {
     }
 
     p {
+        .normal-styled-text;
         color: @Normal-color;
-        font-family: @Normal-fontFamily;
-        font-style: @Normal-fontStyle;
-        font-weight: @Normal-fontWeight;
-        font-size: @Normal-size;
-        text-decoration: @Normal-textDecoration;
         background-color: @Normal-textBackgroundColor;
     }
 
@@ -449,7 +454,19 @@ body {
     }
 }
 
+.question-title {
+    .h3-styled-text;
+    color: @Heading3-color;
+    background-color: @Heading3-textBackgroundColor;
+}
+
+.question-content {
+    .normal-styled-text;
+    color: @Normal-color;
+}
+
 .radio {
+    .normal-styled-text;
     background-color: fade(@main-color,10%);
     color: @text-color;
 
@@ -473,6 +490,8 @@ body {
 }
 
 .ranking-item {
+    .normal-styled-text;
+    min-height: @Normal-size*1.5 + 32px;
     background-color: fade(@main-color,10%);
     color: @text-color;
 
@@ -492,6 +511,7 @@ body {
 }
 
 .checkbox {
+    .normal-styled-text;
     background-color: fade(@main-color,10%);
     color: @text-color;
 
@@ -517,14 +537,27 @@ body {
 .fill-in-the-blank {
     color: @text-color;
 
+    .select-wrapper {
+        .value {
+            &.default when (@Normal-size < 14px) {
+                font-size: @Normal-size;
+            }
+
+            &.default when (@Normal-size >= 14px) {
+                font-size: 14px;
+            }
+        }
+    }
+
     .blankInput {
+        .normal-styled-text;
         color: @text-color;
-        font-family: @main-font-fontFamily;
     }
 }
 
 .select-container {
     ul {
+        .normal-styled-text;
         background-color: @main-color;
 
         li {
@@ -590,6 +623,8 @@ body {
 }
 
 .statement {
+    .normal-styled-text;
+
     .statement-item {
         .statement-label, .statement-option, .statement-option-separator-wrapper {
             background-color: fade(@main-color, 10%);
@@ -718,8 +753,15 @@ body {
     }
 }
 
+.text-matchig-source-text,
+.text-matching-target-text,
+.text-matching-target-placeholder-text {
+    .normal-styled-text;
+}
+
 .edit-field-wrapper {
     .edit-field {
+        .normal-styled-text;
         color: @text-color;
 
         &:focus::-moz-placeholder {

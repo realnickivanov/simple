@@ -277,7 +277,7 @@ ul {
 .styled-content {
     text-align: justify;
     word-wrap: break-word;
-    line-height: 32px;
+    line-height: 1.5;
 
     &:before {
         content: '';
@@ -301,18 +301,15 @@ ul {
 
     p {
         margin: 0 0 20px;
-        line-height: 1.5;
     }
 
     a {
         cursor: pointer;
-        line-height: 1.5;
     }
 
     h1 {
         text-align: justify;
         margin: 35px 0 20px;
-        line-height: 1.5;
 
         &:first-child {
             margin-top: 0;
@@ -323,7 +320,6 @@ ul {
         text-align: justify;
         margin: 35px 0 20px;
         text-transform: none;
-        line-height: 1.5;
 
         &:first-child {
             margin-top: 0;
@@ -334,7 +330,6 @@ ul {
         text-align: justify;
         margin: 35px 0 20px;
         text-transform: none;
-        line-height: 1.5;
 
         &:first-child {
             margin-top: 0;
@@ -347,7 +342,6 @@ ul {
         width: 75%;
         margin: 15px auto;
         padding: 10px 40px;
-        line-height: 1.5;
         white-space: pre-line;
         overflow: hidden;
 
@@ -369,10 +363,6 @@ ul {
             bottom: -23px;
             margin-left: 10px;
         }
-    }
-
-    mark {
-        line-height: 1.5;
     }
 
     .table-wrapper {
@@ -534,6 +524,7 @@ ul {
                 position: absolute;
                 display: inline-block;
                 font-size: 30px;
+                font-family: Roboto Slab;
                 content: '\2022';
                 width: 15px;
                 margin-left: -15px;
@@ -577,9 +568,6 @@ ul {
                 display: inline-block;
                 content: counter(ol-counter) '.';
                 counter-increment: ol-counter;
-                font-size: 22px;
-                line-height: 1;
-                margin-top: 3px;
                 width: 58px;
                 margin-left: -58px;
                 text-align: right;
@@ -775,13 +763,13 @@ ul {
         width: 200px;
         margin-top: 40px;
 
-        .icon-home{
+        .icon-home {
             font-size: 18px;
         }
 
         span {
             margin-left: 7px;
-            font-size:16px;
+            font-size: 16px;
         }
     }
 }
@@ -1151,8 +1139,7 @@ form {
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    font-size: 18px;
-    line-height: 30px;
+    line-height: 1.5;
     margin-bottom: 20px;
 
     &:last-child {
@@ -1218,8 +1205,7 @@ form {
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    font-size: 18px;
-    line-height: 30px;
+    line-height: 1.5;
     margin-bottom: 20px;
 
     &:last-child {
@@ -1274,10 +1260,8 @@ form {
     display: block;
     border-radius: 5px;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, .3);
-    padding: 15px 15px 15px 40px;
-    font-size: 18px;
-    line-height: 30px;
-    min-height: 60px;
+    padding: 16px 15px 16px 40px;
+    line-height: 1.5;
     margin-bottom: 12px;
     transition-property: box-shadow, background-color;
     transition-timing-function: linear;
@@ -1334,7 +1318,7 @@ form {
 
 .statement {
     list-style: none;
-    font-size: 20px;
+    line-height: 1.5;
     padding: 0;
     table-layout: fixed;
     border-spacing: 0 5px;
@@ -1477,7 +1461,6 @@ form {
         background-position: 0 7px, 0 30px;
         background-repeat: no-repeat, repeat;
         background-size: 16px 16px, 22px 34px;
-        font-size: 18px;
         line-height: 34px;
         width: 100%;
         -webkit-box-sizing: border-box;
@@ -1794,8 +1777,7 @@ form {
 .text-matchig-source-text {
     display: table-cell;
     height: 100%;
-    font-size: 16px;
-    font-weight: 400;
+    line-height: 1.5;
     vertical-align: middle;
     white-space: pre-wrap;
     width: 100%;
@@ -1804,8 +1786,6 @@ form {
 .text-matching-target-wrapper {
     height: 100%;
     width: 100%;
-    font-size: 16px;
-    font-weight: 400;
 }
 
 .text-matching-target-text:before {
@@ -1821,7 +1801,6 @@ form {
 
 .text-matching-target {
     border-radius: 5px;
-    font-size: 16px;
     display: block;
     height: 100%;
     position: relative;
@@ -1877,15 +1856,14 @@ form {
     white-space: pre-wrap;
     width: 100%;
     padding-left: 10px;
+    line-height: 1.5;
 }
 
 .text-matching-target-placeholder-wrapper {
     height: 100%;
     position: relative;
     width: 100%;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 28px;
+    line-height: 1.5;
 }
 
 .text-matching-target-placeholder {
@@ -2782,8 +2760,6 @@ form {
 
 .fill-in-the-blank {
     .blankInput {
-        font-size: 18px;
-        line-height: 23px;
         padding: 5px 10px 5px 40px;
         width: 200px;
         border-radius: 7px;
@@ -2796,8 +2772,8 @@ form {
         background-color: transparent;
         outline: none;
         max-width: 100%;
-        font-weight: 300;
         box-sizing: border-box;
+        line-height: 1.5;
 
         &:hover,
         &:focus {
@@ -2810,18 +2786,16 @@ form {
     .select-wrapper {
         max-width: 300px;
         min-width: 170px;
-        min-height: 30px;
         cursor: pointer;
-        padding-left: 6px;
+        padding: 5px 10px 3px 6px;
         border-bottom: 2px solid #abbbc6;
         display: inline-block;
         border-bottom-left-radius: 6px;
         margin-right: 10px;
         margin-top: -1px;
         position: relative;
-        font-size: 18px;
         letter-spacing: .2px;
-        line-height: 29px;
+        line-height: 1.5;
         vertical-align: middle;
 
         &:after {
@@ -2832,7 +2806,8 @@ form {
             background-position: 50% 50%;
             background-repeat: no-repeat;
             position: absolute;
-            bottom: 3px;
+            top: 50%;
+            margin-top: -11px;
             right: -10px;
         }
 
@@ -2857,15 +2832,12 @@ form {
 
         .value {
             text-overflow: ellipsis;
-            padding-right: 25px;
+            padding-right: 15px;
             white-space: nowrap;
             overflow: hidden;
             display: block;
-            /*           color: @fib-select-value-font-color;*/
-            font-size: 18px;
 
             &.default {
-                font-size: 14px;
                 opacity: 0.7;
             }
         }
@@ -2887,13 +2859,11 @@ form {
         list-style: none;
         padding: 0;
         border-radius: 5px;
-        font-size: 18px;
         margin-top: 13px;
         box-shadow: 0 0 8px -2px rgba(0, 0, 0, .1);
 
         li {
-            min-height: 45px;
-            line-height: 45px;
+            line-height: 2.5;
             word-wrap: break-word;
             cursor: pointer;
             padding: 6px 10px 6px 17px;
@@ -2920,7 +2890,7 @@ form {
                     content: '';
                     transform: rotate(45deg);
                     top: -5px;
-                    right: 30px;
+                    right: 35px;
                 }
 
                 &:before {
@@ -3350,7 +3320,6 @@ form {
     border-radius: 5px;
     padding: 45px 30px;
     margin: 20px auto;
-    font-size: 18px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -3918,8 +3887,6 @@ form {
 /*#region question view*/
 
 .question-content {
-    font-size: 18px;
-    font-weight: 300;
     position: relative;
 
     .styled-content {
@@ -3942,7 +3909,6 @@ form {
 
 .question-title {
     padding: 20px 0;
-    font-size: 22px;
 }
 
 #questionContent .content.collapsed {
