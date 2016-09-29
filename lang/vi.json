@@ -107,6 +107,7 @@
     "[remember me on this device]": "Nhớ tài khoản của tôi trên thiết bị này",
     "[show other options]": "trình bày những lựa chọn khác",
     "[hide other options]": "Ẩn những lựa chọn khác",
+    "[no questions]": "No questions",
     "[sections]": "Nhiều mục",
     "[request a secret link]": "yêu cầu 1 liên kết bí mật",
     "[to your progress via email]": "đến tiến trình của bạn thông qua thư điện tử (email)",
@@ -119,5 +120,15 @@
     "[expand]": "mở rộng",
     "[collapse]": "Tan rã",
     "[keep me logged-in for the next courses]": "giữ cho tôi đăng nhập vào khóa học tiếp theo",
-    "[please close the browser tab now]": "Vui lòng đóng các trình duyệt hiện tại"
+    "[please close the browser tab now]": "Vui lòng đóng các trình duyệt hiện tại",
+    "[finish course when tracking disabled]": "Finish course",
+    "[ok finish course]": "OK, finish course",
+    "[the owner of the course has limited the access]": "The owner of the course has limited the access",
+    "[back to sign in]": "Back to sign in",
+    "[survey mode caption]": "The answer will not have any impact on your progress",
+    "[continue course]": "Continue course",
+    "[submit results and logout]": "Submit results and logout",
+    "[questions correct]": "questions correct",
+    "[contents readed]": "content were read",
+    "[section]": "Section"
 }

@@ -124,5 +124,11 @@
     "[finish course when tracking disabled]": "Cursus afronden",
     "[ok finish course]": "Ok,rond de cursus af",
     "[the owner of the course has limited the access]": "De eigenaar van de cursus heeft de toegang beperkt",
-    "[back to sign in]": "Terug naar inloggen"
+    "[back to sign in]": "Terug naar inloggen",
+    "[survey mode caption]": "The answer will not have any impact on your progress",
+    "[continue course]": "Continue course",
+    "[submit results and logout]": "Submit results and logout",
+    "[questions correct]": "questions correct",
+    "[contents readed]": "content were read",
+    "[section]": "Section"
 }
