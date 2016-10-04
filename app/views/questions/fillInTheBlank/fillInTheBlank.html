@@ -4,7 +4,7 @@
         <div class="question-content blank-answers styled-content" data-bind="elementsWrap: {}, fillInTheBlankAnswers: { inputValues:inputValues, content:content, isAnswered: isAnswered() || isPreview() }"></div>
     </div>
     <!-- /ko -->
-    <!-- ko if: isAnswered() || isPreview() -->
+    <!-- ko if: isAnswered() && !isPreview() -->
     <div class="question-overlay"></div>
     <!-- /ko -->
 </section>

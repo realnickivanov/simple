@@ -19,12 +19,12 @@
             <span class="button-wrapper">
                 <button class="button block default cancel" data-bind="click: close" data-translate-text="[continue course]" data-translate-title="[continue course]"></button>
             </span>
-            <!-- ko if: !xAPIEnabled && !scormEnabled -->
+            <!-- ko if: !xAPIEnabled || scormEnabled -->
             <button class="button block primary autofocus submit" data-bind="click: finish"
                     data-translate-text="[finish course]"
                     data-translate-title="[finish course]"></button>
             <!-- /ko -->
-            <!-- ko if: xAPIEnabled || scormEnabled -->
+            <!-- ko if: xAPIEnabled && !scormEnabled -->
                 <!-- ko if: stayLoggedIn -->                    
                 <button class="button block primary autofocus submit" data-bind="click: finish" data-translate-text="[finish course]" data-translate-title="[finish course]"></button>
                 <!-- /ko -->
