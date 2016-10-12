@@ -2,39 +2,6 @@ define(['manifestReader'], function (manifestReader) {
 
     var defaultTranslationsCode = 'en';
 
-    var defaultTemplateSetting = {
-        "sectionsLayout": {
-            "key": "Tiles"
-        },
-        "treeOfContent": {
-            "enabled": true
-        },
-        "xApi": {
-            "enabled": true,
-            "selectedLrs": "default",
-            "lrs": {
-                "uri": "",
-                "credentials": {
-                    "username": "",
-                    "password": ""
-                },
-                "authenticationRequired": false
-            },
-            "allowedVerbs": []
-        },
-        "languages": {
-            "selected": "en",
-            "customTranslations": {}
-        },
-        "pdfExport": {
-            "enabled": false
-        },
-        "showConfirmationPopup": true,
-        "allowContentPagesScoring": false,
-        "allowCrossDeviceSaving": true,
-        "allowLoginViaSocialMedia": true
-    };
-
     return {
         init: init,
 
@@ -58,6 +25,11 @@ define(['manifestReader'], function (manifestReader) {
         return manifestReader.readManifest().then(function (manifestData) {
             var preset = manifestData && _.isArray(manifestData.presets) ? manifestData.presets[0] : null;
             var defaultThemeSettings = preset != null ? preset.settings : {};
+            var defaultTemplateSettings = manifestData && manifestData.defaultTemplateSettings ? manifestData.defaultTemplateSettings : null;
+
+            if(_.isNullOrUndefined(defaultTemplateSettings)){
+                throw 'Manifest don\'t have defaultTemplateSettings';
+            }
 
 
             // fix for fonts and colors:
@@ -72,7 +44,7 @@ define(['manifestReader'], function (manifestReader) {
             // end fix
 
             var designSettings = _.defaults(themeSettings, defaultThemeSettings);
-            var templateSettings = _.defaults(settings, defaultTemplateSetting);
+            var templateSettings = _.defaults(settings, defaultTemplateSettings);
 
             var fullSettings = deepExtend(templateSettings, designSettings);
 

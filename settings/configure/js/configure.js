@@ -57,25 +57,36 @@
             var manifest = api.getManifest(),
                 settings = api.getSettings();
 
-            viewModel.pdfExport = new app.PdfExport(settings.pdfExport);
-            viewModel.trackingData = new app.TrackingDataModel(settings.xApi);
-            viewModel.masteryScore = new app.MasteryScore(settings.masteryScore);
+            var defaultTemplateSettings = manifest && manifest.defaultTemplateSettings ? manifest.defaultTemplateSettings : {};
+          
+            viewModel.pdfExport = new app.PdfExport(settings.pdfExport || defaultTemplateSettings.pdfExport);           
+            viewModel.masteryScore = new app.MasteryScore(settings.masteryScore || defaultTemplateSettings.masteryScore);      
+            viewModel.trackingData = new app.TrackingDataModel(settings.xApi || defaultTemplateSettings.xApi);
+
             viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
             
             if (settings.hasOwnProperty('showConfirmationPopup')) {            
                 viewModel.showConfirmationPopup(settings.showConfirmationPopup);
+            } else if(defaultTemplateSettings.hasOwnProperty('showConfirmationPopup')){                
+                viewModel.showConfirmationPopup(defaultTemplateSettings.showConfirmationPopup);
             }
 
             if (settings.hasOwnProperty('allowContentPagesScoring')) {
                 viewModel.allowContentPagesScoring(settings.allowContentPagesScoring);
+            } else if (defaultTemplateSettings.hasOwnProperty('allowContentPagesScoring')) {
+                viewModel.allowContentPagesScoring(defaultTemplateSettings.allowContentPagesScoring);
             }
 
             if (settings.hasOwnProperty('allowCrossDeviceSaving')){
                 viewModel.allowCrossDeviceSaving(settings.allowCrossDeviceSaving);
+            } else if (defaultTemplateSettings.hasOwnProperty('allowCrossDeviceSaving')){
+                viewModel.allowCrossDeviceSaving(defaultTemplateSettings.allowCrossDeviceSaving);
             }
             
             if (settings.hasOwnProperty('allowLoginViaSocialMedia')) {
                 viewModel.allowSocialLogin(settings.allowLoginViaSocialMedia);
+            } else if (defaultTemplateSettings.hasOwnProperty('allowLoginViaSocialMedia')) {
+                viewModel.allowSocialLogin(defaultTemplateSettings.allowLoginViaSocialMedia);
             }
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
