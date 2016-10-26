@@ -292,6 +292,11 @@ ul {
 
     &:not(:last-child){
         margin-bottom: 50px;
+    }    
+
+    &>ol,
+    &>ul {
+        margin-bottom: 30px;
     }
 
     &:after {
@@ -481,10 +486,9 @@ ul {
 
             &:before {
                 content: '';
-                position: absolute;
                 display: inline-block;
-                margin-left: -22px;
-                margin-top: 6px;
+                margin: 0 18px 0 -23px;
+                vertical-align: middle;
                 width: 5px;
                 height: 5px;
                 border-radius: 50%;
@@ -522,7 +526,6 @@ ul {
             .margin-bottom;
 
             &:before {
-                position: absolute;
                 display: inline-block;
                 content: counter(ol-counter) '.';
                 counter-increment: ol-counter;
@@ -531,7 +534,6 @@ ul {
                 text-align: right;
                 padding-right: 12px;
                 box-sizing: border-box;
-                line-height: 46px;
             }
 
             h1 {
@@ -2815,26 +2817,27 @@ form {
 .fill-in-the-blank {
     .blankInput {
         transition: background .2s, border .2s;
-        padding: 5px 10px 5px 40px;
+        padding: 0 10px 0 40px;
         width: 200px;
         border-radius: 7px;
         border: 0;
-        margin: 5px 5px 0;
+        margin: 0 5px;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzUzMEM1QTk5OTA5MTFFNTgyNTY5QjVDNEMyMTgwMDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzUzMEM1QUE5OTA5MTFFNTgyNTY5QjVDNEMyMTgwMDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3NTMwQzVBNzk5MDkxMUU1ODI1NjlCNUM0QzIxODAwOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo3NTMwQzVBODk5MDkxMUU1ODI1NjlCNUM0QzIxODAwOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pt6DtnIAAAFqSURBVHjanNNPKARhGMfxxR5QskQ52QNubuLAunCWuJDkIg5SDpJy8DcXF0e17sxhlVwclBQX4oxkc8GBQhttU7vr++g3NW271nrqM/PO2/u8877vPFOyHN0NFBEzcLHldSxNDP/cS3MMrkEjyrL6m7GA41xvCPralriOKXygHue4QRV6MY3bQhPNI4Iw3lCHdrQgiTk85tuzf6JZdGoSi1ccSsGwiQZgJ1aLtUCRsbLtpLg5NtEYBjEU+F/YB9uzyxcqcYRWrS6qQfvoQZ/aFpsY11jLqbA5vDOy5V2hX+0XHf41ulCutvV9qhTCykn568jVKjr0bLUyiR3VVIPa1nehMRHluP6vZnVyj24NsOU34V11VY1ThHQ/w6JyQv6JEkp80ue3bbTpLKwMntW2vg084E45Cf/W0oir8EZ1sJeI4URbjanvACMaG+dfS2cXpBereutvkcx6zgR1Dk6eH/gvBZmx7X8LMABMr1rGk8vH2QAAAABJRU5ErkJggg==');
         background-repeat: no-repeat;
-        background-position: 7px;
+        background-position: 7px 6px;
         border-bottom: 2px solid #abbbc6;
         background-color: transparent;
-        outline: none;
+        outline: 0;
         max-width: 100%;
         box-sizing: border-box;
-        line-height: 1.5;
+        height: 30px;
+        vertical-align: middle;
 
         &:hover,
         &:focus {
             border-color: #49b8e7;
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDUyREUwMUE5OTBBMTFFNUEwMzhBQTBDRjM4ODc5NzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDUyREUwMUI5OTBBMTFFNUEwMzhBQTBDRjM4ODc5NzEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowNTJERTAxODk5MEExMUU1QTAzOEFBMENGMzg4Nzk3MSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNTJERTAxOTk5MEExMUU1QTAzOEFBMENGMzg4Nzk3MSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkIK+uAAAAFlSURBVHjanNPNK0RhFMfxi1mgZIialVlgZycWjA0LURIbFrJRFlIWkpeFBSnZWCp/gGajrLykbNhQ1khkwygKTTTdGuN79Lt1TTOuceoz95mn55z73PucW9Szn3AKiCm42PAmdrsj39fiHIurUIeSrPkGLOAo1x1CvrElrmACb6jFKS5RgS5M4iqo0CxiiOIFNWhBI1KYwX2+Z/YXmkabilg8Y08CwwoNYBjVWHYKjN6DxzSXuBUaxSCGnP+FHdi2/XygHIdo0u42tWgHnejT2GIdY1prOWVWw3tHtr1z9Gv8pJd/gXaUamxz72qFqHLS/j5ytYtW/bdeGceWeiqisc2daU1MOa7/1KxPbtChBbb9eryqrypxjLCuJ1hUTthfKKnEBx2/PUaz3oW1QUJjm1vDHa6Vk/QX+sStxiOYCzipVcxbjn1rtMCPhvRiSXf9LVJZ/zMhvYd4ng/4Lw2ZsVP+EmAAduNVOjaH3/4AAAAASUVORK5CYII=');
-            background-position: 7px;
+            background-position: 7px 6px;
         }
     }
 
@@ -2842,7 +2845,7 @@ form {
         max-width: 300px;
         min-width: 170px;
         cursor: pointer;
-        padding: 5px 10px 3px 6px;
+        padding: 0px 10px 0px 6px;
         border-bottom: 2px solid #abbbc6;
         display: inline-block;
         border-bottom-left-radius: 6px;
@@ -2850,11 +2853,10 @@ form {
         min-width: 200px;
         margin-left: 5px;
         margin-right: 10px;
-        margin-top: -1px;
         position: relative;
         letter-spacing: .2px;
-        line-height: 1.5;
-        vertical-align: middle;
+        vertical-align: text-top;
+        height: 30px;
 
         &:after {
             height: 22px;
@@ -2893,9 +2895,10 @@ form {
             padding-right: 15px;
             white-space: nowrap;
             overflow: hidden;
-            display: block;                                                
+            display: inline-block;                                                
             max-width: 185px;
             font-size: 18px;
+            vertical-align: text-bottom;
 
             &.default {
                 opacity: 0.7;
@@ -2906,9 +2909,11 @@ form {
     .blankSelect {
         transition: background .2s, border .2s;
         display: block;
-        height: 0;
+        height: 15px;
+        margin-top: -15px;
         border: none;
         visibility: hidden;
+        z-index: -1;
     }
 }
 
