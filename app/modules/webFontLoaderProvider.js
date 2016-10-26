@@ -1,4 +1,4 @@
-﻿define(['WebFont', 'manifestReader'], function(fontLoader, manifestReader) {
+﻿define(['WebFont', 'manifestReader', 'settingsProvider'], function(fontLoader, manifestReader, settingsProvider) {
 
 
     return {
@@ -6,65 +6,106 @@
     }
 
     function init(fonts) {
-        var defer = Q.defer();
+        var def = Q.defer();
+        var fontFamilies = fonts;
 
         manifestReader.readManifest().then(function(manifest) {
-            var familiesToLoad = _.chain(fonts)
-                .map(function(font) {
+            return settingsProvider.getPublishSettings().then(function(publishSettings){          
+
+                var customFonts = manifest.fonts.map(function(font){
                     return font.fontFamily;
-                })
-                .uniq()
-                .without('Arial', 'Times new roman', 'Verdana') //filter font families that are available in all supported browsers
-                .value();
+                });
 
-            if (!familiesToLoad || !familiesToLoad.length) {
-                familiesToLoad = ['Roboto Slab'];
-            }
+                var familiesToLoad = _.chain(fontFamilies)
+                    .map(function(font) {
+                        return { "fontFamily": font.fontFamily, "variants": ["300","400"], "place": font.place };
+                    })
+                    .uniq(function(font){
+                        return font.fontFamily;
+                    })
+                    .filter(function(font){
+                        return font.place !== 'none' && !_.contains(customFonts, font.fontFamily);
+                    })
+                    .value();
 
-            familiesToLoad = familiesToLoad.map(function(font) {
-                return { "fontFamily": font, "variants": ["300","400"] };
+                if (!familiesToLoad && !familiesToLoad.length) {
+                    familiesToLoad = [{ "fontFamily": 'Roboto Slab', "variants": ["300","400"], "place": 'google' }];
+                }
+
+                
+                var defer = Q.defer();
+
+                var defers = [defer];
+
+                var fontLoaderConfig = {
+                    active: function() {
+                        defer.resolve();
+                    },
+                    inactive: function() {
+                        //added to make possible ofline template loading
+                        defer.resolve();
+                    }
+                };
+
+                if (familiesToLoad.length) {
+                    _.each(familiesToLoad, function(font){
+                        if(fontLoaderConfig.hasOwnProperty(font.place)) {
+                            fontLoaderConfig[font.place].families.push(mapFontName(font));
+                        } else if(font.place === 'custom') {
+                            fontLoaderConfig.custom = {
+                                families: [mapFontName(font)],
+                                urls: [publishSettings.customFontPlace]
+                            };
+                        } else {
+                            fontLoaderConfig[font.place] = {
+                                families: [mapFontName(font)]
+                            };
+                        }
+                    });
+                }
+
+                fontLoader.load(fontLoaderConfig);
+
+                if (manifest.fonts && manifest.fonts.length) {
+                    var fonts = _.groupBy(manifest.fonts, function(f){
+                        return f.url;
+                    });
+
+                    var defer = Q.defer();
+                    defers.push(defer);
+
+                    var fontLoaderConfig = {
+                            active: function() {
+                                defer.resolve();
+                            },
+                            custom: {
+                                families: [],
+                                urls: []
+                            },
+                            inactive: function() {
+                                //added to make possible ofline template loading
+                                defer.resolve();
+                            }
+                        };
+
+                    _.each(_.keys(fonts), function(url){
+                        fontLoaderConfig.custom.families = fontLoaderConfig.custom.families.concat(fonts[url].map(mapFontName)); 
+                        fontLoaderConfig.custom.urls.push(url);                  
+                    });
+                    
+                    fontLoader.load(fontLoaderConfig);
+                }
+
+                Q.all(defers).then(function(){
+                    def.resolve();
+                });
             });
-
-            _.each(_.filter(manifest.fonts, function(font) { return !font.local; }), function(font) {
-                var fontToLoad = _.find(familiesToLoad, function(fontToLoad) { return font.fontFamily === fontToLoad.fontFamily });
-                if (fontToLoad) {
-                    fontToLoad.variants = _.union(fontToLoad.variants, font.variants);
-                } else {
-                    familiesToLoad.push({ "fontFamily": font.fontFamily, "variants": font.variants });
-                }
-            });
-
-            var fontLoaderConfig = {
-                active: function() {
-                    defer.resolve();
-                },
-                inactive: function() {
-                    //added to make possible ofline template loading
-                    defer.resolve();
-                }
-            };
-
-            if (familiesToLoad.length) {
-                fontLoaderConfig.google = {
-                    families: familiesToLoad.map(mapFontName)
-                }
-            }
-
-            var customFonts = _.filter(manifest.fonts, function(font) { return font.local; });
-
-            if (customFonts && customFonts.length) {
-                fontLoaderConfig.custom = {
-                    families: customFonts.map(mapFontName),
-                    urls: ['./css/fonts.css']
-                }
-            }
-
-            fontLoader.load(fontLoaderConfig);
         });
-        return defer.promise;
+
+        return def.promise;
     }
 
     function mapFontName(fontToLoad) {
-        return fontToLoad.fontFamily + ':' + fontToLoad.variants.join(',');
+        return fontToLoad.fontFamily + (fontToLoad.variants && fontToLoad.variants.length ? ':' + fontToLoad.variants.join(',') : '');
     }
 });

@@ -16,8 +16,8 @@ define('perfectScrollbar', function () { return Ps; });
 
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/router', 'modulesInitializer', 'bootstrapper', 'templateSettings',
-    'settingsReader', 'translation', 'modules/webFontLoaderProvider', 'limitAccess/accessLimiter'],
-    function (app, viewLocator, system, router, modulesInitializer, bootstrapper, templateSettings, settingsReader, translation, webFontLoader, accessLimiter) {
+    'settingsProvider', 'translation', 'modules/webFontLoaderProvider', 'limitAccess/accessLimiter'],
+    function (app, viewLocator, system, router, modulesInitializer, bootstrapper, templateSettings, settingsProvider, translation, webFontLoader, accessLimiter) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -48,7 +48,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
             });
 
             function loadIncludedModules() {
-                return settingsReader.readPublishSettings().then(function (settings) {
+                return settingsProvider.getPublishSettings().then(function (settings) {
                     var hasLmsModule = false;
                     _.each(settings.modules, function (module) {
                         modules['../includedModules/' + module.name] = true;
@@ -62,8 +62,8 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
             }
 
             function initTemplateSettings() {
-                return settingsReader.readTemplateSettings().then(function(settings) {
-                    return settingsReader.readThemeSettings().then(function (themeSettings) {
+                return settingsProvider.getTemplateSettings().then(function(settings) {
+                    return settingsProvider.getThemeSettings().then(function (themeSettings) {
                         return templateSettings.init(settings, themeSettings).then(function () {
                             if (isXapiDisabled()) {
                                 templateSettings.xApi.enabled = false;
