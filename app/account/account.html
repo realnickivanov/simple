@@ -1,0 +1,27 @@
+<section id="account" class="account unselectable" data-bind="autofocus">
+    <!-- ko compose: header --><!-- /ko -->
+    <article class="content">
+        <h2 data-translate-text="[login header]"></h2>
+        <!-- ko if: socialNetworks -->
+        <!-- ko compose: socialNetworks --><!-- /ko -->
+        <div class="or-separator">
+            <span class="or-separator-text" data-translate-text="[or]"></span>
+        </div>
+        <!-- /ko -->
+        <div class="input-container" data-bind="css: { error: !email.isValid() && email.isModified() }">
+            <input class="input-field autofocus" type="email" ondrop="return false;"
+                data-bind="value: email, valueUpdate: 'afterkeydown',  css: { empty: !email().length }, event: { blur: email.trim }, hasFocus: email.hasFocus, submitOnEnter: submit" />
+            <label class="input-label" data-translate-text="[login email field]"></label>
+            <span class="input-icon icon-mail"></span>
+            <p class="error-message" data-translate-text="[tracking and tracing email is not valid]"></p>
+        </div>
+        <button class="button primary small important autofocus" data-bind="click: submit">
+            <span data-translate-text="[OK, email are correct]"></span>
+        </button>
+        <!-- ko if: skipAllowed -->
+        <button class="button link" data-bind="click: skip" data-translate-text="[login skip]"></button>
+        <!-- /ko -->
+        <hr />
+        <p class="account-hint" data-translate-text="[login explanation]"></p>
+    </article>
+</section>

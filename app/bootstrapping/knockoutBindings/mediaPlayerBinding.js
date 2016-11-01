@@ -1,4 +1,4 @@
-﻿define(['lessProcessor'], function (lessProcessor) {
+﻿define(['modules/lessProcessor'], function (lessProcessor) {
     ko.bindingHandlers.mediaPlayer = {
         init: function (element, valueAccessor) {
 

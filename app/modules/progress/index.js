@@ -1,191 +1,71 @@
-define([
-    'q', 'underscore', 'durandal/app', 'userContext', 'context', 'translation',
-    './providers/progressProviders/localStorage', './providers/progressProviders/progressStorage',
-    './providers/authProvider', './utils/urlProvider', './commands/sendSecretLink'
-], function(Q, _, app, userContext, context, translation, LocalStorageProvider, ProgressStorageProvider,
-    authProvider, urlProvider, sendSecretLinkCommand) {
-    'use strict';
+define(['q', 'underscore', 'context', 'userContext', 'templateSettings', './localStorage/index', './progressStorage/index',
+        './progressStorage/auth'
+    ],
+    function (Q, _, context, userContext, templateSettings, LocalStorageProvider, ProgressStorageProvider, auth) {
+        'use strict';
+        var _psProvider = null,
+            _lsProvider = null;
 
-    var _private = {
-        userEmail: '',
-        progressProviders: {
-            localStorage: null,
-            progressStorage: null,
-            create: function(crossDeviceSavingEnabled) {
-                this.localStorage = new LocalStorageProvider(context.course.id, context.course.templateId);
-                crossDeviceSavingEnabled && (this.progressStorage = new ProgressStorageProvider(context.course.id, context.course.templateId));
-            }
-        },
-        executeFuncInProviders: executeFuncInProviders,
-        progressProvider: {
-            getProgress: getProgress,
-            saveProgress: saveProgress,
-            saveResults: saveResults,
-            removeProgress: removeProgress
-        }
-    };
+        return {
+            initialize: initialize,
+            initProgressStorage: initProgressStorage,
+            clearLocalStorage: clearLocalStorage
+        };
 
-    function ProgressContext() {
-        var that = this;
-        this.isOnline = true;
-        this.isInitialized = false;
-        this.progressProvider = _private.progressProvider;
-        this.crossDeviceEnabled = true;
-
-        this.initialize = function(crossDeviceSavingEnabled) {
+        function initialize() {
             var defer = Q.defer();
 
-            this.isInitialized = true;
-            this.crossDeviceEnabled = crossDeviceSavingEnabled;
-            _private.progressProviders.create(this.crossDeviceEnabled);
+            _psProvider = new ProgressStorageProvider(context.course.id, context.course.templateId);
+            _lsProvider = new LocalStorageProvider(context.course.id, context.course.templateId);
 
-            if (crossDeviceSavingEnabled) {
-                var token = authProvider.getValueFromUrl('token');
+            if(userContext.user.email){
+                auth.signout();
+            }
+
+            if (templateSettings.allowCrossDeviceSaving) {
+                var token = auth.getValueFromUrl('token');
+
                 if (!_.isNull(token)) {
-                    authProvider.setToken(token);
-                    this.syncProviders().then(resolvePromise).fail(defer.reject);
-                } else if (authProvider.authenticated) {
-                    this.syncProviders().then(resolvePromise).fail(defer.reject);
+                    auth.setToken(token);
+                }
+
+                if (auth.authenticated) {
+                    initProgressStorage(resolve);
                 } else {
-                    defer.resolve(null);
+                    resolve(_lsProvider);
                 }
             } else {
-                defer.resolve(null);
+                resolve(_lsProvider);
             }
 
             return defer.promise;
 
-            function resolvePromise(user) {
-                defer.resolve(user);
+            function resolve(provider) {
+                defer.resolve(provider);
             }
-        };
+        }
 
-        this.syncProviders = function() {
-            var that = this;
-            return _private.progressProviders.progressStorage.getProgress()
-                .then(function (response) {
-                    _private.progressProviders.localStorage.removeProgress();
-                    if(_.isNull(response.progress) || _.isEmpty(response.progress)){
-                        if (response.email){
-                            authenticate(response.email, response.name, true);
-                            _private.userEmail = response.email;
-                            return {
-                                name: response.name,
-                                email: response.email
-                            };
-                        }
-                        return null;
-                    } else {
-                        var progress = JSON.parse(response.progress);
-                        progress.user = {
-                            username: response.name,
-                            email: response.email
-                        };
-                        authenticate(response.email, response.name);
-                        _private.progressProviders.localStorage.saveProgress(progress);
-                        _private.userEmail = response.email;
-                        return {
-                            name: response.name,
-                            email: response.email
-                        };
-                    }
-                })
-                .fail(function(reason) {
-                    that.isOnline = false;
-                    that.logOut();
-                    delete _private.progressProviders.progressStorage;
-                    if (reason.status == 401) {
-                        return null;
-                    }
-                });
+        function initProgressStorage(callback) {
+            auth.identify().then(function (user) {
+                userContext.user.email = user.email;
+                userContext.user.username = user.name;
+                userContext.user.keepMeLoggedIn = !auth.shortTermAccess;
 
-                function setSecretLink(email, title, sendMail){
-                    sendMail = sendMail || false;
-                    var shortLink = authProvider.getValueFromUrl('shortLink');
-                    if(shortLink){
-                        authProvider.setLink(shortLink);
-                    } else {
-                        sendSecretLinkCommand.execute(email, title, sendMail, true).then(function(response){
-                            authProvider.setLink(response.shortLink);
-                        });
-                    }
-                }
+                clearLocalStorageByEmail(user.email);
+                return _psProvider.getProgressFromServer().then(callback.bind(null, _psProvider));
+            }).fail(function(){
+                callback(_lsProvider);
+            });
+        }
 
-                function authenticate(email, name, sendMail) {
-                    app.trigger('user:authenticated', {
-                        username: name,
-                        email: email
-                    });
-                    var password = authProvider.getValueFromUrl('password');
-                    userContext.user.password = password;
-                    userContext.user.email = email;
-                    userContext.user.username = name;
-                    setSecretLink(email, _private.courseTitle, sendMail);
-                }
-        };
+        function clearLocalStorage() {
+            _lsProvider.removeProgress();
+        }
 
-        this.deactivateProgressStorage = function(){
-            this.isInitialized = false;
-            delete _private.progressProviders.progressStorage;
-        };
-
-        this.isUserAuthenticated = function() {
-            if(that.crossDeviceEnabled){
-                return authProvider.authenticated;
+        function clearLocalStorageByEmail(email) {
+            var progress = _lsProvider.getProgress();
+            if (progress && progress.user && email == progress.user.email) {
+                _lsProvider.removeProgress();
             }
-            var progress = _private.progressProvider.getProgress();
-            return !_.isNull(progress) && !_.isNull(progress.user);
-        };
-
-        this.sendSecretLink = function(email, title, sendMail, returnLink) {
-            return sendSecretLinkCommand.execute(email, title, sendMail, returnLink);
-        };
-
-        this.register = function(email, username, courseTitle, shortTermAccess) {
-            return authProvider.register(email, username, courseTitle, shortTermAccess);
-        };
-
-        this.login = function(email, password, shortTermAccess) {
-            return authProvider.login(email, password, shortTermAccess);
-        };
-
-        this.logOut = function() {
-            if (_private.progressProviders.localStorage) {
-                _private.progressProviders.localStorage.removeProgress();
-            }
-            authProvider.logOut();
-        };
-
-        this.progressStorageUrl = urlProvider.progressStorageUrl;
-        this.authLink = function() {
-            return authProvider.authLink()
-        };
-    }
-
-    return new ProgressContext();
-
-    function executeFuncInProviders(name) {
-        var args = Array.prototype.slice.call(arguments, 1),
-            promises = [];
-        _.each(_private.progressProviders, function(provider) {
-            !_.isNull(provider) && _.isFunction(provider[name]) && promises.push(provider[name].apply(provider, args));
-        });
-        return Q.all(promises);
-    }
-
-    function getProgress() {
-        return _private.progressProviders.localStorage ? _private.progressProviders.localStorage.getProgress() : {};
-    }
-
-    function saveProgress(progress) {
-        return _private.executeFuncInProviders('saveProgress', progress, _private.userEmail);
-    }
-
-    function saveResults() {
-        return _private.executeFuncInProviders('saveResults', context.course.score, context.course.getStatus, translation.getTextByKey('[not enough memory to save progress]'));
-    }
-
-    function removeProgress() {
-        return _private.executeFuncInProviders('removeProgress', _private.userEmail);
-    }
-});
+        }
+    });

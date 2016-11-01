@@ -6,7 +6,7 @@ define(function () {
                 callback = valueAccessor();
             
             $element.keydown(function (e) {
-                if (e.which == 13 || e.which == 32) {
+                if (e.which == 13) {
                     e.preventDefault();
                     e.stopPropagation();
 

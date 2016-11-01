@@ -1,9 +1,9 @@
-﻿
-define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion',
-    'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion',
-    'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion',
-    'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot',
-    'models/questions/openQuestion', 'models/questions/scenarioQuestion', 'models/questions/rankingTextQuestion'],
+﻿define(['guard', 'constants', 'models/learningContent', 'models/questions/multipleSelectQuestion',
+        'models/questions/fillInTheBlankQuestion', 'models/questions/dragAndDropQuestion',
+        'models/questions/singleSelectImageQuestion', 'models/questions/textMatchingQuestion',
+        'models/questions/informationContent', 'models/questions/statementQuestion', 'models/questions/hotspot',
+        'models/questions/openQuestion', 'models/questions/scenarioQuestion', 'models/questions/rankingTextQuestion'
+    ],
     function (guard, constants, LearningContent, MultipleSelectQuestion, FillInTheBlankQuestion, DragAndDropQuestion,
         SingleSelectImageQuestion, TextMatchingQuestion, InformationContent,
         StatementQuestion, Hotspot, OpenQuestion, ScenarioQuestion, RankingText) {
@@ -12,7 +12,8 @@ define(['guard', 'constants', 'models/learningContent', 'models/questions/multip
         var index = 0;
 
         return {
-            createQuestion: createQuestion
+            createQuestion: createQuestion,
+            clearIndex: clearIndex
         };
 
         function createQuestion(sectionId, question) {
@@ -26,7 +27,9 @@ define(['guard', 'constants', 'models/learningContent', 'models/questions/multip
                 title: question.title,
                 type: question.type,
                 learningContents: _.map(question.learningContents, function (learningContent) {
-                    return new LearningContent({ id: learningContent.id });
+                    return new LearningContent({
+                        id: learningContent.id
+                    });
                 }),
                 score: 0,
                 voiceOver: question.voiceOver,
@@ -35,7 +38,7 @@ define(['guard', 'constants', 'models/learningContent', 'models/questions/multip
                 hasIncorrectFeedback: question.hasIncorrectFeedback
             };
 
-            if(question.hasOwnProperty('isSurvey')){
+            if (question.hasOwnProperty('isSurvey')) {
                 questionData.isSurvey = question.isSurvey;
             }
 
@@ -82,6 +85,10 @@ define(['guard', 'constants', 'models/learningContent', 'models/questions/multip
                 default:
                     return null;
             }
+        }
+
+        function clearIndex() {
+            index = 0;
         }
 
     });

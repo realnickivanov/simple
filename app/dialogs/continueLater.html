@@ -1,7 +1,7 @@
 <section class="popup-layout" data-bind="scrollbar: { checkDOMChanges: true }, keyDown: { handlers: { 27: close } }">
     <div class="popup">
         <span class="close-btn" data-bind="click: close"></span>
-        <!-- ko ifnot: progressStorageActivated && showProgressStorageInfo -->
+        <!-- ko ifnot: progressStorageActivated -->
         <div class="popup-wrapper">
             <article>
                 <header>
@@ -32,11 +32,10 @@
             </article>
         </div>
         <!-- /ko -->
-        <!-- ko if: progressStorageActivated && showProgressStorageInfo -->
-        <!-- ko if: isOnline -->
+        <!-- ko if: progressStorageActivated -->
         <div class="popup-wrapper">
             <article class="without-note">
-                <div class="icon-container pt50">
+                <div class="icon-container pt70">
                     <span class="icon-wrapper">
                         <span class="icon-all_devices"></span>
                     </span>
@@ -46,101 +45,41 @@
                         <span data-translate-text="[continue anytime]"></span>
                     </h3>
                     <p>
-                        <span data-translate-text="[using]"></span>
+                        <span>
+                            <span data-translate-text="[get secret link to]"></span>&nbsp;<span class="bold" data-bind="text: email"></span><span data-translate-text="[you can sign in to the course]"></span>
+                        </span>
                     </p>
                 </header>
                 <section>
-                    <aside>
-                        <span class="icon-envelope"></span>
-                        <span data-translate-text="[message about mailbox]"></span>
-                    </aside>
-                    <div tabindex="0" class="popup-switch-options" data-bind="click: toggleOptionsVisibility, submitOnEnter">
-                        <i class="tree-of-content-section-title-icon material-icons" data-bind="text: optionsShowed() ? '&#xE313;' : '&#xE315;'"></i>
-                        <span data-translate-text="[show other options]" data-bind="visible: !optionsShowed()"></span>
-                        <span data-translate-text="[hide other options]" data-bind="visible: optionsShowed"></span>
+                    <div class="popup-button-wrapper">
+                        <!-- ko ifnot: isSecretLinkSent --> 
+                        <button class="button primary small autofocus" data-bind="click: sendSecretLink">
+                            <span data-translate-text="[send me the link]"></span>
+                        </button>
+                        <!-- /ko -->
+                        <!-- ko if: isSecretLinkSent -->
+                        <div class="secret-link-confirm-container show">
+                            <span class="secret-link-confirm-wrapper">
+                                <span class="icon-envelope"></span>
+                                <span class="secret-link-confirm-text" data-translate-text="[the letter has been successfully sent]" data-translate-title="[the letter has been successfully sent]"></span>
+                            </span>
+                        </div>
+                        <!-- /ko -->
                     </div>
-                    <div data-bind="heightAnimation: optionsShowed">
-                        <div class="popup-table">
-                            <div class="popup-row">
-                                <div class="popup-cell">
-                                    <p data-translate-text="[secret link]"></p>
-                                    <div class="input-wrapper">
-                                        <input id="secretLink" type="text" readonly data-bind="selectText: {}, value: authLink" />
-                                        <span class="icon-link"></span>
-                                    </div>
-                                </div>
-                                <!-- ko ifnot: copyButtonHidden -->
-                                <div class="popup-cell">
-                                    <button class="button transparent small" data-bind="copyToClipboard: { targets: ['secretLink'], copied: secretLinkCopied }">
-                                        <!-- ko ifnot: secretLinkCopied -->
-                                        <span data-translate-text="[copy]" data-translate-title="[copy]"></span>
-                                        <!-- /ko -->
-                                        <!-- ko if: secretLinkCopied -->
-                                        <span data-translate-text="[copied]" data-translate-title="[copied]"></span>
-                                        <!-- /ko -->
-                                    </button>
-                                </div>
-                                <!-- /ko -->
-                            </div>
-                        </div>
-                        <div class="popup-table">
-                            <div class="popup-row">
-                                <div class="popup-cell">
-                                    <p data-translate-text="[credentials]"></p>
-                                    <div class="input-wrapper">
-                                        <input id="email" type="text" readonly data-bind="selectText: {}, value: email" />
-                                        <span class="icon-email"></span>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input id="password" type="text" readonly data-bind="selectText: {}, value: password ? password : '********'" />
-                                        <span class="icon-lock"></span>
-                                    </div>
-                                </div>
-                                <!-- ko ifnot: copyButtonHidden -->
-                                <div class="popup-cell">
-                                    <button class="button transparent small" data-bind="copyToClipboard: { targets: ['email', 'password'], texts: ['Login', 'Password'], copied: credentialsCopied }">
-                                        <!-- ko ifnot: credentialsCopied -->
-                                        <span data-translate-text="[copy]" data-translate-title="[copy]"></span>
-                                        <!-- /ko -->
-                                        <!-- ko if: credentialsCopied -->
-                                        <span data-translate-text="[copied]" data-translate-title="[copied]"></span>
-                                        <!-- /ko -->
-                                    </button>
-                                </div>
-                                <!-- /ko -->
-                            </div>
-                            <div class="popup-row">
-                                <div class="popup-cell">
-                                    <p data-translate-text="[social accounts]"></p>
-                                    <div class="icon-container">
-                                        <span class="icon-facebook2"></span>
-                                    </div>
-                                    <div class="icon-container">
-                                        <span class="icon-google2"></span>
-                                    </div>
-                                    <div class="icon-container">
-                                        <span class="icon-linkedin2"></span>
-                                    </div>
-                                </div>
-                                <div class="popup-cell"></div>
-                            </div>
-                        </div>
+                    <div class="popup-button-wrapper">
+                        <button class="button small" data-bind="click: exit, css: { primary: isSecretLinkSent, default: !isSecretLinkSent() }">
+                            <span data-translate-text="[close course]"></span>
+                        </button>
+                    </div>
+                    <div class="popup-button-wrapper">
+                        <button class="button check small" data-bind="click: toggleKeepMeLoggedIn, css: { active: keepMeLoggedIn }">
+                            <span data-translate-text="[remember me on this device]"></span>
+                        </button>
                     </div>
                 </section>
-                <footer>
-                    <span class="button-wrapper">
-                        <button class="button check small" type="submit" data-bind="click: toggleStayLoggedIn, css: { active: stayLoggedIn }">
-                            <span data-translate-text="[remember me on this device]" data-translate-title="[remember me on this device]"></span>
-                        </button>
-                    </span>
-                    <span class="button-wrapper">
-                        <button class="button block primary small" data-bind="click: exit" data-translate-text="[OK, close course]" data-translate-title="[OK, close course]"></button>
-                    </span>
-                </footer>
             </article>
         </div>
-        <!-- /ko -->
-        <!-- ko ifnot: isOnline -->
+        <!-- ko ifnot: progressStorageActivated -->
         <div class="popup-wrapper">
             <article class="without-note">
                 <header>

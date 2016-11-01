@@ -1,0 +1,50 @@
+<section id="register" class="account unselectable" data-bind="autofocus">
+    <!-- ko compose: header --><!-- /ko -->
+    <article class="content second-step">
+        <div class="back-button-container" data-bind="click: back">
+            <span class="back-button-arrow icon-left_arrow"></span><span class="back-button-text" data-translate-text="[back]"></span>
+        </div>
+        <!-- ko if: crossDeviceEnabled -->
+        <h2 data-translate-text="[set your name and password]"></h2>
+        <!-- /ko -->
+        <!-- ko ifnot: crossDeviceEnabled -->
+        <h2 data-translate-text="[set your name]"></h2>
+        <!-- /ko -->
+        <div class="input-container" data-bind="css: { error: !name.isValid() && name.isModified() }">
+            <input class="input-field" type="text" ondrop="return false;"
+                data-bind="value: name, valueUpdate: 'afterkeydown',  css: { empty: !name().length, autofocus: !name().length }, event: { blur: name.trim }, hasFocus: name.hasFocus, submitOnEnter: submit" />
+            <label class="input-label" data-translate-text="[login name field]"></label>
+            <span class="input-icon icon-name"></span>
+            <p class="error-message" data-translate-text="[tracking and tracing name is not valid]"></p>
+        </div>
+        <!-- ko if: crossDeviceEnabled -->
+        <div class="input-container" data-bind="css: { error: !password.isValid() && password.isModified() }">
+            <input class="input-field" type="password" ondrop="return false;"
+                data-bind="value: password, valueUpdate: 'afterkeydown',  css: { empty: !password().length, autofocus: name().length }, event: { keyup: password.onKeyUp, blur: password.trim }, hasFocus: password.hasFocus, attr: { type: isPasswordVisible() ? 'text' : 'password'}, submitOnEnter: submit" />
+            <label class="input-label" data-translate-text="[password]"></label>
+            <span class="input-icon icon-password2"></span>
+            <span class="input-icon align-right pointer password" data-bind="click: togglePasswordVisibility, css: { 'icon-eye_lock': isPasswordVisible(), 'icon-eye': !isPasswordVisible() }"></span>
+            <div class="validation-container">
+                <span class="validator" data-bind="css: { correct: password.moreThanSevenSymbols }">
+                    <span class="validator-icon">
+                        <span class="icon-check_mark"></span>
+                    </span>
+                    <span class="validator-text" data-translate-text="[at least 7 characters]"></span>
+                </span>
+                <span class="validator" data-bind="css: { correct: password.noSpaces }">
+                    <span class="validator-icon">
+                        <span class="icon-check_mark"></span>
+                    </span>
+                    <span class="validator-text" data-translate-text="[no spaces]"></span>
+                </span>
+            </div>
+        </div>
+        <button class="button check small" data-bind="click: toggleRememberMe, css: { active: rememberMe }">
+            <span data-translate-text="[remember me on this device]"></span>
+        </button>
+        <!-- /ko -->
+        <button class="button primary small" data-bind="click: submit">
+            <span data-translate-text="[OK, go to the course]"></span>
+        </button>
+    </article>
+</section>

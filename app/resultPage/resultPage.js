@@ -1,9 +1,9 @@
 define([
     'repositories/courseRepository', 'templateSettings', 'plugins/router', 'progressContext', 
-    'userContext', 'modules/progress/index', 'xApi/xApiInitializer', 'modulesInitializer', 
-    'windowOperations', 'constants'
+    'userContext', 'xApi/xApiInitializer', 'includedModules/modulesInitializer', 
+    'windowOperations', 'constants', 'modules/progress/progressStorage/auth'
 ], function(courseRepository, templateSettings, router, progressContext, userContext, 
-    progressProvider, xApiInitializer, modulesInitializer, windowOperations, constants) {
+    xApiInitializer, modulesInitializer, windowOperations, constants, auth) {
     "use strict";
 
     var course = courseRepository.get();
@@ -39,11 +39,11 @@ define([
     return viewModel;
 	
 	function activate() {
-        viewModel.crossDeviceEnabled = progressProvider.crossDeviceEnabled;
+        viewModel.crossDeviceEnabled = templateSettings.allowCrossDeviceSaving;
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
-        viewModel.scormEnabled = modulesInitializer.hasModule('../includedModules/lms');
+        viewModel.scormEnabled = modulesInitializer.hasModule('lms');
 
-        viewModel.stayLoggedIn(userContext.keepMeLoggedIn);
+        viewModel.stayLoggedIn(userContext.user.keepMeLoggedIn);
         viewModel.sections = _.map(course.sections, mapSection);
 	}
 
@@ -56,9 +56,9 @@ define([
             return;
         }
         viewModel.status(statuses.sendingRequests);
-        course.finish(onCourseFinishedCallback.bind(viewModel, !viewModel.stayLoggedIn() ? progressProvider.logOut : function() {}));
-
-        progressContext.remove();
+        progressContext.remove(function(){
+            course.finish(onCourseFinishedCallback.bind(viewModel, !viewModel.stayLoggedIn() ? auth.signout : function() {}));
+        });
     }
 
     function onCourseFinishedCallback(logOutCallback) {
@@ -70,7 +70,8 @@ define([
     }
 
     function toggleStayLoggedIn() {
-        viewModel.stayLoggedIn(userContext.keepMeLoggedIn = !viewModel.stayLoggedIn());
+        viewModel.stayLoggedIn(userContext.user.keepMeLoggedIn = !viewModel.stayLoggedIn());
+        auth.shortTermAccess = !userContext.user.keepMeLoggedIn;
     }
 
     function mapSection(entity){

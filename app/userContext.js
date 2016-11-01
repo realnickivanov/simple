@@ -1,4 +1,7 @@
 ﻿define(['plugins/router', 'durandal/app'], function(router, app) {
+
+    var _initialized = false;
+
     var context = {
         use: use,
         initialize: initialize,
@@ -11,11 +14,10 @@
 
     function UserContext() {
         this.account = null;
-        this.email = null;
-        this.username = null;
+        this.email = '';
+        this.username = '';
         this.password = null;
         this.keepMeLoggedIn = false;
-        this.showProgressStorageInfo = true;
     }
 
     function getCurrentUser() {
@@ -38,6 +40,7 @@
             homePage: accountHomePage,
             name: accountId
         };
+        _initialized = true;
     }
 
     function clear() {
@@ -46,18 +49,21 @@
 
     function initialize() {
         return Q.fcall(function () {
+            if(_initialized){
+                return;
+            }
+            
             app.on('user:authenticated').then(authenticated);
 
             var username = router.getQueryStringValue('name'),
-                email = router.getQueryStringValue('email'),
-                hideContinueCourseOptions = router.getQueryStringValue('hideContinueCourseOptions');
+                email = router.getQueryStringValue('email');
 
             if (username || email) {
                 context.user.email = email ? email : '';
                 context.user.username = username ? username : '';
             }
 
-            context.user.showProgressStorageInfo = hideContinueCourseOptions == null;
+            _initialized = true;
         });
     }
 

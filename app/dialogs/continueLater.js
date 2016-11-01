@@ -1,51 +1,41 @@
-define(['modules/progress/index', 'userContext', 'browserSupport'], function (progressProvider, userContext, browserSupport) {
+define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'templateSettings', 'includedModules/modulesInitializer'],
+    function (auth, context, userContext, templateSettings, modulesInitializer) {
 
-    var viewModel = {
-        activate: activate,
-        progressStorageActivated: false,
-        isOnline: false,
-        authLink: '',
-        email: '',
-        password: '',
-        stayLoggedIn: ko.observable(false),
-        toggleStayLoggedIn: toggleStayLoggedIn,
-        optionsShowed: ko.observable(false),
-        toggleOptionsVisibility: toggleOptionsVisibility,
-        secretLinkCopied: ko.observable(false),
-        credentialsCopied: ko.observable(false),
-        copyButtonHidden: browserSupport.isSafari
-    };
+        var viewModel = {
+            activate: activate,
+            progressStorageActivated: false,
+            email: '',
+            sendSecretLink: sendSecretLink,
+            isSecretLinkSent: ko.observable(false),
+            keepMeLoggedIn: ko.observable(false),
+            toggleKeepMeLoggedIn: toggleKeepMeLoggedIn
+        };
 
-    return viewModel;
-    
-    function toggleStayLoggedIn(){
-        viewModel.stayLoggedIn(!viewModel.stayLoggedIn());
-        userContext.keepMeLoggedIn = viewModel.stayLoggedIn();
-    }
-    
-    function toggleOptionsVisibility(){
-        viewModel.optionsShowed(!viewModel.optionsShowed());
-    }
+        return viewModel;
 
-    function activate(data) {
-        if (data) {
-            viewModel.close = data.close;
-            viewModel.exit = function () {
-                if (!viewModel.stayLoggedIn() && viewModel.isOnline && progressProvider.isInitialized) {
-                    progressProvider.logOut();
-                }
-                data.exit();
-            };
-            viewModel.optionsShowed(false),
-            viewModel.secretLinkCopied(false),
-            viewModel.credentialsCopied(false),
-            viewModel.stayLoggedIn(userContext.keepMeLoggedIn);
-            viewModel.progressStorageActivated = progressProvider.crossDeviceEnabled && progressProvider.isInitialized;
-            viewModel.isOnline = progressProvider.isOnline;
-            viewModel.authLink = progressProvider.authLink();
-            viewModel.email = userContext.user.email;
-            viewModel.password = userContext.user.password;
-            viewModel.showProgressStorageInfo = userContext.user.showProgressStorageInfo;
+        function sendSecretLink() {
+            auth.sendSecreLink(userContext.user.email, context.course.title).then(function () {
+                viewModel.isSecretLinkSent(true);
+            });
         }
-    }
-});
+        
+        function toggleKeepMeLoggedIn(){
+            viewModel.keepMeLoggedIn(userContext.user.keepMeLoggedIn = !viewModel.keepMeLoggedIn())
+            auth.shortTermAccess = !userContext.user.keepMeLoggedIn;
+        }
+
+        function activate(data) {
+            if (data) {
+                viewModel.close = data.close;
+                viewModel.exit = function () {
+                    if (!userContext.user.keepMeLoggedIn) {
+                        auth.signout();
+                    }
+                    data.exit();
+                };
+                viewModel.progressStorageActivated = templateSettings.allowCrossDeviceSaving && !modulesInitializer.hasModule('lms');
+                viewModel.email = userContext.user.email;
+                viewModel.keepMeLoggedIn(userContext.user.keepMeLoggedIn);
+            }
+        }
+    });

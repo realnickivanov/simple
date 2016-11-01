@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'translation', 'constants'],
-    function(app, translation, constants) {
+﻿define(['durandal/app', 'constants'],
+    function(app, constants) {
 
         "use strict";
 

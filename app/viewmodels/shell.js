@@ -1,11 +1,10 @@
 define([
     'knockout', 'underscore', 'durandal/app', 'durandal/composition', 'plugins/router',
-    'routing/routes', 'context', 'modulesInitializer', 'templateSettings',
-    'background', 'progressContext', 'constants', 'userContext', 'errorsHandler',
-    'lessProcessor', 'modules/progress/index', 'routing/guardRoute', 'xApi/xApiInitializer'
-], function(ko, _, app, composition, router, routes, context, modulesInitializer, templateSettings, background,
-    progressContext, constants, userContext, errorsHandler, lessProcessor, progressProvider, guardRoute,
-    xApiInitializer) {
+    'routing/routes', 'context', 'includedModules/modulesInitializer', 'templateSettings',
+    'progressContext', 'constants', 'userContext', 'errorsHandler',
+    'modules/progress/index', 'account/index', 'xApi/xApiInitializer'
+], function(ko, _, app, composition, router, routes, context, modulesInitializer, templateSettings,
+    progressContext, constants, userContext, errorsHandler, progressProvider, account, xApiInitializer) {
 
     'use strict';
     var viewmodel = {
@@ -20,7 +19,6 @@ define([
         isNavigatingToAnotherView: ko.observable(false),
 
         viewSettings: viewSettings,
-        compositionComplete: compositionComplete,
         activate: activate
     };
 
@@ -57,17 +55,21 @@ define([
         return context.initialize()
             .then(userContext.initialize)
             .then(initializeProgressProvider)
-            .then(modulesInitializer.init)
-            .then(lessProcessor.init.bind(lessProcessor, templateSettings.colors, templateSettings.fonts))
+            .then(initxApi)
             .then(initApp)
+            .then(account.enable)
             .then(initRouter);
 
+        function initxApi(){
+            if(templateSettings.xApi.enabled){
+                return xApiInitializer.initialize(templateSettings.xApi);
+            }
+        }
+
         function initializeProgressProvider() {
-            if (!modulesInitializer.hasModule('../includedModules/lms') && location.href.indexOf('/preview/') === -1) {
-                return progressProvider.initialize(templateSettings.allowCrossDeviceSaving).then(function(user) {
-                    progressContext.use(progressProvider.progressProvider);
-                }).fail(function () {
-                    progressContext.use(progressProvider.progressProvider);
+            if (!modulesInitializer.hasModule('lms') && location.href.indexOf('/preview/') === -1) {
+                return progressProvider.initialize().then(function(provider) {
+                    progressContext.use(provider);
                 });
             }
         }
@@ -78,36 +80,15 @@ define([
                 viewmodel.pdfExportEnabled = templateSettings.pdfExport.enabled;
                 viewmodel.title = app.title = context.course.title;
                 viewmodel.createdOn = context.course.createdOn;
-                restoreProgress();
+                progressContext.restoreProgress();
                 app.trigger(constants.events.appInitialized);
             });
         }
 
         function initRouter() {
-            guardRoute.createGuard();
-            return router.map(routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function() {
+            return router.map(routes.routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function() {
                 errorsHandler.startHandle();
             });
-        }
-
-        function restoreProgress() {
-            var progress = null;
-
-            if (progressContext.ready()) {
-                progress = progressContext.get();
-                if (_.isObject(progress)) {
-                    if (_.isObject(progress.answers)) {
-                        _.each(context.course.sections, function(section) {
-                            _.each(section.questions, function(question) {
-                                if (!_.isNullOrUndefined(progress.answers[question.shortId])) {
-                                    question.progress(progress.answers[question.shortId]);
-                                }
-                            });
-                        });
-                    }
-                }
-                window.location.hash = !_.isString(progress.url) ? '' : progress.url.replace('objective', 'section'); //fix for old links
-            }
         }
     }
 
@@ -127,7 +108,5 @@ define([
         return settings;
     }
 
-    function compositionComplete() {
-        background.apply(templateSettings.background);
-    }
+    
 });

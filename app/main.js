@@ -7,17 +7,31 @@
     }
 });
 
-define('jquery', function () { return jQuery; });
-define('knockout', function () { return ko; });
-define('WebFont', function () { return WebFont; });
-define('q', function () { return Q; });
-define('underscore', function () { return _; });
-define('perfectScrollbar', function () { return Ps; });
+define('jquery', function () {
+    return jQuery;
+});
+define('knockout', function () {
+    return ko;
+});
+define('WebFont', function () {
+    return WebFont;
+});
+define('q', function () {
+    return Q;
+});
+define('underscore', function () {
+    return _;
+});
+define('perfectScrollbar', function () {
+    return Ps;
+});
 
-
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/router', 'modulesInitializer', 'bootstrapper', 'templateSettings',
-    'settingsProvider', 'translation', 'modules/webFontLoaderProvider', 'limitAccess/accessLimiter'],
-    function (app, viewLocator, system, router, modulesInitializer, bootstrapper, templateSettings, settingsProvider, translation, webFontLoader, accessLimiter) {
+define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'configurations/reader',
+        'configurations/initialization/index', 'templateSettings', 'publishSettings', 'translation', 'includedModules/modulesInitializer',
+        'modules/index'
+    ],
+    function (app, system, _, bootstrapper, configReader, configInitializator,
+        templateSettings, publishSettings, translation, modulesInitializer, modulesLoader) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -29,74 +43,28 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'plugins/rout
             widget: true
         });
 
-        app.start().then(function() {
+        app.start().then(function () {
             bootstrapper.run();
 
-            var modules = {};
+            return configReader.read().then(function (configsFiles) {
+                var configs = configInitializator.initialize(configsFiles);
+                templateSettings.init(configs.templateSetting);
+                translation.init(configs.translations);
+                publishSettings.init(configsFiles.publishSettings);
 
-            return loadIncludedModules().then(function() {
-                return initTemplateSettings().then(function(templateSettings) {
-                    return loadExternalResources(templateSettings).then(function() {
-                        return initTranslations(templateSettings).then(function() {
-                            modulesInitializer.register(modules);
-                            app.setRoot('viewmodels/shell');
-                        });
-                    });
+                return modulesLoader.init(templateSettings, configsFiles.manifest, publishSettings).then(function () {
+                    if (publishSettings.modules) {
+                        return modulesInitializer.load(publishSettings.modules).then(initializeApp);
+                    } else {
+                        initializeApp();
+                    }
                 });
-            }).catch(function(e) {
+            }).catch(function (e) {
                 console.error(e);
             });
-
-            function loadIncludedModules() {
-                return settingsProvider.getPublishSettings().then(function (settings) {
-                    var hasLmsModule = false;
-                    _.each(settings.modules, function (module) {
-                        modules['../includedModules/' + module.name] = true;
-                        if (module.name === 'lms') {
-                            hasLmsModule = true;
-                        }
-                    });
-
-                    accessLimiter.initialize(settings.accessLimitation, hasLmsModule);
-                });
-            }
-
-            function initTemplateSettings() {
-                return settingsProvider.getTemplateSettings().then(function(settings) {
-                    return settingsProvider.getThemeSettings().then(function (themeSettings) {
-                        return templateSettings.init(settings, themeSettings).then(function () {
-                            if (isXapiDisabled()) {
-                                templateSettings.xApi.enabled = false;
-                            }
-                            if (isCrossDeviceDisabled()) {
-                                templateSettings.allowCrossDeviceSaving = false;
-                            }
-
-                            modules['xApi/xApiInitializer'] = templateSettings.xApi;
-
-                            return templateSettings;
-                        });
-                    });
-                });
-            }
-
-            function isXapiDisabled() {
-                var xapi = router.getQueryStringValue('xapi');
-                return !templateSettings.xApi.required && !_.isNullOrUndefined(xapi) && xapi.toLowerCase() === 'false';
-            }
-
-            function isCrossDeviceDisabled() {
-                var crossDevice = router.getQueryStringValue('cross-device');
-                return !_.isNullOrUndefined(crossDevice) && crossDevice.toLowerCase() === 'false';
-            }
-
-            function loadExternalResources(templateSettings) {
-                return webFontLoader.init(templateSettings.fonts);
-            }
-
-            function initTranslations(templateSettings) {
-                return translation.init(templateSettings.languages.selected, templateSettings.languages.customTranslations);
-            }
         });
-    }
-);
+
+        function initializeApp() {
+            app.setRoot('viewmodels/shell')
+        }
+    });

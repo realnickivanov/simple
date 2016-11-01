@@ -72,7 +72,7 @@ gulp.task('process-less', function () {
 });
 
 gulp.task('watch', ['process-less'], function () {
-    gulp.watch('./css/main.less', ['process-less']);
+    gulp.watch('./css/*.less', ['process-less']);
 });
 
 gulp.task('build', ['pre-build', 'build-app', 'build-settings', 'build-pdf-app', 'build-searchcontent-app'], function () {

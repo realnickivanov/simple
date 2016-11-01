@@ -1,34 +1,15 @@
-﻿define(['translationsReader'], function (translationsReader) {
-    var translations = [];
-    var defaultTranslationsCode = 'en';
+﻿define(['underscore'], function (_) {
+    var _translations = [];
 
-    function init(languageCode, customTranslations) {
-        return readDefaultTranslations().then(function (defaultTranslations) {
-            return resolveTranslations(languageCode, customTranslations).then(function (resolvedTranslations) {
-                translations = _.defaults(resolvedTranslations, defaultTranslations);
-            });
-        });
-    }
-
-    function readDefaultTranslations() {
-        return translationsReader.readTranslations(defaultTranslationsCode);
-    }
-
-    function resolveTranslations(languageCode, customTranslations) {
-        if (!languageCode || languageCode === defaultTranslationsCode) {
-            return $.Deferred().resolve([]).promise();
-        }
-        if (languageCode === 'xx') {
-            return $.Deferred().resolve(customTranslations).promise();
-        }
-        return translationsReader.readTranslations(languageCode);
+    function init(translations) {
+        _translations = translations;
     }
 
     function getTextByKey(key) {
-        if (typeof translations[key] != "string") {
+        if (typeof _translations[key] != "string") {
             throw 'Unable to localize ' + key;
         }
-        return _.unescape(translations[key]);
+        return _.unescape(_translations[key]);
     }
 
     return {
