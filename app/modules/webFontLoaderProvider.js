@@ -1,6 +1,5 @@
 ﻿define(['WebFont'], function(fontLoader) {
 
-
     return {
         init: init
     }

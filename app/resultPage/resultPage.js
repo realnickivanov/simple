@@ -28,6 +28,7 @@ define([
         
         //properties
         crossDeviceEnabled: false,
+        allowContentPagesScoring: false,
         xAPIEnabled: false,
         scormEnabled: false,
         stayLoggedIn: ko.observable(false),
@@ -40,11 +41,17 @@ define([
 	
 	function activate() {
         viewModel.crossDeviceEnabled = templateSettings.allowCrossDeviceSaving;
+        viewModel.allowContentPagesScoring = templateSettings.allowContentPagesScoring;
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
         viewModel.scormEnabled = modulesInitializer.hasModule('lms');
 
         viewModel.stayLoggedIn(userContext.user.keepMeLoggedIn);
-        viewModel.sections = _.map(course.sections, mapSection);
+        viewModel.sections = _.chain(course.sections)
+            .filter(function(section){                
+                return section.affectProgress || section.hasSurveyQuestions;
+            })
+            .map(mapSection)
+            .value();
 	}
 
     function close() {        
@@ -90,7 +97,7 @@ define([
             return isQuestion(question);
         });
 
-        section.amountQuestions = _.filter(section.questions, function(question) {
+        section.amountOfQuestions = _.filter(section.questions, function(question) {
                 return !question.isSurvey;
             })
             .length;
@@ -100,9 +107,11 @@ define([
             })
             .length;
 
-        section.amountContents = entity.questions.length - section.questions.length;
+        section.amountOfContents = entity.questions.length - section.questions.length;
         section.affectProgress = entity.affectProgress;
         section.title = entity.title;
+
+        section.isCorrect = entity.isCompleted();
 
         return section;
     }
