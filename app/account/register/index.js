@@ -18,7 +18,8 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
             submit: submit,
             toggleRememberMe: toggleRememberMe,
             back: back,
-            crossDeviceEnabled: false
+            crossDeviceEnabled: false,
+            requestProcessing: ko.observable(false)
         };
 
         viewmodel.name = validatedValue(function (value) {
@@ -55,6 +56,9 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         }
 
         function submit() {
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             if (!viewmodel.name.isValid()) {
                 viewmodel.name.markAsModified();
                 return;
@@ -75,6 +79,9 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         }
 
         function toggleRememberMe() {
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             viewmodel.rememberMe(userContext.user.keepMeLoggedIn = !viewmodel.rememberMe());
         }
 
@@ -87,6 +94,7 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         }
 
         function register() {
+            viewmodel.requestProcessing(true);
             auth.register(userContext.user.email,
                     userContext.user.password,
                     userContext.user.username,
@@ -96,11 +104,13 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
                     return progressProvider.initProgressStorage(function(provider){
                         progressContext.use(provider);
                         return xApiInit(function () {
+                            viewmodel.requestProcessing(false);
                             eventManager.courseStarted();
                             router.navigate('');
                         });
                     });
                 }).fail(function (reason) {
+                    viewmodel.requestProcessing(false);
                     if (reason.status == 409) {
                         router.navigate('signin');
                     }

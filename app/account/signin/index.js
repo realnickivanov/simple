@@ -40,10 +40,16 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         }
 
         function toggleRememberMe() {
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             viewmodel.rememberMe(userContext.user.keepMeLoggedIn = !viewmodel.rememberMe());
         }
 
         function submit() {
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             if (!viewmodel.password.isValid()) {
                 viewmodel.password.markAsModified();
                 return;
@@ -58,17 +64,17 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
                     return progressProvider.initProgressStorage(function(provider){
                         progressContext.use(provider);
                         return xApiInit(function () {
+                            viewmodel.requestProcessing(false);
                             eventManager.courseStarted();
                             progressContext.restoreProgress();
                         });
                     });
                 }).fail(function (reason) {
+                    viewmodel.requestProcessing(false);
                     if (reason.status == 403) {
                         viewmodel.emailPasswordCombination(true);
                     }
-                }).done(function(){
-                    viewmodel.requestProcessing(false);
-                });
+                })
         }
 
         function togglePasswordVisibility() {
@@ -83,6 +89,9 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         }
 
         function sendSecretLink(){
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             auth.sendSecreLink(userContext.user.email, context.course.title).then(function(){
                 viewmodel.isSecretLinkSent(true);
             });

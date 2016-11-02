@@ -15,8 +15,17 @@
             <span class="input-icon icon-mail"></span>
             <p class="error-message" data-translate-text="[tracking and tracing email is not valid]"></p>
         </div>
-        <button class="button primary small important autofocus" data-bind="click: submit">
+        <button class="button primary small autofocus" data-bind="click: submit, css: { important: !requestProcessing() }">
+            <!-- ko ifnot: requestProcessing -->
             <span data-translate-text="[OK, email are correct]"></span>
+            <!-- /ko -->
+            <!-- ko if: requestProcessing -->
+            <div class="pulsar-loader align-center">
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+            </div>
+            <!-- /ko -->
         </button>
         <!-- ko if: skipAllowed -->
         <button class="button link" data-bind="click: skip" data-translate-text="[login skip]"></button>

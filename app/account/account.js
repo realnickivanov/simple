@@ -14,14 +14,15 @@ define(['plugins/router', 'context', './header/index', './socialNetworks/index',
 
         var viewmodel = {
             activate: activate,
-            submit: submit,
+            submit: checkUser,
             skip: skip,
             header: null,
             socialNetworks: null,
             email: userContext.email || '',
             socialLoginEnabled: false,
             skipAllowed: false,
-            canActivate: canActivate
+            canActivate: canActivate,
+            requestProcessing: ko.observable(false)
         };
         
         viewmodel.socialLoginEnabled = templateSettings.allowCrossDeviceSaving && templateSettings.allowLoginViaSocialMedia;
@@ -49,20 +50,30 @@ define(['plugins/router', 'context', './header/index', './socialNetworks/index',
         }
 
         function activate() {
+            viewmodel.requestProcessing(false);
             viewmodel.header = new Header(context.course.title);
             viewmodel.socialNetworks = viewmodel.socialLoginEnabled ? new SocialNetworks(context.course.title, urlProvider.progressStorageUrl) : null;
         }
 
+        function checkUser(){
+            submit(false);
+        }
+
         function submit(replaceWindow, callback) {
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             callback = callback || function(){};
             if(!viewmodel.email.isValid()){
                 viewmodel.email.markAsModified();
-                callback(true)
+                callback(true);
+                return;
             }
             userContext.user.email = viewmodel.email();
             if(!accessLimiter.userHasAccess({ email: viewmodel.email() })){
                 _navigate('noaccess', replaceWindow);
-                callback(false)
+                callback(false);
+                return;
             }
             if(_private.crossDeviceEnabled){
                 return userExists(replaceWindow, callback);
@@ -73,6 +84,9 @@ define(['plugins/router', 'context', './header/index', './socialNetworks/index',
         }
 
         function skip() {
+            if(viewmodel.requestProcessing()){
+                return;
+            }
             templateSettings.allowCrossDeviceSaving = false;
             xApiInitializer.deactivate();
             guardRoute.skipLoginGuard();
@@ -87,13 +101,18 @@ define(['plugins/router', 'context', './header/index', './socialNetworks/index',
         }
 
         function userExists(replaceWindow, callback){
+            viewmodel.requestProcessing(true);
             return auth.exists(viewmodel.email()).then(function(){
+                callback(false);
+                viewmodel.requestProcessing(false);
                 _navigate('register', replaceWindow);
+            }).fail(function(reason){
                 callback(false);
-            }).fail(function(){
-                _navigate('signin', replaceWindow);
-                callback(false);
-            });
+                viewmodel.requestProcessing(false);
+                if(reason.status === 409){
+                    _navigate('signin', replaceWindow);
+                }
+            })
         }
 
         function _navigate(route, replaceWindow){

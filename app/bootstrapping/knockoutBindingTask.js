@@ -27,6 +27,7 @@ define([
     'bootstrapping/knockoutBindings/keyDownBinding',
     'bootstrapping/knockoutBindings/tabFocusBinding',
     'bootstrapping/knockoutBindings/copyToClipboardBinding',
+    'bootstrapping/knockoutBindings/changeCssClassByDelayBinding',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',

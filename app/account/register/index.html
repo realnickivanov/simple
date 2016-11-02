@@ -44,7 +44,16 @@
         </button>
         <!-- /ko -->
         <button class="button primary small" data-bind="click: submit">
+            <!-- ko ifnot: requestProcessing -->
             <span data-translate-text="[OK, go to the course]"></span>
+            <!-- /ko -->
+            <!-- ko if: requestProcessing -->
+            <div class="pulsar-loader align-center">
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+            </div>
+            <!-- /ko -->
         </button>
     </article>
 </section>

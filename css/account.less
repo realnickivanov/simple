@@ -121,6 +121,12 @@
                     cursor: pointer;
                 }
                 &.password {
+                    top: 7px;
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    padding-top: 3px;
+                    text-align: center;
                     font-size: 15px;
                 }
             }
@@ -157,6 +163,7 @@
             }
         }
         .button {
+            position: relative;
             width: 100%;
             max-width: 370px;
             margin-top: 30px;
@@ -272,6 +279,7 @@
 }
 
 .popup-button-wrapper {
+    position: relative;
     margin-bottom: 16px;
     text-align: center;
     &:last-child {
@@ -288,11 +296,22 @@
 
 .popup-wrapper {
     .secret-link-confirm-container {
-        position: static;
+        position: absolute;
+        top: -20px;
+        left: 0;
         height: 44px;
         padding-left: 20px;
         padding-right: 20px;
         margin-top: 0;
+        opacity: 0;
+        transition: opacity .2s linear, top .2s linear;
+
+        &.show{
+            visibility: visible;
+            opacity: 1;
+            top: 0;
+        }
+
         .secret-link-confirm-wrapper {
             display: inline-block;
             width: 100%;

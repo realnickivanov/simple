@@ -19,7 +19,16 @@
             <span data-translate-text="[remember me on this device]"></span>
         </button>
         <button class="button primary small autofocus" data-bind="click: submit">
+            <!-- ko ifnot: requestProcessing -->
             <span data-translate-text="[OK, go to the course]"></span>
+            <!-- /ko -->
+            <!-- ko if: requestProcessing -->
+            <div class="pulsar-loader align-center">
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+                <div class="pulsar-loader-item"></div>
+            </div>
+            <!-- /ko -->
         </button>
         <div class="account-hint">
             <span data-translate-text="[or]"></span>&nbsp;
