@@ -63,7 +63,7 @@
             viewModel.masteryScore = new app.MasteryScore(settings.masteryScore || defaultTemplateSettings.masteryScore);      
             viewModel.trackingData = new app.TrackingDataModel(settings.xApi || defaultTemplateSettings.xApi);
 
-            viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages);
+            viewModel.languages = new app.LanguagesModel(manifest.languages, settings.languages || defaultTemplateSettings.languages);
             
             if (settings.hasOwnProperty('showConfirmationPopup')) {            
                 viewModel.showConfirmationPopup(settings.showConfirmationPopup);

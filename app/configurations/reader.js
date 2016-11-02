@@ -35,8 +35,8 @@ define(['q', 'underscore', './fileReader'], function (Q, _, fileReader) {
 
     function readConfigurations() {
         var promises = [];
-        promises.push(fileReader.readJSON('settings.js').then(function (data) {
-            configs.templateSettings = data;
+        promises.push(fileReader.readJSON('settings.js').then(function (data) {		
+            configs.templateSettings = data;		
         }));
         promises.push(fileReader.readJSON('publishSettings.js').then(function (data) {
             configs.publishSettings = data;
@@ -52,7 +52,7 @@ define(['q', 'underscore', './fileReader'], function (Q, _, fileReader) {
 
     function readTranslations() {
         var defer = Q.defer(),
-            languages = configs.templateSettings.languages,
+            languages = configs.templateSettings.languages || configs.manifest.defaultTemplateSettings.languages,
             code = 'en';
 
         if (_.isNull(configs.manifest) || _.isNull(configs.settings)) {
