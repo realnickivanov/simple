@@ -87,6 +87,7 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
 
         function togglePasswordVisibility() {
             viewmodel.isPasswordVisible(!viewmodel.isPasswordVisible());
+            viewmodel.password.hasFocus(true);
         }
 
         function back() {
