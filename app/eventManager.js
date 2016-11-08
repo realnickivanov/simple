@@ -5,6 +5,7 @@
             events = {
                 courseStarted: "courseStarted",
                 courseFinished: "courseFinished",
+                courseFinalized: "courseFinalized",
                 answersSubmitted: "answersSubmitted",
                 learningContentExperienced: "learningContentExperienced"
             },
@@ -37,6 +38,10 @@
 
             courseFinished = function (data, callback) {
                 return executeAfterSubscribersDone(events.courseFinished, data, callback);
+            },
+
+            courseFinalized = function (callback) {
+                return executeAfterSubscribersDone(events.courseFinalized, {}, callback);
             },
 
             answersSubmitted = function (data, sendParentProgress) {
@@ -82,6 +87,7 @@
 
             courseStarted: courseStarted,
             courseFinished: courseFinished,
+            courseFinalized: courseFinalized,
             answersSubmitted: answersSubmitted,
             learningContentExperienced: learningContentExperienced
         };
