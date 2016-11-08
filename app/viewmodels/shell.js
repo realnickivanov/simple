@@ -14,7 +14,7 @@ define([
         title: '',
         createdOn: null,
         logoUrl: '',
-        pdfExportEnabled: false,
+        pdfExportEnabled: ko.observable(false),
         isClosed: ko.observable(false),
         isNavigatingToAnotherView: ko.observable(false),
 
@@ -35,7 +35,12 @@ define([
     viewmodel.isInReviewMode = router.getQueryStringValue('reviewApiUrl');
 
     router.on('router:route:activating')
-        .then(function(newView) {
+        .then(function (newView) {
+            if (!viewmodel.pdfExportEnabled() === templateSettings.pdfExport.enabled) {
+                var isNotAccountModule = newView && (newView.__moduleId__.slice(0, newView.__moduleId__.indexOf('/')) !== 'account');
+                viewmodel.pdfExportEnabled(isNotAccountModule);
+            }
+
             var currentView = router.activeItem();
             if (newView && currentView && newView.__moduleId__ === currentView.__moduleId__) {
                 return;
@@ -77,7 +82,6 @@ define([
         function initApp(){
             return Q.fcall(function(){
                 viewmodel.logoUrl = templateSettings.logoUrl;
-                viewmodel.pdfExportEnabled = templateSettings.pdfExport.enabled;
                 viewmodel.title = app.title = context.course.title;
                 viewmodel.createdOn = context.course.createdOn;
                 progressContext.restoreProgress();
