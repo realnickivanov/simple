@@ -190,3 +190,47 @@ body {
 .edit-field-wrapper .edit-field {
 	min-height: 175px;
 }
+
+/*#region eg-content-editor*/
+ 
+.eg-content-editor {
+    margin: 15px 0;
+}
+
+.eg-content-editor .column {
+    display: inline-block;
+    width: 100%;
+    padding: 0 20px;
+    vertical-align: top;
+}
+
+.eg-content-editor .column:first-child {
+    padding-left: 0;
+}
+
+.eg-content-editor .column:last-child {
+    padding-right: 0;
+}
+
+/* two columns */
+.eg-content-editor .column:nth-child(1):nth-last-child(2),
+.eg-content-editor .column:nth-child(2):nth-last-child(1) {
+    width: 50%;
+}
+
+/* three columns */
+.eg-content-editor .column:nth-child(1):nth-last-child(3),
+.eg-content-editor .column:nth-child(2):nth-last-child(2),
+.eg-content-editor .column:nth-child(3):nth-last-child(1) {
+    width: 33%;
+}
+
+.eg-content-editor .column .row:not(:last-child) {
+    margin-bottom: 15px;
+}
+	
+.eg-content-editor .image-wrapper {
+    margin: 0; 
+}
+ 
+/*#endregion .eg-content-editor*/

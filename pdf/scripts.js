@@ -23,6 +23,7 @@
 						$wrapper = $(imageWrapper).css('float', $image.css('float'));
 
 					$(image).css('float', 'none');
+					$(image).css('height', 'auto');
 					$image.wrap($wrapper);
 				});
 
