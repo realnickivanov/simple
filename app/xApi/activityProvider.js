@@ -120,7 +120,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
         function enqueueSectionProgressedStatement(section) {
             guard.throwIfNotAnObject(section, 'Section is not an object');
 
-			var sectionUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
+            var sectionUrl = activityProvider.rootCourseUrl + '#sections?section_id=' + section.id;
             var score = section.affectProgress ? new scoreModel(section.score() / 100) : undefined;
             var statement = createStatement(constants.verbs.progressed, new resultModel({ score: score }), createActivity(sectionUrl, section.title, constants.activityTypes.objective));
             pushStatementIfSupported(statement);
@@ -142,7 +142,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                 switch (question.type) {
                     case globalConstants.questionTypes.multipleSelect:
                     case globalConstants.questionTypes.singleSelectText:
-                        parts = getSingleSelectTextQuestionActivityAndResult(question);
+                        parts = getSelectTextQuestionActivityAndResult(question);
                         break;
                     case globalConstants.questionTypes.fillInTheBlank:
                         parts = getFillInQuestionActivityAndResult(question);
@@ -207,13 +207,13 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
             }
         }
 
-        function getSingleSelectTextQuestionActivityAndResult(question) {
+        function getSelectTextQuestionActivityAndResult(question) {
             return {
                 result: new resultModel({
                     score: new scoreModel(question.score() / 100),
-                    response: getItemsIds(question.answers, function (item) {
+                    response: getItemsIds(question.answers, function(item) {
                         return item.isChecked;
-                    }).toString()
+                    }).join("[,]")
                 }),
                 object: new activityModel({
                     id: activityProvider.rootCourseUrl + '#section/' + question.sectionId + '/question/' + question.id,
@@ -221,7 +221,7 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.choice,
                         correctResponsesPattern: !!question.isSurvey ? [] : [
-                            getItemsIds(question.answers, function (item) {
+                            getItemsIds(question.answers, function(item) {
                                 return item.isCorrect;
                             }).join("[,]")
                         ],

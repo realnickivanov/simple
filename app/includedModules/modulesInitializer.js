@@ -55,7 +55,7 @@
         }
 
         function extendAppFromModule(module) {
-            appExtender.extend(module)
+            appExtender.extend(module);
         }
 
         function onModuleLoadingFailed(error) {

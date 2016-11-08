@@ -45,13 +45,6 @@
         </button>
     </section>
     <!-- /ko -->
-
-    <div class="finish-course-layout" data-bind="visible: status() == statuses.sendingRequests">
-        <div class="finish-course-layout-block"></div>
-        <div class="finish-course-layout-loader">
-            <span class="finish-course-layout-loader-text" data-translate-text="[tracking and tracing reporting progress]">reporting progress...</span>
-        </div>
-    </div>
     <!-- ko if: continueLaterPopup.isVisible -->
         <!-- ko compose: { view: 'dialogs/continueLater', model: 'dialogs/continueLater', activationData: [ continueLaterPopup.actions, continueLaterPopup.isVisible ] } --><!-- /ko -->
     <!-- /ko -->

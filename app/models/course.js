@@ -50,8 +50,10 @@
             course.finish = function (callback) {
                 course.isFinished = true;
                 eventManager.courseFinished(course, function () {
-                    eventManager.turnAllEventsOff();
-                    callback();
+                    eventManager.courseFinalized(function() {
+                        eventManager.turnAllEventsOff();
+                        callback();
+                    });
                 });
             };
 

@@ -15,13 +15,14 @@ define([
         sendingRequests: 'sendingRequests',
         finished: 'finished'
     };
-	
+    
     var viewModel = {
         score: course.score,
         title: course.title,
         sections: [],
         masteryScore: templateSettings.masteryScore.score,
         status: ko.observable(statuses.readyToFinish),
+        statuses: statuses,
         activate: activate,
         close: close,
         finish: finish,
@@ -38,8 +39,8 @@ define([
     };
 
     return viewModel;
-	
-	function activate() {
+    
+    function activate() {
         viewModel.crossDeviceEnabled = templateSettings.allowCrossDeviceSaving;
         viewModel.allowContentPagesScoring = templateSettings.allowContentPagesScoring;
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
@@ -52,7 +53,7 @@ define([
             })
             .map(mapSection)
             .value();
-	}
+    }
 
     function close() {        
         router.navigate("#sections");
