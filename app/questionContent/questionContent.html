@@ -1,4 +1,5 @@
-<div class="question-header" data-bind="css: {'survey': isSurvey, 'correct': isCorrectAnswered() && !isSurvey, 'wrong': !isCorrectAnswered() && !isSurvey}, attr: {'data-count': index}">
+<div class="question-header" data-bind="css: {'survey': isSurvey, 'correct': isCorrectAnswered() && !isSurvey, 'incorrect': !isCorrectAnswered() && !isSurvey}, attr: {'data-count': index}">
+    <span class="question-header-icon" data-bind="css: {'icon-survey': isSurvey, 'icon-correct_check': isCorrectAnswered() && !isSurvey, 'icon-incorrect_cross': !isCorrectAnswered() && !isSurvey}"></span>
     <div class="question-title">
         <a class="question-title-link" data-bind="text: title, attr: {href: navigationContext.currentQuestionUrl}"></a>
     </div>

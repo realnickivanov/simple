@@ -43,21 +43,30 @@
 </div>
 <div class="result-page-content" data-bind="foreach: sections">
     <div class="section noselect">
-        <div class="section-header" data-bind="css: {correct: score >= $parent.masteryScore, wrong: score < $parent.masteryScore}">
+        <div class="section-header" data-bind="css: {correct: isCorrect, wrong: !isCorrect}">
             <div class="section-header-wrapper">
                 <div class="section-header-label" data-translate-text="[section]" data-bind="attr: {'data-index': ' ' + ($parent.sections.indexOf($data) + 1)}"></div>
                 <div class="section-header-title" data-bind="text: title"></div>
-                <div class="section-header-analytic" data-bind="css: {'icon-correct_check': score >= $parent.masteryScore, 'icon-incorrect_cross': score < $parent.masteryScore}">
-                    <div class="section-header-correct" data-bind="attr: {'data-count': correctQuestions + '/' + amountQuestions}" data-translate-text="[questions correct]"></div>
-                    <div class="section-header-content-readed" data-bind="attr: {'data-count': readedContents + '/' + amountContents}" data-translate-text="[contents readed]"></div>
+                <!-- ko if: amountOfQuestions || ($parent.allowContentPagesScoring && amountOfContents) -->
+                <div class="section-header-analytic">
+                    <span class="section-header-analytic-icon" data-bind="css: {'icon-correct_check': isCorrect, 'icon-incorrect_cross': !isCorrect}"></span>
+                    <!-- ko if: amountOfQuestions -->
+                    <div class="section-header-correct" data-bind="attr: {'data-count': correctQuestions + '/' + amountOfQuestions}" data-translate-text="[questions correct]"></div>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.allowContentPagesScoring && amountOfContents -->
+                    <div class="section-header-content-readed" data-bind="attr: {'data-count': readedContents + '/' + amountOfContents}" data-translate-text="[contents readed]"></div>
+                    <!-- /ko -->
                 </div>
+                <!-- /ko -->
             </div>
         </div>
+        <!-- ko if: questions.length -->
         <div class="section-content">
         <!-- ko foreach: questions -->    
             <!-- ko compose: { model: 'questionContent/questionContent', activationData: [ $parent.id, $data, ($parent.questions.indexOf($data) + 1), true ] } --><!-- /ko -->
         <!-- /ko -->
         </div>
+        <!-- /ko -->
     </div>
 </div>    
 <div class="result-page-go-top noselect icon-up_arrow" data-bind="scrollTop: 1000"></div>                            

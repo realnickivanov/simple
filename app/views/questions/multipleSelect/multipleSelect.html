@@ -4,10 +4,15 @@
         <div class="question-content styled-content" data-bind="html: content, elementsWrap: {}"></div>
     </div>
     <!-- /ko -->
-    <!-- ko ifnot: isPreview -->
     <!-- ko if: isSurveyModeEnabled -->
+    <!-- ko if: isAnswered() || isPreview() -->
+    <div class="text-matching-caption" data-translate-text="[survey mode answered caption]"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: isAnswered() || isPreview() -->
     <div class="text-matching-caption" data-translate-text="[survey mode caption]"></div>
     <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko ifnot: isPreview -->
     <ul class="question-answers-list" data-bind="foreach: answers">
         <li class="checkbox" data-bind="click: $parent.checkItem.bind($parent), keyDown: { handlers: { 32: $parent.checkItem.bind($parent), 13: $parent.checkItem.bind($parent) } }, css: { checked: isChecked(), enabled: !$parent.isAnswered()}, attr: { tabindex: $parent.isAnswered() ? '-1' : '0' }">
             <span class="checkbox-icon-wrapper">

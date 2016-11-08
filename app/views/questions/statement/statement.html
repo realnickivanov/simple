@@ -6,7 +6,12 @@
 </div>
 <!-- /ko -->
 <!-- ko if: isSurveyModeEnabled -->
+<!-- ko if: isAnswered() || isPreview() -->
+<div class="text-matching-caption" data-translate-text="[survey mode answered caption]"></div>
+<!-- /ko -->
+<!-- ko ifnot: isAnswered() || isPreview() -->
 <div class="text-matching-caption" data-translate-text="[survey mode caption]"></div>
+<!-- /ko -->
 <!-- /ko -->
 <!-- ko if: statements.length -->
 <ul class="statement">
