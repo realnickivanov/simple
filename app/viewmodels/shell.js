@@ -59,10 +59,10 @@ define([
     function activate() {
         return context.initialize()
             .then(userContext.initialize)
+            .then(account.enable)
             .then(initializeProgressProvider)
             .then(initxApi)
             .then(initApp)
-            .then(account.enable)
             .then(initRouter);
 
         function initxApi(){
@@ -72,7 +72,8 @@ define([
         }
 
         function initializeProgressProvider() {
-            if (!modulesInitializer.hasModule('lms') && location.href.indexOf('/preview/') === -1) {
+             var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
+            if (!modulesInitializer.hasModule('lms') && location.href.indexOf('/preview/') === -1 && !reviewApiUrl) {
                 return progressProvider.initialize().then(function(provider) {
                     progressContext.use(provider);
                 });

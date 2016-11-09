@@ -1,7 +1,7 @@
 define(['q', 'underscore', 'context', 'userContext', 'templateSettings', './localStorage/index', './progressStorage/index',
-        './progressStorage/auth'
+        './progressStorage/auth', 'account/limitAccess/accessLimiter'
     ],
-    function (Q, _, context, userContext, templateSettings, LocalStorageProvider, ProgressStorageProvider, auth) {
+    function (Q, _, context, userContext, templateSettings, LocalStorageProvider, ProgressStorageProvider, auth, accessLimiter) {
         'use strict';
         var _psProvider = null,
             _lsProvider = null;
@@ -18,7 +18,7 @@ define(['q', 'underscore', 'context', 'userContext', 'templateSettings', './loca
             _psProvider = new ProgressStorageProvider(context.course.id, context.course.templateId);
             _lsProvider = new LocalStorageProvider(context.course.id, context.course.templateId);
 
-            if(userContext.user.email){
+            if (userContext.user.email) {
                 auth.signout();
             }
 
@@ -48,12 +48,19 @@ define(['q', 'underscore', 'context', 'userContext', 'templateSettings', './loca
         function initProgressStorage(callback) {
             auth.identify().then(function (user) {
                 userContext.user.email = user.email;
+                if (!accessLimiter.userHasAccess({ email: user.email })) {
+                    auth.signout();
+                    callback(_lsProvider);
+                    return;
+                }
+
+                userContext.user.email = user.email;
                 userContext.user.username = user.name;
                 userContext.user.keepMeLoggedIn = !auth.shortTermAccess;
 
                 clearLocalStorageByEmail(user.email);
                 return _psProvider.getProgressFromServer().then(callback.bind(null, _psProvider));
-            }).fail(function(){
+            }).fail(function () {
                 callback(_lsProvider);
             });
         }

@@ -1,7 +1,7 @@
 define(['plugins/router', 'routing/routes', 'templateSettings', 'publishSettings', 'includedModules/modulesInitializer',
-        './limitAccess/accessLimiter', './routing/guardRoute', './routing/routes', 'xApi/xApiInitializer'
+        './limitAccess/accessLimiter', './routing/guardRoute', './routing/routes', 'xApi/xApiInitializer', 'modules/progress/progressStorage/auth'
     ],
-    function (router, mainRoutes, templateSettings, publishSettings, modulesInitializer, accessLimiter, guardRoute, routes, xApiInitializer) {
+    function (router, mainRoutes, templateSettings, publishSettings, modulesInitializer, accessLimiter, guardRoute, routes, xApiInitializer, auth) {
         'use strict';
 
         return {
@@ -14,17 +14,14 @@ define(['plugins/router', 'routing/routes', 'templateSettings', 'publishSettings
             var crossDeviceSaving = templateSettings.allowCrossDeviceSaving;
             
             if (isScormEnabled) {
-                return undefined;
+                return;
             }
 
-            //TODO: Move to templateSettings initializer
             var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
             if(location.href.indexOf('/preview/') !== -1 || !!reviewApiUrl){
-                templateSettings.allowCrossDeviceSaving = false;
-                templateSettings.xApi.enabled = false;
-                return undefined;
+               return;
             }
-
+            
             accessLimiter.initialize(publishSettings.accessLimitation);
 
             if (xAPI || crossDeviceSaving || accessLimiter.accessLimitationEnabled()) {

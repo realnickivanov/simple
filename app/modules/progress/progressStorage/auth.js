@@ -36,7 +36,7 @@ define(['./httpWrapper', './urlProvider'], function (httpWrapper, urlProvider) {
             if (typeof value !== 'undefined') {
                 localStorage.setItem(_private.shortTermAccessKey, value);
             } else if(value === ''){
-                localStorage.removeItem(_private.tokenKey);
+                localStorage.removeItem(_private.shortTermAccessKey);
             }
         }
     })

@@ -71,6 +71,7 @@ define(['underscore', 'plugins/router'], function (_, router) {
         defaultSettings.languages.customTranslations = fullSettings.languages.customTranslations;
 
         updateSettingsFromQueryString();
+        updateSettingsByMode();
 
         return defaultSettings;
     };
@@ -129,6 +130,14 @@ define(['underscore', 'plugins/router'], function (_, router) {
         function isCrossDeviceDisabled() {
             return !_.isNullOrUndefined(crossDevice) &&
                 crossDevice.toLowerCase() === 'false';
+        }
+    }
+
+    function updateSettingsByMode(){
+        var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
+        if(location.href.indexOf('/preview/') !== -1 || !!reviewApiUrl){
+            defaultSettings.allowCrossDeviceSaving = false;
+            defaultSettings.xApi.enabled = false;
         }
     }
 });
