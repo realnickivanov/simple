@@ -77,6 +77,7 @@
 		'nb-no': 'Norwegian (Bokmal)',
 		'nn-no': 'Norwegian (Nynorsk)',
         'vi': 'Vietnamese',
+        'fa': 'Farsi',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
