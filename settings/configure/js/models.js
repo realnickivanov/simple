@@ -150,11 +150,11 @@
                 required: !that.allowToSkipTracking(),
                 selectedLrs: that.selectedLrs(),
                 lrs: {
-                    uri: that.lrsUrl(),
+                    uri: that.lrsUrl().trim(),
                     authenticationRequired: that.authenticationRequired(),
                     credentials: {
-                        username: that.lapLogin(),
-                        password: that.lapPassword()
+                        username: that.lapLogin().trim(),
+                        password: that.lapPassword().trim()
                     }
                 },
                 allowedVerbs: allowedVerbs
