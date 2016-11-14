@@ -33,10 +33,11 @@ define([
         return '';
     });
     viewmodel.isInReviewMode = router.getQueryStringValue('reviewApiUrl');
+	viewmodel.isScormEnabled = modulesInitializer.hasModule('lms');
 
     router.on('router:route:activating')
         .then(function (newView) {
-            if (!viewmodel.pdfExportEnabled() === templateSettings.pdfExport.enabled) {
+            if (!viewmodel.isScormEnabled && !viewmodel.pdfExportEnabled() === templateSettings.pdfExport.enabled) {
                 var isNotAccountModule = newView && (newView.__moduleId__.slice(0, newView.__moduleId__.indexOf('/')) !== 'account');
                 viewmodel.pdfExportEnabled(isNotAccountModule);
             }
