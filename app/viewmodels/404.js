@@ -1,15 +1,14 @@
 ﻿define([], function () {
-
-    var
-        url = '',
-        activate = function (url) {
-            this.url = url;
-        }
-    ;
-
-    return {
-        url: url,
+    var viewModel = {
+        homeUrl: '#sections',
         activate: activate
     };
 
+    return viewModel;
+
+    function activate(homeUrl) {
+        if (homeUrl) {
+            viewModel.homeUrl = homeUrl;
+        }
+    }
 });

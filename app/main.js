@@ -65,6 +65,6 @@ define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'config
         });
 
         function initializeApp() {
-            app.setRoot('viewmodels/shell')
+            app.setRoot('viewmodels/shell');
         }
     });

@@ -3,7 +3,7 @@ define([
     'routing/routes', 'context', 'includedModules/modulesInitializer', 'templateSettings',
     'progressContext', 'constants', 'userContext', 'errorsHandler',
     'modules/progress/index', 'account/index', 'xApi/xApiInitializer'
-], function(ko, _, app, composition, router, routes, context, modulesInitializer, templateSettings,
+], function (ko, _, app, composition, router, routes, context, modulesInitializer, templateSettings,
     progressContext, constants, userContext, errorsHandler, progressProvider, account, xApiInitializer) {
 
     'use strict';
@@ -18,12 +18,12 @@ define([
         isClosed: ko.observable(false),
         isNavigatingToAnotherView: ko.observable(false),
 
-        viewSettings: viewSettings,
+        viewSettings: ko.computed(viewSettings),
         activate: activate
     };
 
     viewmodel.router = router;
-    viewmodel.cssName = ko.computed(function() {
+    viewmodel.cssName = ko.computed(function () {
         var activeItem = router.activeItem();
         if (_.isObject(activeItem)) {
             var moduleId = activeItem.__moduleId__;
@@ -33,7 +33,7 @@ define([
         return '';
     });
     viewmodel.isInReviewMode = router.getQueryStringValue('reviewApiUrl');
-	viewmodel.isScormEnabled = modulesInitializer.hasModule('lms');
+    viewmodel.isScormEnabled = modulesInitializer.hasModule('lms');
 
     router.on('router:route:activating')
         .then(function (newView) {
@@ -48,9 +48,9 @@ define([
             }
             viewmodel.isNavigatingToAnotherView(true);
         });
-    
+
     app.on(constants.events.appClosed)
-        .then(function() {
+        .then(function () {
             viewmodel.isClosed(true);
         });
 
@@ -66,23 +66,23 @@ define([
             .then(initApp)
             .then(initRouter);
 
-        function initxApi(){
-            if(templateSettings.xApi.enabled){
+        function initxApi() {
+            if (templateSettings.xApi.enabled) {
                 return xApiInitializer.initialize(templateSettings.xApi);
             }
         }
 
         function initializeProgressProvider() {
-             var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
+            var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
             if (!modulesInitializer.hasModule('lms') && location.href.indexOf('/preview/') === -1 && !reviewApiUrl) {
-                return progressProvider.initialize().then(function(provider) {
+                return progressProvider.initialize().then(function (provider) {
                     progressContext.use(provider);
                 });
             }
         }
 
-        function initApp(){
-            return Q.fcall(function(){
+        function initApp() {
+            return Q.fcall(function () {
                 viewmodel.logoUrl = templateSettings.logoUrl;
                 viewmodel.title = app.title = context.course.title;
                 viewmodel.createdOn = context.course.createdOn;
@@ -92,7 +92,7 @@ define([
         }
 
         function initRouter() {
-            return router.map(routes.routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function() {
+            return router.map(routes.routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
                 errorsHandler.startHandle();
             });
         }
@@ -100,19 +100,19 @@ define([
 
     function viewSettings() {
         var settings = {
-            rootLinkEnabled: true,
-            exitButtonVisible: true,
-            treeOfContentVisible: true
+            rootLinkEnabled: false,
+            exitButtonVisible: false,
+            treeOfContentVisible: false
         };
 
         var activeInstruction = router.activeInstruction();
         if (_.isObject(activeInstruction)) {
-            settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled && !router.isNavigationLocked();
-            settings.exitButtonVisible = !activeInstruction.config.hideExitButton;
-            settings.treeOfContentVisible = templateSettings.treeOfContent.enabled && activeInstruction.config.displayTreeOfContent;
+            settings.rootLinkEnabled = !!activeInstruction.config.rootLinkEnabled && !router.isNavigationLocked();
+            settings.exitButtonVisible = !!activeInstruction.config.showExitButton;
+            settings.treeOfContentVisible = templateSettings.treeOfContent.enabled && !!activeInstruction.config.displayTreeOfContent;
         }
         return settings;
     }
 
-    
+
 });
