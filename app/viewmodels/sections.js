@@ -6,6 +6,7 @@
             masteryScore = 0,
             courseTitle = "\"" + context.course.title + "\"",
             sectionsLayout = null,
+            sectionThumbnail = { width: 284, height: 170 },
 
             activate = function () {
                 var course = repository.get();
@@ -15,19 +16,24 @@
                 }
                 this.sectionsLayout = templateSettings.sectionsLayout,
                 this.masteryScore = templateSettings.masteryScore.score;
+
+                if(sectionsLayout === "List") {
+                    sectionThumbnail.width = 100;
+                    sectionThumbnail.height = 70;
+                }
                 
                 this.sections = _.map(course.sections, function (item) {
-
                     return {
                         id: item.id,
                         title: item.title,
-                        imageUrl: getResizedSectionThumbnailUrl(item.imageUrl),
+                        imageUrl: item.imageUrl,
+                        imageWidth: sectionThumbnail.width,
+                        imageHeight: sectionThumbnail.height,
                         score: item.score(),
                         scoreTooltipText: getScoreTooltipText(templateSettings.masteryScore.score, item.score()),
                         questions: item.questions,
                         affectProgress: item.affectProgress,
                         goToFirstQuestion: function () {
-                            
                             if (router.isNavigationLocked()) {
                                 return;
                             }
@@ -48,21 +54,6 @@
             masteryScore: masteryScore,
             sections: sections
         };
-
-        function getResizedSectionThumbnailUrl(imageUrl) {
-            var regex = /\?width=\d+\&height=\d+&scaleBySmallerSide=\w+/,
-                imageResizerOptions = '?width=284&height=170&scaleBySmallerSide=false',
-                coincidences = regex.exec(imageUrl),
-                originalImage = imageUrl;
-            if (templateSettings.sectionsLayout === "List") {
-                imageResizerOptions = '?width=100&height=70&scaleBySmallerSide=false';
-            }
-            if (coincidences && coincidences.length) {
-                originalImage = imageUrl.substring(0, coincidences.index);
-            }
-
-            return originalImage + imageResizerOptions;
-        }
 
         function getScoreTooltipText(masteryScore, score) {
             var scoreToComplete = masteryScore - score;

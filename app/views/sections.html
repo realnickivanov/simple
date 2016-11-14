@@ -15,7 +15,7 @@
             <li tabindex="0" class="sections-list-item" data-bind="click: goToFirstQuestion, submitOnEnter, css: { disabled: $parent.isNavigationLocked }, css:$root.sectionsLayout, reviewable: {type: 'section', property: 'title', id: id, title: title}">
                 <!-- ko if: $root.sectionsLayout==="Tiles" -->
                 <div class="section-image-holder">
-                    <div class="section-image" data-bind="style: { 'background-image': 'url(' + imageUrl + ')' }"></div>
+                    <div class="section-image" data-bind="containImage: { imageUrl: imageUrl, imageWidth: imageWidth, imageHeight: imageHeight }"></div>
                     <button tabindex="-1" class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>
                 </div>
                 <!-- ko if: affectProgress -->
