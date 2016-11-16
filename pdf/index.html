@@ -59,7 +59,7 @@
                 <!-- /ko -->
             </ul>
             <!-- /ko -->
-            <h3 class="question-title with-icon" data-bind="text: question.title"></h3>
+            <h3 class="question-title with-icon" data-bind="text: question.title, css: {survey: question.isSurvey}"></h3>
 
             <!-- ko if: question.hasContent && question.type != 'fillInTheBlank' -->
             <div class="question-content-wrapper">
