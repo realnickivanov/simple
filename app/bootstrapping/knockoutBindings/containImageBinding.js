@@ -11,10 +11,15 @@ define(function () {
 
             return getImageSize(imageUrl).then(function(size){
                 var resizedImageUrl = imageUrl;
-                if(size.width > imageWidth || size.height > imageHeight) {
+                var backgroundSize = 'initial';
+                if(size.width >= imageWidth || size.height >= imageHeight) {
                     resizedImageUrl = getResizedSectionThumbnailUrl(imageUrl, imageWidth, imageHeight);
-                    $element.css('backgroundSize', 'contain');
+                    backgroundSize = 'contain';
                 }
+                if(size.width >= imageWidth && size.height >= imageHeight) {
+                    backgroundSize = 'cover';
+                }
+                $element.css('backgroundSize', backgroundSize);
                 $element.css('backgroundImage', 'url(' + resizedImageUrl + ')');
             });
         }
