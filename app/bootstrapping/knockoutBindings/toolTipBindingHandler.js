@@ -86,9 +86,11 @@
               $toolTip = ko.utils.domData.get(element, 'ko_tooltip'),
               $tootlTipText = ko.utils.domData.get(element, 'ko_tooltip_text');
 
-            $tootlTipText.text(getScoreTooltipText(masteryScore, score));
+            if ($tootlTipText) {
+                $tootlTipText.text(getScoreTooltipText(masteryScore, score));
+            }
 
-            if (score >= masteryScore) {
+            if (score >= masteryScore && $toolTip) {
                 $toolTip.addClass('mastered');
             }
         }
