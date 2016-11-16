@@ -5,27 +5,19 @@ define(function () {
         {
             route: 'login',
             moduleId: 'account/account',
-            title: 'Login',
-            rootLinkDisabled: true,
-            hideExitButton: true
+            title: 'Login'
         }, {
             route: 'noaccess',
             moduleId: 'account/limitAccess/index',
-            title: 'Limited access',
-            rootLinkDisabled: true,
-            hideExitButton: true
+            title: 'Limited access'
         }, {
             route: 'signin',
             moduleId: 'account/signin/index',
-            title: 'Sign in',
-            rootLinkDisabled: true,
-            hideExitButton: true
+            title: 'Sign in'
         }, {
             route: 'register',
             moduleId: 'account/register/index',
-            title: 'Register',
-            rootLinkDisabled: true,
-            hideExitButton: true
+            title: 'Register'
         }
     ];
 });

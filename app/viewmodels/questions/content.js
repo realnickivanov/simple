@@ -81,13 +81,13 @@
             return Q.fcall(function () {
                 viewModel.section = sectionRepository.get(sectionId);
                 if (viewModel.section === null) {
-                    router.navigate('404');
+                    router.navigate('404', {replace: true, trigger: true});
                     return;
                 }
 
                 viewModel.question = questionRepository.get(sectionId, questionId);
                 if (viewModel.question === null) {
-                    router.navigate('404');
+                    router.navigate('404', { replace: true, trigger: true });
                     return;
                 }
 
@@ -106,7 +106,7 @@
         }
 
         function deactivate() {
-            if (viewModel.question.learningContents.length > 0) {
+            if (viewModel.question && viewModel.question.learningContents.length > 0) {
                 viewModel.question.learningContentExperienced(new Date() - viewModel.startTime);
             }
         }

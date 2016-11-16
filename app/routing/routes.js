@@ -5,32 +5,27 @@
         routes: [{
             route: ['', 'introduction'],
             moduleId: 'viewmodels/introduction',
-            title: 'Introduction',
-            rootLinkDisabled: true,
-            hideExitButton: true
+            title: 'Introduction'
         }, {
             route: 'sections',
             moduleId: 'viewmodels/sections',
             title: 'Sections',
-            rootLinkDisabled: true,
-            hideExitButton: true,
             displayTreeOfContent: true
         }, {
             route: 'section/:sectionId/question/:questionId',
             moduleId: 'viewmodels/questions/content',
             title: 'Question',
-            displayTreeOfContent: true
+            displayTreeOfContent: true,
+            showExitButton: true,
+            rootLinkEnabled: true
         }, {
             route: 'finish',
             moduleId: 'resultPage/resultPage',
-            title: 'Results',
-            rootLinkDisabled: true,
-            hideExitButton: true
+            title: 'Results'
         }, {
             route: '404(/:url)',
             moduleId: 'viewmodels/404',
-            title: 'Not found',
-            hideExitButton: true
+            title: 'Not found'
         }],
         add: add
     };
