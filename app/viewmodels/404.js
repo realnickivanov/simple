@@ -1,14 +1,7 @@
 ﻿define([], function () {
     var viewModel = {
-        homeUrl: '#sections',
-        activate: activate
+        homeUrl: '#sections'
     };
 
     return viewModel;
-
-    function activate(homeUrl) {
-        if (homeUrl) {
-            viewModel.homeUrl = homeUrl;
-        }
-    }
 });
