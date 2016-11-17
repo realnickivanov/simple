@@ -67,6 +67,8 @@ define(['underscore', 'plugins/router'], function (_, router) {
         defaultSettings.allowCrossDeviceSaving = fullSettings.allowCrossDeviceSaving;
         defaultSettings.allowLoginViaSocialMedia = fullSettings.allowLoginViaSocialMedia;
 
+        defaultSettings.hideSendMeSecretLink = fullSettings.hideSendMeSecretLink;
+
         defaultSettings.languages.selected = fullSettings.languages.selected;
         defaultSettings.languages.customTranslations = fullSettings.languages.customTranslations;
 

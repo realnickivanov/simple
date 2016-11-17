@@ -40,7 +40,7 @@
         }
         var host = window.location.host;
         var protocol = window.location.protocol;
-        var keyPrefix = protocol + '//' + host + '/css/colors.css';
+        var keyPrefix = protocol + '//' + host + '/css/colors.less';
 
         for(var key in window.localStorage) {
             if (!window.localStorage.hasOwnProperty(key)) {

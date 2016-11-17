@@ -51,6 +51,7 @@
                     </p>
                 </header>
                 <section>
+                    <!-- ko ifnot: hideSendMeSecretLink -->
                     <div class="popup-button-wrapper">
                         <button class="button primary small autofocus" data-bind="click: sendSecretLink, css: { hide: isSecretLinkSent }">
                             <span data-translate-text="[send me the link]"></span>
@@ -62,6 +63,7 @@
                             </span>
                         </div>
                     </div>
+                    <!-- /ko -->
                     <div class="popup-button-wrapper">
                         <button class="button small default" data-bind="click: exit, changeClass: { delay: 500, fromClass: 'default', toClass: 'primary', value: isSecretLinkSent }">
                             <span data-translate-text="[close course]"></span>

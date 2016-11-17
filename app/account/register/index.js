@@ -10,7 +10,7 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         var viewmodel = {
             activate: activate,
             header: null,
-            name: userContext.name || '',
+            name: userContext.user.username || '',
             password: null,
             rememberMe: ko.observable(false),
             isPasswordVisible: ko.observable(false),
@@ -101,13 +101,13 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
                     userContext.user.username,
                     userContext.user.keepMeLoggedIn)
                 .then(function (response) {
-                    progressProvider.clearLocalStorage();
                     return progressProvider.initProgressStorage(function(provider){
+                        progressProvider.clearLocalStorage();
                         progressContext.use(provider);
                         return xApiInit(function () {
                             viewmodel.requestProcessing(false);
+                            progressContext.restoreProgress();
                             eventManager.courseStarted();
-                            router.navigate('');
                         });
                     });
                 }).fail(function (reason) {

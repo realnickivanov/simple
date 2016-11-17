@@ -16,12 +16,17 @@ define(['context', 'translation', '../constants', './httpWrapper', './urlProvide
                 return _progress;
             };
 
+            this.setProgress = function (progress){
+                _progress = progress;
+            };
+
             this.getProgressFromServer = function () {
                 return httpWrapper.get(urlProvider.progressStorageUrl + 'progress', {
                     courseId: this.courseId,
                     templateId: this.templateId,
                 }, auth.headers).then(function (response) {
                     _progress = JSON.parse(response.progress);
+                    return response.progress;
                 });
             }
 

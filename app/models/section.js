@@ -11,17 +11,19 @@
             };
 
             var questions = _.filter(section.questions, function (question) {
-                    return question.affectProgress;
-                });
+                return question.affectProgress;
+            });
 
             section.affectProgress = questions.length > 0;
 
             section.hasSurveyQuestions = !!_.filter(section.questions, function (question) {
-                    return question.isSurvey;
-                }).length;
+                return question.isSurvey;
+            }).length;
 
             section.score = ko.computed(function () {
-                var result = _.reduce(questions, function (memo, question) { return memo + question.score(); }, 0);
+                var result = _.reduce(questions, function (memo, question) {
+                    return memo + question.score();
+                }, 0);
                 var questionsLength = questions.length;
                 return questionsLength === 0 ? templateSettings.masteryScore.score : Math.floor(result / questionsLength);
             });

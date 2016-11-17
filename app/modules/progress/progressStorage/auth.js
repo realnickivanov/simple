@@ -33,7 +33,7 @@ define(['./httpWrapper', './urlProvider'], function (httpWrapper, urlProvider) {
             return localStorage.getItem(_private.shortTermAccessKey) === 'true';
         },
         set: function (value) {
-            if (typeof value !== 'undefined') {
+            if (typeof value !== 'undefined' && value !== '') {
                 localStorage.setItem(_private.shortTermAccessKey, value);
             } else if(value === ''){
                 localStorage.removeItem(_private.shortTermAccessKey);

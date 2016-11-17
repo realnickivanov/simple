@@ -57,9 +57,18 @@ define(['q', 'underscore', 'context', 'userContext', 'templateSettings', './loca
                 userContext.user.email = user.email;
                 userContext.user.username = user.name;
                 userContext.user.keepMeLoggedIn = !auth.shortTermAccess;
-
-                clearLocalStorageByEmail(user.email);
-                return _psProvider.getProgressFromServer().then(callback.bind(null, _psProvider));
+                return _psProvider.getProgressFromServer().then(function(progress){
+                    var lsprogress = _lsProvider.getProgress();
+                    if (lsprogress && lsprogress.user && user.email == lsprogress.user.email) {
+                        lsprogress.user.username = userContext.user.username;
+                        if(progress == null){
+                            _psProvider.setProgress(lsprogress);
+                            _psProvider.saveProgress(lsprogress);
+                        }
+                        _lsProvider.removeProgress();
+                    }
+                    callback(_psProvider)
+                });
             }).fail(function () {
                 callback(_lsProvider);
             });
@@ -67,12 +76,5 @@ define(['q', 'underscore', 'context', 'userContext', 'templateSettings', './loca
 
         function clearLocalStorage() {
             _lsProvider.removeProgress();
-        }
-
-        function clearLocalStorageByEmail(email) {
-            var progress = _lsProvider.getProgress();
-            if (progress && progress.user && email == progress.user.email) {
-                _lsProvider.removeProgress();
-            }
         }
     });

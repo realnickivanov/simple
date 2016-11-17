@@ -1,9 +1,9 @@
 ﻿define([
     'durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext',
     'plugins/router', 'templateSettings', 'translation', 'constants',
-    'xApi/xApiInitializer', 'includedModules/modulesInitializer'
+    'xApi/xApiInitializer', 'includedModules/modulesInitializer', 'context'
 ], function(app, windowOperations, courseRepository, progressContext, router, templateSettings,
-    translation, constants, xApiInitializer, modulesInitializer) {
+    translation, constants, xApiInitializer, modulesInitializer, context) {
     "use strict";
 
     var progressStatuses = constants.progressContext.statuses;
@@ -14,8 +14,6 @@
         finished: 'finished'
     };
 
-    var course = courseRepository.get();
-
     var viewModel = {
         type: ko.observable(),
         isNavigationLocked: router.isNavigationLocked,
@@ -23,7 +21,7 @@
         status: ko.observable(statuses.readyToFinish),
         statuses: statuses,
 
-        score: course.score,
+        score: null,
         masteryScore: templateSettings.masteryScore.score,
         xAPIEnabled: false,
         scormEnabled: false,
@@ -56,6 +54,7 @@
     return viewModel;
 
     function activate(type) {
+        viewModel.score = context.course.score;
         viewModel.type(type);
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
         viewModel.scormEnabled = modulesInitializer.hasModule('lms');

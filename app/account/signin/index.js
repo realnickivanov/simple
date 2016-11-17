@@ -60,8 +60,8 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
                     userContext.user.password,
                     userContext.user.keepMeLoggedIn)
                 .then(function (response) {
-                    progressProvider.clearLocalStorage();
                     return progressProvider.initProgressStorage(function(provider){
+                        progressProvider.clearLocalStorage();
                         progressContext.use(provider);
                         return xApiInit(function () {
                             viewmodel.requestProcessing(false);
