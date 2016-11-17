@@ -87,15 +87,15 @@ define(['plugins/router', 'context', './header/index', './socialNetworks/index',
             if(viewmodel.requestProcessing()){
                 return;
             }
-            templateSettings.allowCrossDeviceSaving = false;
             xApiInitializer.deactivate();
             guardRoute.skipLoginGuard();
+            if (!accessLimiter.userHasAccess({ email: viewmodel.email() })) {
+                router.navigate('noaccess');
+                return;
+            }
+            templateSettings.allowCrossDeviceSaving = false;
             progressProvider.initialize().then(function(provider){
-                progressContext.use(provider);
-                if(!accessLimiter.userHasAccess({ email: viewmodel.email() })){
-                    router.navigate('noaccess');
-                    return;
-                }
+                progressContext.use(provider);                
                 progressContext.restoreProgress();
             });
         }
