@@ -17,6 +17,7 @@ define(function () {
                     backgroundSize = 'contain';
                 }
                 if(size.width >= imageWidth && size.height >= imageHeight) {
+                    resizedImageUrl += '&scaleBySmallerSide=true';
                     backgroundSize = 'cover';
                 }
                 $element.css('backgroundSize', backgroundSize);
@@ -51,6 +52,6 @@ define(function () {
     }
 
     function getResizedSectionThumbnailUrl(imageUrl, imageWidth, imageHeight) {
-        return imageUrl + '?width=' + imageWidth + '&height=' + imageHeight + '&scaleBySmallerSide=false';
+        return imageUrl + '?width=' + imageWidth + '&height=' + imageHeight;
     }
 });
