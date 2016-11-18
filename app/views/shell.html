@@ -64,7 +64,12 @@
     </section>
     <div class="blockout" data-bind="css: { active: isClosed }">
         <div class="blockout-text-wrapper">
+            <!-- ko if: inIframe -->
+            <span class="blockout-text" data-translate-text="[the course has been finished]"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: inIframe -->
             <span class="blockout-text" data-translate-text="[please close the browser tab now]"></span>
+            <!-- /ko -->
         </div>
     </div>
     <div data-bind="widget: {kind:'imagePreview'}"></div>
