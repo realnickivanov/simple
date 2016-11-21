@@ -65,7 +65,7 @@ gulp.task('process-less', function () {
         }))
         .pipe($.csso())
         .pipe($.autoprefixer({
-            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version', 'last 1 iOS version'],
+            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version', 'last 1 iOS version', 'Android >= 2.3'],
             cascade: false
         }))
         .pipe(gulp.dest('./css/'));
