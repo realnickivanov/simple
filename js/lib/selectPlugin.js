@@ -29,9 +29,11 @@
             $element.wrap('<div tabindex="0" class="' + cssClasses.wrapper + '"></div>');
             var $selectWrapper = $element.parent('.' + cssClasses.wrapper);
             var $valueWrapper = $('<div class="' + cssClasses.value + '"></div>')
-                .text(that.options.defaultText)
-                .addClass(cssClasses.default)
                 .appendTo($selectWrapper);
+
+            $('<span class="' + cssClasses.default + '"></span>')
+            .text(that.options.defaultText)
+            .appendTo($valueWrapper);
 
             $selectWrapper.on('click', function () {
                 if (that.isEnabled) {
@@ -118,7 +120,7 @@
         refresh: function () {
             var $element = $(this.element);
             $element.val(this.options.defaultText);
-            $('.' + cssClasses.value, $element.parent('.' + cssClasses.wrapper))
+            $('span', $element.parent('.' + cssClasses.value))
                 .text(this.options.defaultText)
                 .addClass(cssClasses.default);
         },
