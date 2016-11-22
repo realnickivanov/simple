@@ -85,7 +85,7 @@ gulp.task('clean', function (cb) {
 function addCustomStyles() {
     return eventStream.map(function (file, callback) {
         var customStyles = [
-            'css/custom-template-style.css'
+            'css/custom-styles.css'
         ];
 
         var fileContent = String(file.contents);
