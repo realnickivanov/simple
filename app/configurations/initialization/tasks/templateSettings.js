@@ -68,6 +68,7 @@ define(['underscore', 'plugins/router'], function (_, router) {
         defaultSettings.allowLoginViaSocialMedia = fullSettings.allowLoginViaSocialMedia;
 
         defaultSettings.hideSendMeSecretLink = fullSettings.hideSendMeSecretLink;
+        defaultSettings.hideFinishButton = fullSettings.hideFinishButton;
 
         defaultSettings.languages.selected = fullSettings.languages.selected;
         defaultSettings.languages.customTranslations = fullSettings.languages.customTranslations;
