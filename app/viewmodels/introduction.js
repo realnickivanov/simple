@@ -12,7 +12,7 @@
             },
 
             activate = function () {
-                this.courseTitle = "\"" + context.course.title + "\"";
+                this.courseTitle = context.course.title;
 
                 var that = this;
                 return Q.fcall(function () {

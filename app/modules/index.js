@@ -9,7 +9,7 @@ define(['./lessProcessor', './webFontLoaderProvider'], function(lessProcessor, w
         var promises = [];
 
         promises.push(webFontLoader.init(templateSettings.fonts, manifest, publishSettings));
-        promises.push(lessProcessor.init(templateSettings.colors, templateSettings.fonts))
+        promises.push(lessProcessor.init(templateSettings.colors, templateSettings.fonts));
 
         return Q.all(promises);
     }

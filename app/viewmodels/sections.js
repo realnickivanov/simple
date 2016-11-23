@@ -4,7 +4,7 @@
         var
             sections = [],
             masteryScore = 0,
-            courseTitle = "\"" + context.course.title + "\"",
+            courseTitle = context.course.title,
             sectionsLayout = null,
             sectionThumbnail = { width: 284, height: 170 },
 
