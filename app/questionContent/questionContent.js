@@ -1,5 +1,5 @@
-define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory'],
-    function (ko, router, constants, navigationModule, questionViewModelFactory) {
+define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory', 'templateSettings'],
+    function (ko, router, constants, navigationModule, questionViewModelFactory, templateSettings) {
         "use strict";
 
         function QuestionContent() {
@@ -35,6 +35,8 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             this.isWrongAnswered = ko.computed(function () {
                 return self.isAnswered() && !self.isCorrect();
             });
+
+            this.hideTryAgain = false;
         };
 
         QuestionContent.prototype.submit = function() {
@@ -87,16 +89,10 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             this.incorrectFeedback(this.question.feedback.incorrect);
 
             this.activeQuestionViewModel = questionViewModelFactory.getViewModel(this.question.type);
-            this.feedbackView = 'questions/feedback.html';
-            this.submitViewModel = '';
+            this.feedbackView = this.activeQuestionViewModel.feedbackView || 'questions/feedback.html';
+            this.submitViewModel = this.activeQuestionViewModel.customSubmitViewModel || '';
 
-            if (this.activeQuestionViewModel.feedbackView) {
-                this.feedbackView = this.activeQuestionViewModel.feedbackView;
-            }
-
-            if (this.activeQuestionViewModel.customSubmitViewModel) {
-                this.submitViewModel = this.activeQuestionViewModel.customSubmitViewModel;
-            }
+            this.hideTryAgain = templateSettings.hideTryAgain;
 
             if(isPreview){
                 var self = this;
