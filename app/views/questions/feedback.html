@@ -4,7 +4,7 @@
         <!-- ko ifnot: isSurvey -->
         <div class="question-result-block" data-translate-text="[correct answer]" data-translate-title="[correct answer]"></div>
         <!-- /ko -->
-        <!-- ko if: isSurvey --> 
+        <!-- ko if: isSurvey -->
         <div class="question-result-block" data-translate-text="[your answer was stored]" data-translate-title="[your answer was stored]"></div>
         <!-- /ko -->
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
@@ -24,6 +24,15 @@
         </div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
+        <!-- ko if: hideTryAgain -->
+            <!-- ko if: navigationContext.nextQuestionUrl -->
+            <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
+            <!-- /ko -->
+            <!-- ko ifnot: navigationContext.nextQuestionUrl -->
+            <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: hideTryAgain -->
             <button class="button medium primary autofocus" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
             <!-- ko if: navigationContext.nextQuestionUrl -->
             <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
@@ -31,6 +40,7 @@
             <!-- ko ifnot: navigationContext.nextQuestionUrl -->
             <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
             <!-- /ko -->
+        <!-- /ko -->
         </div>
     </div>
     <!-- /ko -->

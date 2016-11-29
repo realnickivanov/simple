@@ -69,6 +69,7 @@ define(['underscore', 'plugins/router'], function (_, router) {
 
         defaultSettings.hideSendMeSecretLink = fullSettings.hideSendMeSecretLink;
         defaultSettings.hideFinishButton = fullSettings.hideFinishButton;
+        defaultSettings.hideTryAgain = fullSettings.hideTryAgain;
 
         defaultSettings.languages.selected = fullSettings.languages.selected;
         defaultSettings.languages.customTranslations = fullSettings.languages.customTranslations;
