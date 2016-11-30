@@ -1,9 +1,9 @@
-﻿define(['durandal/binder', './binders/localization', './binders/background'], function (binder, localization, background) {
+﻿define(['durandal/binder', './binders/background'], function (binder, background) {
 
     return {
         execute: function () {
             binder.binding = function (obj, view) {
-                localization.localize(view);
+                TranslationPlugin.localize(view);
                 background.apply();
             }
         }

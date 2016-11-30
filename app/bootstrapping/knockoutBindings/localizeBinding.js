@@ -1,4 +1,4 @@
-﻿define(['knockout', 'translation'], function (ko, translation) {
+﻿define(['knockout'], function (ko) {
     ko.bindingHandlers.localize = {
         update: function (element, valueAccessor) {
             localizeValue(element, valueAccessor);
@@ -34,9 +34,9 @@
 
     function getLocalizedText(value) {
         if (_.isString(value)) {
-            return translation.getTextByKey(value);
+            return TranslationPlugin.getTextByKey(value);
         } else if (_.isObject(value)) {
-            var text = translation.getTextByKey(value.key);
+            var text = TranslationPlugin.getTextByKey(value.key);
 
             for (var replacement in value.replace) {
                 text = text.replace('{' + replacement + '}', value.replace[replacement]);

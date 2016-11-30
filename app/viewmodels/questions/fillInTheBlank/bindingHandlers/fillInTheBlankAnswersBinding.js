@@ -1,4 +1,4 @@
-﻿define(['knockout', 'durandal/composition', 'translation'], function (ko, composition, translation) {
+﻿define(['knockout', 'durandal/composition'], function (ko, composition) {
     ko.bindingHandlers.fillInTheBlankAnswers = {
         init: function (element, valueAccessor) {
             var $element = $(element),
@@ -8,7 +8,7 @@
             $element.html(content);
 
             $(".blankSelect").select({
-                defaultText: translation.getTextByKey('[fill in the blank choose answer]')
+                defaultText: TranslationPlugin.getTextByKey('[fill in the blank choose answer]')
             });
 
             _.each(value, function (blank) {

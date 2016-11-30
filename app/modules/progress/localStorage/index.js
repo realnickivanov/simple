@@ -1,4 +1,4 @@
-define(['context', 'translation', '../constants'], function (context, translation, constants) {
+define(['context', '../constants'], function (context, constants) {
     'use strict';
     
     function LocalStorageProgressProvider(courseId, templateId) {
@@ -36,7 +36,7 @@ define(['context', 'translation', '../constants'], function (context, translatio
             try {
                 localStorage.setItem(this.resultKey, JSON.stringify(result));
             } catch (e) {
-                alert(translation.getTextByKey('[not enough memory to save progress]'));
+                alert(TranslationPlugin.getTextByKey('[not enough memory to save progress]'));
             }
             return true;
         };

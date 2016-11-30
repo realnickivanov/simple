@@ -1,5 +1,5 @@
-﻿define(['durandal/system', 'durandal/app', 'plugins/router', 'translation', 'eventManager', 'context', 'userContext', 'constants'],
-    function (system, app, router, translation, eventManager, dataContext, userContext, constants) {
+﻿define(['durandal/system', 'durandal/app', 'plugins/router', 'eventManager', 'context', 'userContext', 'constants'],
+    function (system, app, router, eventManager, dataContext, userContext, constants) {
 
         var
             statuses = constants.progressContext.statuses,
@@ -123,7 +123,7 @@
 
                 window.onbeforeunload = function () {
                     if (context.status() === statuses.error) {
-                        return translation.getTextByKey('[progress cannot be saved]');
+                        return TranslationPlugin.getTextByKey('[progress cannot be saved]');
                     }
                 }
             } else {

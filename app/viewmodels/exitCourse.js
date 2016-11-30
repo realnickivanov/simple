@@ -1,9 +1,9 @@
 ﻿define([
     'durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext',
-    'plugins/router', 'templateSettings', 'translation', 'constants',
+    'plugins/router', 'templateSettings', 'constants',
     'xApi/xApiInitializer', 'includedModules/modulesInitializer', 'context'
 ], function(app, windowOperations, courseRepository, progressContext, router, templateSettings,
-    translation, constants, xApiInitializer, modulesInitializer, context) {
+    constants, xApiInitializer, modulesInitializer, context) {
     "use strict";
 
     var progressStatuses = constants.progressContext.statuses;
@@ -64,7 +64,7 @@
 
     function exit() {
         if (progressContext.status() === progressStatuses.error) {
-            var isCourseClosingConfirmed = confirm(translation.getTextByKey('[progress is not saved confirmation]'));
+            var isCourseClosingConfirmed = confirm(TranslationPlugin.getTextByKey('[progress is not saved confirmation]'));
             if (!isCourseClosingConfirmed) {
                 return;
             }
