@@ -25,7 +25,7 @@
         masteryScore: templateSettings.masteryScore.score,
         xAPIEnabled: false,
         scormEnabled: false,
-        hideFinishButton: false,
+        hideFinishActionButtons: false,
         activate: activate
     };
 
@@ -59,7 +59,7 @@
         viewModel.type(type);
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
         viewModel.scormEnabled = modulesInitializer.hasModule('lms');
-        viewModel.hideFinishButton = templateSettings.hideFinishButton;
+        viewModel.hideFinishActionButtons = templateSettings.hideFinishActionButtons;
     }
 
     function exit() {

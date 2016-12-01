@@ -8,8 +8,7 @@ define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'temp
             sendSecretLink: sendSecretLink,
             isSecretLinkSent: ko.observable(false),
             keepMeLoggedIn: ko.observable(false),
-            toggleKeepMeLoggedIn: toggleKeepMeLoggedIn,
-            hideSendMeSecretLink: false
+            toggleKeepMeLoggedIn: toggleKeepMeLoggedIn
         };
 
         return viewModel;
@@ -37,7 +36,6 @@ define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'temp
                 viewModel.progressStorageActivated = templateSettings.allowCrossDeviceSaving && !modulesInitializer.hasModule('lms');
                 viewModel.email = userContext.user.email;
                 viewModel.keepMeLoggedIn(userContext.user.keepMeLoggedIn);
-                viewModel.hideSendMeSecretLink = templateSettings.hideSendMeSecretLink;
             }
         }
     });

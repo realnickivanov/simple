@@ -109,7 +109,7 @@ define([
             var activeInstruction = router.activeInstruction();
             if (_.isObject(activeInstruction)) {
                 settings.rootLinkEnabled = !!activeInstruction.config.rootLinkEnabled && !router.isNavigationLocked();
-                settings.exitButtonVisible = !!activeInstruction.config.showExitButton;
+                settings.exitButtonVisible = !!activeInstruction.config.showExitButton && !templateSettings.hideFinishActionButtons;
                 settings.treeOfContentVisible = templateSettings.treeOfContent.enabled && !!activeInstruction.config.displayTreeOfContent;
             }
             return settings;

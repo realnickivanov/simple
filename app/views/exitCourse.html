@@ -18,9 +18,9 @@
                     </div>
                 </div>
             </div>
+            <!-- ko ifnot: hideFinishActionButtons -->
             <div class="exit-course-wrapper">
                 <div class="exit-course-container">
-                    <!-- ko ifnot: hideFinishButton -->
                     <!-- ko if: !xAPIEnabled && !scormEnabled -->
                     <button class="button small primary exit-course-button" data-translate-text="[finish course when tracking disabled]" data-bind="click: finishAction, css: { disabled: isNavigationLocked }"></button>
                     <!-- /ko -->
@@ -30,12 +30,12 @@
                     <div class="or-separator">
                         <span class="or-separator-text" data-translate-text="[or]"></span>
                     </div>
-                    <!-- /ko -->
                     <div class="exit-course-link-wrapper">
                         <a class="exit-course-link" href="#" data-translate-title="[take a break and continue later]" data-translate-text="[take a break and continue later]" data-bind="click: takeABreakAction"></a>
                     </div>
                 </div>
             </div>
+            <!-- /ko -->
         </div>
     </section>
     <!-- /ko -->
