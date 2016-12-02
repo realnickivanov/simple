@@ -11,7 +11,9 @@
         return windowOperations;
 
         function close() {
-            window.close();
+            if (window.opener && window !== window.opener) {
+                window.close();
+            }
             app.trigger(constants.events.appClosed);
         }
     }
