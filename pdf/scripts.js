@@ -52,14 +52,19 @@
 		}
 	};
 
-	$.getJSON('../content/data.js', function (content) {
-		$.getJSON('../settings.js', function (settings) {
+	ConfigurationReader.read('../').then(function (configsFiles) {
+		var configs = ConfigurationReader.init(configsFiles);
+        TranslationPlugin.init(configs.translations);
+
+		$.getJSON('../content/data.js', function (content) {
 			content.filterQuestionTypes = filterQuestionTypes;
 			content.shuffleKeyValues = shuffleKeyValues;
 			content.shuffle = shuffle;
-			content.logoUrl = (settings && settings.logo && settings.logo.url) ? settings.logo.url : defaultLogo;
+			content.logoUrl = (configs.templateSetting && configs.templateSetting.logo && configs.templateSetting.logo.url) ? configs.templateSetting.logo.url : defaultLogo;
 
+			TranslationPlugin.localize();
 			ko.applyBindings(content);
+			window.status = "READY";
 		});
 	});
 
@@ -108,5 +113,4 @@
 		for (var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
 		return arr;
 	}
-
 })();
