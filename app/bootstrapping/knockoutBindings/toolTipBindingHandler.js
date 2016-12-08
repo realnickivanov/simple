@@ -1,4 +1,4 @@
-﻿define(['durandal/composition', 'translation'], function (composition, translation) {
+﻿define(['durandal/composition'], function (composition) {
     ko.bindingHandlers.toolTip = {
         init: function (element, valueAccessor) {
             var $element = $(element),
@@ -98,7 +98,7 @@
 
     function getScoreTooltipText(mastery, score) {
         var scoreToComplete = mastery - score;
-        return scoreToComplete > 0 ? scoreToComplete + '% ' + translation.getTextByKey('[to complete]') : translation.getTextByKey('[completed]');
+        return scoreToComplete > 0 ? scoreToComplete + '% ' + TranslationPlugin.getTextByKey('[to complete]') : TranslationPlugin.getTextByKey('[completed]');
     }
 
     composition.addBindingHandler('toolTip');

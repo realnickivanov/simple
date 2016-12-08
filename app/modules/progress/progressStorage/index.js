@@ -1,7 +1,7 @@
-define(['context', 'translation', '../constants', './httpWrapper', './urlProvider',
+define(['context', '../constants', './httpWrapper', './urlProvider',
         './auth'
     ],
-    function (context, translation, constants, httpWrapper, urlProvider, auth) {
+    function (context, constants, httpWrapper, urlProvider, auth) {
         'use strict';
 
         function ProgressStorageProvider(courseId, templateId) {
@@ -48,7 +48,7 @@ define(['context', 'translation', '../constants', './httpWrapper', './urlProvide
                 try {
                     localStorage.setItem(this.resultKey, JSON.stringify(result));
                 } catch (e) {
-                    alert(translation.getTextByKey('[not enough memory to save progress]'));
+                    alert(TranslationPlugin.getTextByKey('[not enough memory to save progress]'));
                 }
                 return true;
             };

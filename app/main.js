@@ -26,12 +26,10 @@ define('perfectScrollbar', function () {
     return Ps;
 });
 
-define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'configurations/reader',
-        'configurations/initialization/index', 'templateSettings', 'publishSettings', 'translation', 'includedModules/modulesInitializer',
+define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'templateSettings', 'publishSettings', 'includedModules/modulesInitializer',
         'modules/index'
     ],
-    function (app, system, _, bootstrapper, configReader, configInitializator,
-        templateSettings, publishSettings, translation, modulesInitializer, modulesLoader) {
+    function (app, system, _, bootstrapper, templateSettings, publishSettings, modulesInitializer, modulesLoader) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -46,10 +44,10 @@ define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'config
         app.start().then(function () {
             bootstrapper.run();
 
-            return configReader.read().then(function (configsFiles) {
-                var configs = configInitializator.initialize(configsFiles);
+            return ConfigurationReader.read().then(function (configsFiles) {
+                var configs = ConfigurationReader.init(configsFiles);
                 templateSettings.init(configs.templateSetting);
-                translation.init(configs.translations);
+                TranslationPlugin.init(configs.translations);
                 publishSettings.init(configsFiles.publishSettings);
 
                 return modulesLoader.init(templateSettings, configsFiles.manifest, publishSettings).then(function () {

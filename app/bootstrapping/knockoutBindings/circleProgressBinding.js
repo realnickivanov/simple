@@ -1,4 +1,4 @@
-﻿define(['durandal/composition', 'translation'], function (composition, translation) {
+﻿define(['durandal/composition'], function (composition) {
 
     ko.bindingHandlers.circleProgress = {
         update: function (element, valueAccessor) {

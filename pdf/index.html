@@ -107,7 +107,7 @@
             </div>
             <!-- /ko -->
             <!-- ko if: question.type == 'textMatching' -->
-            <div class="text-matching-caption">
+            <div class="text-matching-caption" data-translate-text="[text matching question pdf hint]">
                 Сombine elements from the left column with the elements on the right
             </div>
             <!-- ko foreach: $root.shuffleKeyValues(question.answers) -->
@@ -146,10 +146,10 @@
             <!-- ko if: question.type == 'statement' -->
             <ul class="statement">
                 <li class="statement-headers-group">
-                    <div class="statement-option">
+                    <div class="statement-option" data-translate-text="[statement question true text]" >
                         True
                     </div>
-                    <div class="statement-option">
+                    <div class="statement-option" data-translate-text="[statement question false text]">
                         False
                     </div>
                 </li>
@@ -191,6 +191,7 @@
     <!-- build:js scripts.js-->
     <script src="../js/jquery-1.9.1.js" type="text/javascript"></script>
     <script src="../vendor/knockout/dist/knockout.js" type="text/javascript"></script>
+    <script src="../vendor/easygenerator-plugins/dist/plugins.js" type="text/javascript"></script>
     <script src="scripts.js" type="text/javascript"></script>
     <!-- endbuild -->
 </body>

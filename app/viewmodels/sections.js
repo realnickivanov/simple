@@ -1,5 +1,5 @@
-﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings', 'translation'],
-    function (context, repository, router, windowOperations, templateSettings, translation) {
+﻿define(['context', 'repositories/courseRepository', 'plugins/router', 'windowOperations', 'templateSettings'],
+    function (context, repository, router, windowOperations, templateSettings) {
 
         var
             sections = [],
@@ -57,7 +57,7 @@
 
         function getScoreTooltipText(masteryScore, score) {
             var scoreToComplete = masteryScore - score;
-            return scoreToComplete > 0 ? scoreToComplete + '% ' + translation.getTextByKey('[to complete]') : translation.getTextByKey('[completed]');
+            return scoreToComplete > 0 ? scoreToComplete + '% ' + TranslationPlugin.getTextByKey('[to complete]') : TranslationPlugin.getTextByKey('[completed]');
         }
 
     });
