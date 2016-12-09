@@ -1,5 +1,5 @@
-define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'templateSettings', 'includedModules/modulesInitializer'],
-    function (auth, context, userContext, templateSettings, modulesInitializer) {
+define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'templateSettings', 'includedModules/modulesInitializer', 'modules/publishModeProvider'],
+    function (auth, context, userContext, templateSettings, modulesInitializer, publishModeProvider) {
 
         var viewModel = {
             activate: activate,
@@ -33,7 +33,7 @@ define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'temp
                     }
                     data.exit();
                 };
-                viewModel.progressStorageActivated = templateSettings.allowCrossDeviceSaving && !modulesInitializer.hasModule('lms');
+                viewModel.progressStorageActivated = templateSettings.allowCrossDeviceSaving && !publishModeProvider.isScormEnabled;
                 viewModel.email = userContext.user.email;
                 viewModel.keepMeLoggedIn(userContext.user.keepMeLoggedIn);
             }

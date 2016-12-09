@@ -2,9 +2,9 @@ define([
     'knockout', 'underscore', 'durandal/app', 'durandal/composition', 'plugins/router',
     'routing/routes', 'context', 'includedModules/modulesInitializer', 'templateSettings',
     'progressContext', 'constants', 'userContext', 'errorsHandler',
-    'modules/progress/index', 'account/index', 'xApi/xApiInitializer'
+    'modules/progress/index', 'account/index', 'xApi/xApiInitializer', 'modules/publishModeProvider', 'modules/questionsNavigation'
 ], function (ko, _, app, composition, router, routes, context, modulesInitializer, templateSettings,
-    progressContext, constants, userContext, errorsHandler, progressProvider, account, xApiInitializer) {
+    progressContext, constants, userContext, errorsHandler, progressProvider, account, xApiInitializer, publishModeProvider, questionsNavigation) {
 
         'use strict';
         var viewmodel = {
@@ -34,11 +34,10 @@ define([
             return '';
         });
         viewmodel.isInReviewMode = router.getQueryStringValue('reviewApiUrl');
-        viewmodel.isScormEnabled = modulesInitializer.hasModule('lms');
 
         router.on('router:route:activating')
             .then(function (newView) {
-                if (!viewmodel.isScormEnabled && !viewmodel.pdfExportEnabled() === templateSettings.pdfExport.enabled) {
+                if (!publishModeProvider.isScormEnabled && !viewmodel.pdfExportEnabled() === templateSettings.pdfExport.enabled) {
                     var isNotAccountModule = newView && (newView.__moduleId__.slice(0, newView.__moduleId__.indexOf('/')) !== 'account');
                     viewmodel.pdfExportEnabled(isNotAccountModule);
                 }
@@ -74,8 +73,7 @@ define([
             }
 
             function initializeProgressProvider() {
-                var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
-                if (!modulesInitializer.hasModule('lms') && location.href.indexOf('/preview/') === -1 && !reviewApiUrl) {
+                if (!publishModeProvider.isScormEnabled && !publishModeProvider.isPreview && !publishModeProvider.isReview) {
                     return progressProvider.initialize().then(function (provider) {
                         progressContext.use(provider);
                     });
@@ -93,6 +91,7 @@ define([
             }
 
             function initRouter() {
+                questionsNavigation.redirectToQuestion();
                 return router.map(routes.routes).buildNavigationModel().mapUnknownRoutes('viewmodels/404', '404').activate().then(function () {
                     errorsHandler.startHandle();
                 });

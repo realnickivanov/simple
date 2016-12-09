@@ -1,9 +1,9 @@
 ﻿define([
     'durandal/app', 'windowOperations', 'repositories/courseRepository', 'progressContext',
     'plugins/router', 'templateSettings', 'constants',
-    'xApi/xApiInitializer', 'includedModules/modulesInitializer', 'context'
+    'xApi/xApiInitializer', 'includedModules/modulesInitializer', 'context', 'modules/publishModeProvider'
 ], function(app, windowOperations, courseRepository, progressContext, router, templateSettings,
-    constants, xApiInitializer, modulesInitializer, context) {
+    constants, xApiInitializer, modulesInitializer, context, publishModeProvider) {
     "use strict";
 
     var progressStatuses = constants.progressContext.statuses;
@@ -58,7 +58,7 @@
         viewModel.score = context.course.score;
         viewModel.type(type);
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
-        viewModel.scormEnabled = modulesInitializer.hasModule('lms');
+        viewModel.scormEnabled = publishModeProvider.isScormEnabled;
         viewModel.hideFinishActionButtons = templateSettings.hideFinishActionButtons;
     }
 
