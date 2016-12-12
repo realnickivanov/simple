@@ -57,7 +57,7 @@
                 that.checkedAnswerId = that.correctAnswerId;
             } else {
                 var checked = _.find(that.answers, function (answer) {
-                    return answer.shortId == progress;
+                    return answer.shortId === progress;
                 });
 
                 if (checked) {

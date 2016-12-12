@@ -1,10 +1,11 @@
-﻿define(['models/course', 'models/section', 'models/questions/questionsFactory'],
-    function (Course, Section, questionsFactory) {
+﻿define(['models/course', 'models/section', 'publishSettings', 'models/questions/questionsFactory'],
+    function (Course, Section, publishSettings, questionsFactory) {
 
         var _response;
 
-        function mapCourse(response){
-            questionsFactory.clearIndex();
+        function mapCourse(response) {
+            var questionShortIds = publishSettings.questionShortIds || {};
+
             this.course = new Course({
                 id: response.id,
                 templateId: response.templateId,
@@ -20,7 +21,7 @@
                             title: section.title,
                             imageUrl: section.imageUrl,
                             questions: _.chain(section.questions).map(function (question) {
-                                return questionsFactory.createQuestion(section.id, question); 
+                                return questionsFactory.createQuestion(section.id, question, questionShortIds[question.id]);
                             }).filter(function(question){
                                 return question != null;
                             }).value()

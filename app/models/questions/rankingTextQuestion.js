@@ -41,12 +41,14 @@
                 this.rankingItems = this.correctOrder;
                 this.score(100);
             } else {
-                this.rankingItems = _.map(progress, function (item) {
-                    return {
-                        text: item
-                    };
-                });
-
+                var pattern = _.pluck(this.correctOrder, 'text');
+                if (_.isEmpty(_.difference(pattern, progress))) {
+                    this.rankingItems = _.map(progress, function(item) {
+                        return {
+                            text: item
+                        };
+                    });
+                }
                 this.score(0);
             }
         }

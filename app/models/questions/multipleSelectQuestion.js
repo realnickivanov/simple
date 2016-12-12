@@ -60,7 +60,7 @@
 
         function restoreProgress(progress) {
             _.each(this.answers, function (answer) {
-                answer.isChecked = progress === 100 ? answer.isCorrect : progress && progress.indexOf(answer.shortId) > -1;
+                answer.isChecked = progress === 100 ? answer.isCorrect : progress && _.indexOf(progress, answer.shortId) > -1;
             });
             this.score(calculateScore(this.answers));
         }

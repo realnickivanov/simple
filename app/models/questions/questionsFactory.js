@@ -9,20 +9,18 @@
         StatementQuestion, Hotspot, OpenQuestion, ScenarioQuestion, RankingText) {
         "use strict";
 
-        var index = 0;
-
         return {
             createQuestion: createQuestion,
-            clearIndex: clearIndex
         };
 
-        function createQuestion(sectionId, question) {
+        function createQuestion(sectionId, question, shortId) {
             guard.throwIfNotString(sectionId, 'sectionId is invalid');
             guard.throwIfNotAnObject(question, 'Question data is invalid');
             guard.throwIfNotString(question.type, 'Question type is invalid');
+            
             var questionData = {
                 id: question.id,
-                shortId: index++,
+                shortId: shortId,
                 sectionId: sectionId,
                 title: question.title,
                 type: question.type,
@@ -86,9 +84,4 @@
                     return null;
             }
         }
-
-        function clearIndex() {
-            index = 0;
-        }
-
     });

@@ -27,7 +27,7 @@
 
         function restoreProgress(progress) {
             if (!_.isNaN(progress)) {
-                this.score(progress);
+                this.score(progress === 100 ? progress : 0);
             }
         }
 
