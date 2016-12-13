@@ -42,7 +42,7 @@
                 this.score(100);
             } else {
                 var pattern = _.pluck(this.correctOrder, 'text');
-                if (_.isEmpty(_.difference(pattern, progress))) {
+                if (pattern.length === progress.length && _.intersection(pattern, progress).length === pattern.length) {
                     this.rankingItems = _.map(progress, function(item) {
                         return {
                             text: item
