@@ -12,8 +12,9 @@
             <label class="input-label" data-translate-text="[password]"></label>
             <span class="input-icon icon-password2"></span>
             <span class="input-icon align-right pointer password" data-bind="click: togglePasswordVisibility, css: { 'icon-eye_lock': isPasswordVisible(), 'icon-eye': !isPasswordVisible() }"></span>
-            <p class="error-message" data-bind="visible: !emailPasswordCombination()" data-translate-text="[login email / password combination is not valid]"></p>
-            <p class="error-message" data-bind="visible: emailPasswordCombination()" data-translate-text="[login email / password combination is not valid]"></p>
+            <p class="error-message" data-bind="visible: !emailPasswordCombination()" data-translate-text="[login email / password combination is not valid]" data-translate-title="[login email / password combination is not valid]"></p>
+            <p class="error-message" data-bind="visible: emailPasswordCombination()" data-translate-text="[login email / password combination is not valid]" data-translate-title="[login email / password combination is not valid]"></p>
+            <p class="forgot-password" data-bind="click: forgotPassword" data-translate-text="[forgot password]"></p>
         </div>
         <button class="button check small" data-bind="click: toggleRememberMe, css: { active: rememberMe }">
             <span data-translate-text="[remember me on this device]"></span>
@@ -35,11 +36,18 @@
             <a tabindex="0"  data-bind="click: sendSecretLink, submitOnEnter" data-translate-text="[request a secret link]"></a>&nbsp;
             <span data-translate-text="[to your progress via email]"></span>
         </div>
-        <div class="secret-link-confirm-container" data-bind="css: { show: isSecretLinkSent }">
+        <!-- ko if: isSecretLinkSent() || isRestorePasswordEmailSent() -->
+        <div class="secret-link-confirm-container show">
             <span class="secret-link-confirm-wrapper">
                 <span class="icon-envelope"></span>
+                <!-- ko if: isRestorePasswordEmailSent -->
+                <span class="secret-link-confirm-text" data-translate-text="[forgot password email sent]" data-translate-title="[forgot password email sent]"></span>
+                <!-- /ko -->
+                <!-- ko if: isSecretLinkSent -->
                 <span class="secret-link-confirm-text" data-translate-text="[the letter has been successfully sent]" data-translate-title="[the letter has been successfully sent]"></span>
+                <!-- /ko -->
             </span>
         </div>
+        <!-- /ko -->
     </article>
 </section>

@@ -21,7 +21,9 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
             isPasswordVisible: ko.observable(false),
             togglePasswordVisibility: togglePasswordVisibility,
             emailPasswordCombination: ko.observable(false),
-            requestProcessing: ko.observable(false)
+            requestProcessing: ko.observable(false),
+            isRestorePasswordEmailSent: ko.observable(false),
+            forgotPassword: forgotPassword
         };
 
         viewmodel.password = validatedValue(function (value) {
@@ -90,11 +92,30 @@ define(['knockout', 'plugins/router', 'context', 'userContext', '../header/index
         }
 
         function sendSecretLink(){
-            if(viewmodel.requestProcessing()){
+            if(viewmodel.requestProcessing() || viewmodel.isSecretLinkSent()){
                 return;
             }
             auth.sendSecreLink(userContext.user.email, context.course.title).then(function(){
+                viewmodel.isRestorePasswordEmailSent(false);
                 viewmodel.isSecretLinkSent(true);
+                toggleValueAfterSomeTime(viewmodel.isSecretLinkSent, 5000);
             });
+        }
+
+        function forgotPassword(){
+            if(viewmodel.requestProcessing() || viewmodel.isRestorePasswordEmailSent()){
+                return;
+            }
+            auth.forgotpassword(userContext.user.email).then(function(){
+                viewmodel.isSecretLinkSent(false);
+                viewmodel.isRestorePasswordEmailSent(true);
+                toggleValueAfterSomeTime(viewmodel.isRestorePasswordEmailSent, 5000);
+            });
+        }
+
+        function toggleValueAfterSomeTime(value, time){
+            _.delay(function(){
+                value(!value());
+            }, time);
         }
     });

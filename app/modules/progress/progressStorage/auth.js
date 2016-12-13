@@ -111,6 +111,13 @@ define(['./httpWrapper', './urlProvider'], function (httpWrapper, urlProvider) {
         }).then(function (response) {
             auth.setToken(response.token);
         });
+    };
+
+    auth.forgotpassword = function(email){
+        return httpWrapper.post(urlProvider.progressStorageUrl + 'user/forgotpassword', {
+            email: email,
+            returnUrl: urlProvider.courseLink
+        });
     }
 
     return auth;
