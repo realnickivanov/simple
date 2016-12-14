@@ -5,27 +5,27 @@
         routes: [{
             route: ['', 'introduction'],
             moduleId: 'viewmodels/introduction',
-            title: 'Introduction'
+            title: TranslationPlugin.getTextByKey('[introduction page title]')
         }, {
             route: 'sections',
             moduleId: 'viewmodels/sections',
-            title: 'Sections',
+            title: TranslationPlugin.getTextByKey('[sections page title]'),
             displayTreeOfContent: true
         }, {
             route: 'section/:sectionId/question/:questionId',
             moduleId: 'viewmodels/questions/content',
-            title: 'Question',
+            title: TranslationPlugin.getTextByKey('[question page title]'),
             displayTreeOfContent: true,
             showExitButton: true,
             rootLinkEnabled: true
         }, {
             route: 'finish',
             moduleId: 'resultPage/resultPage',
-            title: 'Results'
+            title: TranslationPlugin.getTextByKey('[results page title]')
         }, {
             route: '404(/:url)',
             moduleId: 'viewmodels/404',
-            title: 'Not found'
+            title: TranslationPlugin.getTextByKey('[not found page title]')
         }],
         add: add
     };

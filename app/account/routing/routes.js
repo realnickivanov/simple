@@ -5,19 +5,19 @@ define(function () {
         {
             route: 'login',
             moduleId: 'account/account',
-            title: 'Login'
+            title: TranslationPlugin.getTextByKey('[login page title]')
         }, {
             route: 'noaccess',
             moduleId: 'account/limitAccess/index',
-            title: 'Limited access'
+            title: TranslationPlugin.getTextByKey('[limited access page title]')
         }, {
             route: 'signin',
             moduleId: 'account/signin/index',
-            title: 'Sign in'
+            title: TranslationPlugin.getTextByKey('[sign in page title]')
         }, {
             route: 'register',
             moduleId: 'account/register/index',
-            title: 'Register'
+            title: TranslationPlugin.getTextByKey('[register page title]')
         }
     ];
 });
