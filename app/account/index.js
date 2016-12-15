@@ -1,7 +1,7 @@
 define(['plugins/router', 'routing/routes', 'templateSettings', 'publishSettings', 'includedModules/modulesInitializer',
-        './limitAccess/accessLimiter', './routing/guardRoute', './routing/routes', 'xApi/xApiInitializer', 'modules/progress/progressStorage/auth'
+        './limitAccess/accessLimiter', './routing/guardRoute', './routing/routes', 'xApi/xApiInitializer', 'modules/progress/progressStorage/auth', 'modules/publishModeProvider'
     ],
-    function (router, mainRoutes, templateSettings, publishSettings, modulesInitializer, accessLimiter, guardRoute, routes, xApiInitializer, auth) {
+    function (router, mainRoutes, templateSettings, publishSettings, modulesInitializer, accessLimiter, guardRoute, routes, xApiInitializer, auth, publishModeProvider) {
         'use strict';
 
         return {
@@ -10,15 +10,13 @@ define(['plugins/router', 'routing/routes', 'templateSettings', 'publishSettings
 
         function enable() {
             var xAPI = templateSettings.xApi.enabled;
-            var isScormEnabled = modulesInitializer.hasModule('lms');
             var crossDeviceSaving = templateSettings.allowCrossDeviceSaving;
             
-            if (isScormEnabled) {
+            if (publishModeProvider.isScormEnabled) {
                 return;
             }
 
-            var reviewApiUrl = router.getQueryStringValue('reviewApiUrl');
-            if(location.href.indexOf('/preview/') !== -1 || !!reviewApiUrl){
+            if (publishModeProvider.isPreview || publishModeProvider.isReview) {
                return;
             }
             

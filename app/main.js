@@ -27,9 +27,9 @@ define('perfectScrollbar', function () {
 });
 
 define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'templateSettings', 'publishSettings', 'includedModules/modulesInitializer',
-        'modules/index'
+        'modules/index', 'modules/publishModeProvider'
     ],
-    function (app, system, _, bootstrapper, templateSettings, publishSettings, modulesInitializer, modulesLoader) {
+    function (app, system, _, bootstrapper, templateSettings, publishSettings, modulesInitializer, modulesLoader, publishModeProvider) {
         app.title = 'easygenerator';
 
         system.debug(false);
@@ -52,9 +52,11 @@ define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'templa
 
                 return modulesLoader.init(templateSettings, configsFiles.manifest, publishSettings).then(function () {
                     if (publishSettings.modules) {
-                        return modulesInitializer.load(publishSettings.modules).then(initializeApp);
+                        return modulesInitializer.load(publishSettings.modules).then(function () {
+                            initializeApp(publishSettings.publishMode);
+                        });
                     } else {
-                        initializeApp();
+                        initializeApp(publishSettings.publishMode);
                     }
                 });
             }).catch(function (e) {
@@ -62,7 +64,8 @@ define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'templa
             });
         });
 
-        function initializeApp() {
+        function initializeApp(publishMode) {
+            publishModeProvider.init(publishMode);
             app.setRoot('viewmodels/shell');
         }
     });

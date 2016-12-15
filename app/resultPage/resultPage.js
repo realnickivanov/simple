@@ -1,9 +1,9 @@
 define([
     'repositories/courseRepository', 'templateSettings', 'plugins/router', 'progressContext', 
     'userContext', 'xApi/xApiInitializer', 'includedModules/modulesInitializer', 
-    'windowOperations', 'constants', 'modules/progress/progressStorage/auth'
+    'windowOperations', 'constants', 'modules/progress/progressStorage/auth', 'modules/publishModeProvider'
 ], function(courseRepository, templateSettings, router, progressContext, userContext, 
-    xApiInitializer, modulesInitializer, windowOperations, constants, auth) {
+    xApiInitializer, modulesInitializer, windowOperations, constants, auth, publishModeProvider) {
     "use strict";
 
     var course = courseRepository.get();
@@ -44,7 +44,7 @@ define([
         viewModel.crossDeviceEnabled = templateSettings.allowCrossDeviceSaving;
         viewModel.allowContentPagesScoring = templateSettings.allowContentPagesScoring;
         viewModel.xAPIEnabled = xApiInitializer.isActivated();
-        viewModel.scormEnabled = modulesInitializer.hasModule('lms');
+        viewModel.scormEnabled = publishModeProvider.isScormEnabled;
 
         viewModel.stayLoggedIn(userContext.user.keepMeLoggedIn);
         viewModel.sections = _.chain(course.sections)
