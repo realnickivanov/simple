@@ -114,8 +114,8 @@
             function getOptionsMarkup() {
                 var optionsMarkup = [];
                 for (var i = 0; i < options.length; i++) {
-                    if (options[i].text !== $element.find('.' + cssClasses.current).text()) {
-                        optionsMarkup.push($('<li tabindex="0"/>').text(options[i].text));
+                    if (options[i].value !== $element.find('.' + cssClasses.current).text()) {
+                        optionsMarkup.push($('<li tabindex="0"/>').text(options[i].value));
                     }
                 }
                 return optionsMarkup;
