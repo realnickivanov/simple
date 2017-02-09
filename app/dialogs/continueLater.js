@@ -8,7 +8,8 @@ define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'temp
             sendSecretLink: sendSecretLink,
             isSecretLinkSent: ko.observable(false),
             keepMeLoggedIn: ko.observable(false),
-            toggleKeepMeLoggedIn: toggleKeepMeLoggedIn
+            toggleKeepMeLoggedIn: toggleKeepMeLoggedIn,
+            isSecondRemarkShouldBeShown: true
         };
 
         return viewModel;
@@ -34,6 +35,7 @@ define(['modules/progress/progressStorage/auth', 'context', 'userContext', 'temp
                     data.exit();
                 };
                 viewModel.progressStorageActivated = templateSettings.allowCrossDeviceSaving && !publishModeProvider.isScormEnabled;
+                viewModel.isSecondRemarkShouldBeShown = !(templateSettings.allowCrossDeviceSaving || publishModeProvider.isScormEnabled);
                 viewModel.email = userContext.user.email;
                 viewModel.keepMeLoggedIn(userContext.user.keepMeLoggedIn);
             }
