@@ -10,8 +10,9 @@
     };
 
     function init(publishMode) {
-        if (publishMode === 'Publish' || publishMode === 'Lms') {
+        if (publishMode === 'Lms') {
             viewmodel.isScormEnabled = modulesInitializer.hasModule('lms');
+            templateSettings.allowCrossDeviceSaving = false;
         }
         if (publishMode === 'Review') {
             viewmodel.isReview = true;
