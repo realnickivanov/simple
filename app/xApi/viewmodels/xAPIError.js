@@ -4,7 +4,7 @@
     var
         navigateBackUrl = '',
 
-        allowToContinue = ko.observable(false);
+        allowToContinue = ko.observable(false),
 
         restartCourse = function () {
             var rootUrl = location.toString().replace(location.hash, '');
