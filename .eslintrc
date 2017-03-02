@@ -1,0 +1,120 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "globals": {
+    "angular": false,
+    "$": false,
+    "_": false,
+    "WebFont": false,
+    "Q": false,
+    "define": false,
+    "require": false,
+    "TranslationPlugin": false,
+    "ko": false,
+    "TinCan": false
+  },
+  "rules": {
+    "no-bitwise": 0,
+    "camelcase": 0,
+    "curly": 0,
+    "eqeqeq": 0,
+    "guard-for-in": 0,
+    "wrap-iife": 0,
+    "indent": [
+      0,
+      2,
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "no-use-before-define": 0,
+    "new-cap": 0,
+    "no-caller": 0,
+    "no-empty": 0,
+    "no-new": 0,
+    "no-plusplus": 0,
+    "quotes": [
+      0,
+      "single"
+    ],
+    "no-undef": 0,
+    "no-unused-vars": 0,
+    "strict": 0,
+    "max-params": [
+      0,
+      25
+    ],
+    "max-depth": [
+      0,
+      5
+    ],
+    "max-statements": [
+      0,
+      40
+    ],
+    "complexity": [
+      0,
+      12
+    ],
+    "max-len": [
+      0,
+      {
+        "code": 200,
+        "ignoreComments": true
+      }
+    ],
+    "semi": 0,
+    "no-cond-assign": 0,
+    "no-debugger": 0,
+    "no-eq-null": 0,
+    "no-eval": 0,
+    "no-unused-expressions": 0,
+    "block-scoped-var": 0,
+    "no-iterator": 0,
+    "linebreak-style": 0,
+    "comma-style": [
+      0,
+      "last"
+    ],
+    "no-loop-func": 0,
+    "no-multi-str": 0,
+    "no-proto": 0,
+    "no-script-url": 0,
+    "no-shadow": 0,
+    "dot-notation": 0,
+    "no-new-func": 0,
+    "no-new-wrappers": 0,
+    "no-invalid-this": 0,
+    "space-unary-ops": [
+      0,
+      {
+        "nonwords": false,
+        "overrides": {}
+      }
+    ],
+    "keyword-spacing": [
+      0,
+      {}
+    ],
+    "space-infix-ops": 0,
+    "space-before-blocks": [
+      0,
+      "always"
+    ],
+    "array-bracket-spacing": [
+      0,
+      "never",
+      {
+        "singleValue": true
+      }
+    ],
+    "space-in-parens": [
+      0,
+      "never"
+    ],
+    "no-multiple-empty-lines": 0
+  }
+}

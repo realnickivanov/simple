@@ -4,6 +4,8 @@
   "description": "This template is a basic course format",
   "main": "gulpfile.js",
   "scripts": {
+    "precommit": "npm run lint",
+    "lint": "eslint -c .eslintrc app/",
     "postinstall": "bower install",
     "start": "gulp webserver"
   },
@@ -19,6 +21,7 @@
   "homepage": "https://github.com/easygenerator/simple",
   "devDependencies": {
     "del": "^1.0.0",
+    "eslint": "^3.16.1",
     "event-stream": "^3.1.7",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "^3.1.0",
@@ -36,6 +39,7 @@
     "gulp-uglify": "^1.0.1",
     "gulp-useref": "^1.0.2",
     "gulp-util": "^3.0.1",
-    "gulp-webserver": "^0.9.1"
+    "gulp-webserver": "^0.9.1",
+    "husky": "^0.13.1"
   }
 }
