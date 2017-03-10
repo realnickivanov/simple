@@ -1,4 +1,4 @@
-﻿define(['knockout', 'jquery', 'durandal/composition'], function (ko, $, composition) {
+﻿define(['knockout', 'jquery', 'durandal/composition', 'modules/lessProcessor'], function (ko, $, composition, lessProcessor) {
 
     ko.bindingHandlers.elementsWrap = {
         init: function (element) {
@@ -33,11 +33,23 @@
         $('table', $element).each(function (index, table) {
             var $table = $(table),
                 $wrapper = $(tableWrapper).css('float', $table.attr('align'));
+
             $table.attr('align', 'center');
             $table.wrap($wrapper);
+        });
+
+        $('.audio-editor iframe', $element).each(function (index, iframe) {
+            var $iframe = $(iframe);
+
+            var src = $iframe.attr('src');
+            $iframe.attr('src', src + '&style_variables=' + encodeURIComponent(getStyles()));
         });
     }
 
     composition.addBindingHandler('elementsWrap');
+
+    function getStyles() {
+        return lessProcessor.vars ? JSON.stringify({ '@main-color': lessProcessor.vars['@main-color'], '@content-body-color': lessProcessor.vars['@content-body-color'], '@text-color': lessProcessor.vars['@text-color'] }) : undefined;
+    }
 
 });
