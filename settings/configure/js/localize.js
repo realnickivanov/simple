@@ -46,7 +46,7 @@
         'passed': 'Passed',
         'answered': 'Answered',
         'mastered': 'Mastered',
-        'expirenced': 'Expirenced',
+        'experienced': 'Experienced',
         'failed': 'Failed',
         'progressed': 'Progressed',
         'save progress cross device': 'Save progress cross device (requires login and password):',
@@ -81,7 +81,9 @@
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
-        'translation': 'Translation'
+        'translation': 'Translation',
+        'copyright text': 'Copyright text:',
+        'copyright placeholder': 'Copyright © 2017 Easygenerator'
     };
 
 })(window.app = window.app || {});

@@ -1,10 +1,11 @@
-﻿define(['modules/questionsNavigation', 'plugins/router'], function (navigationModule, router) {
+﻿define(['modules/questionsNavigation', 'plugins/router', 'templateSettings'], function (navigationModule, router, templateSettings) {
     "use strict";
 
     var viewModel = {
         title: null,
         learningContents: null,
         navigateNext: navigateNext,
+        copyright: templateSettings.copyright,
 
         activate: activate,
         isNavigationLocked: router.isNavigationLocked

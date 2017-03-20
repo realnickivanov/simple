@@ -15,6 +15,7 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             this.isExpanded = ko.observable(true);
             this.isPreview = false;
             this.isSurvey = false;
+            this.copyright = templateSettings.copyright;
 
             this.learningContents = [];
             this.correctFeedback = ko.observable(null);

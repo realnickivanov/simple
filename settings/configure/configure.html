@@ -85,6 +85,12 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="settings-row">
+                            <div class="settings-caption" data-bind="localize: 'copyright text'"></div>
+                            <div class="settings-content setting-input-wrapper">
+                                <input type="text" class="settings-input" placeholder="Copyright © 2017 Easygenerator" data-bind="value: copyright, valueUpdate: 'afterkeydown', event: { blur: saveChanges }" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -287,7 +293,7 @@
                                                         <div class="switch-toggle-off"></div>
                                                     </div>
                                                 </div>
-                                                <div class="switcher-text" data-bind="localize: 'expirenced'"></div>
+                                                <div class="switcher-text" data-bind="localize: 'experienced'"></div>
                                             </div>
                                             <div class="switcher statement">
                                                 <div class="switch-toggle-slider" data-bind="switchToggle: { value: statements.failed }">
