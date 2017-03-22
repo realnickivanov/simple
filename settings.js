@@ -28,5 +28,6 @@
     "showConfirmationPopup":true,
     "allowCrossDeviceSaving": true,
     "allowLoginViaSocialMedia": true,
-    "hideFinishActionButtons": false
+    "hideFinishActionButtons": false,
+    "copyright": "Copyright © 2017 Easygenerator"
 }

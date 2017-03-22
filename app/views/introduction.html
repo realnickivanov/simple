@@ -8,6 +8,11 @@
                 <button class="button medium primary autofocus" href="#" data-bind="click: startCourse, css: { disabled: isNavigationLocked }" data-translate-text="[start course]" data-translate-title="[start course]">Start course</button>
             </div>
         </header>
-            <div class="course-intro-text styled-content content" data-bind="html: content,  elementsWrap: {}, reviewable: {type: 'course', property: 'introduction'}"></div>
+            <div class="course-intro-text styled-content content">
+                <div data-bind="html: content,  elementsWrap: {}, reviewable: {type: 'course', property: 'introduction'}"></div>
+                <!-- ko if: copyright --> 
+                <div class="copyright-text" data-bind="text: copyright"></div>
+                <!-- /ko -->
+            </div>
     </div>
 </section>

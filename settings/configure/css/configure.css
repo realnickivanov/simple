@@ -287,9 +287,6 @@ input[type="text"] {
     font-size: 20px;
 }
 
-.section-content {
-}
-
 .settings-row {
     width: 560px;
     padding: 25px 10px;
@@ -317,7 +314,7 @@ input[type="text"] {
 }
 
 .settings-content {
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .settings-column {
@@ -1658,6 +1655,29 @@ input[type="text"] {
 }
 
 /*#endregion*/
+
+.setting-input-wrapper{
+    flex-basis: 60%;
+}
+
+.setting-input-wrapper .settings-input{
+    padding: 6px;
+    width: 100%;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    border: 1px solid #c6d1d8;
+}
+
+.setting-input-wrapper .settings-input:hover,
+.setting-input-wrapper .settings-input:focus{
+    border-color: #469dd5;
+    box-shadow: 0 0 2px #469dd5;
+}
+
+.setting-input-wrapper .settings-input::placeholder {
+    color: #a0a8af;
+}
 
 /*#region loader*/
 

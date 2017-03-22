@@ -1,8 +1,9 @@
-﻿define(['durandal/app', 'context', 'plugins/router', 'plugins/http'],
-    function (app, context, router, http) {
+﻿define(['durandal/app', 'context', 'plugins/router', 'plugins/http', 'templateSettings'],
+    function (app, context, router, http, templateSettings) {
 
         var courseTitle = null,
             content = null,
+            copyright = templateSettings.copyright,
 
             canActivate = function () {
                 if (context.course.hasIntroductionContent == false) {
@@ -36,6 +37,7 @@
         return {
             courseTitle: courseTitle,
             content: content,
+            copyright: copyright,
             isNavigationLocked: router.isNavigationLocked,
 
             startCourse: startCourse,

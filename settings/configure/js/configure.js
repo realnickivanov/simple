@@ -14,7 +14,8 @@
         showConfirmationPopup: ko.observable(true),
         allowContentPagesScoring: ko.observable(false),
         allowCrossDeviceSaving: ko.observable(true),
-        allowSocialLogin: ko.observable(true)
+        allowSocialLogin: ko.observable(true),
+        copyright: ko.observable('')
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -26,7 +27,8 @@
             showConfirmationPopup: viewModel.showConfirmationPopup(),
             allowContentPagesScoring: viewModel.allowContentPagesScoring(),
             allowCrossDeviceSaving: viewModel.allowCrossDeviceSaving(),
-            allowLoginViaSocialMedia: viewModel.allowSocialLogin()
+            allowLoginViaSocialMedia: viewModel.allowSocialLogin(),
+            copyright: viewModel.copyright()
         });
     };
 
@@ -87,6 +89,12 @@
                 viewModel.allowSocialLogin(settings.allowLoginViaSocialMedia);
             } else if (defaultTemplateSettings.hasOwnProperty('allowLoginViaSocialMedia')) {
                 viewModel.allowSocialLogin(defaultTemplateSettings.allowLoginViaSocialMedia);
+            }
+
+            if (settings.hasOwnProperty('copyright')) {
+                viewModel.copyright(settings.copyright);
+            } else if (defaultTemplateSettings.hasOwnProperty('copyright')) {
+                viewModel.copyright(defaultTemplateSettings.copyright);
             }
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
