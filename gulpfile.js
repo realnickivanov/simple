@@ -215,6 +215,10 @@ gulp.task('build-design-settings', ['pre-build'], function () {
 
     gulp.src('settings/design/css/design.css')
         .pipe(cleanCSS())
+        .pipe($.autoprefixer({
+            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version', 'last 1 iOS version', 'Android >= 2.3'],
+            cascade: false
+        }))
         .pipe(gulp.dest(output + '/settings/design/css'));
 
 });
@@ -241,6 +245,10 @@ gulp.task('build-configure-settings', ['pre-build'], function () {
 
     gulp.src('settings/configure/css/configure.css')
         .pipe(cleanCSS())
+        .pipe($.autoprefixer({
+            browsers: ['last 1 Chrome version', 'last 1 Firefox version', 'last 1 Explorer version', 'last 1 Safari version', 'last 1 iOS version', 'Android >= 2.3'],
+            cascade: false
+        }))
         .pipe(gulp.dest(output + '/settings/configure/css'));
 
 });
