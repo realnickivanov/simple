@@ -875,6 +875,10 @@
     {
       "code": "fa",
       "url": "lang/fa.json"
+    },
+    {
+      "code": "sv",
+      "url": "lang/sv.json"
     }
   ],
   "defaultTemplateSettings": {
