@@ -78,6 +78,7 @@
 		'nn-no': 'Norwegian (Nynorsk)',
         'vi': 'Vietnamese',
         'fa': 'Farsi',
+        'sv': 'Swedish',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
