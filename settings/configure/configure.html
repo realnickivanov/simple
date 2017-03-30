@@ -88,7 +88,7 @@
                         <div class="settings-row">
                             <div class="settings-caption" data-bind="localize: 'copyright text'"></div>
                             <div class="settings-content setting-input-wrapper">
-                                <input type="text" class="settings-input" placeholder="Copyright © 2017 Easygenerator" data-bind="value: copyright, valueUpdate: 'afterkeydown', event: { blur: saveChanges }" />
+                                <input type="text" class="settings-input" autocomplete="off" placeholder="Copyright © 2017 Easygenerator" data-bind="value: copyright, valueUpdate: 'afterkeydown', event: { blur: saveChanges }" />
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                                     <div class="preview-row">
                                         <label for="lrsUrl" class="preview-label" data-bind="localize: 'lrs url'"></label>
                                         <div class="preview-col">
-                                            <input class="preview-text-input" id="lrsUrl" type="text" data-bind="value: lrsUrl, valueUpdate: ['afterkeydown', 'afterpaste'], enable: customLrsEnabled" />
+                                            <input class="preview-text-input" id="lrsUrl" type="text" autocomplete="off" data-bind="value: lrsUrl, valueUpdate: ['afterkeydown', 'afterpaste'], enable: customLrsEnabled" />
                                         </div>
                                     </div>
                                     <div class="preview-row checkbox">
@@ -209,13 +209,13 @@
                                     <div class="preview-row">
                                         <label for="lapLogin" class="preview-label" data-bind="localize: 'lap login'"></label>
                                         <div class="preview-col">
-                                            <input class="preview-text-input" type="text" id="lapLogin" data-bind="value: lapLogin, valueUpdate: ['afterkeydown', 'afterpaste'], enable: credentialsEnabled" />
+                                            <input class="preview-text-input" type="text" id="lapLogin" autocomplete="off" data-bind="value: lapLogin, valueUpdate: ['afterkeydown', 'afterpaste'], enable: credentialsEnabled" />
                                         </div>
                                     </div>
                                     <div class="preview-row">
                                         <label for="lapPassword" class="preview-label" data-bind="localize: 'lap password'"></label>
                                         <div class="preview-col">
-                                            <input class="preview-text-input" type="text" id="lapPassword" data-bind="value: lapPassword, valueUpdate: ['afterkeydown', 'afterpaste'], enable: credentialsEnabled" />
+                                            <input class="preview-text-input" type="text" id="lapPassword" autocomplete="off" data-bind="value: lapPassword, valueUpdate: ['afterkeydown', 'afterpaste'], enable: credentialsEnabled" />
                                         </div>
                                     </div>
                                     <div class="preview-row statements">
@@ -324,7 +324,7 @@
                             <div class="settings-column">
                                 <div data-trigger="spinner" class="spinner" data-bind="spinner: masteryScore.score">
                                     <a class="spinner-button spinner-down" data-spin="down" data-bind="disableDragNDrop: {}"></a>
-                                    <input type="text" maxlength="3" id="masteryScore" class="content-text-input" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore.score, valueUpdate: ['afterkeydown', 'afterpaste'], number: {}">
+                                    <input type="text" maxlength="3" id="masteryScore" class="content-text-input" autocomplete="off" data-rule="quantity" data-max="100" data-min="0" data-bind="value: masteryScore.score, valueUpdate: ['afterkeydown', 'afterpaste'], number: {}">
                                     <a class="spinner-button spinner-up" data-spin="up" data-bind="disableDragNDrop: {}"></a>
                                     <div class="spiner-seperator"></div>
                                 </div>
@@ -362,7 +362,7 @@
                                         <div class="input-wrapper">
                                             <!-- ko if: $parent.isLanguageEditable() -->
                                             <div class="choose-language-table-input-wrapper">
-                                                <input type="text" class="choose-language-table-input" data-bind="value: value, valueUpdate: ['afterkeydown', 'afterpaste']" />
+                                                <input type="text" class="choose-language-table-input" autocomplete="off" data-bind="value: value, valueUpdate: ['afterkeydown', 'afterpaste']" />
                                                 <span class="edit-icon"></span>
                                             </div>
                                             <!-- /ko -->
