@@ -899,7 +899,16 @@
                 },
                 "authenticationRequired": false
             },
-            "allowedVerbs": []
+            "allowedVerbs": [
+              "started", 
+              "stopped", 
+              "experienced", 
+              "mastered", 
+              "answered", 
+              "passed", 
+              "failed", 
+              "progressed"
+            ]
         },
         "languages": {
             "selected": "en",
