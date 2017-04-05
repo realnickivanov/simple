@@ -29,12 +29,13 @@
         var localStorageProvider = window.parent.localStorageProvider;
         if (!localStorageProvider) {
             tokenDefer.resolve(localStorage['token.settings']);
+        } else {
+            localStorageProvider.getItem('token.settings').then(function(value) {
+                tokenDefer.resolve(value);
+            }).fail(function() {
+                tokenDefer.resolve('');
+            });
         }
-        localStorageProvider.getItem('token.settings').then(function(value) {
-            tokenDefer.resolve(value);
-        }).fail(function() {
-            tokenDefer.resolve('');
-        });
         return tokenDefer.promise();
     }
 

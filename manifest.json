@@ -875,6 +875,10 @@
     {
       "code": "fa",
       "url": "lang/fa.json"
+    },
+    {
+      "code": "sv",
+      "url": "lang/sv.json"
     }
   ],
   "defaultTemplateSettings": {
@@ -895,7 +899,16 @@
                 },
                 "authenticationRequired": false
             },
-            "allowedVerbs": []
+            "allowedVerbs": [
+              "started", 
+              "stopped", 
+              "experienced", 
+              "mastered", 
+              "answered", 
+              "passed", 
+              "failed", 
+              "progressed"
+            ]
         },
         "languages": {
             "selected": "en",
