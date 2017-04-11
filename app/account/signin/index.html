@@ -8,7 +8,7 @@
         <h3>(<span data-bind="text: email"></span>)</h3>
         <div class="input-container" data-bind="css: { error: !password.isValid() && password.isModified() || emailPasswordCombination() }">
             <input class="input-field autofocus" type="password" ondrop="return false;"
-                data-bind="value: password, valueUpdate: 'afterkeydown',  css: { empty: !password().length }, event: { blur: password.trim }, hasFocus: password.hasFocus, attr: { type: isPasswordVisible() ? 'text' : 'password'}, submitOnEnter: submit" />
+                data-bind="value: password, valueUpdate: 'input',  css: { empty: !password().length }, event: { blur: password.trim }, hasFocus: password.hasFocus, attr: { type: isPasswordVisible() ? 'text' : 'password'}, submitOnEnter: submit" />
             <label class="input-label" data-translate-text="[password]"></label>
             <span class="input-icon icon-password2"></span>
             <span class="input-icon align-right pointer password" data-bind="click: togglePasswordVisibility, css: { 'icon-eye_lock': isPasswordVisible(), 'icon-eye': !isPasswordVisible() }"></span>

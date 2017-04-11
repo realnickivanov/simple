@@ -10,7 +10,7 @@
         <!-- /ko -->
         <div class="input-container" data-bind="css: { error: !email.isValid() && email.isModified() }">
             <input class="input-field autofocus" type="email" ondrop="return false;"
-                data-bind="value: email, valueUpdate: 'afterkeydown',  css: { empty: !email().length }, event: { blur: email.trim }, hasFocus: email.hasFocus, submitOnEnter: submit" />
+                data-bind="value: email, valueUpdate: 'input',  css: { empty: !email().length }, event: { blur: email.trim }, hasFocus: email.hasFocus, submitOnEnter: submit" />
             <label class="input-label" data-translate-text="[login email field]"></label>
             <span class="input-icon icon-mail"></span>
             <p class="error-message" data-translate-text="[tracking and tracing email is not valid]"></p>
