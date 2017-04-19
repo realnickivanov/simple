@@ -365,12 +365,13 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
         }
 
         function getMatchingQuestionActivityAndResult(question) {
+            var targets = _.uniq(_.pluck(question.answers, 'value'));
 
             return {
                 result: new resultModel({
                     score: new scoreModel(question.score() / 100),
                     response: _.map(question.answers, function (answer) {
-                        return answer.key.toLowerCase() + "[.]" + (answer.attemptedValue ? answer.attemptedValue.toLowerCase() : "");
+                        return answer.shortId + "[.]" + (answer.attemptedValue ? _.indexOf(targets, answer.attemptedValue) : "");
                     }).join("[,]")
                 }),
                 object: new activityModel({
@@ -379,13 +380,13 @@ define(['./models/actor', './models/statement', './models/activity', './models/a
                         name: new languageMapModel(question.title),
                         interactionType: constants.interactionTypes.matching,
                         correctResponsesPattern: [_.map(question.answers, function (answer) {
-                            return answer.key.toLowerCase() + "[.]" + answer.value.toLowerCase();
+                            return answer.shortId + "[.]" + _.indexOf(targets, answer.value);
                         }).join("[,]")],
                         source: _.map(question.answers, function (answer) {
-                            return { id: answer.key.toLowerCase(), description: new languageMapModel(answer.key) }
+                            return { id: answer.shortId.toString(), description: new languageMapModel(answer.key) }
                         }),
-                        target: _.map(question.answers, function (answer) {
-                            return { id: answer.value.toLowerCase(), description: new languageMapModel(answer.value) }
+                        target: _.map(targets, function (value, index) {
+                            return { id: index.toString(), description: new languageMapModel(value) }
                         })
                     })
                 })
