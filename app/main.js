@@ -46,7 +46,7 @@ define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'templa
 
             return ConfigurationReader.read().then(function (configsFiles) {
                 var configs = ConfigurationReader.init(configsFiles);
-                templateSettings.init(configs.templateSetting);
+                templateSettings.init(configs.templateSettings);
                 TranslationPlugin.init(configs.translations);
                 publishSettings.init(configsFiles.publishSettings);
 
