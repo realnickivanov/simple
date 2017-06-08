@@ -142,3 +142,9 @@
 .icon-survey:before {
   content: "\e99c";
 }
+.icon-file:before {
+  content: "\e899";
+}
+.icon-zip:before {
+  content: "\e898";
+}
