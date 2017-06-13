@@ -157,8 +157,15 @@
     "[limited access page title]": "Eingeschränkter Zugriff",
     "[sign in page title]": "Anmelden",
     "[register page title]": "Registrieren",
+    "[you have finished your course]": "Sie haben den Kurs abgeschlossen",
+    "[rate your overall experience]": "Wie würden Sie den Gesamteindruck des Kurses bewerten?",
     "[poor]": "Mangelhaft",
     "[excellent]": "Ausgezeichnet",
     "[answer anonymously]": "Anonym antworten",
-    "[thank you for your feedback]": "Vielen Dank für Ihr Feedback!"
+    "[progress has been reported]": "Ihr Fortschritt wurde erfolgreich aufgezeichnet",
+    "[thank you for your feedback]": "Vielen Dank für Ihr Feedback!",
+    "[you can close the page now]": "Sie können das Fenster jetzt schließen",
+    "[you rated this course with an]": "Sie haben den Kurs folgendermaßen bewertet",
+    "[course reason]": "Können Sie uns den Grund für diese Bewertung nennen?",
+    "[download]": "Herunterladen"
 }
