@@ -10,6 +10,7 @@ define(['plugins/router', 'routing/routes', 'templateSettings', 'publishSettings
 
         function enable() {
             var xAPI = templateSettings.xApi.enabled;
+            var nps = templateSettings.nps.enabled;
             var crossDeviceSaving = templateSettings.allowCrossDeviceSaving;
             
             if (publishModeProvider.isScormEnabled) {
@@ -22,7 +23,7 @@ define(['plugins/router', 'routing/routes', 'templateSettings', 'publishSettings
             
             accessLimiter.initialize(publishSettings.accessLimitation);
 
-            if (xAPI || crossDeviceSaving || accessLimiter.accessLimitationEnabled()) {
+            if (xAPI || nps || crossDeviceSaving || accessLimiter.accessLimitationEnabled()) {
                 guardRoute.createGuard();
                 mainRoutes.add(routes);
             }
