@@ -2,24 +2,34 @@
 
     ko.bindingHandlers.circleProgress = {
         update: function (element, valueAccessor) {
+            var $element = $(element);
 
-            var $element = $(element),
-                score = valueAccessor().progress || 0,
-                lineWidth = valueAccessor().lineWidth || 4,
-
-                centerX = element.width / 2,
-                centerY = element.height / 2,
-                radius = valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1),
-                progress = score / 100,
-                cnxt = element.getContext('2d'),
-                masteryScore = valueAccessor().masteryScore;
-
-            if (masteryScore && score >= masteryScore) {
-                $element.addClass('mastered')
+            var width = getNumericStylePropValue($element, 'width');
+            var height = getNumericStylePropValue($element, 'height');
+            if (width) {
+                element.width = width;
+            }
+            if (height) {
+                element.height = height;
             }
 
-            var basicColor = $element.css('color') || 'rgb(211,212,216)',
-            progressColor = $element.css('border-top-color') || 'rgb(87,157,193)';
+            var centerX = element.width / 2;
+            var centerY = element.height / 2;
+
+
+            // configs
+            var score = valueAccessor().progress || 0;
+            var lineWidth = getNumericStylePropValue($element, 'border-width', true) || valueAccessor().lineWidth || 4;
+            var radius = getNumericStylePropValue($element, 'border-radius', true) || valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1);
+            var masteryScore = valueAccessor().masteryScore;
+            var basicColor = $element.css('color') || valueAccessor().color || 'rgb(211,212,216)';
+            var progressColor = $element.css('border-top-color') || valueAccessor().progressColor || 'rgb(87,157,193)';
+
+            var cnxt = element.getContext('2d');
+
+            if (masteryScore && score >= masteryScore) {
+                $element.addClass('mastered');
+            }
 
             cnxt.beginPath();
             cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -28,6 +38,7 @@
             cnxt.closePath();
             cnxt.stroke();
 
+            var progress = score / 100;
             if (progress > 0) {
                 cnxt.beginPath();
                 cnxt.strokeStyle = progressColor;
@@ -45,6 +56,14 @@
         }
     };
 
+    function getNumericStylePropValue($element, propName, clear) {
+        var propValueStr = $element.css(propName);
 
+        if (clear) {
+            $element.css(propName, '0px');
+        }
+
+        return parseInt(propValueStr.substring(0, propValueStr.length - 2), 10);
+    }
 
 });
