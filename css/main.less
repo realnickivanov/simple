@@ -123,6 +123,11 @@ ul {
 
 .shell {
     position: relative;
+    height: 100%;
+}
+
+#applicationHost {
+    height: 100%;
 }
 /*#endregion*/
 
@@ -1004,7 +1009,7 @@ ul {
 
 .header {
     position: relative;
-    height: 335px;
+    height: 341px;
     box-shadow: 0px 60px 90px -90px rgba(0, 0, 0, 0.75);
 
     &:before {
@@ -2714,10 +2719,15 @@ ul {
 /*#endregion common classes styles*/
 
 /*#region content css-styles*/
+.content-container {
+    position: absolute;
+    width: 100%;
+    top: 286px;
+}
 
 .content-wrapper {
     max-width: 960px;
-    margin: -228px auto 20px;
+    margin: -178px auto 20px;
     position: relative;
 
     &.review-mode {
@@ -2736,7 +2746,6 @@ ul {
 
 .course-title {
     display: table-cell;
-    vertical-align: middle;
     height: 125px;
     width: 100%;
     padding: 15px 20px 0 0;
@@ -2754,7 +2763,6 @@ ul {
 
 .course-action-block {
     display: table-cell;
-    vertical-align: middle;
     width: 266px;
     text-align: right;
 }
@@ -2805,21 +2813,39 @@ ul {
 }
 
 .sections {
-    .summary-wrapper {
-        .summary-extended-wrapper {
-            display: block;
-            top: -182px;
-            position: absolute;
-        }
+    .page-header{
+        position: relative;
+        top: 0;
+        margin-bottom: 15px;        
+    }
 
-        .summary-short {
-            display: none;
+    .course-action-block {
+        vertical-align: top;
+
+        .summary-wrapper {
+            .summary-extended-wrapper {
+                display: block;
+                top: -110px;
+                position: absolute;
+                border-radius: 0 0 5px 5px;
+            }
+
+            .summary-short {
+                display: none;
+            }
         }
     }
 }
 
 @media (max-width: 768px) {
     .sectionsLayoutLowResolutions();
+
+    .content-container.module-sections {
+        .page-header {
+            top: 5px;
+            margin-bottom: 5px;
+        }
+    }
 
     .sections {
         .page-header {
@@ -4471,11 +4497,7 @@ ul {
     #content {
         padding: 0;
     }
-
-    .content-wrapper {
-        margin-top: -228px;
-    }
-
+    
     .voiceOver {
         padding-left: 6px;
     }
