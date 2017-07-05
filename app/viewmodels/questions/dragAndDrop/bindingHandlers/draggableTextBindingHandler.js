@@ -10,7 +10,7 @@
 			$element.css('touch-action','none');
             $element.draggable({
                 appendTo: '.application-wrapper',
-                containment: '.application-wrapper',
+                containment: 'window',
                 scope: scope,
                 revert: 'invalid',
                 helper: 'clone',
