@@ -20,7 +20,7 @@
                 $wrapper = $(imageWrapper).css('float', $image[0].style.cssFloat),
                 $parent = $image.parent();
 
-            if ($image.closest('.cropped-image').length > 0) {
+            if ($image.closest('.cropped-image').length > 0 || $parent.hasClass('image-wrapper')) {
                 return;
             }
 
