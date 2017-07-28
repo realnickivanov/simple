@@ -324,7 +324,7 @@ ul {
 
     word-wrap: break-word;
     line-height: 1.5;
-    
+
     &:not(:last-child) {
         margin-bottom: 50px;
     }
@@ -651,6 +651,11 @@ ul {
             display: table;
             width: 100%;
 
+            .document-info {
+              display: table;
+              padding: 0 0 10px;
+            }
+
             .document-icon, .document-title, .download-document-btn-container, .separator {
                 display: table-cell;
                 vertical-align: middle;
@@ -660,7 +665,7 @@ ul {
                 width: 100%;
                 font-size: 14px;
             }
-			
+
 			.download-document-btn-container {
 				.download-document-btn {
 					font-size: 14px;
@@ -676,10 +681,12 @@ ul {
                     .document-type-text {
                         position: absolute;
                         font-family: 'Arial';
-                        text-transform: uppercase;
-                        font-size: 10px;
-                        top: 16px;
-                        left: 6px;
+                        font-size: 13px;
+                        top: 12px;
+                        left: 0;
+                        white-space: nowrap;
+                        width: 100%;
+                        text-align: center;
                     }
                 }
             }
@@ -2812,7 +2819,7 @@ ul {
     .page-header{
         position: relative;
         top: 0;
-        margin-bottom: 15px;        
+        margin-bottom: 15px;
     }
 
     .course-action-block {
@@ -3483,7 +3490,7 @@ ul {
     }
 
     position: relative;
-    
+
     .learning-content-title {
         position: absolute;
         top: 0;
@@ -4503,7 +4510,7 @@ ul {
     #content {
         padding: 0;
     }
-    
+
     .voiceOver {
         padding-left: 6px;
     }

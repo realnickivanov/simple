@@ -52,7 +52,8 @@
             containerSelector: '.document-container',
             sizeAttrName: 'data-document-size-kb',
             typeAttrName: 'data-document-type',
-            downloadBtnSelector: '.download-document-btn'
+            downloadBtnSelector: '.download-document-btn',
+            documentInfoSelector: '.document-info'
         }
     };
 
