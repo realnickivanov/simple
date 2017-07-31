@@ -7,7 +7,7 @@ define(['localizationManager', 'constants'], function (localizationManager, cons
             var downloadText = localizationManager.getLocalizedText(constants.documents.downloadLocalizationKey);
             var documentData = {
                 type: $container.attr(constants.documents.typeAttrName),
-                size: $container.attr(constants.documents.sizeAttrName)
+                size: +$container.attr(constants.documents.sizeAttrName)
             };
 
             var documentSizeString = getSize(documentData.size);
@@ -16,37 +16,33 @@ define(['localizationManager', 'constants'], function (localizationManager, cons
             $output.find(constants.documents.downloadBtnSelector)
                 .text(downloadBtnText);
 
+            var iconClass = documentData.type === constants.documents.types.zip ? 'icon-zip' : 'icon-file';
             var $typeIcon = $('<div class="icon-container">' +
                 '<span class="document-type-text">' + documentData.type + '</span>' +
                 '</div>')
-                .addClass(getIconClass(documentData.type));
+                .addClass(iconClass);
             var $typeIconWrapper = $('<div class="document-icon"></div>')
                 .append($typeIcon);
 
-            var $documentInfo = $(constants.documents.documentInfoSelector, $container)
-                .prepend($typeIconWrapper, $('<div class="separator"></div>'));
+            var $documentInfo = $(constants.documents.documentTitleWrapperSelector, $container)
+                .prepend($typeIconWrapper);
 
-            return $output.children()[0];
+            var content = $output.children()[0];
+            return content;
         }
     };
-
-    function getIconClass(documentType) {
-        switch (documentType) {
-            case constants.documents.types.zip:
-                return 'icon-zip';
-            default:
-                return 'icon-file';
-        }
-    }
-
-    function getSize(sizeKb) {
-        var size = '';
-        if (!sizeKb) {
+    /**
+     * Pluralize document size to user friendly string
+     *
+     * @param {Number} size - size of document in bytes
+     * */
+    function getSize(size) {
+        var sizeStr = '';
+        if (!size || size < 1024) {
             return '0 Kb';
         }
-        if (sizeKb > 1024) {
-            size = (sizeKb / 1024).toFixed(2);
-        }
-        return size + ' MB';
+        sizeStr = (size / (1024 * 1024)).toFixed(2);
+
+        return sizeStr + ' MB';
     }
 });

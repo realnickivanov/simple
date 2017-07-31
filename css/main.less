@@ -17,6 +17,8 @@
 
 /*#endregion*/
 
+@content-width: 960px;
+
 
 /*#region common css styles*/
 
@@ -672,66 +674,82 @@ textarea {
         padding-bottom: 16px;
 
         .document-container {
-            display: table;
-            width: 100%;
 
             .document-info {
-              display: table;
-              padding: 0 0 10px;
-            }
+                display: flex;
+                align-items: flex-start;
+                margin: 4px 0 10px 0;
+                justify-content: space-between;
 
-            .document-icon, .document-title, .download-document-btn-container, .separator {
-                display: table-cell;
-                vertical-align: middle;
-            }
+                .document-title-wrapper {
+                    display: flex;
+                    align-items: flex-start;
+                    padding: 2px 0 10px;
+                    flex: 0 1 730px;
 
-            .document-title {
-                width: 100%;
-                font-size: 14px;
-            }
+                    .document-icon, .document-title {
+                        display: flex;
+                    }
 
-			.download-document-btn-container {
-				.download-document-btn {
-					font-size: 14px;
-				}
-			}
+                    .document-icon {
+                        font-size: 36px;
+                        padding-left: 1px;
+                        margin-right: 21px;
+                        flex: 0 0 32px;
 
-            .document-icon {
-                font-size: 36px;
+                        .icon-container {
+                            position: relative;
 
-                .icon-container {
-                    position: relative;
+                            .document-type-text {
+                                position: absolute;
+                                font-family: 'Arial';
+                                font-size: 13px;
+                                top: 12px;
+                                left: 0;
+                                white-space: nowrap;
+                                width: 100%;
+                                text-align: center;
+                            }
 
-                    .document-type-text {
-                        position: absolute;
-                        font-family: 'Arial';
-                        font-size: 13px;
-                        top: 12px;
-                        left: 0;
+                            &::after {
+                                content: '';
+                                display: block;
+                                position: absolute;
+                                top: 50%;
+                                right: 0;
+                                width: 1px;
+                                height: 22px;
+                                margin: -11px -10px 0 0;
+                                background-color: rgba(66, 81, 95, 0.1);
+                            }
+                        }
+                    }
+                    
+                    .document-title {
+                        padding: 7px 20px 0 0;
+                        font-size: 14px;
+                        word-wrap: break-word;
+                        word-break: break-word; /*Fix for Safari*/
+                        word-break: break-all; /*Fix for IE11*/
+                    }
+                }
+            
+                .download-document-btn-container {
+                    display: flex;
+
+                    .download-document-btn {
+                        font-size: 14px;
+                        padding: 10px 20px;
+                        border-radius: 3px;
                         white-space: nowrap;
-                        width: 100%;
-                        text-align: center;
+                        text-decoration: none;
+                        transition: background-color .3s;
                     }
                 }
             }
 
-            .separator {
-                padding: 10px;
-
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 1px;
-                    height: 22px;
-                }
-            }
-
-            .download-document-btn {
-                padding: 10px 20px;
-                border-radius: 3px;
-                white-space: nowrap;
-                text-decoration: none;
-                transition: background-color .3s;
+            .document-editor-frame-wrapper {
+                padding-top: 15px;
             }
         }
     }
@@ -2754,7 +2772,7 @@ textarea {
 }
 
 .content-wrapper {
-    max-width: 960px;
+    max-width: @content-width;
     margin: -178px auto 20px;
     position: relative;
 
@@ -4626,6 +4644,18 @@ textarea {
                             height: 80px;
                             padding: 12px;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    .styled-content {
+         .document-editor {
+             &>div {
+                 .document-container {
+                    .document-info {
+                        flex-wrap: wrap;
                     }
                 }
             }
