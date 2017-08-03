@@ -121,6 +121,10 @@ gulp.task('build-app', ['pre-build'], function () {
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/css'));
 
+    gulp.src('css/custom-styles.css')
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/css'));
+
     gulp.src('fonts/*')
         .pipe(gulp.dest(output + '/fonts'));
 
