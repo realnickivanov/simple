@@ -34,7 +34,7 @@ define(['durandal/app', 'durandal/system', 'underscore', 'bootstrapper', 'templa
         'modules/index', 'modules/publishModeProvider'
     ],
     function (app, system, _, bootstrapper, templateSettings, publishSettings, modulesInitializer, modulesLoader, publishModeProvider) {
-        app.title = 'easygenerator';
+        app.title = 'easygenerator';        
 
         system.debug(false);
 

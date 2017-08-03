@@ -6,7 +6,6 @@ define(['underscore', 'less'], function (_, less) {
 
             _.each(conditions, function (condition) {
                 var outputColor = condition.color;
-
                 if (!condition.attr) return;
                 if (condition.func && condition.dimension) {
                     var c = new less.tree.Color(condition.color.slice(1)),

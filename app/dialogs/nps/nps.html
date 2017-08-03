@@ -10,12 +10,33 @@
                     <h1 class="fp-title" data-bind="text: evaluationStepTitle"></h1>
                     <h2 class="fp-subtitle" data-translate-text="[rate your overall experience]"></h2>
                     <div class="fp-rating-container">
-                        <div class="rating-control" data-bind="rating: { value: score, max: 10, onValueUpdated: submit }"></div>
+                        <div class="rating-control" data-bind="rating: { value: score, max: 10, onValueUpdated: goToFeedbackStep }"></div>
                         <div class="fp-rating-tips">
                             <span class="fp-rating-tip left" data-translate-text="[poor]"></span>
                             <span class="fp-rating-tip right" data-translate-text="[excellent]"></span>
                         </div>
                     </div>
+                </div>
+                <div class="fp-content-step feedback" data-bind="css: { show: isFeedbackStep, hide: !isFeedbackStep() }">
+                    <h1 class="fp-title" data-translate-text="[you rated this course with an]"></h1>
+                    <figure class="fp-image">
+                        <!-- ko compose: { model: 'dialogs/nps/figures/feedback', activationData: score() } -->
+                        <!-- /ko -->
+                    </figure>
+                    <h2 class="fp-subtitle" data-translate-text="[course score reason]"></h2>
+                        <div class="fp-field">
+                            <div class="fp-field-input" data-bind="hasFocus: isFeedbackEditing, editableText: { text: feedback, onEnterKeyPress: submit }, scrollbar: { checkDOMChanges: true }" contentEditable="true"></div>
+                        </div>
+                        <div class="btn-submit-wrapper">
+                            <button href="#" class="button small primary" data-bind="click: submit, disable: isReporting, css: { progress: isReporting }" data-translate-title="[submit]">                                
+                                <!-- ko if: isReporting -->
+                                    <span class="button-caption-loader"></span>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isReporting -->
+                                    <span class="button-caption" data-translate-text="[submit]"></span>
+                                <!-- /ko -->
+                            </button>
+                        </div>
                 </div>
                 <div class="fp-content-step last-step delay" data-bind="css: { show: isLastStep, hide: !isEvaluationStep() && !isLastStep() }">
                     <figure class="fp-image">

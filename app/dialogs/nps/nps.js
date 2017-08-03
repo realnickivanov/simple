@@ -1,5 +1,5 @@
-﻿define(['knockout', 'underscore', 'repositories/courseRepository', 'templateSettings'],
-    function(ko, _, courseRepository, templateSettings) {
+﻿define(['knockout', 'underscore', 'repositories/courseRepository', 'templateSettings', 'browserSupport'],
+    function(ko, _, courseRepository, templateSettings, browserSupport) {
         var steps = {
             evaluation: 'evaluation',
             feedback: 'feedback',
@@ -11,7 +11,10 @@
         var viewModel = {
             activate: activate,
             submit: submit,
-            score: ko.observable(),
+            goToFeedbackStep: goToFeedbackStep,
+            score: ko.observable(0),
+            feedback: ko.observable(''),
+            isFeedbackEditing: ko.observable(false),
             currentStep: ko.observable(),
             callbacks: {},
             compositionComplete: compositionComplete,
@@ -44,8 +47,10 @@
                 viewModel.callbacks = data.callbacks;
 
             viewModel.score(0);
+            viewModel.feedback('');
             viewModel.currentStep(steps.evaluation);
             viewModel.isReporting(false);
+            viewModel.isFeedbackEditing(false);
 
             var evaluationStepTitleKey = templateSettings.xApi.enabled ? '[progress has been reported]' : '[you have finished your course]';
             viewModel.evaluationStepTitle = TranslationPlugin.getTextByKey(evaluationStepTitleKey);
@@ -55,12 +60,19 @@
             viewModel.isCompositionComplete(true);
         }
 
+        function goToFeedbackStep() {
+            viewModel.currentStep(steps.feedback);
+            if (!browserSupport.isMobileDevice) {
+                viewModel.isFeedbackEditing(true);
+            }
+        }
+
         function submit() {
             viewModel.isReporting(true);
 
             course.evaluate({
                 score: viewModel.score() / 10,
-                response: ''
+                response: viewModel.feedback().trim()
             }, {
                 success: function() {},
                 fail: function() {},

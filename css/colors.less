@@ -1666,6 +1666,16 @@ body {
                 hr{
                     background-color: fade(@text-color, 10%);
                 }
+                .fp-field {
+                    .fp-field-input {
+                        color: @text-color;
+                        font-family: @main-font-fontFamily;
+                        border: 1px solid fade(@text-color, 20%);
+                        &:focus {
+                            border: solid 1px @main-color;
+                        }
+                    }
+                }
             }
         }
     }

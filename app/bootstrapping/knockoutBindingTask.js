@@ -30,6 +30,7 @@ define([
     'bootstrapping/knockoutBindings/changeCssClassByDelayBinding',
     'bootstrapping/knockoutBindings/containImageBinding',
     'bootstrapping/knockoutBindings/lessColorBinding',
+    'bootstrapping/knockoutBindings/editableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
