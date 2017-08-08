@@ -8,7 +8,7 @@
                 <div class="section-image-wrapper" data-bind="style: { 'background-image': 'url(' + section.imageUrl + ')' }, css: { 'affect-progress': section.affectProgress }">
                     <!-- ko if: section.affectProgress -->
                     <div class="sections-canvas-wrapper">
-                        <canvas tabindex="0" class="canvas-styles" width="92" height="92" data-bind="circleProgress: { progress: section.score(), masteryScore:masteryScore,lineWidth:2 },toolTip:{progress: section.score(), masteryScore:masteryScore}"></canvas>
+                        <canvas tabindex="0" class="canvas-styles" width="92" height="92" data-bind="circleProgress: { progress: section.score(), isMastered: isSectionMastered(), lineWidth: 2 },toolTip:{progress: section.score(), masteryScore:masteryScore}"></canvas>
                     </div>
                     <span class="progress-text" data-bind="text: section.score() + '%'"></span>
 

@@ -8,7 +8,7 @@
             <div class="overall-progress">
                 <div class="overall-progress-progressbar-wrapper">
                     <div class="overall-progress-progressbar">
-                        <canvas class="overall-progress-progressbar-canvas canvas-styles result" width="159" height="159" data-bind="circleProgress: { progress: score(), lineWidth:3,radius:75, masteryScore:masteryScore, completed: true }"></canvas>
+                        <canvas class="overall-progress-progressbar-canvas canvas-styles result" width="159" height="159" data-bind="circleProgress: { progress: score(), lineWidth:3,radius:75, isMastered: isCompleted }"></canvas>
                         <div class="overall-progress-progressbar-text" data-bind="text: score()">0</div>
                     </div>
                 </div>

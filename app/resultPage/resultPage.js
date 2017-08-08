@@ -20,7 +20,7 @@ define([
         score: course.score,
         title: course.title,
         sections: [],
-        masteryScore: templateSettings.masteryScore.score,
+        isCompleted: course.isCompleted(),
         status: ko.observable(statuses.readyToFinish),
         statuses: statuses,
         activate: activate,

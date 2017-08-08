@@ -11,7 +11,7 @@
                         </div>
                         <div class="overall-progress-progressbar-wrapper">
                             <div class="overall-progress-progressbar">
-                                <canvas class="overall-progress-progressbar-canvas canvas-styles" width="80" height="80" data-bind="circleProgress: { progress: score(), lineWidth:2,radius:39, masteryScore:masteryScore }"></canvas>
+                                <canvas class="overall-progress-progressbar-canvas canvas-styles" width="80" height="80" data-bind="circleProgress: { progress: score(), lineWidth:2,radius:39, isMastered: isCompleted }"></canvas>
                                 <div class="overall-progress-progressbar-text" data-bind="text: score() + '%'">0%</div>
                             </div>
                         </div>

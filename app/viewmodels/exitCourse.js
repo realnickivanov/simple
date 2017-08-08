@@ -23,7 +23,7 @@
         statuses: statuses,
 
         score: null,
-        masteryScore: templateSettings.masteryScore.score,
+        isCompleted: false,
         xAPIEnabled: false,
         scormEnabled: false,
         hideFinishActionButtons: false,
@@ -57,6 +57,7 @@
 
     function activate(type) {
         viewModel.score = context.course.score;
+        viewModel.isCompleted = context.course.isCompleted();
         viewModel.type(type);
         viewModel.xAPIEnabled = xApiInitializer.isLrsReportingInitialized;
         viewModel.scormEnabled = publishModeProvider.isScormEnabled;

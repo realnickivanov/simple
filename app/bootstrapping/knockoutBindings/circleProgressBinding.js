@@ -1,7 +1,7 @@
-﻿define(['durandal/composition'], function (composition) {
+﻿define(['durandal/composition', 'templateSettings', 'less'], function(composition, templateSettings, less) {
 
     ko.bindingHandlers.circleProgress = {
-        update: function (element, valueAccessor) {
+        update: function(element, valueAccessor) {
             var $element = $(element);
 
             var width = getNumericStylePropValue($element, 'width');
@@ -21,13 +21,13 @@
             var score = valueAccessor().progress || 0;
             var lineWidth = getNumericStylePropValue($element, 'border-width', true) || valueAccessor().lineWidth || 4;
             var radius = getNumericStylePropValue($element, 'border-radius', true) || valueAccessor().radius || (centerX < centerY ? centerX : centerY - lineWidth / 2 - 1);
-            var masteryScore = valueAccessor().masteryScore;
-            var basicColor = $element.css('color') || valueAccessor().color || 'rgb(211,212,216)';
-            var progressColor = $element.css('border-top-color') || valueAccessor().progressColor || 'rgb(87,157,193)';
+            var isMastered = valueAccessor().isMastered;
+            var basicColor = valueAccessor().basicColor || getDefaultBasicColor();
+            var progressColor = valueAccessor().progressColor || templateSettings.getColorValue('@secondary-color');
+            var masteredColor = valueAccessor().masteredColor || templateSettings.getColorValue('@correct-color');
 
             var cnxt = element.getContext('2d');
-
-            if (masteryScore && score >= masteryScore) {
+            if (isMastered) {
                 $element.addClass('mastered');
             }
 
@@ -41,7 +41,7 @@
             var progress = score / 100;
             if (progress > 0) {
                 cnxt.beginPath();
-                cnxt.strokeStyle = progressColor;
+                cnxt.strokeStyle = isMastered ? masteredColor : progressColor;
                 cnxt.lineWidth = lineWidth;
 
                 if (progress == 1) {
@@ -64,6 +64,13 @@
         }
 
         return parseInt(propValueStr.substring(0, propValueStr.length - 2), 10);
+    }
+
+    function getDefaultBasicColor() {
+        var c = new less.tree.Color(templateSettings.getColorValue('@text-color').slice(1));
+        var dimension = new less.tree.Dimension('95');
+        var func = less.functions.functionRegistry.get('tint');
+        return func(c, dimension).toRGB();
     }
 
 });

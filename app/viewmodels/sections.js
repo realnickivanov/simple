@@ -30,6 +30,7 @@
                         imageWidth: sectionThumbnail.width,
                         imageHeight: sectionThumbnail.height,
                         score: item.score(),
+                        isMastered: item.score() >= templateSettings.masteryScore.score,
                         scoreTooltipText: getScoreTooltipText(templateSettings.masteryScore.score, item.score()),
                         questions: item.questions,
                         affectProgress: item.affectProgress,

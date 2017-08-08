@@ -1,5 +1,5 @@
 ﻿define(['plugins/router', 'constants', 'repositories/questionRepository', 'repositories/sectionRepository', 'templateSettings', 'modules/questionsNavigation'],
-    function (router, constants, questionRepository, sectionRepository, templateSettings, navigationModule) {
+    function(router, constants, questionRepository, sectionRepository, templateSettings, navigationModule) {
         "use strict";
 
         var viewModel = {
@@ -78,12 +78,17 @@
 
         function activate(sectionId, questionId) {
 
-            return Q.fcall(function () {
+            return Q.fcall(function() {
                 viewModel.section = sectionRepository.get(sectionId);
                 if (viewModel.section === null) {
-                    router.navigate('404', {replace: true, trigger: true});
+                    router.navigate('404', { replace: true, trigger: true });
                     return;
                 }
+
+                viewModel.masteryScore = templateSettings.masteryScore.score;
+                viewModel.isSectionMastered = ko.computed(function() {
+                    return viewModel.section.score() >= templateSettings.masteryScore.score;
+                });
 
                 viewModel.question = questionRepository.get(sectionId, questionId);
                 if (viewModel.question === null) {
@@ -95,11 +100,10 @@
                 viewModel.voiceOver = viewModel.question.voiceOver;
 
                 viewModel.startTime = new Date();
-                viewModel.masteryScore = templateSettings.masteryScore.score;
                 viewModel.navigationContext = navigationModule.getNavigationContext(viewModel.section.id, viewModel.question.id);
 
 
-                return viewModel.question.load().then(function () {
+                return viewModel.question.load().then(function() {
                     viewModel.activeViewModel = getActiveContentViewModel(viewModel.question);
                 });
             });
