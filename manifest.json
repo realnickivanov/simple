@@ -884,6 +884,10 @@
     {
       "code": "sv",
       "url": "lang/sv.json"
+    },
+    {
+      "code": "pl",
+      "url": "lang/pl.json"
     }
   ],
   "defaultTemplateSettings": {

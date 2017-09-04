@@ -80,6 +80,7 @@
         'vi': 'Vietnamese',
         'fa': 'Farsi',
         'sv': 'Swedish',
+        'pl': 'Polish',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
