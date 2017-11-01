@@ -10,9 +10,12 @@
             <!-- /ko -->
         </div>
     </header>
-
+    <!-- ko if: $root.sectionsLayout==="List" -->
+        <h1 class="sections-title-container">
+            <span class="sections-title" data-translate-text="[sections]"></span>
+        </h1>
+    <!-- /ko -->
     <ul tabindex="-1" class="sections-list autofocus" data-bind="foreach: sections">
-
         <li tabindex="0" class="sections-list-item" data-bind="click: goToFirstQuestion, submitOnEnter, css: { disabled: $parent.isNavigationLocked }, css:$root.sectionsLayout, reviewable: {type: 'section', property: 'title', id: id, title: title}">
             <!-- ko if: $root.sectionsLayout==="Tiles" -->
             <div class="section-image-holder">
@@ -35,10 +38,11 @@
             <!-- ko if: $root.sectionsLayout==="List" -->
             <div class="section-info">
                 <div class="section-image-holder">
-                    <div data-bind="style: { 'background-image':  'url('+imageUrl+')'}"></div>
+                    <div class="section-image" data-bind="containImage: { imageUrl: imageUrl, imageWidth: imageWidth, imageHeight: imageHeight }"></div>
                 </div>
                 <div class="section-info-holder">
-                    <div data-bind="text: title"></div>
+                    <div class="section-info-title" data-bind="text: title"></div>
+                    <div class="section-info-title clamped" data-bind="text: title"></div>
                     <!-- ko ifnot: affectProgress -->
                     <span class="section-progress-no-questions" data-translate-text="[there are no questions]">No questions</span>
                     <!-- /ko -->
@@ -55,11 +59,17 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="progress-value" data-bind="text:score+'%'"></span>
+                        <span class="progress-value" data-bind="text: score + '%'"></span>
+                        <div class="progress-value-container">
+                            <span class="progress-value" data-bind="text: score + '%', css: { visible: score < $parent.masteryScore }"></span>
+                            <span class="progress-value-text" data-bind="css: { visible: score < $parent.masteryScore }" data-translate-text="[to complete]"></span>
+                            <span class="progress-value-text completed" data-bind="css: { visible: score >= $parent.masteryScore }">
+                                <span class="icon-correct_check"></span>
+                                <span data-translate-text="[completed]"></span>
+                            </span>
+                        </div>
                     </div>
-
                     <!-- /ko -->
-
                 </div>
                 <div class="section-start-button-holder">
                     <button class="button small primary" data-translate-text="[start]" data-bind="css: { disabled: $parent.isNavigationLocked }"></button>

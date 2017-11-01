@@ -981,6 +981,17 @@ body {
     }
 }
 
+.sections-title-container{
+    &:before,
+    &:after{
+        background-color: fade(@text-color, 20%);
+    }
+    .sections-title{
+        color: @text-color;
+    }
+}
+
+
 .sections-list-item {
 
     &:not(.disabled):hover, &:not(.disabled):focus {
@@ -1009,6 +1020,14 @@ body {
 
                 &.mastered {
                     background-color: @main-color;
+                }
+            }
+        }
+
+        .section-progress {
+            .progress-value-text{
+                &.completed{
+                    color: @correct-color;
                 }
             }
         }

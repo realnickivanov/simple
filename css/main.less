@@ -3168,135 +3168,265 @@ textarea {
 
 /*#region List*/
 
-.List.sections-list-item {
-    width: 100%;
-    position: relative;
-    cursor: pointer;
-    margin: 20px 0px;
-    overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+.sections-title-container {
+    display: none;
 }
 
-.List .section-info {
-    display: table;
-    width: 100%;
-    padding: 14px;
-    font-weight: 400;
-    letter-spacing: 0.05px;
-    border-radius: 0px;
-    box-shadow: none;
-}
+.List {
+    &.sections-list-item {
+        width: 100%;
+        position: relative;
+        cursor: pointer;
+        margin: 20px 0px;
+        overflow: hidden;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    }
+    &.sections-list-item .section-image-holder {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100px;
+        background-color: transparent;
+    }
+    &.sections-list-item .section-image-holder div {
+        width: 100px;
+        height: 70px;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        background-position: center;
+        background-size: contain;
+        border-radius: 4px;
+    }
+    .section-info {
+        display: table;
+        width: 100%;
+        padding: 14px;
+        font-weight: 400;
+        letter-spacing: 0.05px;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+    .section-info-holder {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 70px 0px 10px;
+        word-break: break-word;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
 
-.List.sections-list-item .section-image-holder {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100px;
-    background-color: transparent;
+        .section-info-title{
+            &.clamped{
+                display:none;
+            }
+        }
+    }
+    .section-start-button-holder {
+        display: table-cell;
+        width: 130px;
+        vertical-align: middle;
+    }
+    .section-start-button-holder:before {
+        position: absolute;
+        right: 165px;
+        top: 50%;
+        margin-top: -30px;
+        width: 1px;
+        height: 60px;
+        content: '';
+        background-color: #cecfd1;
+    }
+    .section-start-button-holder button {
+        width: 115px;
+        padding: 0 10px;
+    }
+    .section-progress-no-questions {
+        color: #91b1d0;
+        font-size: 13px;
+        font-style: italic;
+        font-weight: 400;
+    }
+    .section-progress-wrapper {
+        width: 250px;
+        height: 10px;
+    }
+    .section-progress {
+        display: table;
+        &:hover,
+        &:focus{
+            .mastered-score-tooltip-text {
+                -webkit-transition: all linear 0.2s;
+                transition: all linear 0.2s;
+                margin-bottom: 10px;
+                opacity: 1;
+            }
+        }
+        .progress-value-container{
+            .progress-value{
+                display: none;
+            }
+        }
+        .progress-value-text,
+        .progress-value {
+            display: table-cell;
+            padding: 0px 20px;
+            color: #63798e;
+            white-space: nowrap;
+        }
+        .progress-value-text{
+            display: none;
+            &.completed{
+                text-transform: capitalize;
+            }
+        }
+        .mastered-score-tooltip-text {
+            margin-bottom: 15px;
+        }
+    }
+    .section-progress .progressbar-wrapper {
+        display: table-cell;
+        width: 250px;
+        vertical-align: middle;
+    }
+    .progressbar {
+        position: relative;
+        width: 100%;
+        height: 3px;
+        border-radius: 3px;
+    }
+    .progressbar-value {
+        height: 3px;
+        border-radius: 3px;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .mastered-score-tooltip {
+        position: absolute;
+        top: -5px;
+        margin-left: -3px;
+    }
 }
-
-.List.sections-list-item .section-image-holder div {
-    width: 100px;
-    height: 70px;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    background-position: center;
-    background-size: contain;
-    border-radius: 4px;
-}
-
-.List .section-info-holder {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 0 70px 0px 10px;
-    word-break: break-word;
-    font-size: 14px;
-    line-height: 24px;
-    text-align: left;
-}
-
-.List .section-start-button-holder {
-    display: table-cell;
-    width: 130px;
-    vertical-align: middle;
-}
-
-.List .section-start-button-holder:before {
-    position: absolute;
-    right: 165px;
-    top: 50%;
-    margin-top: -30px;
-    width: 1px;
-    height: 60px;
-    content: '';
-    background-color: #cecfd1;
-}
-
-.List .section-start-button-holder button {
-    width: 115px;
-    padding: 0 10px;
-}
-
-.List .section-progress-no-questions {
-    color: #91b1d0;
-    font-size: 13px;
-    font-style: italic;
-    font-weight: 400;
-}
-
-.List .section-progress-wrapper {
-    width: 250px;
-    height: 10px;
-}
-
-.List .section-progress {
-    display: table;
-}
-
-.List .section-progress .mastered-score-tooltip-text {
-    margin-bottom: 15px;
-}
-
-.List .section-progress:hover .mastered-score-tooltip-text,
-.List .section-progress:focus .mastered-score-tooltip-text {
-    -webkit-transition: all linear 0.2s;
-    transition: all linear 0.2s;
-    margin-bottom: 10px;
-    opacity: 1;
-}
-
-.List .section-progress .progressbar-wrapper {
-    display: table-cell;
-    width: 250px;
-    vertical-align: middle;
-}
-
-.List .progressbar {
-    position: relative;
-    width: 100%;
-    height: 3px;
-    border-radius: 3px;
-}
-
-.List .progressbar-value {
-    height: 3px;
-    border-radius: 3px;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.List .section-progress .progress-value {
-    display: table-cell;
-    padding: 0px 20px;
-    color: #63798e;
-    white-space: nowrap;
-}
-
-.List .mastered-score-tooltip {
-    position: absolute;
-    top: -5px;
-    margin-left: -3px;
+@media (max-width: 700px){
+    .sections-title-container{
+        position: relative;
+        display: block;
+        margin-top: 32px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+        .sections-title{
+            display: inline-block;
+            padding: 0 22px;
+        }
+        &:before,
+        &:after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 38%;
+            height: 1px;
+            margin-top: -.5px;
+        }
+        &:before{
+            left: 0;
+        }
+        &:after{
+            right: 0;
+        }
+    }
+    .List{
+        &.sections-list-item {
+            border-radius: 1px;
+            .section-image-holder{
+                width: 100px;
+                height: 100px;
+                vertical-align: unset;
+                .section-image{
+                    position: relative;
+                    overflow: hidden;
+                    width: 100%;
+                    height: 100%;
+                    background-size: initial;
+                    background-position: 50% 50%;
+                    background-repeat: no-repeat;
+                    border-radius: 0;
+                }
+            }
+        }
+        .section-info{
+            height: 100px;
+            padding: 0;
+        }
+        .section-start-button-holder{
+            display: none;
+        }
+        .section-info-holder{
+            position: relative;
+            padding: 7px 12px 10px;
+            vertical-align: top;
+            font-size: 13px;
+            line-height: 19px;
+            margin-bottom: 10px;
+            .section-info-title{
+                display:none;
+                max-height: 60px;
+                &.clamped{
+                    position: relative; 
+                    display: block;
+                    padding-right: 10px;
+                    overflow: hidden;
+                    text-align: justify;
+                    &:before {
+                        content: '...';
+                        position: absolute;
+                        right: 0;
+                        bottom: 2px;
+                    }
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        right: 0;
+                        width: 1em;
+                        height: 1em;
+                        margin-top: 0.2em;
+                        background: white;
+                    }
+                }
+            }
+        }
+        .section-progress{
+            .progressbar-wrapper{
+                display: none;
+            }
+            .progress-value{
+                display: none;
+            }
+            .progress-value-container{
+                position: absolute;
+                bottom: 10px;
+                left: 12px;
+                .progress-value,
+                .progress-value-text{
+                    display: none;
+                    padding: 0;
+                    font-size: 11px;
+                    &.visible{
+                        display: inline-block;
+                    }
+                    &.completed{
+                        .icon-correct_check{
+                            display: inline-block;
+                            margin-right: 5px;
+                            font-size: 8px;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
 }
 
 /*#endregion List*/
