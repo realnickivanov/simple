@@ -43,10 +43,13 @@
     viewModel.init = function () {
         var api = window.egApi;
         return api.init().then(function () {
+            var manifest = api.getManifest();
+
+            var defaultSettings = manifest.defaultTemplateSettings;
             var settings = api.getSettings();
 
-            viewModel.sectionsLayout = new app.SectionsLayoutModel(settings.sectionsLayout, viewModel.saveChanges);
-            viewModel.treeOfContent = new app.TreeOfContentModel(settings.treeOfContent, viewModel.saveChanges);
+            viewModel.sectionsLayout = new app.SectionsLayoutModel(settings.sectionsLayout || defaultSettings.sectionsLayout, viewModel.saveChanges);
+            viewModel.treeOfContent = new app.TreeOfContentModel(settings.treeOfContent || defaultSettings.treeOfContent, viewModel.saveChanges);
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();
