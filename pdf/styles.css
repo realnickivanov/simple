@@ -236,5 +236,9 @@ body {
 .eg-content-editor .image-wrapper {
     margin: 0; 
 }
+
+.video-editor{
+    padding-bottom: 0 !important;
+}
  
 /*#endregion .eg-content-editor*/

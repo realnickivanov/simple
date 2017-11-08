@@ -21,13 +21,16 @@
 	ko.bindingHandlers.loadHtml = {
 		init: function (element, valueAccessor) {
 			var html = valueAccessor();
-			$(element).html(html);
-			wrapElement(element);
-			buildLinearSelects(element);
 
-			function wrapElement(element) {
-				var $element = $(element),
-					imageWrapper = '<figure class="image-wrapper"></figure>',
+			var $output = $('<output>');
+			$output.html(html);
+			wrapElement($output);
+			buildLinearSelects($output);
+			
+			$(element).html($output.html());
+
+			function wrapElement($element) {
+				var imageWrapper = '<figure class="image-wrapper"></figure>',
 					tableWrapper = '<figure class="table-wrapper"></figure>';
 
 				$('img', $element).each(function (index, image) {
@@ -55,8 +58,8 @@
 				});
 			}
 
-			function buildLinearSelects(element) {
-				$('select.blankSelect', element).each(function (index, select) {
+			function buildLinearSelects($element) {
+				$('select.blankSelect', $element).each(function (index, select) {
 					var $linearSelect = $('<div>').addClass('linear-select');
 					$('option', select).each(function (index, option) {
 						$linearSelect.append($('<span>').text(option.innerText));
