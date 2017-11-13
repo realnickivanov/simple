@@ -5,14 +5,16 @@
 
 	var imagesCounter = 0;
 	var imagesPromises = [];
+	var singleSelectImagesCounter = 0;
 
-	$.loadImage = function (url){
+	$.loadImage = function (url) {
 		var defer = $.Deferred();
 		var image = new Image();
+
 		function cleanUp() {
 			image.onload = image.onerror = null;
 		}
-		defer.then( cleanUp, cleanUp );
+		defer.then(cleanUp, cleanUp);
 		image.onload = image.onerror = defer.resolve;
 		image.src = url;
 		return defer.promise();
@@ -26,7 +28,7 @@
 			$output.html(html);
 			wrapElement($output);
 			buildLinearSelects($output);
-			
+
 			$(element).html($output.html());
 
 			function wrapElement($element) {
@@ -79,12 +81,35 @@
 			content.shuffleKeyValues = shuffleKeyValues;
 			content.shuffle = shuffle;
 			content.logoUrl = (configs.templateSettings && configs.templateSettings.branding && configs.templateSettings.branding.logo && configs.templateSettings.branding.logo.url) ? configs.templateSettings.branding.logo.url : defaultLogo;
+			content.isLogoUploaded = ko.observable(false);
+			content.logoUploaded = function () {
+				content.isLogoUploaded(true);
+			};
+			content.isSingleSelectImageAnswersLoaded = ko.observable(false);
+			content.singleSelectImageAnswerLoaded = function () {
+				singleSelectImagesCounter--;
+				if (singleSelectImagesCounter === 0) {
+					content.isSingleSelectImageAnswersLoaded(true);
+				}
+			};
+			content.isContentsLoaded = ko.observable(false);
+			content.isPageFullyLoaded = ko.computed(function () {
+				if (content.isLogoUploaded() &&
+					content.isContentsLoaded() &&
+					content.isSingleSelectImageAnswersLoaded()) {
+					pageFulllyLoaded();
+					return true;
+				}
+				return false;
+			}, this);
 			TranslationPlugin.localize();
 			content.renderingFinished = function () {
 				if (imagesCounter === 0) {
-					setStatusReady();
+					content.isContentsLoaded(true);
 				} else {
-					$.when.apply($, imagesPromises).done(setStatusReady);
+					$.when.apply($, imagesPromises).done(function () {
+						content.isContentsLoaded(true);
+					});
 				}
 			};
 			$.when.apply($, loadContents(content)).done(function () {
@@ -93,9 +118,9 @@
 		});
 	});
 
-	function setStatusReady() {
+	function pageFulllyLoaded() {
 		window.status = 'READY';
-		console.log(window.status);
+		document.body.classList.add('page-loaded');
 	}
 
 	function loadContents(content) {
@@ -128,8 +153,14 @@
 						calcImages(response);
 					}));
 				}
+				if (question.type === 'singleSelectImage') {
+					singleSelectImagesCounter += question.answers.length;
+				}
 			});
 		});
+		if(singleSelectImagesCounter === 0){
+			content.isSingleSelectImageAnswersLoaded(true);
+		}
 		return promises;
 	}
 

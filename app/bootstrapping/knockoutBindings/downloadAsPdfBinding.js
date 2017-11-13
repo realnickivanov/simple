@@ -7,10 +7,10 @@
 
     var serviceUrl, cookieDomain = null;
     if (has('release')) {
-        serviceUrl = '//pdf.easygenerator.com';
+        serviceUrl = '//pdf-staging.easygenerator.com';
         cookieDomain = 'easygenerator.com';
     } else {
-        serviceUrl = '//localhost:999';
+        serviceUrl = '//localhost:3035';
     }
 
     ko.bindingHandlers.downloadAsPdf = {
@@ -54,7 +54,6 @@
                 }
                 
                 setStatus($element, buttonStatuses.proggress);
-
                 $.fileDownload(convertionUrl.value, { cookieDomain: cookieDomain })
                     .done(function (url) {
                         setStatus($element, buttonStatuses.default);
