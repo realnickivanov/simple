@@ -822,6 +822,10 @@
       "url": "lang/nl.json"
     },
     {
+      "code": "nl-inf",
+      "url": "lang/nl-inf.json"
+    },
+    {
       "code": "en",
       "url": "lang/en.json"
     },
@@ -888,6 +892,10 @@
     {
       "code": "pl",
       "url": "lang/pl.json"
+    },
+    {
+      "code": "kin",
+      "url": "lang/kin.json"
     }
   ],
   "defaultTemplateSettings": {

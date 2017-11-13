@@ -68,6 +68,7 @@
         'fr': 'French',
         'it': 'Italian',
         'nl': 'Dutch',
+        'nl-inf': 'Dutch (informal)',
         'tr': 'Turkish',
         'ua': 'Ukrainian',
 		'es': 'Spanish',
@@ -81,6 +82,7 @@
         'fa': 'Farsi',
         'sv': 'Swedish',
         'pl': 'Polish',
+        'kin': 'Kinyarwanda',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
