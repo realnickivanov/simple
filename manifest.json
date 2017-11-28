@@ -896,6 +896,10 @@
     {
       "code": "kin",
       "url": "lang/kin.json"
+    },
+    {
+      "code": "ca",
+      "url": "lang/ca.json"
     }
   ],
   "defaultTemplateSettings": {

@@ -2,12 +2,12 @@
     "[course]": "Corso",
     "[start course]": "Inizio del corso",
     "[finish course]": "Fine del corso",
-    "[cancel, continue course]": "Annula, continua corso",
+    "[cancel, continue course]": "Annulla, continua corso",
     "[finish course popup first remark]": "- il tuo risultato finale verrà registrato",
     "[finish course popup second remark]": "- il tuo progresso corrente NON sarà registrato quando riaprirai il corso la prossima volta",
     "[finish course submit first remark]": "- il tuo risultato finale verrà registrato",
     "[finish course submit second remark]": "- Non sarai in grado di continuare il corso più tardi",
-    "[finish course take brake first remark]": "- Puoi riaprire il corso in qualsiasi momneto e continuare da dove hai lasciato",
+    "[finish course take brake first remark]": "- Puoi interrompere e riprendere il corso in qualsiasi momento",
     "[finish course take brake second remark]": "- Usa lo stesso browser per continuare il corso",
     "[learning objectives]": "Obiettivi di apprendimento",
     "[start]": "Inizio",
@@ -79,6 +79,8 @@
     "[OK, close course]": "Ok, chiudi corso",
     "[take a brake]": "Prendi una pausa",
     "[note that]": "Nota bene:",
+    "[sections]": "Sezioni",
     "[forgot password email sent]": "Ti abbiamo inviato una e-mail con le istruzioni su come reimpostare la password.",
-    "[question page title]": "Domanda"
+    "[question page title]": "Domanda",
+    "[sections page title]": "Sezioni"
 }

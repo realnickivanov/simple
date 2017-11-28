@@ -83,6 +83,7 @@
         'sv': 'Swedish',
         'pl': 'Polish',
         'kin': 'Kinyarwanda',
+        'ca': 'Catalan',
 
         'choose language for your course': 'Choose language for your course',
         'defaultText': 'Default',
