@@ -5,7 +5,7 @@
     
                 var $element = $(element),
                     score = valueAccessor().progress || 0,
-                    lineWidth = valueAccessor().lineWidth || 4,
+                    lineWidth = +$element.css('border-width') || valueAccessor().lineWidth || 4,
     
                     centerX = element.width / 2,
                     centerY = element.height / 2,
@@ -19,7 +19,7 @@
                     $element.addClass('mastered')
                 }
     
-                var basicColor = valueAccessor().basicColor || getDefaultBasicColor(),
+                var basicColor = $element.css('color') || valueAccessor().basicColor || getDefaultBasicColor(),
                     progressColor = valueAccessor().progressColor || templateSettings.getColorValue('@secondary-color'), 
                     masteredColor = valueAccessor().masteredColor || templateSettings.getColorValue('@correct-color');
     
