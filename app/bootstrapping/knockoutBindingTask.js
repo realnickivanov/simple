@@ -34,6 +34,7 @@ define([
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/draggableTextContainerBindingHandler',
     'viewmodels/questions/dragAndDrop/bindingHandlers/dropspotBindingHandler',
+    'viewmodels/questions/rankingText/bindingHandlers/preventDefaultTouchEventBinding',
     'viewmodels/questions/fillInTheBlank/bindingHandlers/fillInTheBlankAnswersBinding',
     'viewmodels/questions/textMatching/bindingHandlers/draggableBindingHandler',
     'viewmodels/questions/textMatching/bindingHandlers/droppableBindingHandler',
