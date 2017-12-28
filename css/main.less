@@ -656,6 +656,14 @@ textarea {
         border: none;
     }
 
+    :not(.video-editor) {
+        & > iframe {
+            &[allowfullscreen] {
+                padding-right: 1px;
+            }
+        }
+    }
+
     &.course-intro-text {
         &:before {
             display: none;
@@ -800,6 +808,7 @@ textarea {
     /*region MEDIA EDITOR VIDEO*/
     .video-editor {
         position: relative;
+        padding-bottom: 56.25% !important;
         height: 0;
         width: 100%;
 
@@ -812,6 +821,7 @@ textarea {
             right: 0;
             width: 100% !important;
             height: 100% !important;
+            padding-right: 1px;
         }
     }
     /*endregion*/

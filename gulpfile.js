@@ -52,7 +52,7 @@ function removeDebugBlocks() {
 };
 
 gulp.task('process-less', function () {
-    gulp.src(['./css/main.less'])
+    gulp.src(['./css/main.less', './css/ie.less', './css/edge.less'])
         .pipe($.plumber({
             errorHandler: function (error) {
                 console.log(error);
@@ -122,6 +122,14 @@ gulp.task('build-app', ['pre-build'], function () {
         .pipe(gulp.dest(output + '/css'));
 
     gulp.src('css/custom-styles.css')
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/css'));
+
+    gulp.src('css/ie.css')
+        .pipe(addBuildVersion())
+        .pipe(gulp.dest(output + '/css'));
+        
+    gulp.src('css/edge.css')
         .pipe(addBuildVersion())
         .pipe(gulp.dest(output + '/css'));
 
