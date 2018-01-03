@@ -89,7 +89,7 @@
         'defaultText': 'Default',
         'translation': 'Translation',
         'copyright text': 'Copyright text:',
-        'copyright placeholder': 'Copyright © 2017 Easygenerator'
+        'copyrightPlaceholder': 'Copyright © {year} Easygenerator'
     };
 
 })(window.app = window.app || {});

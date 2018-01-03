@@ -108,7 +108,7 @@
                         <div class="settings-row">
                             <div class="settings-caption" data-bind="localize: 'copyright text'"></div>
                             <div class="settings-content setting-input-wrapper">
-                                <input type="text" class="settings-input" autocomplete="off" placeholder="Copyright © 2017 Easygenerator" data-bind="value: copyright, valueUpdate: 'afterkeydown', event: { blur: saveChanges }" />
+                                <input type="text" class="settings-input" autocomplete="off" data-bind="value: copyright, valueUpdate: 'afterkeydown', event: { blur: saveChanges }, attr: { placeholder: copyrightPlaceholder }" />
                             </div>
                         </div>        
                     </div>

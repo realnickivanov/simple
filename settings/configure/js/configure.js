@@ -17,7 +17,8 @@
         allowCrossDeviceSaving: ko.observable(true),
         allowSocialLogin: ko.observable(true),
         allowxApiSettings: ko.observable(true),
-        copyright: ko.observable('')
+        copyright: ko.observable(''),
+        copyrightPlaceholder: ko.observable('')
     };
 
     viewModel.getCurrentSettingsData = function (settings) {
@@ -103,10 +104,12 @@
             }
 
             if (settings.hasOwnProperty('copyright')) {
-                viewModel.copyright(settings.copyright);
+                viewModel.copyright(localizeCopyright(settings.copyright));
             } else if (defaultTemplateSettings.hasOwnProperty('copyright')) {
                 viewModel.copyright(defaultTemplateSettings.copyright);
             }
+
+            viewModel.copyrightPlaceholder(localizeCopyright(app.localize('copyrightPlaceholder')));
 
             currentSettings = viewModel.getCurrentSettingsData(settings);
             currentExtraData = viewModel.getCurrentExtraData();
@@ -122,5 +125,9 @@
             $(window).on('blur', viewModel.saveChanges);
         });
     });
+
+    function localizeCopyright(copyrightText) {
+        return copyrightText.replace('{year}', new Date().getFullYear());
+    }    
 
 })(window.app = window.app || {});
