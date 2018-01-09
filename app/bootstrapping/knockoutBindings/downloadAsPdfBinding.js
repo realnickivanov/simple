@@ -42,6 +42,7 @@
 
             var convertionUrl = new Url(serviceUrl + '/convert/')
                 .addQueryStringParam('url', getBaseUrl() + '/pdf/index.html')
+                .addQueryStringParam('cookieDomain', cookieDomain)
                 .addQueryStringParam('filename', title)
                 .addQueryStringParam('version', version);
 

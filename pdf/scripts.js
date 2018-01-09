@@ -97,7 +97,7 @@
 				if (content.isLogoUploaded() &&
 					content.isContentsLoaded() &&
 					content.isSingleSelectImageAnswersLoaded()) {
-					pageFulllyLoaded();
+					pageFullyLoaded();
 					return true;
 				}
 				return false;
@@ -118,7 +118,7 @@
 		});
 	});
 
-	function pageFulllyLoaded() {
+	function pageFullyLoaded() {
 		window.status = 'READY';
 		document.body.classList.add('page-loaded');
 	}
