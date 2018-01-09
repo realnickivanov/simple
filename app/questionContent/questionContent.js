@@ -1,5 +1,5 @@
-define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory', 'templateSettings'],
-    function (ko, router, constants, navigationModule, questionViewModelFactory, templateSettings) {
+define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory', 'templateSettings', 'localizationManager'],
+    function (ko, router, constants, navigationModule, questionViewModelFactory, templateSettings, localizationManager) {
         "use strict";
 
         function QuestionContent() {
@@ -21,6 +21,7 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             this.questionInstructions = [];
             this.correctFeedback = ko.observable(null);
             this.incorrectFeedback = ko.observable(null);
+            this.feedbackResultText = ko.observable('');
             this.feedbackView = '';
             this.submitViewModel = '';
 
@@ -30,7 +31,7 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             
             this.isNavigationLocked = router.isNavigationLocked;
 
-            this.isCorrectAnswered = ko.computed(function () {
+            this.isCorrectAnswered = ko.computed(function() {
                 return self.isAnswered() && self.isCorrect();
             });
 
@@ -38,15 +39,26 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
                 return self.isAnswered() && !self.isCorrect();
             });
 
+            // this logic moved here from html view to fix blinking bug in IE11
+            this.updateFeedbackResultText = function(){
+                var key = '[incorrect answer]';
+                if(self.isCorrect()){
+                    key = self.isSurvey ? "[your answer was stored]" : "[correct answer]";
+                }
+
+                this.feedbackResultText(localizationManager.getLocalizedText(key));
+            }
+
             this.hideTryAgain = false;
         };
 
         QuestionContent.prototype.submit = function() {
             var self = this;
             
-            return self.activeQuestionViewModel.submit().then(function () {
-                self.isAnswered(self.question.isAnswered);
+            return self.activeQuestionViewModel.submit().then(function () {      
                 self.isCorrect(self.question.isCorrectAnswered);
+                self.updateFeedbackResultText();
+                self.isAnswered(self.question.isAnswered);
             });
         }
 
@@ -90,6 +102,7 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             this.questionInstructions = this.question.questionInstructions;
             this.correctFeedback(this.question.feedback.correct);
             this.incorrectFeedback(this.question.feedback.incorrect);
+            this.updateFeedbackResultText();
 
             this.activeQuestionViewModel = questionViewModelFactory.getViewModel(this.question.type);
             this.feedbackView = this.activeQuestionViewModel.feedbackView || 'questions/feedback.html';
