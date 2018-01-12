@@ -5,9 +5,9 @@
   "main": "gulpfile.js",
   "scripts": {
     "precommit": "npm run lint",
-    "lint": "eslint -c .eslintrc app/",
-    "postinstall": "bower install",
-    "start": "gulp webserver"
+    "lint": "node_modules/.bin/eslint -c .eslintrc app/",
+    "postinstall": "node_modules/.bin/bower install",
+    "start": "node_modules/.bin/gulp webserver"
   },
   "repository": {
     "type": "git",

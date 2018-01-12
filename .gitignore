@@ -11,3 +11,5 @@ Web.config
 /media
 .vscode/
 .idea/
+
+.DS_Store

@@ -2,6 +2,7 @@
 
     return {
         get: get,
+        getCollection: getCollection,
         getSectionByQuestionId: getSectionByQuestionId
     };
 
@@ -17,6 +18,10 @@
         }
 
         return section;
+    }
+
+    function getCollection() {
+        return context.course.sections;
     }
 
     function getSectionByQuestionId(questionId) {

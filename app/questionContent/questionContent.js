@@ -1,5 +1,5 @@
-define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory', 'templateSettings', 'localizationManager'],
-    function (ko, router, constants, navigationModule, questionViewModelFactory, templateSettings, localizationManager) {
+define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation', 'viewmodels/questions/questionsViewModelFactory', 'templateSettings', 'localizationManager', 'context'],
+    function (ko, router, constants, navigationModule, questionViewModelFactory, templateSettings, localizationManager, context) {
         "use strict";
 
         function QuestionContent() {
@@ -50,15 +50,20 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             }
 
             this.hideTryAgain = false;
+
+            this.isGoToNextSectionVisible = ko.observable(false)
+            this.isGoToResultsVisible = ko.observable(false);
         };
 
         QuestionContent.prototype.submit = function() {
             var self = this;
             
-            return self.activeQuestionViewModel.submit().then(function () {      
+            return self.activeQuestionViewModel.submit().then(function () {
                 self.isCorrect(self.question.isCorrectAnswered);
                 self.updateFeedbackResultText();
                 self.isAnswered(self.question.isAnswered);
+
+                updateNavigationState(self);
             });
         }
 
@@ -70,13 +75,32 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             });
         }
 
-        QuestionContent.prototype.navigateNext = function () {			
+        QuestionContent.prototype.navigateNext = function () {
             if (router.isNavigationLocked()) {
                 return;
             }
 
             var nextUrl = !_.isNullOrUndefined(this.navigationContext.nextQuestionUrl) ? this.navigationContext.nextQuestionUrl : 'sections';
             router.navigate(nextUrl);
+        }
+
+        QuestionContent.prototype.goToNextSection = function () {
+            if (router.isNavigationLocked()) {
+                return;
+            }
+            if (!this.navigationContext.nextSectionUrl) {
+                return;
+            }
+    
+            router.navigate(this.navigationContext.nextSectionUrl);
+        }
+
+        QuestionContent.prototype.goToResults = function () {
+            if (router.isNavigationLocked()) {
+                return;
+            }
+    
+            router.navigate('#finish');
         }
         
         QuestionContent.prototype.toggleExpand = function () {
@@ -87,6 +111,10 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             if (!sectionId || !question) {
                 return;
             }
+
+
+            this.isGoToResultsVisible(false);
+            this.isGoToNextSectionVisible(false);
 
             this.sectionId = sectionId;
             this.question = question;
@@ -110,6 +138,8 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
 
             this.hideTryAgain = templateSettings.hideTryAgain;
 
+            updateNavigationState(this);
+
             if(isPreview){
                 var self = this;
 
@@ -124,6 +154,19 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
         QuestionContent.prototype.deactivate = function () {
             if (_.isFunction(this.activeQuestionViewModel.deactivate)) {
                 this.activeQuestionViewModel.deactivate();
+            }
+        }
+
+        function updateNavigationState(viewModel) {
+            if (context.course.score() === 100 || (!viewModel.navigationContext.nextSectionUrl && viewModel.navigationContext.questionsCount === viewModel.navigationContext.currentQuestionIndex)) {
+                viewModel.isGoToResultsVisible(true);
+                viewModel.isGoToNextSectionVisible(false);
+            } else if (viewModel.navigationContext.questionsCount === viewModel.navigationContext.currentQuestionIndex) {
+                viewModel.isGoToResultsVisible(false);
+                viewModel.isGoToNextSectionVisible(true);
+            } else {
+                viewModel.isGoToResultsVisible(false);
+                viewModel.isGoToNextSectionVisible(false);
             }
         }
 

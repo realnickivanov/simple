@@ -1,13 +1,17 @@
-﻿define(['modules/questionsNavigation', 'plugins/router', 'templateSettings'], function (navigationModule, router, templateSettings) {
+﻿define(['modules/questionsNavigation', 'plugins/router', 'templateSettings', 'context'], function (navigationModule, router, templateSettings, context) {
     "use strict";
 
     var viewModel = {
         title: null,
         learningContents: null,
         navigateNext: navigateNext,
+        goToNextSection: goToNextSection,
+        goToResults: goToResults,
         copyright: templateSettings.copyright,
 
         activate: activate,
+        isGoToNextSectionVisible: ko.observable(false),
+        isGoToResultsVisible: ko.observable(false),
         isNavigationLocked: router.isNavigationLocked
     };
 
@@ -22,13 +26,44 @@
         router.navigate(nextUrl);
     }
 
+    function goToNextSection() {
+        if (router.isNavigationLocked()) {
+            return;
+        }
+        if (!viewModel.navigationContext.nextSectionUrl) {
+            return;
+        }
+
+        router.navigate(viewModel.navigationContext.nextSectionUrl);
+    }
+
+    function goToResults() {
+        if (router.isNavigationLocked()) {
+            return;
+        }
+        router.navigate('#finish');
+    }
+
     function activate(sectionId, question) {
         return Q.fcall(function () {
+            question.submitAnswer();
+
             viewModel.navigationContext = navigationModule.getNavigationContext(sectionId, question.id);
             viewModel.id = question.id;
             viewModel.title = question.title;
             viewModel.learningContents = question.learningContents;
-            question.submitAnswer();
+
+
+            if (context.course.score() === 100 || (!viewModel.navigationContext.nextSectionUrl && viewModel.navigationContext.questionsCount === viewModel.navigationContext.currentQuestionIndex)) {
+                viewModel.isGoToResultsVisible(true);
+                viewModel.isGoToNextSectionVisible(false);
+            } else if (viewModel.navigationContext.questionsCount === viewModel.navigationContext.currentQuestionIndex){
+                viewModel.isGoToResultsVisible(false);
+                viewModel.isGoToNextSectionVisible(true);
+            } else {
+                viewModel.isGoToResultsVisible(false);
+                viewModel.isGoToNextSectionVisible(false);
+            }  
         });
     }
 });

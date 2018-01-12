@@ -9,9 +9,10 @@
                     return {
                         previousQuestionUrl: _getQuestionUrl(section, section.questions[currentItemIndex - 1]),
                         currentQuestionUrl: _getQuestionUrl(section, section.questions[currentItemIndex]),
-                        nextQuestionUrl: _getQuestionUrl(section, section.questions[currentItemIndex + 1]),
+                        nextQuestionUrl: _getQuestionUrl(section, section.questions[currentItemIndex + 1]),                        
                         questionsCount: section.questions.length,
-                        currentQuestionIndex: currentItemIndex + 1
+                        currentQuestionIndex: currentItemIndex + 1,
+                        nextSectionUrl: getNextSectionUrl(section)
                     };
                 }
             }
@@ -48,7 +49,29 @@
             if (section && question) {
                 return '#/section/' + section.id + '/question/' + question.id;
             }
+
             return undefined;
+        }
+
+        function getNextSectionUrl(section) {
+            if (!section) {
+                return;
+            }
+
+            var nextSection = getNextSection(section);
+            if (nextSection) {
+                return  _getQuestionUrl(nextSection, nextSection.questions[0]);
+            }
+        }
+
+        function getNextSection(currentSection) {
+            var sections = sectionRepository.getCollection();
+
+            for (var i = 0; i < sections.length; i++) {
+                if (sections[i].id === currentSection.id) {
+                    return sections[i + 1];
+                }
+            }
         }
 
         return {

@@ -5,11 +5,16 @@
         <div class="question-result-block" data-bind="text: feedbackResultText, title: feedbackResultText"></div>
         <div class="question-feedback-holder styled-content" data-bind="visible: correctFeedback, html: correctFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
-            <!-- ko if: navigationContext.nextQuestionUrl -->
+            <!-- ko if: isGoToResultsVisible -->
+            <button class="button medium primary autofocus" data-bind="click: goToResults, css: { disabled: isNavigationLocked }" data-translate-text="[go to results]" data-translate-title="[next section]">Go to results</button>
+            <!-- /ko -->
+            <!-- ko ifnot: isGoToResultsVisible -->
+            <!-- ko if: !isGoToNextSectionVisible() && navigationContext.nextQuestionUrl -->
             <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
-            <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <!-- ko ifnot: !isGoToNextSectionVisible() && navigationContext.nextQuestionUrl -->
+            <button class="button medium primary autofocus" data-bind="click: goToNextSection, css: { disabled: isNavigationLocked }" data-translate-text="[next section]" data-translate-title="[next section]">Next section</button>
+            <!-- /ko -->
             <!-- /ko -->
         </div>
     </div>
@@ -20,23 +25,36 @@
         </div>
         <div class="question-feedback-holder styled-content" data-bind="visible: incorrectFeedback, html: incorrectFeedback, elementsWrap: {}"></div>
         <div class="result-btn-holder">
-        <!-- ko if: hideTryAgain -->
-            <!-- ko if: navigationContext.nextQuestionUrl -->
+            
+            <!-- ko if: hideTryAgain -->
+            <!-- ko ifnot: isGoToResultsVisible -->
+            <!-- ko if: !isGoToNextSectionVisible() && navigationContext.nextQuestionUrl -->
             <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
-            <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="button medium primary autofocus" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <!-- ko ifnot: !isGoToNextSectionVisible() && navigationContext.nextQuestionUrl -->
+            <button class="button medium primary autofocus" data-bind="click: goToNextSection, css: { disabled: isNavigationLocked }" data-translate-text="[next section]" data-translate-title="[next section]">Next section</button>
             <!-- /ko -->
-        <!-- /ko -->
-        <!-- ko ifnot: hideTryAgain -->
+            <!-- /ko -->
+            <!-- ko if: isGoToResultsVisible -->
+            <button class="button medium primary autofocus" data-bind="click: goToResults, css: { disabled: isNavigationLocked }" data-translate-text="[go to results]" data-translate-title="[next section]">Go to results</button>
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko ifnot: hideTryAgain -->
             <button class="button medium primary autofocus" data-bind="click: tryAnswerAgain" data-translate-text="[try again]" data-translate-title="[try again]">Try again</button>
-            <!-- ko if: navigationContext.nextQuestionUrl -->
+            <!-- ko ifnot: isGoToResultsVisible -->
+            <!-- ko if: !isGoToNextSectionVisible() && navigationContext.nextQuestionUrl -->
             <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[next]" data-translate-title="[next]">Next</button>
             <!-- /ko -->
-            <!-- ko ifnot: navigationContext.nextQuestionUrl -->
-            <button class="button medium default" data-bind="click: navigateNext, css: { disabled: isNavigationLocked }" data-translate-text="[home]" data-translate-title="[home]">Home</button>
+            <!-- ko ifnot: !isGoToNextSectionVisible() && navigationContext.nextQuestionUrl -->
+            <button class="button medium default" data-bind="click: goToNextSection, css: { disabled: isNavigationLocked }" data-translate-text="[next section]" data-translate-title="[next section]">Next section</button>
             <!-- /ko -->
-        <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: isGoToResultsVisible -->
+            <button class="button medium default" data-bind="click: goToResults, css: { disabled: isNavigationLocked }" data-translate-text="[go to results]" data-translate-title="[next section]">Go to results</button>
+            <!-- /ko -->
+            <!-- /ko -->
+            
         </div>
     </div>
     <!-- /ko -->
