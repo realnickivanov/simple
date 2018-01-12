@@ -64,6 +64,7 @@
         'xx': 'Custom',
         'cn': 'Chinese',
         'de': 'German',
+        'da':'Danish',
         'en': 'English',
         'fr': 'French',
         'it': 'Italian',

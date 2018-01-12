@@ -900,6 +900,10 @@
     {
       "code": "ca",
       "url": "lang/ca.json"
+    },
+    {
+      "code": "da",
+      "url": "lang/da.json"
     }
   ],
   "defaultTemplateSettings": {
