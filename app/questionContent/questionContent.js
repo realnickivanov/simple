@@ -40,10 +40,10 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
             });
 
             // this logic moved here from html view to fix blinking bug in IE11
-            this.updateFeedbackResultText = function(){
-                var key = '[incorrect answer]';
-                if(self.isCorrect()){
-                    key = self.isSurvey ? "[your answer was stored]" : "[correct answer]";
+            this.updateFeedbackResultText = function() {
+                var key = '[your answer was stored]';
+                if (!self.isSurvey) {
+                    key = self.isCorrect() ? '[correct answer]': '[incorrect answer]';
                 }
 
                 this.feedbackResultText(localizationManager.getLocalizedText(key));
@@ -51,7 +51,7 @@ define(['knockout', 'plugins/router', 'constants', 'modules/questionsNavigation'
 
             this.hideTryAgain = false;
 
-            this.isGoToNextSectionVisible = ko.observable(false)
+            this.isGoToNextSectionVisible = ko.observable(false);
             this.isGoToResultsVisible = ko.observable(false);
         };
 
