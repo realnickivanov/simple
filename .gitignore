@@ -5,6 +5,8 @@
 Web.config
 /typings/
 /css/main.css
+/css/ie.css
+/css/edge.css
 /.vs/config/applicationhost.config
 /.vs/simple/v14/.suo
 /simple.sln

@@ -7,7 +7,8 @@
                 require('bootstrapping/knockoutBindingTask'),
                 require('bootstrapping/binderTask'),
                 require('bootstrapping/routingTask'),
-                require('bootstrapping/reviewTask')
+                require('bootstrapping/reviewTask'),
+                require('bootstrapping/cssCustomBrowserFixTask')
             ];
         }
     };
