@@ -5,7 +5,7 @@
     
                 var $element = $(element),
                     score = valueAccessor().progress || 0,
-                    lineWidth = +$element.css('border-width') || valueAccessor().lineWidth || 4,
+                    lineWidth = parseInt($element.css('column-width')) || valueAccessor().lineWidth || 4,
     
                     centerX = element.width / 2,
                     centerY = element.height / 2,
@@ -18,21 +18,23 @@
                 if (isMastered) {
                     $element.addClass('mastered')
                 }
-    
-                var basicColor = $element.css('color') || valueAccessor().basicColor || getDefaultBasicColor(),
-                    progressColor = valueAccessor().progressColor || templateSettings.getColorValue('@secondary-color'), 
-                    masteredColor = valueAccessor().masteredColor || templateSettings.getColorValue('@correct-color');
+
+                var colors = {
+                    basic: $element.css('color') || valueAccessor().basicColor || getDefaultBasicColor(),
+                    progress: $element.css('border-color') || valueAccessor().progressColor || templateSettings.getColorValue('@secondary-color'),
+                    mastered: $element.css('outline-color') || valueAccessor().masteredColor || templateSettings.getColorValue('@correct-color')
+                };
     
                 cnxt.beginPath();
                 cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-                cnxt.strokeStyle = basicColor;
+                cnxt.strokeStyle = colors.basic;
                 cnxt.lineWidth = lineWidth;
                 cnxt.closePath();
                 cnxt.stroke();
     
                 if (progress > 0) {
                     cnxt.beginPath();
-                    cnxt.strokeStyle = isMastered ? masteredColor : progressColor;
+                    cnxt.strokeStyle = isMastered ? colors.mastered : colors.progress;
     
                     if (progress == 1) {
                         cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
