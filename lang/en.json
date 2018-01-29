@@ -169,5 +169,7 @@
     "[course score reason]": "Could you tell us the reason for this score?",
     "[download]": "Download",
     "[go to results]": "Go to results",
-    "[next section]": "Next section"
+    "[next section]": "Next section",
+    "[review attempt]": "Review this attempt",
+    "[start new attempt]": "Start a new attempt"
 }
