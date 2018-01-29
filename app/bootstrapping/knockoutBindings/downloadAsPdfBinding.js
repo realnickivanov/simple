@@ -1,4 +1,4 @@
-﻿define(function () {
+﻿define(['download'], function (download) {
     var buttonStatuses = {
         default: 'default',
         proggress: 'proggress',
@@ -55,11 +55,19 @@
                 }
                 
                 setStatus($element, buttonStatuses.proggress);
-                $.fileDownload(convertionUrl.value, { cookieDomain: cookieDomain })
-                    .done(function (url) {
+                fetch(convertionUrl.value)
+                    .then(function(response) {
+                        if(response.status !== 200) {
+                            throw 'error';
+                        }
+
+                        return response.blob();
+                    })
+                    .then(function(blob) {
+                        download(blob, getPdfTitle(title), blob.type);
                         setStatus($element, buttonStatuses.default);
                     })
-                    .fail(function (responseHtml, url) {
+                    .catch(function(error) {
                         setStatus($element, buttonStatuses.error);
                         timeoutId = setTimeout(function () {
                             setStatus($element, buttonStatuses.default);
@@ -105,5 +113,9 @@
 
         return baseUrl;
     }
-    
+
+    /* Fix for IE11 and Edge (files can`t saved without extension) */
+    function getPdfTitle(title) {
+        return title + '.pdf';
+    }
 })
