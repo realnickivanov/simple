@@ -1,4 +1,4 @@
-﻿define([], function() {
+﻿define(['context'], function(context) {
     "use strict";
 
     function OpenQuestion(){
@@ -12,6 +12,7 @@
 
     OpenQuestion.prototype.initialize = function(question, isPreview) {
         var self = this;
+        question.refreshLearningContext(context);
 
         return Q.fcall(function() {
             self.question = question;
