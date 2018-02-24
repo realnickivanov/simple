@@ -1,7 +1,7 @@
-﻿{
-  "name": "Learn Interactive",
+{
+  "name": "Learn Interactive 02",
   "goal": "Teach",
-  "shortDescription": "Customized Simple Course template that includes revised response",
+  "shortDescription": "Customized Simple Course template that includes revised response and has no sub bullets",
   "thumbnail": "preview/thumbnail.png",
   "previewImages": [
     "preview/images/preview.jpg"
